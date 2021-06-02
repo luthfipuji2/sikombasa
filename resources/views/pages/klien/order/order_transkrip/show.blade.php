@@ -67,6 +67,14 @@
                                     <td>{{$order->durasi_pertemuan}}</td>
                                 </tr>
                                 <tr>
+                                    <td>Tanggal Pertemuan</td>
+                                    <td>{{$order->tanggal_pertemuan}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Waktu Pertemuan</td>
+                                    <td>{{$order->waktu_pertemuan}}</td>
+                                </tr>
+                                <tr>
                                     <td>Catatan Lokasi</td>
                                     <td>{{$order->lokasi}}</td>
                                 </tr>

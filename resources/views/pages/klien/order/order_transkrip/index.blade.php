@@ -163,6 +163,14 @@
                                 </div>
                             @enderror
                       </div>
+
+                <div class="form-group" id="datetime">
+                    <label for="durasi_pertemuan"> Masukkan Tanggal Pertemuan</label>
+                    <input type="date" name="tanggal_pertemuan" id="tanggal_pertemuan" class="form-control @error('tanggal_pertemuan') is-invalid @enderror">
+                    <label for="durasi_pertemuan">Masukkan Waktu Pertemuan</label>
+                    <input type="time" name="waktu_pertemuan" id="waktu_pertemuan" class="form-control @error('waktu_pertemuan') is-invalid @enderror">
+                </div>
+
                     <div class="form-group">
                         <input type="text" placeholder="Tuliskan Catatan Lokasi" class="form-control" id="lokasi" name="lokasi"style="visibility: visible;">
                     </div>
@@ -281,13 +289,14 @@ $(document).ready(function() {
             document.getElementById("durasi_pengerjaan").style.visibility='visible';
 		    document.getElementById("nama_dokumen").style.visibility='visible';
 			document.getElementById("path_file").style.visibility='visible';
-            document.getElementById("durasi_pertemuan").style.visibility='hidden';
             document.getElementById("durasi_audio").style.visibility='visible';
+            document.getElementById("durasi_pertemuan").style.visibility='hidden';
             document.getElementById("selectlocation").style.visibility='hidden';
             document.getElementById("lokasi").style.visibility='hidden';
             document.getElementById("mapid").style.visibility='hidden';
             document.getElementById("longitude").style.visibility='hidden';
             document.getElementById("latitude").style.visibility='hidden';
+            document.getElementById("datetime").style.visibility='hidden';
         }else{
          
             document.getElementById("durasi_pengerjaan").style.visibility='hidden';
@@ -300,6 +309,7 @@ $(document).ready(function() {
             document.getElementById("mapid").style.visibility='visible';
             document.getElementById("longitude").style.visibility='visible';
             document.getElementById("latitude").style.visibility='visible';
+            document.getElementById("datetime").style.visibility='visible';
         }
         return false;
     }

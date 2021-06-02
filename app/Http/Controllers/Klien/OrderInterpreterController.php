@@ -59,6 +59,8 @@ class OrderInterpreterController extends Controller
             'lokasi'=>'required',
             'longitude'=>'required',
             'latitude'=>'required',
+             'tanggal_pertemuan'=> 'required',
+             'waktu_pertemuan'=>'required',
         ]);
 
         $jenis_layanan = $validate_data['jenis_layanan'];
@@ -66,10 +68,12 @@ class OrderInterpreterController extends Controller
         $lokasi = $validate_data['lokasi'];
         $longitude = $validate_data['longitude'];
         $latitude = $validate_data['latitude'];
-        $tgl_order=Carbon::now()->timestamp;
+        $tanggal_pertemuan = $validate_data['tanggal_pertemuan'];
+        $waktu_pertemuan = $validate_data['waktu_pertemuan'];
+
+        
         $user=Auth::user();
         $klien=Klien::where('id', $user->id)->first();
-
         $order_interpreter=Order::create([
             'id_klien'=>$klien->id_klien,
             'jenis_layanan'=>$jenis_layanan,
@@ -77,7 +81,9 @@ class OrderInterpreterController extends Controller
             'lokasi'=>$lokasi,
             'longitude'=>$longitude,
             'latitude'=>$latitude,
-            'tgl_order'=>$tgl_order,
+            'tgl_order'=>Carbon::now()->timestamp,
+            'tanggal_pertemuan'=> $request->tanggal_pertemuan,
+            'waktu_pertemuan'=> $request->waktu_pertemuan,
             'is_status'=>'belum dibayar',
         ]);
 
@@ -132,6 +138,8 @@ class OrderInterpreterController extends Controller
                 'lokasi'=>$request->lokasi,
                 'longitude'=>$request->longitude,
                 'latitude'=>$request->latitude,
+               'tanggal_pertemuan'=>$request->tanggal_pertemuan,
+                'waktu_pertemuan'=>$request->waktu_pertemuan,
             ]);
 
         return redirect(route('order-interpreter.show', $id_order))->with('success', 'Berhasil di upload!');
