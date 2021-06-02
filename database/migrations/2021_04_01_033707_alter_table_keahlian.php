@@ -20,7 +20,7 @@ class AlterTableKeahlian extends Migration
             $table->string('bukti_dokumen');
             $table->string('diterbitkan_oleh');
             $table->date('masa_berlaku');
-            $table->string('status_verifikasi');
+            $table->string('status_verifikasi')->nullable();
             $table->timestamps();
         });
     }

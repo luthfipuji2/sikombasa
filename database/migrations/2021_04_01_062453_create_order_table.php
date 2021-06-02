@@ -40,6 +40,10 @@ class CreateOrderTable extends Migration
             $table->string('lokasi')->nullable();
             $table->date('tgl_order')->nullable();
             $table->integer('durasi_pengerjaan')->nullable();
+            $table->string('durasi_audio')->nullable();
+            $table->date('tanggal_pertemuan')->nullable();
+            $table->time('waktu_pertemuan')->nullable();
+            $table->string('tipe_transkrip')->nullable();
             $table->string('is_status')->nullable();
             $table->string('status_at')->nullable();
             $table->string('status_by')->nullable();

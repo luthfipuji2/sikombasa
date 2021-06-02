@@ -95,19 +95,31 @@
         <br>
 
         <div class="form-group">
-                        <label for="durasi_pertemuan">Durasi Pertemuan</label>
-                            <select class="form-control @error('durasi_pertemuan') is-invalid @enderror" 
-                            id="durasi_pertemuan " placeholder="Durasi Pertemuan" name="durasi_pertemuan">
-                                <option value="<=1 Day"><=1 Day</option>
-                                <option value="1-3 Day">1-3 Day</option>
-                                <option value="3-5 Day">3-5 Day</option>
-                            </select>
-                            @error ('durasi_pertemuan')
-                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                                    {{$message}}
-                                </div>
-                            @enderror
-                        </div>
+            <label for="durasi_pertemuan">Durasi Pertemuan</label>
+            <select class="form-control @error('durasi_pertemuan') is-invalid @enderror" 
+            id="durasi_pertemuan " placeholder="Durasi Pertemuan" name="durasi_pertemuan">
+            <option value="<=1 Day"><=1 Day</option>
+            <option value="1-3 Day">1-3 Day</option>
+            <option value="3-5 Day">3-5 Day</option>
+            </select>
+            @error ('durasi_pertemuan')
+            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+            {{$message}}
+            </div>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="tanggal_pertemuan"> Masukkan Tanggal Pertemuan</label>
+            <input type="date" id="tanggal_pertemuan" name="tanggal_pertemuan" class="form-control @error('tanggal_pertemuan') is-invalid @enderror">
+        </div>
+        <div class="form-group">
+            <label for="waktu_pertemuan">Masukkan Waktu Pertemuan</label>
+            <input type="time" id="waktu_pertemuan" name="waktu_pertemuan" class="form-control">
+        </div>
+       
+                        
+                            
 
         <br>
         {{ csrf_field() }}
