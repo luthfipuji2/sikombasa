@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca9a37a15243373e56c0cdb202a4bac8",
+    "content-hash": "960479671d9f5aa7691857027101b3e5",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -220,6 +220,57 @@
                 }
             ],
             "time": "2021-01-20T22:51:39+00:00"
+        },
+        {
+            "name": "classiebit/addchat-laravel",
+            "version": "1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/classiebit/addchat-laravel.git",
+                "reference": "5288f205285f0377855e0b6f329235967a519462"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/classiebit/addchat-laravel/zipball/5288f205285f0377855e0b6f329235967a519462",
+                "reference": "5288f205285f0377855e0b6f329235967a519462",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Classiebit\\Addchat\\AddchatServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Classiebit\\Addchat\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Classiebit",
+                    "email": "info@classiebit.com"
+                }
+            ],
+            "description": "Live chat widget for Laravel that also includes multi-user chat, group permissions, customer support chat & more.",
+            "homepage": "https://classiebit.com/addchat-laravel",
+            "keywords": [
+                "laravel",
+                "laravel chat package",
+                "laravel-package",
+                "vuejs"
+            ],
+            "support": {
+                "issues": "https://github.com/classiebit/addchat-laravel/issues",
+                "source": "https://github.com/classiebit/addchat-laravel"
+            },
+            "time": "2021-04-02T13:29:24+00:00"
         },
         {
             "name": "dasprid/enum",
@@ -8535,5 +8586,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

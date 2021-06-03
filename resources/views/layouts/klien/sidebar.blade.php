@@ -29,11 +29,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
                 
       <form action="" method="POST" class="d-inline">
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="" class="text-right" style="float: right;"><i class="fa fa-shopping-cart" aria-hidden="true" ></i></button>
+      <a href="{{ url ('/menu-order') }}" class="btn btn-success" class="text-right" style="float: right;"><i class="fa fa-shopping-cart" aria-hidden="true" ></i></a>
       </form>
       &nbsp;
       <form action="" method="POST" class="d-inline">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="" class="text-right" style="float: right;"><i class="fa fa-comments" aria-hidden="true" ></i></button>
+          <a href="{{ url ('/') }}" class="btn btn-primary" class="text-right" style="float: right;"><i class="fa fa-comments" aria-hidden="true" ></i></a>
       </form>
       <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
