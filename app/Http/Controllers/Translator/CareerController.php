@@ -11,6 +11,7 @@ use App\Models\Translator\Translator;
 use App\Models\Translator\Certificate;
 use App\Models\Translator\Master_keahlian;
 use App\Models\Translator\Document;
+use App\Models\Admin\Seleksi_berkas;
 use App\Models\User;
 
 use Illuminate\Http\Request;
@@ -73,6 +74,11 @@ class CareerController extends Controller
         // $profile_photo_path->move(public_path().'\img\profile', $nm_pp);
 
         $translator->save();
+
+        $id = Seleksi_berkas::create([
+            'id_translator'=>$translator->id_translator
+        ]);
+
         return redirect('/document')->with('toast_success', 'Data Created Successfully!');
     }
     public function indexDocument()
