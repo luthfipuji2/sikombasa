@@ -195,23 +195,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview">        
               <li class="nav-item">
                 <a href="/hire" class="nav-link">
-                  <i class="fas fa-users nav-icon"></i>
+                  <i class="fas fa-file-alt nav-icon"></i>
                   <p>Seleksi Berkas</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="{{ url ('/bank') }}" class="nav-link">
-                  <i class="fas fa-university nav-icon"></i>
-                  <p>Daftar Bank</p>
+                <a href="#" class="nav-link">
+                  <i class="fas fa-comments nav-icon"></i>
+                  <p>Wawancara</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="/daftar-admin" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="fas fa-user-secret nav-icon"></i>
                   <p>Daftar Admin</p>
                 </a>

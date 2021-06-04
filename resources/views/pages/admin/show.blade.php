@@ -165,9 +165,6 @@
                     <a href="/hire" class="btn btn-primary">
                         Cancel
                     </a>
-                    <a href="" class="btn btn-success">
-                        <i class="nav-icon fas fa-clipboard-check"></i> Submit
-                    </a>
                 </div>
             </div>
         </form>
