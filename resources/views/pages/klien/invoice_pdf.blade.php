@@ -114,7 +114,7 @@
 								</td>
 
 								<td>
-									Tagihan #: {{$invoice->id_transaksi}}<br />
+									Order #: {{$invoice->id_order}}<br />
 									Tanggal Order: {{$invoice->tgl_order}}<br />
 									Tanggal Transaksi: {{$invoice->created_at}}
 								</td>
@@ -130,7 +130,8 @@
 							<tr>
 								<td>
 									SIKOMBASA<br />
-									Jl. Kolonel Sutarto Nomor 150K, Jebres, Surakarta<br />
+									Jl. Kolonel Sutarto Nomor 150K <br />
+									Jebres, Surakarta<br />
 									Jawa Tengah, 57126
 								</td>
 
@@ -164,7 +165,7 @@
 				<tr class="heading">
 					<td>Total Transaksi</td>
 
-					<td>{{$invoice->nominal_transaksi}}</td>
+					<td>Rp{{$invoice->nominal_transaksi}}</td>
 				</tr>
 
 				

@@ -148,45 +148,47 @@
                 <table id="datatable" class="table table-bordered">
                   <thead>   
                   <tr>
-                    <th>No</th>
-                    <th>Nama Translator</th>
-                    <th hidden>Email</th>
-                    <th hidden>Keahlian</th>
-                    <th hidden>Jenis Kelamin</th>
-                    <th hidden>Tanggal Lahir</th>
-                    <th hidden>Nomor Telepon</th>
-                    <th hidden>Nama Bank</th>
-                    <th hidden>Nama Rekening</th>
-                    <th hidden>Nomor Rekening</th>
-                    <th hidden>NIK</th>
-                    <th hidden>Alamat</th>
-                    <th hidden>Kecamatan</th>
-                    <th hidden>Kabupaten</th>
-                    <th hidden>Provinsi</th>
-                    <th hidden>Kode Pos</th>
-                    <th>Action</th>
+                    <th scope="row" class="text-center" style="width: 50px">No</th>
+                    <th scope="row" class="text-center" hidden>ID</th>
+                    <th scope="row" class="text-center">Nama Translator</th>
+                    <th scope="row" class="text-center" hidden>Email</th>
+                    <th scope="row" class="text-center" hidden>Keahlian</th>
+                    <th scope="row" class="text-center" hidden>Jenis Kelamin</th>
+                    <th scope="row" class="text-center" hidden>Tanggal Lahir</th>
+                    <th scope="row" class="text-center" hidden>Nomor Telepon</th>
+                    <th scope="row" class="text-center" hidden>Nama Bank</th>
+                    <th scope="row" class="text-center" hidden>Nama Rekening</th>
+                    <th scope="row" class="text-center" hidden>Nomor Rekening</th>
+                    <th scope="row" class="text-center" hidden>NIK</th>
+                    <th scope="row" class="text-center" hidden>Alamat</th>
+                    <th scope="row" class="text-center" hidden>Kecamatan</th>
+                    <th scope="row" class="text-center" hidden>Kabupaten</th>
+                    <th scope="row" class="text-center" hidden>Provinsi</th>
+                    <th scope="row" class="text-center" hidden>Kode Pos</th>
+                    <th scope="row" class="text-center" style="width: 100px">Action</th>
                   </tr>
                   </thead>
                   <tbody>
                   @foreach($trans as $trans)
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
-                    <td>{{$trans->name}}</td>
-                    <td hidden>{{$trans->email}}</td>
-                    <td hidden>{{$trans->keahlian}}</td>
-                    <td hidden>{{$trans->jenis_kelamin}}</td>
-                    <td hidden>{{$trans->tgl_lahir}}</td>
-                    <td hidden>{{$trans->no_telp}}</td>
-                    <td hidden>{{$trans->nama_bank}}</td>
-                    <td hidden>{{$trans->nama_rekening}}</td>
-                    <td hidden>{{$trans->rekening_bank}}</td>
-                    <td hidden>{{$trans->nik}}</td> 
-                    <td hidden>{{$trans->alamat}}</td>
-                    <td hidden>{{$trans->kecamatan}}</td>
-                    <td hidden>{{$trans->kabupaten}}</td>
-                    <td hidden>{{$trans->provinsi}}</td>
-                    <td hidden>{{$trans->kode_pos}}</td> 
-                    <td>
+                    <td scope="row" class="text-center" hidden>{{$trans->id_translator}}</td>
+                    <td scope="row" class="text-center">{{$trans->name}}</td>
+                    <td scope="row" class="text-center" hidden>{{$trans->email}}</td>
+                    <td scope="row" class="text-center" hidden>{{$trans->keahlian}}</td>
+                    <td scope="row" class="text-center" hidden>{{$trans->jenis_kelamin}}</td>
+                    <td scope="row" class="text-center" hidden>{{$trans->tgl_lahir}}</td>
+                    <td scope="row" class="text-center" hidden>{{$trans->no_telp}}</td>
+                    <td scope="row" class="text-center" hidden>{{$trans->nama_bank}}</td>
+                    <td scope="row" class="text-center" hidden>{{$trans->nama_rekening}}</td>
+                    <td scope="row" class="text-center" hidden>{{$trans->rekening_bank}}</td>
+                    <td scope="row" class="text-center" hidden>{{$trans->nik}}</td> 
+                    <td scope="row" class="text-center" hidden>{{$trans->alamat}}</td>
+                    <td scope="row" class="text-center" hidden>{{$trans->kecamatan}}</td>
+                    <td scope="row" class="text-center" hidden>{{$trans->kabupaten}}</td>
+                    <td scope="row" class="text-center" hidden>{{$trans->provinsi}}</td>
+                    <td scope="row" class="text-center" hidden>{{$trans->kode_pos}}</td> 
+                    <td scope="row" class="text-center">
                       <button type="button" class="btn btn-sm btn-primary detail" data-toggle="modal" data-target="#detailModal{{$trans->id_translator}}"><i class="fas fa-info"></i></button>
                     </td>
                   </tr>

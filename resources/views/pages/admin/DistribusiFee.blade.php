@@ -135,13 +135,13 @@
                 <table id="datatable" class="table table-bordered">
                   <thead>   
                   <tr>
-                    <th>No</th>
-                    <th hidden>ID Transaksi</th>
-                    <th>Tanggal Transaksi</th>
-                    <th>Nominal Transaksi</th>
-                    <th>Fee Translator</th>
-                    <th>Fee Sistem</th>
-                    <th>Action</th>
+                    <th scope="row" class="text-center">No</th>
+                    <th scope="row" class="text-center" hidden>ID Transaksi</th>
+                    <th scope="row" class="text-center">Tanggal Transaksi</th>
+                    <th scope="row" class="text-center">Nominal Transaksi</th>
+                    <th scope="row" class="text-center">Fee Translator</th>
+                    <th scope="row" class="text-center">Fee Sistem</th>
+                    <th scope="row" class="text-center">Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -149,15 +149,15 @@
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
                     <td scope="row" class="text-center" hidden>{{$f->id_transaksi}}</td>
-                    <td>{{$f->tgl_transaksi}}</td>
-                    <td>{{$f->nominal_transaksi}}</td>
-                    <td>{{$f->fee_translator}}</td>
-                    <td>{{$f->fee_sistem}}</td>
-                    <td>
+                    <td scope="row" class="text-center">{{$f->tgl_transaksi}}</td>
+                    <td scope="row" class="text-center">{{$f->nominal_transaksi}}</td>
+                    <td scope="row" class="text-center">{{$f->fee_translator}}</td>
+                    <td scope="row" class="text-center">{{$f->fee_sistem}}</td>
+                    <td scope="row" class="text-center">
                       @if (empty($f->fee_translator) && empty($f->fee_sistem))
-                      <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#inputModal{{$f->id_transaksi}}">Input Fee</button>
+                      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#inputModal{{$f->id_transaksi}}">Input Fee</button>
                       @else
-                      <button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#editModal">Edit Fee</button>
+                      <button type="button" class="btn btn-success btn-sm edit" data-toggle="modal" data-target="#editModal">Edit Fee</button>
                       @endif
                     </td>
                   </tr>

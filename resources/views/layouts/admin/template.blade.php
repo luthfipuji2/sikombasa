@@ -254,6 +254,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   @endif
 </script>
 
+<script>
+ @if (\Session::has('failed'))
+      toastr.error('{{Session::get('failed')}}', 'Gagal')
+@endif
+</script>
+
 @stack('addon-script')
 
 </body>

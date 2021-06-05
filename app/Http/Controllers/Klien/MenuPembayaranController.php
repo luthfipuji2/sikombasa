@@ -40,6 +40,8 @@ class MenuPembayaranController extends Controller
             ->join('order', 'order.id_order', '=', 'transaksi.id_order')
             ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
             ->join('users', 'klien.id', '=', 'users.id')
+            ->join('parameter_order', 'order.id_parameter_order', '=', 
+                    'parameter_order.id_parameter_order')
             ->where("users.id",$user->id)
             ->get();
 

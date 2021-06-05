@@ -91,11 +91,14 @@
                             <input type="file" id="profile_photo_path"  name="profile_photo_path" class="form-control">
                         </div> 
 
-                        <div class="form-group row">
-                            <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Ubah</button>
+                        <div class="float-right">
+                            <div class="form-group row" >
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Ubah</button>
+                                </div>
                             </div>
                         </div>
+
                     </form>
                   </div>
                   <!-- /.tab-pane -->
@@ -203,12 +206,13 @@
                             @enderror
                         </div>
 
-                        <div class="form-group row">
-                            <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Ubah</button>
+                        <div class="float-right">
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Ubah</button>
+                                </div>
                             </div>
                         </div>
-
 
                     </form>
                     

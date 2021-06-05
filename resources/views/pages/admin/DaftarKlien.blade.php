@@ -130,43 +130,39 @@
                 <table id="datatable" class="table table-bordered">
                   <thead>   
                   <tr>
-                    <th>No</th>
-                    
-                    <th>Nama Klien</th>
-                    <th hidden>Email</th>
-                    
-                    <th hidden>Jenis Kelamin</th>
-                    <th hidden>Tanggal Lahir</th>
-                    <th hidden>NIK</th>
-                    <th hidden>Foto KTP</th>
-                    <th hidden>Nomor Telepon</th>
-                    <th hidden>Alamat</th>
-                    <th hidden>Kecamatan</th>
-                    <th hidden>Kabupaten</th>
-                    <th hidden>Provinsi</th>
-                    <th hidden>Kode Pos</th>
-                    <th>Action</th>
+                    <th scope="row" class="text-center" style="width: 50px">No</th>
+                    <th scope="row" class="text-center" hidden>ID Klien</th>
+                    <th scope="row" class="text-center">Nama Klien</th>
+                    <th scope="row" class="text-center" hidden>Email</th>
+                    <th scope="row" class="text-center" hidden>Jenis Kelamin</th>
+                    <th scope="row" class="text-center" hidden>Tanggal Lahir</th>
+                    <th scope="row" class="text-center" hidden>NIK</th>
+                    <th scope="row" class="text-center" hidden>Nomor Telepon</th>
+                    <th scope="row" class="text-center" hidden>Alamat</th>
+                    <th scope="row" class="text-center" hidden>Kecamatan</th>
+                    <th scope="row" class="text-center" hidden>Kabupaten</th>
+                    <th scope="row" class="text-center" hidden>Provinsi</th>
+                    <th scope="row" class="text-center" hidden>Kode Pos</th>
+                    <th scope="row" class="text-center" style="width: 100px">Action</th>
                   </tr>
                   </thead>
                   <tbody>
                   @foreach($klien as $klien)
                   <tr>
-                    <th scope="row" class="text-center">{{$loop->iteration}}</th>
-                    
-                    <td>{{$klien->name}}</td>
-                    <td hidden>{{$klien->email}}</td>
-                    
-                    <td hidden>{{$klien->jenis_kelamin}}</td>
-                    <td hidden>{{$klien->tgl_lahir}}</td>
-                    <td hidden>{{$klien->nik}}</td>
-                    <td hidden>{{$klien->foto_ktp}}</td>
-                    <td hidden>{{$klien->no_telp}}</td>
-                    <td hidden>{{$klien->alamat}}</td>
-                    <td hidden>{{$klien->kecamatan}}</td>
-                    <td hidden>{{$klien->kabupaten}}</td>
-                    <td hidden>{{$klien->provinsi}}</td>
-                    <td hidden>{{$klien->kode_pos}}</td> 
-                    <td>
+                    <th scope="row" class="text-center">{{$loop->iteration}}</th> 
+                    <td scope="row" class="text-center" hidden>{{$klien->id_klien}}</td>
+                    <td scope="row" class="text-center">{{$klien->name}}</td>
+                    <td scope="row" class="text-center" hidden>{{$klien->email}}</td>
+                    <td scope="row" class="text-center" hidden>{{$klien->jenis_kelamin}}</td>
+                    <td scope="row" class="text-center" hidden>{{$klien->tgl_lahir}}</td>
+                    <td scope="row" class="text-center" hidden>{{$klien->nik}}</td>
+                    <td scope="row" class="text-center" hidden>{{$klien->no_telp}}</td>
+                    <td scope="row" class="text-center" hidden>{{$klien->alamat}}</td>
+                    <td scope="row" class="text-center" hidden>{{$klien->kecamatan}}</td>
+                    <td scope="row" class="text-center" hidden>{{$klien->kabupaten}}</td>
+                    <td scope="row" class="text-center" hidden>{{$klien->provinsi}}</td>
+                    <td scope="row" class="text-center" hidden>{{$klien->kode_pos}}</td> 
+                    <td scope="row" class="text-center">
                       <button type="button" class="btn btn-sm btn-primary detail" data-toggle="modal" data-target="#detailModal{{$klien->id_klien}}"><i class="fas fa-info"></i></button>
                     </td>
                   </tr>

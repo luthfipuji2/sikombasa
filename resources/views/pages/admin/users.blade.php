@@ -73,13 +73,13 @@
                 <table id="datatable" class="table table-bordered">
                   <thead>   
                   <tr>
-                    <th>No</th>
-                    <th hidden>ID User</th>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Created At</th>
-                    <th>Action</th>
+                    <th scope="row" class="text-center">No</th>
+                    <th scope="row" class="text-center" hidden>ID User</th>
+                    <th scope="row" class="text-center">Nama</th>
+                    <th scope="row" class="text-center">Email</th>
+                    <th scope="row" class="text-center">Role</th>
+                    <th scope="row" class="text-center">Created At</th>
+                    <th scope="row" class="text-center">Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -87,11 +87,11 @@
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
                     <td scope="row" class="text-center" hidden>{{$user->id}}</td>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->role}}</td>
-                    <td>{{$user->created_at}}</td>
-                    <td>
+                    <td scope="row" class="text-center">{{$user->name}}</td>
+                    <td scope="row" class="text-center">{{$user->email}}</td>
+                    <td scope="row" class="text-center">{{$user->role}}</td>
+                    <td scope="row" class="text-center">{{$user->created_at}}</td>
+                    <td scope="row" class="text-center">
                       <button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#updateModal"><i class="fas fa-pencil-alt"></i></button>
                       <a href="#" class="btn btn-danger btn-sm delete" user-id="{{$user->id}}" user-num="{{$loop->iteration}}"><i class="fas fa-trash-alt"></i></a>
                       
