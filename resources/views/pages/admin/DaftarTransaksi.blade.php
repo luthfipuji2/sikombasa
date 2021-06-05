@@ -292,14 +292,14 @@
                 <table id="datatable" class="table table-bordered">
                   <thead>   
                   <tr>
-                    <th>No</th>
-                    <th hidden>ID Transaksi</th>
-                    <th>Tanggal Order</th>
-                    <th>Tanggal Transaksi</th>
-                    <th>Nominal Transaksi</th>
-                    <th>Bukti Transaksi</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                    <th scope="row" class="text-center">No</th>
+                    <th scope="row" class="text-center" hidden>ID Transaksi</th>
+                    <th scope="row" class="text-center">Tanggal Order</th>
+                    <th scope="row" class="text-center">Tanggal Transaksi</th>
+                    <th scope="row" class="text-center">Nominal Transaksi</th>
+                    <th scope="row" class="text-center">Bukti Transaksi</th>
+                    <th scope="row" class="text-center">Status</th>
+                    <th scope="row" class="text-center">Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -307,12 +307,12 @@
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
                     <td scope="row" class="text-center" hidden>{{$t->id_transaksi}}</td>
-                    <td>{{$t->tgl_order}}</td>
-                    <td>{{$t->tgl_transaksi}}</td>
-                    <td>{{$t->nominal_transaksi}}</td>
-                    <td><a href="{{route('bukti.download', $t->id_transaksi)}}">{{$t->bukti_transaksi}}</a></td>
-                    <td>{{$t->status_transaksi}}</td>
-                    <td>
+                    <td scope="row" class="text-center">{{$t->tgl_order}}</td>
+                    <td scope="row" class="text-center">{{$t->tgl_transaksi}}</td>
+                    <td scope="row" class="text-center">{{$t->nominal_transaksi}}</td>
+                    <td scope="row" class="text-center"><a href="{{route('bukti.download', $t->id_transaksi)}}">{{$t->bukti_transaksi}}</a></td>
+                    <td scope="row" class="text-center">{{$t->status_transaksi}}</td>
+                    <td scope="row" class="text-center">
                       <button type="button" class="btn btn-success btn-sm edit" data-toggle="modal" data-target="#updateModal">Edit Status</button>
                       <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#detailModal{{$t->id_transaksi}}"><i class="fas fa-info"></i></button>
                     </td>

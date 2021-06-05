@@ -51,13 +51,19 @@ class DistribusiFeeController extends Controller
             'fee_sistem' => 'required|integer'
         ]);
 
-        DistribusiFee::create([
-            'id__transaksi'     => $request->id_transaksi,
-            'fee_translator'    => $request->fee_translator,
-            'fee_sistem'        => $request->fee_sistem,
-        ]);
-
-        return redirect('/distribusi-fee')->with('success', 'Nominal fee berhasil ditambahkan');
+        if ($request->fee_translator + $request->fee_sistem == $request->nominal_transaksi){
+            DistribusiFee::create([
+                'id__transaksi'     => $request->id_transaksi,
+                'fee_translator'    => $request->fee_translator,
+                'fee_sistem'        => $request->fee_sistem,
+            ]);
+    
+            return redirect('/distribusi-fee')->with('success', 'Nominal fee berhasil ditambahkan');
+        }
+        elseif ($request->fee_translator + $request->fee_sistem != $request->nominal_transaksi) {
+            return redirect('/distribusi-fee')->with('failed', 'Pembagian fee tidak sesuai');
+        }
+    
     }
 
     /**
@@ -97,14 +103,22 @@ class DistribusiFeeController extends Controller
         ]);
 
         $t = Transaksi::find($id_transaksi);
-        
-        DistribusiFee::where('id__transaksi', $t->id_transaksi)
+
+        if ($request->fee_translator + $request->fee_sistem == $request->nominal_transaksi){
+            DistribusiFee::where('id__transaksi', $t->id_transaksi)
                     ->update([
                         'fee_translator'    => $request->fee_translator,
                         'fee_sistem'        => $request->fee_sistem,
                     ]);
 
-        return redirect('/distribusi-fee')->with('success', 'Nominal fee berhasil diubah');
+            return redirect('/distribusi-fee')->with('success', 'Nominal fee berhasil diubah');
+        }
+        elseif ($request->fee_translator + $request->fee_sistem != $request->nominal_transaksi) {
+            return redirect('/distribusi-fee')->with('failed', 'Pembagian fee tidak sesuai');
+        }
+        
+        
+        
     }
 
     /**

@@ -124,12 +124,12 @@
                 <table id="datatable" class="table table-bordered">
                   <thead>   
                   <tr>
-                    <th>No</th>
-                    <th hidden>ID Bank</th>
-                    <th>Nama Bank</th>
-                    <th>Nama Rekening</th>
-                    <th>No Rekening</th>
-                    <th>Action</th>
+                    <th scope="row" class="text-center">No</th>
+                    <th scope="row" class="text-center" hidden>ID Bank</th>
+                    <th scope="row" class="text-center">Nama Bank</th>
+                    <th scope="row" class="text-center">Nama Rekening</th>
+                    <th scope="row" class="text-center">No Rekening</th>
+                    <th scope="row" class="text-center">Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -137,10 +137,10 @@
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
                     <td scope="row" class="text-center" hidden>{{$bank->id_bank}}</td>
-                    <td>{{$bank->nama_bank}}</td>
-                    <td>{{$bank->nama_rekening}}</td>
-                    <td>{{$bank->no_rekening}}</td>
-                    <td>
+                    <td scope="row" class="text-center">{{$bank->nama_bank}}</td>
+                    <td scope="row" class="text-center">{{$bank->nama_rekening}}</td>
+                    <td scope="row" class="text-center">{{$bank->no_rekening}}</td>
+                    <td scope="row" class="text-center">
                       <button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#updateModal"><i class="fas fa-pencil-alt"></i></button>
                       <a href="#" class="btn btn-danger btn-sm delete" bank-id="{{$bank->id_bank}}" bank-num="{{$loop->iteration}}"><i class="fas fa-trash-alt"></i></a>
                     </td>

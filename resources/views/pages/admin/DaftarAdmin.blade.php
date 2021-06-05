@@ -124,20 +124,20 @@
                 <table id="datatable" class="table table-bordered">
                   <thead>   
                   <tr>
-                    <th>No</th>
-                    <th hidden>ID Admin</th>
-                    <th>Nama Admin</th>
-                    <th hidden>Email</th>
-                    <th hidden>Role</th>
-                    <th hidden>Jenis Kelamin</th>
-                    <th hidden>Tanggal Lahir</th>
-                    <th hidden>Nomor Telepon</th>
-                    <th hidden>Alamat</th>
-                    <th hidden>Kecamatan</th>
-                    <th hidden>Kota/Kabupaten</th>
-                    <th hidden>Provinsi</th>
-                    <th hidden>Kode Pos</th>
-                    <th>Action</th>
+                    <th scope="row" class="text-center" style="width: 50px">No</th>
+                    <th scope="row" class="text-center" hidden>ID Admin</th>
+                    <th scope="row" class="text-center">Nama Admin</th>
+                    <th scope="row" class="text-center" hidden>Email</th>
+                    <th scope="row" class="text-center" hidden>Role</th>
+                    <th scope="row" class="text-center" hidden>Jenis Kelamin</th>
+                    <th scope="row" class="text-center" hidden>Tanggal Lahir</th>
+                    <th scope="row" class="text-center" hidden>Nomor Telepon</th>
+                    <th scope="row" class="text-center" hidden>Alamat</th>
+                    <th scope="row" class="text-center" hidden>Kecamatan</th>
+                    <th scope="row" class="text-center" hidden>Kota/Kabupaten</th>
+                    <th scope="row" class="text-center" hidden>Provinsi</th>
+                    <th scope="row" class="text-center" hidden>Kode Pos</th>
+                    <th scope="row" class="text-center" style="width: 100px">Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -145,18 +145,18 @@
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
                     <td scope="row" class="text-center" hidden>{{$admin->id_admin}}</td>
-                    <td>{{$admin->name}}</td>
-                    <td hidden>{{$admin->email}}</td>
-                    <td hidden>{{$admin->role}}</td>
-                    <td hidden>{{$admin->jenis_kelamin}}</td>
-                    <td hidden>{{$admin->tgl_lahir}}</td>
-                    <td hidden>{{$admin->no_telp}}</td>
-                    <td hidden>{{$admin->alamat}}</td>
-                    <td hidden>{{$admin->kecamatan}}</td>
-                    <td hidden>{{$admin->kabupaten}}</td>
-                    <td hidden>{{$admin->provinsi}}</td>
-                    <td hidden>{{$admin->kode_pos}}</td> 
-                    <td>
+                    <td scope="row" class="text-center">{{$admin->name}}</td>
+                    <td scope="row" class="text-center" hidden>{{$admin->email}}</td>
+                    <td scope="row" class="text-center" hidden>{{$admin->role}}</td>
+                    <td scope="row" class="text-center" hidden>{{$admin->jenis_kelamin}}</td>
+                    <td scope="row" class="text-center" hidden>{{$admin->tgl_lahir}}</td>
+                    <td scope="row" class="text-center" hidden>{{$admin->no_telp}}</td>
+                    <td scope="row" class="text-center" hidden>{{$admin->alamat}}</td>
+                    <td scope="row" class="text-center" hidden>{{$admin->kecamatan}}</td>
+                    <td scope="row" class="text-center" hidden>{{$admin->kabupaten}}</td>
+                    <td scope="row" class="text-center" hidden>{{$admin->provinsi}}</td>
+                    <td scope="row" class="text-center" hidden>{{$admin->kode_pos}}</td> 
+                    <td scope="row" class="text-center">
                       <button type="button" class="btn btn-sm btn-primary detail" data-toggle="modal" data-target="#detailModal{{$admin->id_admin}}"><i class="fas fa-info"></i></button>
                     </td>
                   </tr>
