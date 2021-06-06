@@ -11,7 +11,7 @@ use App\Models\Translator\Translator;
 use App\Models\Translator\Certificate;
 use App\Models\Translator\Master_keahlian;
 use App\Models\Translator\Document;
-use App\Models\Admin\Seleksi_berkas;
+use App\Models\Admin\Seleksi;
 use App\Models\User;
 
 use Illuminate\Http\Request;
@@ -75,7 +75,7 @@ class CareerController extends Controller
 
         $translator->save();
 
-        $id = Seleksi_berkas::create([
+        $id = Seleksi::create([
             'id_translator'=>$translator->id_translator
         ]);
 
