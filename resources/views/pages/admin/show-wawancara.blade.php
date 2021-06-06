@@ -129,44 +129,55 @@
                 </div>
             </div>
             @foreach($skills as $s)
-            <div class="form-group row">
-                <label for="nama_sertifikat" class="col-sm-3 col-form-label">Nama Sertifikat</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="nama_sertifikat" id="nama_sertifikat" readonly value="{{$s->nama_sertifikat}}">
+                <div class="form-group row">
+                    <label for="nama_sertifikat" class="col-sm-3 col-form-label">Nama Sertifikat</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="nama_sertifikat" id="nama_sertifikat" readonly value="{{$s->nama_sertifikat}}">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="no_sertifikat" class="col-sm-3 col-form-label">Nomor Sertifikat</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="no_sertifikat" id="no_sertifikat" readonly value="{{$s->no_sertifikat}}">
+                <div class="form-group row">
+                    <label for="no_sertifikat" class="col-sm-3 col-form-label">Nomor Sertifikat</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="no_sertifikat" id="no_sertifikat" readonly value="{{$s->no_sertifikat}}">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="diterbitkan_oleh" class="col-sm-3 col-form-label">Diterbitkan Oleh</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="diterbitkan_oleh" id="diterbitkan_oleh" readonly value="{{$s->diterbitkan_oleh}}">
+                <div class="form-group row">
+                    <label for="diterbitkan_oleh" class="col-sm-3 col-form-label">Diterbitkan Oleh</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="diterbitkan_oleh" id="diterbitkan_oleh" readonly value="{{$s->diterbitkan_oleh}}">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="masa_berlaku" class="col-sm-3 col-form-label">Masa Berlaku</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="masa_berlaku" id="masa_berlaku" readonly value="{{$s->masa_berlaku}}">
+                <div class="form-group row">
+                    <label for="masa_berlaku" class="col-sm-3 col-form-label">Masa Berlaku</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="masa_berlaku" id="masa_berlaku" readonly value="{{$s->masa_berlaku}}">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="bukti_dokumen" class="col-sm-3 col-form-label">Bukti Dokumen</label>
-                <div class="col-sm-9">
-                    <img src="{{asset('/img/sertifikat/'.$s->bukti_dokumen)}}" height="90" width="150" alt="" srcset="">
+                <div class="form-group row">
+                    <label for="bukti_dokumen" class="col-sm-3 col-form-label">Bukti Dokumen</label>
+                    <div class="col-sm-9">
+                        <img src="{{asset('/img/sertifikat/'.$s->bukti_dokumen)}}" height="90" width="150" alt="" srcset="">
+                    </div>
                 </div>
-            </div>
             @endforeach
-            <div class="form-group row">
-                <div class="col-sm-10">
-                    <a href="/hire" class="btn btn-secondary">
-                        Cancel
-                    </a>
-                </div>
-            </div>
+        </form>
+        <form action="/catatan-{{$translator->id_translator}}" method="POST">
+                    @csrf
+                        <div class="form-group row">
+                            <label for="catatan" class="col-sm-3 col-form-label">Catatan</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="catatan" name="catatan" rows="8" placeholder="Catatan...">{{$catatan->catatan}}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="/index-wawancara" class="btn btn-secondary">
+                                    Cancel
+                                </a>
+                            </div>
+                        </div>
         </form>
     </div>
     </div>

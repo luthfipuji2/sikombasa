@@ -13,7 +13,8 @@
                 <tr>
                   <th scope="col">Tanggal</th>
                   <th scope="col">Pelamar</th>
-                  <th scope="col">Penguji Berkas</th>
+                  <th scope="col">Pewawancara</th>
+                  <th scope="col">Catatan</th>
                   <th scope="col">Nilai</th>
                   <th scope="col">Dinyatakan</th>
                   <th scope="col">Action</th>
@@ -24,11 +25,12 @@
                   <tr>
                     <td>{{$d->updated_at}}</td>
                     <td>{{$d->nama}}</td>
-                    <td>{{$d->penyeleksi}}</td>
-                    <td>{{$d->nilai_berkas}}</td>
-                    <td>{{$d->hasil}}</td>
+                    <td>{{$d->pewawancara}}</td>
+                    <td>{{$d->catatan}}</td>
+                    <td>{{$d->nilai_wawancara}}</td>
+                    <td>{{$d->hasil_wawancara}}</td>
                     <td>
-                      <a href="{{$d->id_translator}}" class="btn btn-warning" >
+                      <a href="wawancara-{{$d->id_translator}}" class="btn btn-warning" >
                       <i class="nav-icon fas fa-eye"></i>
                       </a>
 
@@ -54,35 +56,35 @@
                 </button>
               </div>
               <div class="modal-body">
-              <form action="{{ url('/berkas/'.$d->id_translator) }}" method="POST" enctype="multipart/form-data" id="editForm">
+              <form action="{{ url('/wawancara/'.$d->id_translator) }}" method="POST" enctype="multipart/form-data" id="editForm">
                 @csrf
                     <div class="form-group row">
                       <label for="nilai" class="col-sm-5 col-form-label">Nilai</label>
                       <div class="col-sm-12">
-                        <input type="text" class="form-control" name="nilai_berkas" id="nilai_berkas" placeholder="Nilai (Kisaran 1 s.d 10)" value="{{$d->nilai_berkas}}">
+                        <input type="text" class="form-control" name="nilai_wawancara" id="nilai_wawancara" placeholder="Nilai (Kisaran 1 s.d 10)" value="{{$d->nilai_wawancara}}">
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="hasil" class="col-sm-5 col-form-label">Pelamar dinyatakan</label>
-                        @if($d->hasil=='tidak lolos')
+                      <label for="hasil_wawancara" class="col-sm-5 col-form-label">Pelamar dinyatakan</label>
+                        @if($d->hasil_wawancara=='tidak lolos')
                         <div class="col-sm-12">
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio1" name="hasil" value="tidak lolos" class="custom-control-input" checked>
+                            <input type="radio" id="customRadio1" name="hasil_wawancara" value="tidak lolos" class="custom-control-input" checked>
                             <label class="custom-control-label" for="customRadio1">Tidak Lolos</label>
                           </div>
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio2" name="hasil" value="lolos" class="custom-control-input">
+                            <input type="radio" id="customRadio2" name="hasil_wawancara" value="lolos" class="custom-control-input">
                             <label class="custom-control-label" for="customRadio2">Lolos</label>
                           </div>
                         </div>
-                        @elseif($d->hasil=='lolos')
+                        @elseif($d->hasil_wawancara=='lolos')
                         <div class="col-sm-12">
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio1" name="hasil" value="tidak lolos" class="custom-control-input">
+                            <input type="radio" id="customRadio1" name="hasil_wawancara" value="tidak lolos" class="custom-control-input">
                             <label class="custom-control-label" for="customRadio1">Tidak Lolos</label>
                           </div>
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio2" name="hasil" value="lolos" class="custom-control-input" checked>
+                            <input type="radio" id="customRadio2" name="hasil_wawancara" value="lolos" class="custom-control-input" checked>
                             <label class="custom-control-label" for="customRadio2">Lolos</label>
                           </div>
                         </div>

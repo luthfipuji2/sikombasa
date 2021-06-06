@@ -128,7 +128,13 @@ Route::middleware(['auth'])->group(function () {
         
          //Hiring
          Route::get('/hire', [App\Http\Controllers\Admin\HiringController::class, 'index']);
+         Route::get('/index-wawancara', [App\Http\Controllers\Admin\HiringController::class, 'indexWawancara']);
+         Route::get('/wawancara-{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'showWawancara']);
          Route::get('/{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'show'])->name('hire.show');
+         Route::match(['get', 'post'],'/wawancara/{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'wawancara']);
+         Route::match(['get', 'post'],'/berkas/{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'berkas']);
+         Route::match(['get', 'post'], '/catatan-{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'catatan']);
+         
         
 
         // Route::post('/users', [App\Http\Controllers\Admin\AdminController::class, 'storeUsers'])->name('users');
