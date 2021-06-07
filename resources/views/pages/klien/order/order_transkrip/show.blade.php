@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="col-12">
                         <table class="table table-bordered table-striped">
-                            <tbody>
+                            <tbody  id="tipesatu" style="visibility: visible;">
                             <div>
                             <form action="/order-transkrip" method="POST" class="d-inline">
                                 @method('Delete')
@@ -62,6 +62,22 @@
                                     <td>Tipe Transkrip</td>
                                     <td>{{$order->tipe_transkrip}}</td>
                                 </tr>
+                                <tr>
+                                    <td>Durasi Audio</td>
+                                    <td>{{$order->durasi_audio}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Durasi Pengerjaan</td>
+                                    <td>{{$order->durasi_pengerjaan}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nama Audio</td>
+                                    <td>{{$order->nama_dokumen}}</td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>Dokumen</td>
+                                    <td>{{$order->path_file}}</td>
+                                </tr> -->
                                 <tr>
                                     <td>Durasi Pertemuan</td>
                                     <td>{{$order->durasi_pertemuan}}</td>
@@ -86,22 +102,6 @@
                                     <td>Latitude</td>
                                     <td>{{$order->latitude}}</td>
                                 </tr>
-                                <tr>
-                                    <td>Durasi Audio</td>
-                                    <td>{{$order->durasi_audio}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Durasi Pengerjaan</td>
-                                    <td>{{$order->durasi_pengerjaan}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Nama Audio</td>
-                                    <td>{{$order->nama_dokumen}}</td>
-                                </tr>
-                                <!-- <tr>
-                                    <td>Dokumen</td>
-                                    <td>{{$order->path_file}}</td>
-                                </tr> -->
                             </tbody>
                         </table>
                         <button class="btn btn-success mx-1 btn-icon" type="submit" onclick="return confirm('Are you sure ?')" class="text-right" style="float: right;"><i class="fas fa-sign-in-alt"></i>   Transaksi</button>
@@ -257,4 +257,23 @@
             $('#kriteria-table').DataTable();
         } );
     </script>
+@endpush
+
+@push('scripts')
+<script >		
+    // membuat function kontrol tipe transkrip
+    function showtipetranskrip(){
+        var selectBox=document.getElementById('tipe_transkrip');
+        var userInput=selectBox.options[selectBox.selectedIndex].value;
+        if(userInput=='1'){
+
+            document.getElementById("tipesatu").style.visibility='visible';
+        }else{
+         
+            document.getElementById("tipedua").style.visibility='hidden';
+        }
+        return false;
+    }
+    
+</script>
 @endpush

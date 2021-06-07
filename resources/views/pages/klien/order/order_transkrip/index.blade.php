@@ -95,7 +95,7 @@
         <br>
                     <div class="form-group">
                         <label for="tipe_transkrip"> Tipe Transkrip</label>
-                            <select onchange="showdurasipengerjaan()" class="form-control @error('tipe_transkrip') is-invalid @enderror" 
+                            <select onchange="showtipetranskrip()" class="form-control @error('tipe_transkrip') is-invalid @enderror" 
 								id="tipe_transkrip" placeholder="Tipe Transkrip"name="tipe_transkrip">
                                 <option value="">Select Tipe Transkrip</option>
                                 <option value="1">Upload Audio</option>
@@ -127,14 +127,7 @@
                     <div class="form-group" >
                         <input type="text" placeholder="Tuliskan Nama Audio"class="form-control" id="nama_dokumen" name="nama_dokumen"style="visibility: visible;">
                     </div>
-                    <div class="form-group" >
-                        <div class="modal-body">
-                                {{ csrf_field() }}
-                                <div class="form-group">
-                                    <input type="file" name="path_file" id="path_file" style="visibility: visible;">
-                                </div>
-                        </div>
-					</div>
+
                     <div class="form-group">
                             <select class="form-control @error('durasi_audio') is-invalid @enderror" 
                             id="durasi_audio" name="durasi_audio" style="visibility: visible;">
@@ -149,6 +142,16 @@
                                 </div>
                             @enderror
                       </div>
+
+                    <div class="form-group" >
+                        <div class="modal-body">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <input type="file" name="path_file" id="path_file" style="visibility: visible;">
+                                </div>
+                        </div>
+					</div>
+                    
 					<div class="form-group">
                             <select class="form-control @error('durasi_pertemuan') is-invalid @enderror" 
                             id="durasi_pertemuan" name="durasi_pertemuan" style="visibility: visible;">
@@ -281,7 +284,7 @@ $(document).ready(function() {
 @push('scripts')
 <script >		
     // membuat function kontrol tipe transkrip
-    function showdurasipengerjaan(){
+    function showtipetranskrip(){
         var selectBox=document.getElementById('tipe_transkrip');
         var userInput=selectBox.options[selectBox.selectedIndex].value;
         if(userInput=='1'){

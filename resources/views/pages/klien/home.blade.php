@@ -16,25 +16,25 @@
   <!-- 1. Addchat css -->
   <link href="{{asset('assets/addchat/css/addchat.min.css') }}" rel="stylesheet">
 
-  <!-- Favicons -->
+  <!-- Favicons-->
   <link href="./img/icon-sv1.png" rel="icon">
-  <link href="./img/icon-sv1.png" rel="apple-touch-icon">
+  <link href="./img/icon-sv1.png" rel="apple-touch-icon"> 
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
+  <!-- Vendor CSS Files-->
   <link rel="stylesheet" href="{{ asset('vendor/animate.css/animate.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/aos/aos.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/boxicons/css/boxicons.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/glightbox/css/glightbox.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/swiper/swiper-bundle.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendor/swiper/swiper-bundle.min.css') }}"> 
 
 
   <!-- Template Main CSS File -->
-  <!-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> -->
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 </head>
 
@@ -97,7 +97,6 @@
       <!-- /.col -->
     </div>
     <!-- /.row -->
-<br><br>
     <!-- ======= Features Section ======= -->
     <section class="features">
       <div class="container">
@@ -108,7 +107,7 @@
 
         <div class="row" data-aos="fade-up"  >
           <div class="col-md-3">
-            <img src="./img/details-1.png" class="img-fluid" alt="">
+            <img src="./img/features-1.svg" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-4">
             <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
@@ -180,7 +179,7 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
+  <!-- Vendor JS Files-->
   <script src="{{ asset('vendor/aos/aos.js') }}"></script>
   <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('vendor/glightbox/js/glightbox.min.js') }}"></script>
@@ -188,7 +187,7 @@
   <script src="{{ asset('vendor/php-email-form/validate.js') }}"></script>
   <script src="{{ asset('vendor/purecounter/purecounter.js') }}"></script>
   <script src="{{ asset('vendor/swiper/swiper-bundle.min.js') }}"></script>
-  <script src="{{ asset('vendor/waypoints/noframework.waypoints.js') }}"></script>
+  <script src="{{ asset('vendor/waypoints/noframework.waypoints.js') }}"></script> 
 
   <!-- Template Main JS File -->
   <script src="{{ asset('js/main.js') }}"></script>
