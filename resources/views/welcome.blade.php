@@ -43,10 +43,10 @@
 
   <!-- 2. AddChat widget -->
   <div id="addchat_app" 
-        data-baseurl="{{ url('') }}"
-        data-csrfname="{{'X-CSRF-Token'}}"
-        data-csrftoken="{{ csrf_token() }}"
-    ></div>
+      data-baseurl="{{ url('') }}"
+      data-csrfname="{{'X-CSRF-Token' }}"
+      data-csrftoken="{{csrf_token() }}"
+  ></div>
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center header-transparent">
@@ -422,12 +422,11 @@
   <!-- Template Main JS File -->
   <script src="{{ asset('js/main.js') }}"></script>
 
-
-<!-- 3. AddChat JS -->
+  <!-- 3. AddChat JS -->
   <!-- Modern browsers -->
-  <script type="module" src="{{ asset('assets/addchat/js/addchat.min.js')  }}"></script>
+  <script type="module" src="{{asset('assets/addchat/js/addchat.min.js') }}"></script>
   <!-- Fallback support for Older browsers -->
-  <script nomodule src="{{ asset('assets/addchat/js/addchat-legacy.min.js')  }}"></script>
+  <script nomodule src="<{{asset('assets/addchat/js/addchat-legacy.min.js') }}"></script>
 
 
 </body>
