@@ -69,7 +69,7 @@ class HiringController extends Controller
             ]);
         }
 
-        return redirect('/hire');
+        return redirect('/hire')->with('success', 'Nilai Berkas Berhasil Ditambahkan');
     }
 
     public function indexWawancara()
@@ -132,7 +132,7 @@ class HiringController extends Controller
                 'catatan' => $request->catatan
             ]);
         }
-        return redirect('/index-wawancara');
+        return redirect('/index-wawancara')->with('success', 'Catatan Berhasil Ditambahkan');
     }
 
     public function wawancara(Request $request, $id_translator)
@@ -153,7 +153,7 @@ class HiringController extends Controller
             ]);
         }
 
-        return redirect('/index-wawancara');
+        return redirect('/index-wawancara')->with('success', 'Nilai Wawancara Berhasil Ditambahkan');
     }
 }
 ?>
