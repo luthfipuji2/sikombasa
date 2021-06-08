@@ -142,6 +142,11 @@ Route::middleware(['auth'])->group(function () {
         redirect('/');
     });
 
+    Route::get('test', function() {
+        Storage::disk('google')->put('test.txt', 'Hello World');
+    dd('done');
+    });
+
     });
 
 
