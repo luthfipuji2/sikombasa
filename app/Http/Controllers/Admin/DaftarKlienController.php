@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Admin;
+use App\Models\Klien\Klien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -88,5 +89,16 @@ class DaftarKlienController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function download($id_klien)
+    {
+        $dl = Klien::find($id_klien);
+
+        $foto_ktp = $dl->foto_ktp;
+
+        $pathToFile = public_path('img/biodata/').$foto_ktp;
+        
+        return response()->download($pathToFile);
     }
 }

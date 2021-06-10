@@ -118,6 +118,7 @@ Route::middleware(['auth'])->group(function () {
         
         Route::resource('daftar-admin', 'App\Http\Controllers\Admin\AdminController');
         Route::resource('daftar-klien', 'App\Http\Controllers\Admin\DaftarKlienController');
+        Route::get('/klien/download/{id_klien}', 'App\Http\Controllers\Admin\DaftarKlienController@download')->name('klien.download');
         Route::resource('daftar-translator', 'App\Http\Controllers\Admin\DaftarTranslatorController');
         Route::get('/translator/download/{id_translator}', 'App\Http\Controllers\Admin\DaftarTranslatorController@download')->name('translator.download');
         Route::resource('profile-admin', 'App\Http\Controllers\Admin\ProfileController');
@@ -145,4 +146,4 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
-Addchat::routes();
+
