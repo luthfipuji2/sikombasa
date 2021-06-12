@@ -30,7 +30,8 @@ class Translator extends Model
         'tgl_lahir',
         'jenis_kelamin',
         'no_telp',
-        'foto_ktp'
+        'foto_ktp',
+        'status'
     ];
 
     public function order(){

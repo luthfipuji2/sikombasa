@@ -4,6 +4,47 @@
 
 @section('container')
 
+<!-- Modal Edit -->
+@foreach ($trans as $r)
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Status Translator</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form action="/daftar-translator" method="POST" id="editForm">
+
+      {{ csrf_field() }}
+      {{ method_field('PUT') }}
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Status Translator</label>
+                  <select class="form-control @error('status') is-invalid @enderror" 
+                    id="status" placeholder="Role" name="status">
+                        <option value="Tidak Aktif">Tidak Aktif</option>
+                        <option value="Aktif">Aktif</option>
+                    </select>
+                    @error ('status')
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                    @enderror
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+@endforeach
 
 <!-- Modal Detail -->
 @foreach ($trans as $t)
@@ -151,6 +192,7 @@
                     <th scope="row" class="text-center" style="width: 50px">No</th>
                     <th scope="row" class="text-center" hidden>ID</th>
                     <th scope="row" class="text-center">Nama Translator</th>
+                    <th scope="row" class="text-center" style="width: 100px">Status</th>
                     <th scope="row" class="text-center" hidden>Email</th>
                     <th scope="row" class="text-center" hidden>Keahlian</th>
                     <th scope="row" class="text-center" hidden>Jenis Kelamin</th>
@@ -165,7 +207,7 @@
                     <th scope="row" class="text-center" hidden>Kabupaten</th>
                     <th scope="row" class="text-center" hidden>Provinsi</th>
                     <th scope="row" class="text-center" hidden>Kode Pos</th>
-                    <th scope="row" class="text-center" style="width: 100px">Action</th>
+                    <th scope="row" class="text-center" style="width: 150px">Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -174,6 +216,7 @@
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
                     <td scope="row" class="text-center" hidden>{{$trans->id_translator}}</td>
                     <td scope="row" class="text-center">{{$trans->name}}</td>
+                    <td scope="row" class="text-center">{{$trans->status}}</td>
                     <td scope="row" class="text-center" hidden>{{$trans->email}}</td>
                     <td scope="row" class="text-center" hidden>{{$trans->keahlian}}</td>
                     <td scope="row" class="text-center" hidden>{{$trans->jenis_kelamin}}</td>
@@ -189,7 +232,8 @@
                     <td scope="row" class="text-center" hidden>{{$trans->provinsi}}</td>
                     <td scope="row" class="text-center" hidden>{{$trans->kode_pos}}</td> 
                     <td scope="row" class="text-center">
-                      <button type="button" class="btn btn-sm btn-primary detail" data-toggle="modal" data-target="#detailModal{{$trans->id_translator}}"><i class="fas fa-info"></i></button>
+                      <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailModal{{$trans->id_translator}}"><i class="fas fa-info"></i></button>
+                      <button type="button" class="btn btn-sm btn-success edit" data-toggle="modal" data-target="#editModal">Edit Status</button>
                     </td>
                   </tr>
                   @endforeach
@@ -246,7 +290,7 @@ $(document).ready(function () {
     ]
   })
      
-    table.on('click', '.detail', function(){
+    table.on('click', '.edit', function(){
 
     $tr = $(this).closest('tr');
     if($($tr).hasClass('child')) {
@@ -257,25 +301,26 @@ $(document).ready(function () {
     console.log(data);
 
     $('#name').val(data[2]);
-    $('#email').val(data[3]);
-    $('#role').val(data[4]); 
-    $('#keahlian').val(data[5]);
-    $('#jenis_kelamin').val(data[6]); 
-    $('#tgl_lahir').val(data[7]); 
-    $('#no_telp').val(data[8]); 
-    $('#nama_bank').val(data[9]); 
-    $('#nama_rekening').val(data[10]); 
-    $('#rekening_bank').val(data[11]); 
-    $('#nik').val(data[12]);
-    $('#foto_ktp').val(data[13]);
-    $('#alamat').val(data[14]); 
-    $('#kecamatan').val(data[15]); 
-    $('#kabupaten').val(data[16]); 
-    $('#provinsi').val(data[17]); 
-    $('#kode_pos').val(data[18]); 
+    $('#status').val(data[3]);
+    $('#email').val(data[4]);
+    $('#role').val(data[5]); 
+    $('#keahlian').val(data[6]);
+    $('#jenis_kelamin').val(data[7]); 
+    $('#tgl_lahir').val(data[8]); 
+    $('#no_telp').val(data[9]); 
+    $('#nama_bank').val(data[10]); 
+    $('#nama_rekening').val(data[11]); 
+    $('#rekening_bank').val(data[12]); 
+    $('#nik').val(data[13]);
+    $('#foto_ktp').val(data[14]);
+    $('#alamat').val(data[15]); 
+    $('#kecamatan').val(data[16]); 
+    $('#kabupaten').val(data[17]); 
+    $('#provinsi').val(data[18]); 
+    $('#kode_pos').val(data[19]); 
 
-    $('#detailForm').attr('action', '/daftar-translator/'+data[1]);
-    $('#detailModal').modal('show');
+    $('#editForm').attr('action', '/daftar-translator/'+data[1]);
+    $('#editModal').modal('show');
     
   });
 });

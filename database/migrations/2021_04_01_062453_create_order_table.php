@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateOrderTable extends Migration
@@ -38,7 +39,7 @@ class CreateOrderTable extends Migration
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->string('lokasi')->nullable();
-            $table->date('tgl_order')->nullable();
+            $table->dateTime('tgl_order')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->integer('durasi_pengerjaan')->nullable();
             $table->string('durasi_audio')->nullable();
             $table->date('tanggal_pertemuan')->nullable();
