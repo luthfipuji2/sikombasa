@@ -32,6 +32,7 @@ class MenuPembayaranController extends Controller
                 ->join('parameter_order', 'order.id_parameter_order', '=', 
                         'parameter_order.id_parameter_order')
                 ->where("users.id",$user->id)
+                ->where('order.tgl_order', '>=', Carbon::now()->subDay()->toDateTimeString())
                 ->get();
         
         $bank = Bank::all();

@@ -487,6 +487,9 @@
                         </div>
                       </div>
                     </div>
+                    <div class="float-right">
+                      <p style="color:red;"><i>*Tagihan akan hilang jika dalam 24 jam tidak ada pembayaran</i></p>
+                    </div>
                   @endforeach
                   </div>
 
