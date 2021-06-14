@@ -1,5 +1,4 @@
 @extends('layouts.klien.sidebar')
-
 @section('title', 'Order Interpreter')
 @section('content')
 
@@ -14,7 +13,6 @@
                 <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link active" href="#certificate" data-toggle="tab">Order Menu</a></li>
                 <li class="nav-item"><a class="nav-link disabled" href="#certificate" data-toggle="tab">View Order</a></li>
-                <li class="nav-item"><a class="nav-link disabled" href="#progress" data-toggle="tab">Transaksi</a></li>
                 </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -34,33 +32,49 @@
                 <div class="active tab-pane" id="certificate">
                 <form action="/order-interpreter" method="POST" enctype="multipart/form-data">
                 @csrf
-                <!-- layanan basic -->
+                
+    <!-- layanan basic -->
         <div class="card card-statistic-1">
-                <div class="card-icon bg-cyan">
+            <div class="card-icon bg-cyan">
                 &nbsp;
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
-                </div>
+            </div>
             <div class="card-wrap">
                 <div class="card-header">
                 <div>
-                <button onclick="layanan_basic()" class="btn bg-cyan">
+                <a onclick="layanan_basic()" class="btn bg-cyan">
                     <label for="basic">Layanan Basic</label>
-                </button>
+                </a>
                 </div>
                 <div class="card-body">
                 </div>
                 <div id="basic"></div>
+                <label for="basic">Pilih Durasi Pertemuan</label>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="jenis_layanan" id="jenis_layanan" value="basic">
-                <label class="form-check-label" for="jenis_layanan"><h5>Pilih Layanan Basic</label>
-                </div>
+                    <input class="form-check-input" type="radio" id="id_parameter_order4" name="id_parameter_order" value="4">
+                    <label class="form-check-label" for="id_parameter_order">
+                        <=1 Day
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_order5"  name="id_parameter_order" value="5">
+                    <label class="form-check-label" for="id_parameter_order">
+                        1-3 Day
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_order6"  name="id_parameter_order" value="6">
+                    <label class="form-check-label" for="id_parameter_order">
+                        3-5 Day
+                    </label>
+                    </div>
                 </div>
             </div>
             </div>
         </div>
-        <!--selesai layanan baisc -->
+        <!--selesai layanan basic -->
 
             <!-- layanan premium -->
             <div class="card card-statistic-1">
@@ -76,58 +90,58 @@
             <div class="card-wrap">
                 <div class="card-header">
                 <div>
-                <button onclick="layanan_premium()" class="btn btn-danger">
+                <a onclick="layanan_premium()" class="btn btn-danger">
                     <label for="premium">Layanan Premium</label>
-                </button>
+                </a>
                 </div>
                 <div class="card-body">
                 </div>
                 <div id="premium"></div>
+                <label for="basic">Pilih Durasi Pertemuan</label>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="jenis_layanan" value="premium" id="jenis_layanan">
-                <label class="form-check-label" for="jenis_layanan"><h5>Pilih Layanan Premium</label>
-                </div>
+                    <input class="form-check-input" type="radio" id="id_parameter_order1" name="id_parameter_order" value="1">
+                    <label class="form-check-label" for="id_parameter_order">
+                        <=1 Day
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_order2"  name="id_parameter_order" value="2">
+                    <label class="form-check-label" for="id_parameter_order">
+                        1-3 Day
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_order3"  name="id_parameter_order" value="3">
+                    <label class="form-check-label" for="id_parameter_order">
+                        3-5 Day
+                    </label>
+                    </div>
                 </div>
             </div>
             </div>
         </div>
         <!-- Selesai layanan premium -->
-        <br>
-
-        <div class="form-group">
-            <label for="durasi_pertemuan">Durasi Pertemuan</label>
-            <select class="form-control @error('durasi_pertemuan') is-invalid @enderror" 
-            id="durasi_pertemuan " placeholder="Durasi Pertemuan" name="durasi_pertemuan">
-            <option value="<=1 Day"><=1 Day</option>
-            <option value="1-3 Day">1-3 Day</option>
-            <option value="3-5 Day">3-5 Day</option>
-            </select>
-            @error ('durasi_pertemuan')
-            <div id="validationServerUsernameFeedback" class="invalid-feedback">
-            {{$message}}
+        
+        <div class="row">
+            <div class="col">
+            <div class="form-group">
+                <label for="tanggal_pertemuan"> Masukkan Tanggal Pertemuan</label>
+                <input type="date" id="tanggal_pertemuan" name="tanggal_pertemuan" class="form-control @error('tanggal_pertemuan') is-invalid @enderror">
             </div>
-            @enderror
-        </div>
-
-        <div class="form-group">
-            <label for="tanggal_pertemuan"> Masukkan Tanggal Pertemuan</label>
-            <input type="date" id="tanggal_pertemuan" name="tanggal_pertemuan" class="form-control @error('tanggal_pertemuan') is-invalid @enderror">
-        </div>
-        <div class="form-group">
-            <label for="waktu_pertemuan">Masukkan Waktu Pertemuan</label>
-            <input type="time" id="waktu_pertemuan" name="waktu_pertemuan" class="form-control">
-        </div>
+            </div class="col">
+        <div class="col">
+            <div class="form-group">
+                <label for="waktu_pertemuan">Masukkan Waktu Pertemuan</label>
+                <input type="time" id="waktu_pertemuan" name="waktu_pertemuan" class="form-control">
+            </div>
+        </div class="col">
+        </div class="row">
        
-                        
-                            
-
-        <br>
         {{ csrf_field() }}
-                   <div class="form-group">
-                        <label for="lokasi" class="col-form-label">Catatan Tambahan</label>
-                        <input type="text" class="form-control" id="lokasi" name="lokasi">
-                    </div>
-                    
+        <br>
+                <div class="row">
+                <div class="col">
+                    <label for="lokasi" class="col-form-label">Tentukan Lokasi Anda Saat Ini</label>
                     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
                     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
                     crossorigin=""/>
@@ -139,7 +153,7 @@
                     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
                     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
-                    <style>#mapid { height: 350px; }</style>
+                    <style>#mapid { height: 300px; }</style>
                     
                     <div id="mapid"></div>
 
@@ -163,25 +177,23 @@
                             theMarker = L.marker([e.latlng.lat,e.latlng.lng]).addTo(map);
                         });
                     </script>
-                    </br>
-                    <label for="text">Longitude</label>
-                    <input type="text" class="form-control"  id="latitude" name="latitude">
-                            
-                    </br>
-                    <label for="text">Latitude</label>
-                    <input type="text" class="form-control" id="longitude" name="longitude">
+                </div class="col">
+                    <div class="col">
+                        <label for="text">Longitude</label>
+                        <input type="text" class="form-control"  id="latitude" name="latitude">
+                        <label for="text">Latitude</label>
+                        <input type="text" class="form-control" id="longitude" name="longitude">
+                        <label for="lokasi" class="col-form-label">Tuliskan Catatan Lokasi</label>
+                        <input type="text" class="form-control" id="lokasi" name="lokasi">
+                    </div class="col">
+                </div class="row">
                     </div>
-                    
                     <hr>
                     <div class="col-sm-2">
                     <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
-                    <br>
-
-                    
+                    <br>          
                 </form> 
-
-                
                 </div>
                 <!-- /.tab-content -->
             </div>
@@ -194,9 +206,6 @@
         <!-- /.row -->
     </div><!-- /.container-fluid -->
 @endsection
-
-
-
 
 @push('scripts')
 <script type="text/javascript">

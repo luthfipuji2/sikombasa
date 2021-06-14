@@ -24,6 +24,6 @@ class ParameterOrder extends Model
     ];
 
     public function order(){
-        return $this->hasMany('App\Models\Klien\Order');
+        return $this->hasMany('App\Models\Klien\Order','id_parameter_order','id_parameter_order');
     }
 }
