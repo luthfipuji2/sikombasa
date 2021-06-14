@@ -33,36 +33,96 @@
                 <div class="active tab-pane" id="certificate">
                 <form action="/order-transkrip" method="POST" enctype="multipart/form-data">
                 @csrf
-                <!-- layanan basic -->
-				<div class="card card-statistic-1">
-                <div class="card-icon bg-cyan">
+                
+        <div class="form-group">
+            <label for="tipe_transkrip"> Tipe Transkrip</label>
+            <select onchange="showtipetranskrip()" class="form-control @error('tipe_transkrip') is-invalid @enderror" 
+		        id="tipe_transkrip" placeholder="Tipe Transkrip"name="tipe_transkrip">
+                <option value="">Select Tipe Transkrip</option>
+                <option value="1">Upload Audio</option>
+                <option value="2">Bertemu Langsung</option>
+            </select>
+            @error ('tipe_transkrip')
+                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    {{$message}}
+                </div>
+                    @enderror
+        </div>
+
+
+        <!-- layanan basic Tipe Transkrip 1-->
+        <div class="card card-statistic-1">
+            <div class="card-icon bg-cyan">
                 &nbsp;
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
-                </div>
-				
-				<div class="card-wrap">
+            </div>
+            <div class="card-wrap">
                 <div class="card-header">
                 <div>
-                <button onclick="layanan_basic()" class="btn bg-cyan">
+                <a onclick="layanan_basic()" class="btn bg-cyan">
                     <label for="basic">Layanan Basic</label>
-                </button>
+                </a>
                 </div>
                 <div class="card-body">
                 </div>
                 <div id="basic"></div>
+
+                <div class="row">
+                <div class="col">
+                <label for="basic">Pilih Durasi Audio</label>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="jenis_layanan" id="jenis_layanan" value="basic">
-                <label class="form-check-label" for="jenis_layanan"><h5>Pilih Layanan Basic</label>
+                    <input class="form-check-input" type="radio" id="id_parameter_order10" name="id_parameter_order" value="10">
+                    <label class="form-check-label" for="id_parameter_order">
+                        <=1 Jam
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_order11"  name="id_parameter_order" value="11">
+                    <label class="form-check-label" for="id_parameter_order">
+                        1-3 Jam
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_order12"  name="id_parameter_order" value="12">
+                    <label class="form-check-label" for="id_parameter_order">
+                        >3 Jam
+                    </label>
+                    </div>
                 </div>
+                </div class="col">
+                
+                <div class="col" id="id_parameter_order13">
+                <label  id="id_parameter_order13" for="basic">Pilih Durasi Pertemuan</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_order13" name="id_parameter_order" value="13">
+                    <label class="form-check-label" for="id_parameter_order">
+                        <=1 Jam
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_order14"  name="id_parameter_order" value="14">
+                    <label class="form-check-label" for="id_parameter_order">
+                        1-3 Jam
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_order15"  name="id_parameter_order" value="15">
+                    <label class="form-check-label" for="id_parameter_order">
+                        >3 Jam
+                    </label>
+                    </div>
                 </div>
+                </div class="col" id="id_parameter_order13" >
+                </div class="row">
+
             </div>
             </div>
         </div>
-        <!--selesai layanan basic -->
+        <!--selesai layanan basic Tipe Transkrip 1-->
 
-            <!-- layanan premium -->
+        <!-- Start layanan premium Tipe Transkrip 1-->
             <div class="card card-statistic-1">
                 <div class="card-icon bg-danger">
                 &nbsp;
@@ -76,37 +136,39 @@
             <div class="card-wrap">
                 <div class="card-header">
                 <div>
-                <button onclick="layanan_premium()" class="btn btn-danger">
+                <a onclick="layanan_premium()" class="btn btn-danger">
                     <label for="premium">Layanan Premium</label>
-                </button>
+                </a>
                 </div>
                 <div class="card-body">
                 </div>
                 <div id="premium"></div>
+                <label for="basic">Pilih Durasi Audio</label>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="jenis_layanan" value="premium" id="jenis_layanan">
-                <label class="form-check-label" for="jenis_layanan"><h5>Pilih Layanan Premium</label>
-                </div>
+                    <input class="form-check-input" type="radio" id="id_parameter_order7" name="id_parameter_order" value="7">
+                    <label class="form-check-label" for="id_parameter_order">
+                        <=1 Jam
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_order8"  name="id_parameter_order" value="8">
+                    <label class="form-check-label" for="id_parameter_order">
+                        1-3 Jam
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_order9"  name="id_parameter_order" value="9">
+                    <label class="form-check-label" for="id_parameter_order">
+                        >3 Jam
+                    </label>
+                    </div>
                 </div>
             </div>
             </div>
         </div>
-        <!-- Selesai layanan premium -->
+        <!-- Selesai layanan premium Tipe Transkrip 1-->
         <br>
-                    <div class="form-group">
-                        <label for="tipe_transkrip"> Tipe Transkrip</label>
-                            <select onchange="showtipetranskrip()" class="form-control @error('tipe_transkrip') is-invalid @enderror" 
-								id="tipe_transkrip" placeholder="Tipe Transkrip"name="tipe_transkrip">
-                                <option value="">Select Tipe Transkrip</option>
-                                <option value="1">Upload Audio</option>
-                                <option value="2">Bertemu Langsung</option>
-                            </select>
-                            @error ('tipe_transkrip')
-                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                                    {{$message}}
-                                </div>
-                            @enderror
-                    </div>
+                    
 
                     <div class="form-group">
                             <select class="form-control @error('durasi_pengerjaan') is-invalid @enderror" 
@@ -300,6 +362,7 @@ $(document).ready(function() {
             document.getElementById("longitude").style.visibility='hidden';
             document.getElementById("latitude").style.visibility='hidden';
             document.getElementById("datetime").style.visibility='hidden';
+            document.getElementById("id_parameter_order13").style.visibility='hidden';
         }else{
          
             document.getElementById("durasi_pengerjaan").style.visibility='hidden';
@@ -313,6 +376,7 @@ $(document).ready(function() {
             document.getElementById("longitude").style.visibility='visible';
             document.getElementById("latitude").style.visibility='visible';
             document.getElementById("datetime").style.visibility='visible';
+            document.getElementById("id_parameter_order13").style.visibility='visible';
         }
         return false;
     }

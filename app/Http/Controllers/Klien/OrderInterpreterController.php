@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
+use App\Models\Klien\ParameterOrder;
 use App\Models\Klien\SearchLocation ;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
+
 
 class OrderInterpreterController extends Controller
 {
@@ -31,7 +33,7 @@ class OrderInterpreterController extends Controller
     }
 
     public function index(){
-        $menu=Order::all();
+        $menu=Order::with('parameter_order');
        
         return view('pages.klien.order.order_interpreter.index',compact('menu')); 
     }     
@@ -54,37 +56,37 @@ class OrderInterpreterController extends Controller
     public function store(Request $request, Order $order_interpreter)
     {
         $validate_data=$request->validate([
-            'jenis_layanan'=>'required',
-            'durasi_pertemuan'=>'required',
+            'id_parameter_order'=>'required',
             'lokasi'=>'required',
             'longitude'=>'required',
             'latitude'=>'required',
-             'tanggal_pertemuan'=> 'required',
-             'waktu_pertemuan'=>'required',
+            'tanggal_pertemuan'=> 'required',
+            'waktu_pertemuan'=>'required',
         ]);
-
-        $jenis_layanan = $validate_data['jenis_layanan'];
-        $durasi_pertemuan = $validate_data['durasi_pertemuan'];
+        $id_parameter_order = $validate_data['id_parameter_order'];
         $lokasi = $validate_data['lokasi'];
         $longitude = $validate_data['longitude'];
         $latitude = $validate_data['latitude'];
         $tanggal_pertemuan = $validate_data['tanggal_pertemuan'];
         $waktu_pertemuan = $validate_data['waktu_pertemuan'];
-
-        
         $user=Auth::user();
         $klien=Klien::where('id', $user->id)->first();
+        $tgl_order=Carbon::now();
+        // $parameterorder=ParameterOrder::where('id_parameter_order')->first();
+
         $order_interpreter=Order::create([
+            
             'id_klien'=>$klien->id_klien,
-            'jenis_layanan'=>$jenis_layanan,
-            'durasi_pertemuan'=>$durasi_pertemuan, 
+            'id_parameter_order'=>$id_parameter_order, 
+            // 'jenis_layanan'=> $parameterorder->jenis_layanan, 
+            // 'durasi_pertemuan'=>$parameterorder->durasi_pertemuan,
             'lokasi'=>$lokasi,
             'longitude'=>$longitude,
             'latitude'=>$latitude,
-            'tgl_order'=>Carbon::now()->timestamp,
             'tanggal_pertemuan'=> $request->tanggal_pertemuan,
             'waktu_pertemuan'=> $request->waktu_pertemuan,
             'is_status'=>'belum dibayar',
+            'tgl_order'=>$tgl_order,
         ]);
 
         $id_order=$order_interpreter->id_order;
@@ -133,7 +135,7 @@ class OrderInterpreterController extends Controller
 
         Order::where('id_order', $id_order)
             ->update([
-                'jenis_layanan'=>$request->jenis_layanan,
+                'id_parameter_order'=>$request->id_parameter_order,
                 'durasi_pertemuan'=>$request->durasi_pertemuan,
                 'lokasi'=>$request->lokasi,
                 'longitude'=>$request->longitude,

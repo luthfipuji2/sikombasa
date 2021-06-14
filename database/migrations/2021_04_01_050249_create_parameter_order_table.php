@@ -21,7 +21,7 @@ class CreateParameterOrderTable extends Migration
             $table->string('p_jumlah_karakter')->nullable();
             $table->string('p_jumlah_halaman')->nullable();
             $table->string('p_jenis_layanan')->nullable();
-            $table->integer('harga');
+            $table->integer('harga')->nullable();
             $table->timestamps();   
         });
     }

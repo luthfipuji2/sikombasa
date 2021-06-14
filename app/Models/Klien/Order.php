@@ -61,6 +61,6 @@ class Order extends Model
     }
 
     public function parameter_order(){
-        return $this->belongsTo('App\Models\Klien\ParameterOrder');
+        return $this->belongsTo('App\Models\Klien\ParameterOrder','id_parameter_order','id_parameter_order');
     }
 }
