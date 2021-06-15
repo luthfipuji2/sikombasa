@@ -53,11 +53,11 @@
                     </a>
                     </div>
                     <div class="card-body">
-                    <input type="text" name="p_jenis_layanan" value="Basic" hidden>
+                    <input type="text" name="p_jenis_layanan2" value="Basic" hidden>
                         <div class="form-group">
                             <label for="basic">Durasi Pertemuan</label>
                                 <select class="form-control @error('id_parameter_order') is-invalid @enderror" 
-                                id="id_parameter_order" name="id_parameter_order">
+                                id="id_parameter_order" name="id_parameter_order2">
                                     <option value="">--Pilih Durasi Pertemuan--</option>
                                     @foreach ($basic as $b)
                                     <option value="{{$b->id_parameter_order}}">{{$b->p_durasi_pertemuan}}</option>
