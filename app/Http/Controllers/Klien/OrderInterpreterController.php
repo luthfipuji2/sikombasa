@@ -66,39 +66,76 @@ class OrderInterpreterController extends Controller
      */
     public function store(Request $request, Order $order_interpreter)
     {
-        $validate_data=$request->validate([
-            'id_parameter_order'=>'required',
-            'lokasi'=>'required',
-            'longitude'=>'required',
-            'latitude'=>'required',
-            'tanggal_pertemuan'=> 'required',
-            'waktu_pertemuan'=>'required',
-        ]);
-        // $id_parameter_order = $validate_data['id_parameter_order'];
-        $lokasi = $validate_data['lokasi'];
-        $longitude = $validate_data['longitude'];
-        $latitude = $validate_data['latitude'];
-        // $tanggal_pertemuan = $validate_data['tanggal_pertemuan'];
-        // $waktu_pertemuan = $validate_data['waktu_pertemuan'];
-        $user=Auth::user();
-        $klien=Klien::where('id', $user->id)->first();
-        $tgl_order=Carbon::now();
-        // $parameterorder=ParameterOrder::where('id_parameter_order')->first();
+        if(!empty($request->id_parameter_order && $request->p_jenis_layanan) && empty($request->id_parameter_order2 && $request->p_jenis_layanan2)){
+            $validate_data=$request->validate([
+                //'id_parameter_order'=>'required',
+                'lokasi'=>'required',
+                'longitude'=>'required',
+                'latitude'=>'required',
+                'tanggal_pertemuan'=> 'required',
+                'waktu_pertemuan'=>'required',
+            ]);
+            // $id_parameter_order = $validate_data['id_parameter_order'];
+            $lokasi = $validate_data['lokasi'];
+            $longitude = $validate_data['longitude'];
+            $latitude = $validate_data['latitude'];
+            // $tanggal_pertemuan = $validate_data['tanggal_pertemuan'];
+            // $waktu_pertemuan = $validate_data['waktu_pertemuan'];
+            $user=Auth::user();
+            $klien=Klien::where('id', $user->id)->first();
+            $tgl_order=Carbon::now();
+            // $parameterorder=ParameterOrder::where('id_parameter_order')->first();
+    
 
-        $order_interpreter=Order::create([
+            $order_interpreter=Order::create([
+                'id_klien'=>$klien->id_klien,
+                'id_parameter_order' => $request->id_parameter_order,
+                'p_jenis_layanan' => $request->p_jenis_layanan,
+                'lokasi'=>$lokasi,
+                'longitude'=>$longitude,
+                'latitude'=>$latitude,
+                'tanggal_pertemuan'=> $request->tanggal_pertemuan,
+                'waktu_pertemuan'=> $request->waktu_pertemuan,
+                'is_status'=>'belum dibayar',
+                'tgl_order'=>$tgl_order,
+            ]);
+        };
+
+       if(!empty($request->id_parameter_order2 && $request->p_jenis_layanan2) && empty($request->id_parameter_order && $request->p_jenis_layanan)){
+            $validate_data=$request->validate([
+                //'id_parameter_order'=>'required',
+                'lokasi'=>'required',
+                'longitude'=>'required',
+                'latitude'=>'required',
+                'tanggal_pertemuan'=> 'required',
+                'waktu_pertemuan'=>'required',
+            ]);
+            // $id_parameter_order = $validate_data['id_parameter_order'];
+            $lokasi = $validate_data['lokasi'];
+            $longitude = $validate_data['longitude'];
+            $latitude = $validate_data['latitude'];
+            // $tanggal_pertemuan = $validate_data['tanggal_pertemuan'];
+            // $waktu_pertemuan = $validate_data['waktu_pertemuan'];
+            $user=Auth::user();
+            $klien=Klien::where('id', $user->id)->first();
+            $tgl_order=Carbon::now();
+            // $parameterorder=ParameterOrder::where('id_parameter_order')->first();
+    
+
+            $order_interpreter=Order::create([
             
-            'id_klien'=>$klien->id_klien,
-            'id_parameter_order'=>$request->id_parameter_order, 
-            'jenis_layanan'=> $request->p_jenis_layanan, 
-            // 'durasi_pertemuan'=>$parameterorder->durasi_pertemuan,
-            'lokasi'=>$lokasi,
-            'longitude'=>$longitude,
-            'latitude'=>$latitude,
-            'tanggal_pertemuan'=> $request->tanggal_pertemuan,
-            'waktu_pertemuan'=> $request->waktu_pertemuan,
-            'is_status'=>'belum dibayar',
-            'tgl_order'=>$tgl_order,
-        ]);
+                'id_klien'=>$klien->id_klien,
+                'id_parameter_order' => $request->id_parameter_order2,
+                'p_jenis_layanan' => $request->p_jenis_layanan2,
+                'lokasi'=>$lokasi,
+                'longitude'=>$longitude,
+                'latitude'=>$latitude,
+                'tanggal_pertemuan'=> $request->tanggal_pertemuan,
+                'waktu_pertemuan'=> $request->waktu_pertemuan,
+                'is_status'=>'belum dibayar',
+                'tgl_order'=>$tgl_order,
+            ]);
+        };
 
         $id_order=$order_interpreter->id_order;
         return redirect(route('order-interpreter.show', $id_order))->with('success', 'Berhasil di upload!');
