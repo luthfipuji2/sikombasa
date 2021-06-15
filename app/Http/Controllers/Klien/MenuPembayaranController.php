@@ -93,7 +93,7 @@ class MenuPembayaranController extends Controller
             'bukti_transaksi'    => $request->file('bukti_transaksi')->getClientOriginalName()
         ]);
 
-        return redirect('/menu-pembayaran');
+        return redirect('/menu-pembayaran')->with('success', 'Bukti transaksi Anda berhasil diunggah');;
     }
 
     /**

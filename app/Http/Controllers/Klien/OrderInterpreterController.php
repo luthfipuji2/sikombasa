@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Validator;
 
 
@@ -34,8 +35,16 @@ class OrderInterpreterController extends Controller
 
     public function index(){
         $menu=Order::with('parameter_order');
+
+        $basic = ParameterOrder::where('p_jenis_layanan', 'Basic')
+        ->whereNotNull('p_durasi_pertemuan')
+        ->get();
+
+        $premium = ParameterOrder::where('p_jenis_layanan', 'Premium')
+        ->whereNotNull('p_durasi_pertemuan')
+        ->get();
        
-        return view('pages.klien.order.order_interpreter.index',compact('menu')); 
+        return view('pages.klien.order.order_interpreter.index',compact('menu', 'basic', 'premium')); 
     }     
     /**
      * Show the form for creating a new resource.
@@ -63,12 +72,12 @@ class OrderInterpreterController extends Controller
             'tanggal_pertemuan'=> 'required',
             'waktu_pertemuan'=>'required',
         ]);
-        $id_parameter_order = $validate_data['id_parameter_order'];
+        // $id_parameter_order = $validate_data['id_parameter_order'];
         $lokasi = $validate_data['lokasi'];
         $longitude = $validate_data['longitude'];
         $latitude = $validate_data['latitude'];
-        $tanggal_pertemuan = $validate_data['tanggal_pertemuan'];
-        $waktu_pertemuan = $validate_data['waktu_pertemuan'];
+        // $tanggal_pertemuan = $validate_data['tanggal_pertemuan'];
+        // $waktu_pertemuan = $validate_data['waktu_pertemuan'];
         $user=Auth::user();
         $klien=Klien::where('id', $user->id)->first();
         $tgl_order=Carbon::now();
@@ -77,8 +86,8 @@ class OrderInterpreterController extends Controller
         $order_interpreter=Order::create([
             
             'id_klien'=>$klien->id_klien,
-            'id_parameter_order'=>$id_parameter_order, 
-            // 'jenis_layanan'=> $parameterorder->jenis_layanan, 
+            'id_parameter_order'=>$request->id_parameter_order, 
+            'jenis_layanan'=> $request->p_jenis_layanan, 
             // 'durasi_pertemuan'=>$parameterorder->durasi_pertemuan,
             'lokasi'=>$lokasi,
             'longitude'=>$longitude,

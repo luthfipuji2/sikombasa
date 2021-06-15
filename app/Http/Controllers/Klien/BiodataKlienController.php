@@ -73,7 +73,7 @@ class BiodataKlienController extends Controller
         $user = Auth::user();
         $id = $user->id;
         //$path_template = Storage::putFileAs('public/img/biodata', $request->file('foto_ktp'));
-
+        
         $profile = new Klien;
         $profile->id = $id;
         $profile->nik = $request->nik;
@@ -85,8 +85,11 @@ class BiodataKlienController extends Controller
         $profile->tgl_lahir = $request->tgl_lahir;
         $profile->jenis_kelamin = $request->jenis_kelamin;
         $profile->no_telp = $request->no_telp;
-        $profile->foto_ktp = $request->foto_ktp;
+        //$profile->foto_ktp = $request->foto_ktp;
         $profile->save();
+
+        
+
 
         return redirect()->route('profile-klien.index')->with('success', 'Profile anda berhasil ditambahkan'); 
         //return redirect('/profile-klien')->with('success', 'Profile anda berhasil ditambahkan');
@@ -95,6 +98,7 @@ class BiodataKlienController extends Controller
 
     public function update(Request $request, $id){
         $user = Auth::user();
+        $id_user = $user->id;
 
         $this->validate($request,[
             'name' => 'required|string|max:191',
@@ -123,6 +127,12 @@ class BiodataKlienController extends Controller
             if(file_exists($userPhoto)){
                 @unlink($userPhoto);
             }
+
+
+            User::where('id', $user->id)
+                    ->update([
+                        'profile_photo_path'    => $request->file('profile_photo_path')->getClientOriginalName()
+            ]);
         }
 
         User::where('id', $user->id)
@@ -147,13 +157,14 @@ class BiodataKlienController extends Controller
             'tgl_lahir' => 'required',
             'jenis_kelamin' => 'required',
             'no_telp' => 'required',
-            'foto_ktp'=>'required|file|max:10000',
+            //'foto_ktp'=>'required|file|max:10000',
         ]);
 
         $user = Auth::user();
+        $id_user = $user->id;
       
         $klien= Klien::find($id_klien);
-        $path_template = Storage::putFileAs('public/img/biodata', $request->file('foto_ktp'));
+        //$path_template = Storage::putFileAs('public/img/biodata', $request->file('foto_ktp'));
         
         Klien::where('id_klien', $klien->id_klien)->update([
             'id' => $request->id,
@@ -166,8 +177,26 @@ class BiodataKlienController extends Controller
             'tgl_lahir' => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'no_telp' => $request->no_telp,
-            'foto_ktp'=>$path_template,
+            //'foto_ktp'=>$path_template,
         ]);
+
+        if($request->hasFile('foto_ktp')){
+            $request->file('foto_ktp')->move(public_path().'\img\biodata',
+            $request->file('foto_ktp')->getClientOriginalName());
+            
+            $translator = Klien::where('id', $id_user)->first();
+            $currentPhoto = $translator->foto_ktp;
+
+            $userPhoto = public_path('\img\biodata').$currentPhoto;
+            if(file_exists($userPhoto)){
+                @unlink($userPhoto);
+            }
+
+            Klien::where('id', $id_user)
+                    ->update([
+                        'foto_ktp'    => $request->file('foto_ktp')->getClientOriginalName()
+            ]);
+        }
 
         return redirect('/profile-klien')->with('success', 'Profile anda berhasil diubah');
     }

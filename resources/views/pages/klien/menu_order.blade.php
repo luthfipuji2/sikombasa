@@ -2,9 +2,13 @@
 
 @section('title',)
 @section('content')
-    
+
 <div class="container">
-        
+
+<section class="content">
+
+<div class="container-fluid">
+
         <div class="row justify-content-center">
                 <div class="card">
                     <div class="card-header">Menu List</div>
@@ -159,8 +163,11 @@
                     </div>
                     </div>
                 </div>
-            </div>
-        </div>
+          
+       
+
+</div>
+</section>
 </div>
 
 @endsection

@@ -31,8 +31,16 @@
                 <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
                     <div class="text-center">
-                    <div class="widget-user-header text-white"
-                   style="background-image:url('./img/bg.jpg')">
+                    <div class="widget-user-header text-white">
+                    @if (empty($users->profile_photo_path))
+                    <div class="widget-user-image">
+                        <img src="./img/profile.png" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
+                    </div>
+                    @else
+                    <div class="widget-user-image">
+                        <img src="{{asset('images/'.$users->profile_photo_path)}}" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
+                    </div>
+                    @endif
                     </div>
 
                     <h3 class="profile-username text-center">{{$users->name}}</h3>
@@ -111,6 +119,11 @@
                                 @enderror
                             </div>  
 
+                            <div class="form-group">
+                                <label for="profile_photo_path">Photo Profile</label>
+                                <input type="file" id="profile_photo_path"  name="profile_photo_path" class="form-control">
+                            </div> 
+
                             <div class="form-group row">
                                 <div class="col-sm-10">
                                 <button type="submit" class="btn btn-primary">Ubah</button>
@@ -121,7 +134,7 @@
                     <!-- /.tab-pane -->
 
                     <div class="tab-pane" id="biodata">
-                    <form method="POST" action="/biodata-klien/{{$users->id_klien}}">
+                    <form method="POST" action="/biodata-klien/{{$users->id_klien}}" enctype="multipart/form-data"> 
                         @method('patch')
                         @csrf
                         <form role="form">
@@ -143,20 +156,20 @@
                             </div>
 
                     
-                        <div class="form-group">
-                            <label for="jenis_kelamin">Jenis Kelamin</label>
-                                <select class="form-control @error('jenis_kelamin') is-invalid @enderror" 
-                                id="jenis_kelamin" placeholder="Pilih Jenis Kelamin" name="jenis_kelamin">
-                                    <option value="{{$users->jenis_kelamin}}" hidden selected>{{$users->jenis_kelamin}}</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                    <option value="Laki-laki">Laki-laki</option>
-                                </select>
-                                @error ('jenis_kelamin')
-                                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                                        {{$message}}
-                                    </div>
-                                @enderror
-                        </div>
+                            <div class="form-group">
+                                <label for="jenis_kelamin">Jenis Kelamin</label>
+                                    <select class="form-control @error('jenis_kelamin') is-invalid @enderror" 
+                                    id="jenis_kelamin" placeholder="Pilih Jenis Kelamin" name="jenis_kelamin">
+                                        <option value="{{$users->jenis_kelamin}}" hidden selected>{{$users->jenis_kelamin}}</option>
+                                        <option value="Perempuan">Perempuan</option>
+                                        <option value="Laki-laki">Laki-laki</option>
+                                    </select>
+                                    @error ('jenis_kelamin')
+                                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                    @enderror
+                            </div>
 
                             <div class="form-group">
                                 <label for="name">Tanggal Lahir</label>
@@ -235,15 +248,18 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
-                                <label>Unggah Foto KTP</label>
-                                <input type="file" class="form-control" name="foto_ktp">
-                                @error ('foto_ktp')
-                                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                                        {{$message}}
+                            <div class="form-group row">
+                                <label for="foto_ktp" class="col-sm-2 col-form-label">Foto KTP</label>
+                                    <div class="col-sm-10">
+                                    <input type="file" name="foto_ktp" class="form-input" value="{{$users->foto_ktp}}">
+                                    </br>
+                                    </br>
+                                        <div>
+                                            <img src="{{asset('/img/biodata/'.$users->foto_ktp)}}" height="90" width="150" alt="" srcset="">
+                                        </div>
                                     </div>
-                                @enderror
                             </div>
+
 
                             @csrf
                             <div class="form-group row">
