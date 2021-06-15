@@ -38,10 +38,12 @@ class OrderInterpreterController extends Controller
 
         $basic = ParameterOrder::where('p_jenis_layanan', 'Basic')
         ->whereNotNull('p_durasi_pertemuan')
+        ->orderBy('p_durasi_pertemuan')
         ->get();
 
         $premium = ParameterOrder::where('p_jenis_layanan', 'Premium')
         ->whereNotNull('p_durasi_pertemuan')
+        ->orderBy('p_durasi_pertemuan')
         ->get();
        
         return view('pages.klien.order.order_interpreter.index',compact('menu', 'basic', 'premium')); 
