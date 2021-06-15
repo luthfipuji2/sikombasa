@@ -3,6 +3,9 @@
 @section('title', 'Show Order Interpreter')
 @section('content')
 
+<div class="container">
+
+<section class="content">
 
 <div class="container-fluid">
         <div class="row">
@@ -270,7 +273,10 @@
         <!-- /.col -->
         </div>
         <!-- /.row -->
+        </section>
     </div><!-- /.container-fluid -->
+
+
 @endsection
 
 @push('addon-script')
