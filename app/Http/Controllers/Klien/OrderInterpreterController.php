@@ -67,7 +67,7 @@ class OrderInterpreterController extends Controller
     public function store(Request $request, Order $order_interpreter)
     {
         $validate_data=$request->validate([
-            'id_parameter_order'=>'required',
+            //'id_parameter_order'=>'required',
             'lokasi'=>'required',
             'longitude'=>'required',
             'latitude'=>'required',
@@ -89,7 +89,9 @@ class OrderInterpreterController extends Controller
             
             'id_klien'=>$klien->id_klien,
             'id_parameter_order'=>$request->id_parameter_order, 
+            'id_parameter_order'=>$request->id_parameter_order2, 
             'jenis_layanan'=> $request->p_jenis_layanan, 
+            'jenis_layanan'=> $request->p_jenis_layanan2,
             // 'durasi_pertemuan'=>$parameterorder->durasi_pertemuan,
             'lokasi'=>$lokasi,
             'longitude'=>$longitude,
