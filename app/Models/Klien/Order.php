@@ -45,7 +45,7 @@ class Order extends Model
         'is_status',
         'status_at',
         'status_by',
-        'harga',
+        'tipe_offline',
     ];
 
     protected $dates = [

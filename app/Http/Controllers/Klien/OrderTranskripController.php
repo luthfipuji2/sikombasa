@@ -6,19 +6,17 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
-use App\Models\Klien\SearchLocation ;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Validator;
 
 class OrderTranskripController extends Controller
 {
 
-    public function dashboard()
+     public function dashboard()
     {
         $user = Auth::user();
         return view('pages.klien.home', compact('user'));
@@ -32,9 +30,8 @@ class OrderTranskripController extends Controller
 
     public function index(){
         $menu=Order::all();
-       
-        return view('pages.klien.order.order_transkrip.index',compact('menu')); 
-    }     
+        return view('pages.klien.order.order_transkrip.index', compact('menu'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -53,34 +50,46 @@ class OrderTranskripController extends Controller
      */
     public function store(Request $request, Order $order_transkrip)
     {
-        $order_transkrip = new Order;
-        $order_transkrip->jenis_layanan=$request->jenis_layanan;
-        $order_transkrip->tipe_transkrip=$request->tipe_transkrip;
-        $order_transkrip->durasi_pengerjaan=$request->durasi_pengerjaan;
-        $order_transkrip->durasi_audio=$request->durasi_audio;
-        $order_transkrip->nama_dokumen=$request->nama_dokumen;
-        // $order_transkrip->path_file=$request->path_template;
-        // $order_transkrip->ekstensi=$request->ext_template;
-        // $order_transkrip->size=$request->size_template;
-        $order_transkrip->durasi_pertemuan=$request->durasi_pertemuan;
-        $order_transkrip->lokasi=$request->lokasi;
-        $order_transkrip->longitude=$request->longitude;
-        $order_transkrip->latitude=$request->latitude;
-        $order_transkrip->tanggal_pertemuan=$request->tanggal_pertemuan;
-        $order_transkrip->waktu_pertemuan=$request->waktu_pertemuan;
+        //return($request);
+        if($request->hasFile('path_file')){
+            $validate_data = $request->validate([
+                'jenis_layanan'=>'required',
+                'durasi_pengerjaan'=>'required',
+                'nama_dokumen'=>'required',
+                'path_file'=>'required|file|max:10000',
+                'durasi_audio'=>'required',
+            ]);
+        
 
-        // $ext_template = $request['path_file']->extension();
-        // $size_template = $request['path_file']->getSize();
-        // $nama_dokumen = $request['nama_dokumen'] . "." . $ext_template;
-        // $path_template = Storage::putFileAs('https://drive.google.com/drive/folders/1vk6P4Rpicf2NgN09eEVccpbMsL_WJc1z?usp=sharing', $request->file('path_file'), $nama_dokumen);
+            $jenis_layanan = $validate_data['jenis_layanan'];
+            $durasi = $validate_data['durasi_pengerjaan'];
+            $durasi_audio = $validate_data['durasi_audio'];
+            $ext_template = $validate_data['path_file']->extension();
+            $size_template = $validate_data['path_file']->getSize();
+            $user=Auth::user();
+            $klien=Klien::where('id', $user->id)->first();
+            $nama_dokumen = $validate_data['nama_dokumen'] . "." . $ext_template;
 
-        $order_transkrip->save();
-        $user = Auth::user();
-        $klien=Klien::where('id', $user->id)->first();
-        $order_transkrip->id_klien=$klien->id_klien;
-        $id_order=$order_transkrip->id_order;
-            return redirect()->route('order-transkrip.show', $id_order)->with('success', 'Berhasil di upload!');
-    } 
+            $path_template = Storage::putFileAs('public/order_transkrip/file_order_audio', $request->file('path_file'), $nama_dokumen);
+
+            $order_transkrip=Order::create([
+                'id_klien'=>$klien->id_klien,
+                'jenis_layanan'=>$jenis_layanan,
+                'durasi_pengerjaan'=>$durasi,
+                'nama_dokumen'=>$nama_dokumen,
+                'path_file'=>$path_template,
+                'durasi_audio'=>$durasi_audio,
+                'ekstensi'=>$ext_template,
+                'size'=>$size_template,
+                'tgl_order'=>Carbon::now()->timestamp,
+                'is_status'=>'belum dibayar',
+            ]);
+
+
+            $id_order=$order_transkrip->id_order;
+            return redirect(route('order-transkrip.show', $id_order))->with('success', 'Berhasil di upload!');
+        }
+        } 
     
 
     /**
@@ -95,6 +104,7 @@ class OrderTranskripController extends Controller
         $klien=Klien::where('id', $user->id)->first();
 
         $order=Order::findOrFail($id_order);
+       // return ($order);
         return view('pages.klien.order.order_transkrip.show', compact('order', 'user', 'klien'));
     }
 
@@ -109,31 +119,29 @@ class OrderTranskripController extends Controller
         //
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id_order)
     {
-        //dd($order);
-        
-        // $this->validate($request, [
-        //     'jenis_layanan' => 'required',
-        //     'durasi_pengerjaan' => 'required',
-        //     'text' => 'required',
-        // ]);
-
-        // $order=Order::find($id_order);
         $order=Order::findOrFail($id_order);
 
         Order::where('id_order', $id_order)
             ->update([
                 'jenis_layanan'=>$request->jenis_layanan,
-                'durasi_pertemuan'=>$request->durasi_pertemuan,
-                'lokasi'=>$request->lokasi,
-                'longitude'=>$request->longitude,
-                'latitude'=>$request->latitude,
-                'tanggal_pertemuan'=>$request->tanggal_pertemuan,
-                'waktu_pertemuan'=>$request->waktu_pertemuan,
+                'durasi_pengerjaan'=>$request->durasi_pengerjaan,
+                'nama_dokumen'=>$request->nama_dokumen,
+                'path_file'=>$request->path_file,
+                'durasi_audio'=>$request->durasi_audio,
             ]);
+        //return($order);
+        //dd($order);
 
-        return redirect(route('order-transkrip.show', $id_order))->with('success', 'Berhasil di upload!');
+        return redirect(route('order-transkrip.show', $id_order))->with('success', 'Berhasil di update!');
     }
 
     /**
@@ -145,8 +153,6 @@ class OrderTranskripController extends Controller
     function destroy($id_order)
     {
         Order::destroy($id_order);
-        return redirect(route('order-transkrip.index'))->with('success','data berhasil di hapus');
-
+        return redirect(route('order-transkrip.index'))->with('success','Order berhasil di hapus');
     }
-
 }

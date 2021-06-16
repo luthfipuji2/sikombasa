@@ -62,6 +62,10 @@
                                     <td>{{$order->parameter_order->p_jenis_layanan}}</td>
                                 </tr>
                                 <tr>
+                                    <td>Jenis Menu Offline</td>
+                                    <td>{{$order->tipe_offline}}</td>
+                                </tr>
+                                <tr>
                                     <td>Durasi Pertemuan</td>
                                     <td>{{$order->parameter_order->p_durasi_pertemuan}}</td>
                                 </tr>
@@ -138,7 +142,7 @@
                     </div>
                 </div class="col">
         </div>
-        <!--Start layanan Basic -->
+        <!-- layanan basic -->
         <div class="card card-statistic-1">
             <div class="card-icon bg-cyan">
                 &nbsp;
@@ -146,39 +150,38 @@
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
             </div>
-        <div class="card-wrap">
-            <div class="card-header">
-                <div>
-                    <button class="btn bg-cyan">
+            <div class="card-wrap">
+                <div class="card-header">
+                    <div>
+                    <a onclick="layanan_basic()" class="btn bg-cyan">
                         <label for="basic">Layanan Basic</label>
-                    </button>
-                </div>
-                <label for="basic">Edit Durasi Pertemuan</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_parameter_order4" name="id_parameter_order" value="4">
-                    <label class="form-check-label" for="id_parameter_order">
-                        <=1 Day
-                    </label>
-                </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="id_parameter_order5"  name="id_parameter_order" value="5">
-                        <label class="form-check-label" for="id_parameter_order">
-                            1-3 Day
-                        </label>
+                    </a>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="id_parameter_order6"  name="id_parameter_order" value="6">
-                        <label class="form-check-label" for="id_parameter_order">
-                            3-5 Day
-                        </label>
+                    <div class="card-body">
+                    <input type="text" name="p_jenis_layanan2" value="Basic" hidden>
+                        <div class="form-group">
+                            <label for="basic">Durasi Pertemuan</label>
+                                <select class="form-control @error('id_parameter_order') is-invalid @enderror" 
+                                id="id_parameter_order" name="id_parameter_order2">
+                                    <option value="">--Pilih Durasi Pertemuan--</option>
+                                    @foreach ($basic as $b)
+                                    <option value="{{$b->id_parameter_order}}">{{$b->p_durasi_pertemuan}}</option>
+                                    @endforeach
+                                </select>
+                                @error ('id_parameter_order')
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                {{$message}}
+                                </div>
+                                @enderror
+                        </div>   
                     </div>
+                </div>
             </div>
-        </div>
         </div>
         <!--selesai layanan basic -->
 
-        <!-- layanan premium -->
-        <div class="card card-statistic-1">
+            <!-- layanan premium -->
+            <div class="card card-statistic-1">
                 <div class="card-icon bg-danger">
                 &nbsp;
                 <i class="nav-icon fas fa-crown"></i>
@@ -196,27 +199,23 @@
                 </a>
                 </div>
                 <div class="card-body">
-                </div>
-                <div id="premium"></div>
-                <label for="basic">Pilih Durasi Pertemuan</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_parameter_order1" name="id_parameter_order" value="1">
-                    <label class="form-check-label" for="id_parameter_order">
-                        <=1 Day
-                    </label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_parameter_order2"  name="id_parameter_order" value="2">
-                    <label class="form-check-label" for="id_parameter_order">
-                        1-3 Day
-                    </label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_parameter_order3"  name="id_parameter_order" value="3">
-                    <label class="form-check-label" for="id_parameter_order">
-                        3-5 Day
-                    </label>
-                    </div>
+                    <input type="text" name="p_jenis_layanan" value="Premium" hidden>
+                        <div class="form-group">
+                            <label for="basic">Durasi Pertemuan</label>
+                                <select class="form-control @error('id_parameter_order') is-invalid @enderror" 
+                                id="id_parameter_order" name="id_parameter_order">
+                                    <option value="">--Pilih Durasi Pertemuan--</option>
+                                    @foreach ($premium as $p)
+                                    <option value="{{$p->id_parameter_order}}">{{$p->p_durasi_pertemuan}}</option>
+                                    @endforeach
+                                </select>
+                                @error ('id_parameter_order')
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                {{$message}}
+                                </div>
+                                @enderror
+                        </div>   
+                    </div>   
                 </div>
             </div>
         </div>

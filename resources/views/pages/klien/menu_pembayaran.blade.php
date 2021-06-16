@@ -113,6 +113,15 @@
                               </div>
                               @endif
 
+                              @if (!empty($o->tipe_offline))
+                              <div class="user-block">
+                                  <b>Jenis Menu Offline</b>
+                                  <p class="text-muted">
+                                    {{$o->tipe_offline}}
+                                  </p>
+                              </div>
+                              @endif
+
                               @if (!empty($o->durasi_pengerjaan))
                               <div class="user-block">
                                   <b>Durasi Pengerjaan</b>

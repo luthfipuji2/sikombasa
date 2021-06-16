@@ -1,5 +1,5 @@
 @extends('layouts.klien.sidebar')
-@section('title', 'Order Interpreter')
+@section('title', 'Order Offline')
 @section('content')
 
 <div class="container">
@@ -94,7 +94,6 @@
                 </a>
                 </div>
                 <div class="card-body">
-                <div class="card-body">
                     <input type="text" name="p_jenis_layanan" value="Premium" hidden>
                         <div class="form-group">
                             <label for="basic">Durasi Pertemuan</label>
@@ -113,13 +112,26 @@
                         </div>   
                     </div>   
                 </div>
-                <div id="premium"></div>
-                </div>
-            </div>
             </div>
         </div>
         <!-- Selesai layanan premium -->
         
+
+        <div class="form-group">
+            <label for="tipe_offline">Jenis Menu Offline</label>
+            <select onchange="showtipetranskrip()" class="form-control @error('tipe_offline') is-invalid @enderror" 
+		        id="tipe_offline" name="tipe_offline">
+                <option value="">--Pilih Jenis Menu Offline--</option>
+                <option value="Interpreter">Interpreter</option>
+                <option value="Transkrip">Transkrip</option>
+            </select>
+            @error ('tipe_offline')
+                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    {{$message}}
+                </div>
+                    @enderror
+        </div>
+
         <div class="row">
             <div class="col">
             <div class="form-group">

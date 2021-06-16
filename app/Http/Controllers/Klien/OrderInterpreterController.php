@@ -68,71 +68,65 @@ class OrderInterpreterController extends Controller
     {
         if(!empty($request->id_parameter_order && $request->p_jenis_layanan) && empty($request->id_parameter_order2 && $request->p_jenis_layanan2)){
             $validate_data=$request->validate([
-                //'id_parameter_order'=>'required',
+                'tipe_offline'=>'required',
                 'lokasi'=>'required',
                 'longitude'=>'required',
                 'latitude'=>'required',
                 'tanggal_pertemuan'=> 'required',
                 'waktu_pertemuan'=>'required',
             ]);
-            // $id_parameter_order = $validate_data['id_parameter_order'];
+            $tipe_offline = $validate_data['tipe_offline'];
             $lokasi = $validate_data['lokasi'];
             $longitude = $validate_data['longitude'];
             $latitude = $validate_data['latitude'];
-            // $tanggal_pertemuan = $validate_data['tanggal_pertemuan'];
-            // $waktu_pertemuan = $validate_data['waktu_pertemuan'];
             $user=Auth::user();
             $klien=Klien::where('id', $user->id)->first();
             $tgl_order=Carbon::now();
-            // $parameterorder=ParameterOrder::where('id_parameter_order')->first();
-    
 
             $order_interpreter=Order::create([
                 'id_klien'=>$klien->id_klien,
                 'id_parameter_order' => $request->id_parameter_order,
-                'p_jenis_layanan' => $request->p_jenis_layanan,
+                'jenis_layanan' => $request->p_jenis_layanan,
+                'tipe_offline'=>$tipe_offline,
                 'lokasi'=>$lokasi,
                 'longitude'=>$longitude,
                 'latitude'=>$latitude,
                 'tanggal_pertemuan'=> $request->tanggal_pertemuan,
                 'waktu_pertemuan'=> $request->waktu_pertemuan,
-                'is_status'=>'belum dibayar',
+                'is_status'=>$request->status_transaksi,
                 'tgl_order'=>$tgl_order,
             ]);
         };
 
        if(!empty($request->id_parameter_order2 && $request->p_jenis_layanan2) && empty($request->id_parameter_order && $request->p_jenis_layanan)){
             $validate_data=$request->validate([
-                //'id_parameter_order'=>'required',
+                'tipe_offline'=>'required',
                 'lokasi'=>'required',
                 'longitude'=>'required',
                 'latitude'=>'required',
                 'tanggal_pertemuan'=> 'required',
                 'waktu_pertemuan'=>'required',
             ]);
-            // $id_parameter_order = $validate_data['id_parameter_order'];
             $lokasi = $validate_data['lokasi'];
             $longitude = $validate_data['longitude'];
             $latitude = $validate_data['latitude'];
-            // $tanggal_pertemuan = $validate_data['tanggal_pertemuan'];
-            // $waktu_pertemuan = $validate_data['waktu_pertemuan'];
+            $tipe_offline = $validate_data['tipe_offline'];
             $user=Auth::user();
             $klien=Klien::where('id', $user->id)->first();
             $tgl_order=Carbon::now();
-            // $parameterorder=ParameterOrder::where('id_parameter_order')->first();
-    
 
             $order_interpreter=Order::create([
             
                 'id_klien'=>$klien->id_klien,
                 'id_parameter_order' => $request->id_parameter_order2,
-                'p_jenis_layanan' => $request->p_jenis_layanan2,
+                'jenis_layanan' => $request->p_jenis_layanan2,
+                'tipe_offline'=>$tipe_offline,
                 'lokasi'=>$lokasi,
                 'longitude'=>$longitude,
                 'latitude'=>$latitude,
                 'tanggal_pertemuan'=> $request->tanggal_pertemuan,
                 'waktu_pertemuan'=> $request->waktu_pertemuan,
-                'is_status'=>'belum dibayar',
+                'is_status'=>$request->status_transaksi,
                 'tgl_order'=>$tgl_order,
             ]);
         };
@@ -154,7 +148,18 @@ class OrderInterpreterController extends Controller
         $klien=Klien::where('id', $user->id)->first();
 
         $order=Order::findOrFail($id_order);
-        return view('pages.klien.order.order_interpreter.show', compact('order', 'user', 'klien'));
+
+        $basic = ParameterOrder::where('p_jenis_layanan', 'Basic')
+        ->whereNotNull('p_durasi_pertemuan')
+        ->orderBy('p_durasi_pertemuan')
+        ->get();
+
+        $premium = ParameterOrder::where('p_jenis_layanan', 'Premium')
+        ->whereNotNull('p_durasi_pertemuan')
+        ->orderBy('p_durasi_pertemuan')
+        ->get();
+
+        return view('pages.klien.order.order_interpreter.show', compact('order', 'user', 'klien','basic', 'premium'));
     }
 
     /**
@@ -170,29 +175,41 @@ class OrderInterpreterController extends Controller
 
     public function update(Request $request, $id_order)
     {
-        //dd($order);
-        
-        // $this->validate($request, [
-        //     'jenis_layanan' => 'required',
-        //     'durasi_pengerjaan' => 'required',
-        //     'text' => 'required',
-        // ]);
+        if(!empty($request->id_parameter_order && $request->p_jenis_layanan) && empty($request->id_parameter_order2 && $request->p_jenis_layanan2)){
+            $order=Order::findOrFail($id_order);
 
-        // $order=Order::find($id_order);
-        $order=Order::findOrFail($id_order);
+            Order::where('id_order', $id_order)
+                ->update([
+                    'id_parameter_order'=>$request->id_parameter_order,
+                    'durasi_pertemuan'=>$request->durasi_pertemuan,
+                    'tipe_offline'=>$request->tipe_offline,
+                    'lokasi'=>$request->lokasi,
+                    'longitude'=>$request->longitude,
+                    'latitude'=>$request->latitude,
+                    'tanggal_pertemuan'=>$request->tanggal_pertemuan,
+                    'waktu_pertemuan'=>$request->waktu_pertemuan,
+                ]);
 
-        Order::where('id_order', $id_order)
-            ->update([
-                'id_parameter_order'=>$request->id_parameter_order,
-                'durasi_pertemuan'=>$request->durasi_pertemuan,
-                'lokasi'=>$request->lokasi,
-                'longitude'=>$request->longitude,
-                'latitude'=>$request->latitude,
-               'tanggal_pertemuan'=>$request->tanggal_pertemuan,
-                'waktu_pertemuan'=>$request->waktu_pertemuan,
-            ]);
+            return redirect(route('order-interpreter.show', $id_order))->with('success', 'Berhasil di upload!');
+        };
 
-        return redirect(route('order-interpreter.show', $id_order))->with('success', 'Berhasil di upload!');
+        if(!empty($request->id_parameter_order2 && $request->p_jenis_layanan2) && empty($request->id_parameter_order && $request->p_jenis_layanan)){
+            $order=Order::findOrFail($id_order);
+
+            Order::where('id_order', $id_order)
+                ->update([
+                    'id_parameter_order'=>$request->id_parameter_order,
+                    'durasi_pertemuan'=>$request->durasi_pertemuan,
+                    'tipe_offline'=>$request->tipe_offline,
+                    'lokasi'=>$request->lokasi,
+                    'longitude'=>$request->longitude,
+                    'latitude'=>$request->latitude,
+                    'tanggal_pertemuan'=>$request->tanggal_pertemuan,
+                    'waktu_pertemuan'=>$request->waktu_pertemuan,
+                ]);
+
+            return redirect(route('order-interpreter.show', $id_order))->with('success', 'Berhasil di upload!');
+        };
     }
 
     /**
