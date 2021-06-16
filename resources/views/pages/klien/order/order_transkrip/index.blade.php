@@ -1,7 +1,7 @@
 @extends('layouts.klien.sidebar')
+
 @section('title', 'Order Transkrip')
 @section('content')
-
 <div class="container-fluid">
         <div class="row">
         <div class="container ">
@@ -9,14 +9,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-				<div class="card-header p-2">
-					<ul class="nav nav-pills">
-					<li class="nav-item"><a class="nav-link active" href="#certificate" data-toggle="tab">Order Menu</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#certificate" data-toggle="tab">View Order</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#progress" data-toggle="tab">Transaksi</a></li>
-					</ul>
-				</div><!-- /.card-header -->
-				<div class="card-body">
+            <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                <li class="nav-item"><a class="nav-link active" href="#certificate" data-toggle="tab">Order Menu</a></li>
+                <li class="nav-item"><a class="nav-link disabled" href="#certificate" data-toggle="tab">View Order</a></li>
+                <li class="nav-item"><a class="nav-link disabled" href="#progress" data-toggle="tab">Transaksi</a></li>
+                </ul>
+            </div><!-- /.card-header -->
+            <div class="card-body">
                 <div class="tab-content">
                 <div class="disabled tab-pane" id="progress">
                     <!-- Tab Activity di sini -->
@@ -31,98 +31,39 @@
                 </div>
 
                 <div class="active tab-pane" id="certificate">
-                <form action="/order-transkrip" method="POST" enctype="multipart/form-data">
+                <form action="{{route('order-transkrip.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
-                
-        <div class="form-group">
-            <label for="tipe_transkrip"> Tipe Transkrip</label>
-            <select onchange="showtipetranskrip()" class="form-control @error('tipe_transkrip') is-invalid @enderror" 
-		        id="tipe_transkrip" placeholder="Tipe Transkrip"name="tipe_transkrip">
-                <option value="">Select Tipe Transkrip</option>
-                <option value="1">Upload Audio</option>
-                <option value="2">Bertemu Langsung</option>
-            </select>
-            @error ('tipe_transkrip')
-                <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                    {{$message}}
-                </div>
-                    @enderror
-        </div>
-
-
-        <!-- layanan basic Tipe Transkrip 1-->
-        <div class="card card-statistic-1">
-            <div class="card-icon bg-cyan">
+       
+<!-- layanan basic -->
+<div class="card card-statistic-1">
+                <div class="card-icon bg-cyan">
                 &nbsp;
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
-            </div>
-            <div class="card-wrap">
+                </div>
+				
+				<div class="card-wrap">
                 <div class="card-header">
                 <div>
-                <a onclick="layanan_basic()" class="btn bg-cyan">
+                <button onclick="layanan_basic()" class="btn bg-cyan">
                     <label for="basic">Layanan Basic</label>
-                </a>
+                </button>
                 </div>
                 <div class="card-body">
                 </div>
                 <div id="basic"></div>
-
-                <div class="row">
-                <div class="col">
-                <label for="basic">Pilih Durasi Audio</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_parameter_order10" name="id_parameter_order" value="10">
-                    <label class="form-check-label" for="id_parameter_order">
-                        <=1 Jam
-                    </label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_parameter_order11"  name="id_parameter_order" value="11">
-                    <label class="form-check-label" for="id_parameter_order">
-                        1-3 Jam
-                    </label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_parameter_order12"  name="id_parameter_order" value="12">
-                    <label class="form-check-label" for="id_parameter_order">
-                        >3 Jam
-                    </label>
-                    </div>
+                <input class="form-check-input" type="checkbox" name="jenis_layanan" id="jenis_layanan" value="basic">
+                <label class="form-check-label" for="jenis_layanan"><h5>Pilih Layanan Basic</label>
                 </div>
-                </div class="col">
-                
-                <div class="col" id="id_parameter_order13">
-                <label  id="id_parameter_order13" for="basic">Pilih Durasi Pertemuan</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_parameter_order13" name="id_parameter_order" value="13">
-                    <label class="form-check-label" for="id_parameter_order">
-                        <=1 Jam
-                    </label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_parameter_order14"  name="id_parameter_order" value="14">
-                    <label class="form-check-label" for="id_parameter_order">
-                        1-3 Jam
-                    </label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_parameter_order15"  name="id_parameter_order" value="15">
-                    <label class="form-check-label" for="id_parameter_order">
-                        >3 Jam
-                    </label>
-                    </div>
                 </div>
-                </div class="col" id="id_parameter_order13" >
-                </div class="row">
-
             </div>
             </div>
         </div>
-        <!--selesai layanan basic Tipe Transkrip 1-->
+        <!--selesai layanan basic -->
 
-        <!-- Start layanan premium Tipe Transkrip 1-->
+            <!-- layanan premium -->
             <div class="card card-statistic-1">
                 <div class="card-icon bg-danger">
                 &nbsp;
@@ -136,45 +77,30 @@
             <div class="card-wrap">
                 <div class="card-header">
                 <div>
-                <a onclick="layanan_premium()" class="btn btn-danger">
+                <button onclick="layanan_premium()" class="btn btn-danger">
                     <label for="premium">Layanan Premium</label>
-                </a>
+                </button>
                 </div>
                 <div class="card-body">
                 </div>
                 <div id="premium"></div>
-                <label for="basic">Pilih Durasi Audio</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_parameter_order7" name="id_parameter_order" value="7">
-                    <label class="form-check-label" for="id_parameter_order">
-                        <=1 Jam
-                    </label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_parameter_order8"  name="id_parameter_order" value="8">
-                    <label class="form-check-label" for="id_parameter_order">
-                        1-3 Jam
-                    </label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_parameter_order9"  name="id_parameter_order" value="9">
-                    <label class="form-check-label" for="id_parameter_order">
-                        >3 Jam
-                    </label>
-                    </div>
+                <input class="form-check-input" type="checkbox" name="jenis_layanan" value="premium" id="jenis_layanan">
+                <label class="form-check-label" for="jenis_layanan"><h5>Pilih Layanan Premium</label>
+                </div>
                 </div>
             </div>
             </div>
         </div>
-        <!-- Selesai layanan premium Tipe Transkrip 1-->
-        <br>
-                    
+        <!-- Selesai layanan premium -->
 
-                    <div class="form-group">
+        <br>
+
+        <div class="form-group">
+                        <label for="durasi_pengerjaan">Durasi Pengerjaan</label>
                             <select class="form-control @error('durasi_pengerjaan') is-invalid @enderror" 
-                            id="durasi_pengerjaan" name="durasi_pengerjaan" style="visibility: visible;">
-                                <option value="">Select Durasi Pengerjaan</option>
-								<option value="1">1 Day</option>
+                            id="durasi_pengerjaan" placeholder="Durasi Pengerjaan" name="durasi_pengerjaan">
+                                <option value="1">1 Day</option>
                                 <option value="2">2 Day</option>
                                 <option value="3">3 Day</option>
                                 <option value="4">4 Day</option>
@@ -184,114 +110,34 @@
                                     {{$message}}
                                 </div>
                             @enderror
-                      </div>
+                        </div>
+
+        <br>
         {{ csrf_field() }}
-                    <div class="form-group" >
-                        <input type="text" placeholder="Tuliskan Nama Audio"class="form-control" id="nama_dokumen" name="nama_dokumen"style="visibility: visible;">
-                    </div>
-
                     <div class="form-group">
-                            <select class="form-control @error('durasi_audio') is-invalid @enderror" 
-                            id="durasi_audio" name="durasi_audio" style="visibility: visible;">
-                                <option value="">Select Durasi Audio</option>
-								<option value="<=1 Jam"><=1 Jam</option>
-                                <option value="1-3 Jam">1-3 Jam</option>
-                                <option value="3-5 Jam">3-5 Jam</option>
-                            </select>
-                            @error ('durasi_pengerjaan')
-                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                                    {{$message}}
-                                </div>
-                            @enderror
-                      </div>
-
-                    <div class="form-group" >
+                        <label for="nama_dokumen" class="col-form-label">Nama Audio</label>
+                        <input type="text" class="form-control" id="nama_dokumen" name="nama_dokumen">
+                    </div>
+                    <div class="form-group">
+                        <label for="path_file" class="col-form-label">Upload Audio</label>
                         <div class="modal-body">
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <input type="file" name="path_file" id="path_file" style="visibility: visible;">
+                                    <input type="file" id="path_file" name="path_file" required="required">
                                 </div>
-                        </div>
-					</div>
-                    
-					<div class="form-group">
-                            <select class="form-control @error('durasi_pertemuan') is-invalid @enderror" 
-                            id="durasi_pertemuan" name="durasi_pertemuan" style="visibility: visible;">
-                                <option value="">Select Durasi Pertemuan</option>
-								<option value="<=1 Day"><=1 Day</option>
-                                <option value="1-3 Day">1-3 Day</option>
-                                <option value="3-5 Day">3-5 Day</option>
-                            </select>
-                            @error ('durasi_pertemuan')
-                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                                    {{$message}}
-                                </div>
-                            @enderror
-                      </div>
-
-                <div class="form-group" id="datetime">
-                    <label for="durasi_pertemuan"> Masukkan Tanggal Pertemuan</label>
-                    <input type="date" name="tanggal_pertemuan" id="tanggal_pertemuan" class="form-control @error('tanggal_pertemuan') is-invalid @enderror">
-                    <label for="durasi_pertemuan">Masukkan Waktu Pertemuan</label>
-                    <input type="time" name="waktu_pertemuan" id="waktu_pertemuan" class="form-control @error('waktu_pertemuan') is-invalid @enderror">
-                </div>
+                            </div>
+                    </div>
 
                     <div class="form-group">
-                        <input type="text" placeholder="Tuliskan Catatan Lokasi" class="form-control" id="lokasi" name="lokasi"style="visibility: visible;">
+                        <input type="hidden" name="durasi_audio" id="durasi_audio" oninput="updateInfos()">
+                        <span type="text"  id="dr_audio" name="dr_audio">
                     </div>
-                    <div class="badge bg-primary text-wrap" style="width: 6rem;" id="selectlocation" name="selectlocation"style="visibility: visible;">
-                        Select Your Location
-                    </div>
-						<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-						integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-						crossorigin=""/>
-
-						<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-							integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-							crossorigin="">
-						</script>
-
-                        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-                        <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-                        <style>#mapid { height: 180px; }</style>
-
-                    <div id="mapid" placeholder="Select Your Location"style="visibility: visible;"></div>
-
-                    <script>
-                        var map = L.map('mapid').setView([-7.5557418, 110.8545274], 13);
-                        L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
-                            maxZoom: 20,
-                            subdomains:['mt0','mt1','mt2','mt3'] 
-                            }).addTo(map);
-                            L.Control.geocoder().addTo(map);
-                    </script>
-                        
-                    <script>
-                        var theMarker = {};
-                        map.on('click', function(e){
-                            if (theMarker !=undefined){
-                                map.removeLayer(theMarker);
-                                $('#latitude').val(e.latlng.lat);
-                                $('#longitude').val(e.latlng.lng);
-                            };
-                            theMarker = L.marker([e.latlng.lat,e.latlng.lng]).addTo(map);
-                        });
-                    </script>
-
-                    </br>
-                    <input type="text" placeholder="Longitude" class="form-control"  id="latitude" name="latitude"style="visibility: visible;">
-                            
-                    </br>
-                    <input type="text" placeholder="Latitude" class="form-control" id="longitude" name="longitude"style="visibility: visible;">
                     <hr>
-                    <br>
+                    
                     <div class="col-sm-2">
                     <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
-                    </div>
-                    </div>
-                    
-                    
+                    <br>
                 </form> 
                 </div>
                 <!-- /.tab-content -->
@@ -305,6 +151,8 @@
         <!-- /.row -->
     </div><!-- /.container-fluid -->
 @endsection
+
+
 
 
 @push('scripts')
@@ -327,7 +175,7 @@ $(document).ready(function() {
 <script >		
     // membuat function tampilkan_nama
     function layanan_basic(){
-        document.getElementById("basic").innerHTML = "Garansi 1 Bulan Setelah 3x Order<hr>";
+        document.getElementById("basic").innerHTML = " * Klien Dapat Memilih Penerjemah <br> * Tidak Terdapat Editor <br> * Tidak ada Garansi <hr>";
     }
     
 </script>
@@ -337,49 +185,55 @@ $(document).ready(function() {
 <script >		
     // membuat function tampilkan_nama
     function layanan_premium(){
-        document.getElementById("premium").innerHTML = " Garansi 3 Bulan Sejak Berlangganan<hr> ";
+        document.getElementById("premium").innerHTML = " * Translator Ditentukan <br> * Terdapat Proses Editing <br> *  Bergaransi <hr>";
     }
-    
 </script>
 @endpush
 
 @push('scripts')
-<script >		
-    // membuat function kontrol tipe transkrip
-    function showtipetranskrip(){
-        var selectBox=document.getElementById('tipe_transkrip');
-        var userInput=selectBox.options[selectBox.selectedIndex].value;
-        if(userInput=='1'){
+    <script>
+        var myAudios = [];
+             console.log(myAudios);
+        window.URL = window.URL || window.webkitURL;
+        document.getElementById('path_file').onchange = setFileInfo;
 
-            document.getElementById("durasi_pengerjaan").style.visibility='visible';
-		    document.getElementById("nama_dokumen").style.visibility='visible';
-			document.getElementById("path_file").style.visibility='visible';
-            document.getElementById("durasi_audio").style.visibility='visible';
-            document.getElementById("durasi_pertemuan").style.visibility='hidden';
-            document.getElementById("selectlocation").style.visibility='hidden';
-            document.getElementById("lokasi").style.visibility='hidden';
-            document.getElementById("mapid").style.visibility='hidden';
-            document.getElementById("longitude").style.visibility='hidden';
-            document.getElementById("latitude").style.visibility='hidden';
-            document.getElementById("datetime").style.visibility='hidden';
-            document.getElementById("id_parameter_order13").style.visibility='hidden';
-        }else{
-         
-            document.getElementById("durasi_pengerjaan").style.visibility='hidden';
-			document.getElementById("nama_dokumen").style.visibility='hidden';
-			document.getElementById("path_file").style.visibility='hidden';
-            document.getElementById("durasi_pertemuan").style.visibility='visible';
-            document.getElementById("durasi_audio").style.visibility='hidden';
-            document.getElementById("selectlocation").style.visibility='visible';
-            document.getElementById("lokasi").style.visibility='visible';
-            document.getElementById("mapid").style.visibility='visible';
-            document.getElementById("longitude").style.visibility='visible';
-            document.getElementById("latitude").style.visibility='visible';
-            document.getElementById("datetime").style.visibility='visible';
-            document.getElementById("id_parameter_order13").style.visibility='visible';
+        function setFileInfo() {
+        var files = this.files;
+             console.log(files);
+        myAudios.push(files[0]);
+        var audio = document.createElement('audio');
+             console.log(audio);
+        audio.preload = 'metadata';
+
+        audio.onloadedmetadata = function() {
+            window.URL.revokeObjectURL(audio.src);
+            var duration = audio.duration;
+                 console.log(duration);
+            $('#durasi_audio').val(duration);
+            myAudios[myAudios.length - 1].duration = duration;
+            
         }
-        return false;
-    }
-    
+        audio.src = URL.createObjectURL(files[0]);;
+        }
+
+        function updateInfos() {
+        var duration = audio.duration;
+             console.log(duration);
+        $('#durasi_audio').val(duration);
+
+        $("#durasi_audio").val()
+        var dr_audio = document.getElementById("dr_audio");
+             console.log(dr_audio);
+        $('#durasi_audio').val(dr_audio);
+
+        var durasi_audio = document.getElementById("durasi_audio");
+             console.log(durasi_audio);
+            
+        dr_audio.textContent = "";
+        for (var i = 0; i < myAudios.length; i++) {
+             console.log(i);
+            dr_audio.textContent += myAudios[i].name + " duration: " + myAudios[i].duration + '\n';
+        }
+        }
 </script>
 @endpush

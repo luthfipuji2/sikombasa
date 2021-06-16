@@ -51,7 +51,7 @@
                         <div class="card text-center">
                         <div class="card-body">
                             <!-- Title -->
-                            <h4 class="card-title-center">Interpreter</h4>
+                            <h4 class="card-title-center">Offline</h4>
                             <hr>
                             <!-- Text -->
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
