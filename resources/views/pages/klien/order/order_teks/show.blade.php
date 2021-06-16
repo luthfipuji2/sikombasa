@@ -2,6 +2,7 @@
 
 @section('title', 'Show Order Teks')
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/refresh.css') }}">
 <div class="container-fluid">
         <div class="row">
         <div class="container ">
@@ -29,11 +30,15 @@
                 <div class="disabled tab-pane" id="document">
                 <!-- Tab Document di sini -->
                 </div>
+                
+                <body>
+                    <button type="submit" value="Refresh Page" onClick="document.location.reload(true)" class="btn-green" >
+                        <img  class="icon" src="https://htmlacademy.ru/assets/icons/reload-6x-white.png"> &nbsp; &nbsp; Cek Harga
+                    </button>
+                </body>
 
-                <div class="active tab-pane" id="certificate">
                     <form action="  " method="POST" enctype="multipart/form-data">
                     @csrf
-                    
                     <div class="card-body">
                 <div class="row">
                     <div class="col-12">
@@ -54,11 +59,11 @@
                             <br>
                                 <tr>
                                     <td>Jenis Layanan</td>
-                                    <td>{{$order->jenis_layanan}}</td>
+                                    <td>{{$order->parameterjenislayanan->p_jenis_layanan}}</td>
                                 </tr>
                                 <tr>
                                     <td>Jenis Teks</td>
-                                    <td>{{$order->jenis_teks}}</td>
+                                    <td>{{$order->parameterjenisteks->p_jenis_teks}}</td>
                                 </tr>
                                 <tr>
                                     <td>Durasi Pengerjaan</td>
@@ -72,16 +77,29 @@
                                     <td>Jumlah Karakter</td>
                                     <td>{{$order->jumlah_karakter}} Kata</td>
                                 </tr>
+                                <tr>
+                                    <th scope="col">Total Harga</th>
+                                    <th>{{$order->harga}}</th>
+                                </tr>
 
                             </tbody>
                         </table>
-                        <button class="btn btn-success mx-1 btn-icon" type="submit" onclick="return confirm('Are you sure ?')" class="text-right" style="float: right;"><i class="fas fa-sign-in-alt"></i>   Transaksi</button>
+                        <a href="{{ url ('/menu-pembayaran') }}" class="btn btn-success mx-1 btn-icon" class="text-right" style="float: right;">Transaksi    <i class="fas fa-sign-in-alt"></i></a>
                     </div>
                 </form>
             </div>
 
                 
-
+                        {{-- menampilkan error validasi --}}
+                            @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
 
     <!-- Modal Edit -->
     <div class="modal fade" id="exampleModal{{$order->id_order}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -96,42 +114,42 @@
             
         <div class="modal-body">
         <form action="{{route('update_order_teks', $order->id_order)}}" method="post">
-            @csrf
+        {{ csrf_field() }}
             @method('PUT')
-            <input type="text" name="idLampiran" value="{{$order->id_order}}" hidden></td>
+            <input type="text" name="idLampiran" value="{{ old('id_order') }}" hidden></td>
             <div class="form-group">
-                <label for="jenis_layanan">Jenis Layanan</label>
-                <input type="text" class="form-control" placeholder="Masukkan jenis layanan" name="jenis_layanan" id="jenis_layanan" value="{{$order->jenis_layanan}}" readonly>
+                <label for="id_parameter_jenis_layanan">Jenis Layanan</label>
+                <input type="text" class="form-control" placeholder="Masukkan jenis layanan" value="{{$order->parameterjenislayanan->p_jenis_layanan}}" readonly>
             </div>
 
             <div class="form-check">
-            <input class="form-check-input" type="radio" id="jenis_layanan" name="jenis_layanan" value="basic">
-            <label class="form-check-label" for="jenis_layanan">
+            <input class="form-check-input" type="radio" id="id_parameter_jenis_layanan" name="id_parameter_jenis_layanan" value="1">
+            <label class="form-check-label" for="id_parameter_jenis_layanan">
                 Basic
             </label>
             </div>
             <div class="form-check">
-            <input class="form-check-input" type="radio" id="jenis_layanan"  name="jenis_layanan" value="premium">
-            <label class="form-check-label" for="jenis_layanan">
+            <input class="form-check-input" type="radio" id="id_parameter_jenis_layanan"  name="id_parameter_jenis_layanan" value="2">
+            <label class="form-check-label" for="id_parameter_jenis_layanan">
                 Premium
             </label>
             </div>
             <br>
 
             <div class="form-group">
-                <label for="jenis_teks">Jenis Teks</label>
-                <input type="text" class="form-control" placeholder="Masukkan jenis teks" name="jenis_teks" id="jenis_teks" value="{{$order->jenis_teks}}" readonly>
+                <label for="id_parameter_jenis_teks">Jenis Teks</label>
+                <input type="text" class="form-control" placeholder="Masukkan jenis teks"  value="{{$order->parameterjenisteks->p_jenis_teks}}" readonly>
             </div>
 
             <div class="form-check">
-            <input class="form-check-input" type="radio" id="jenis_teks" name="jenis_teks" value="umum">
-            <label class="form-check-label" for="jenis_teks">
+            <input class="form-check-input" type="radio" id="id_parameter_jenis_teks" name="id_parameter_jenis_teks" value="1">
+            <label class="form-check-label" for="id_parameter_jenis_teks">
                 Umum
             </label>
             </div>
             <div class="form-check">
-            <input class="form-check-input" type="radio" id="jenis_teks"  name="jenis_teks" value="khusus">
-            <label class="form-check-label" for="jenis_teks">
+            <input class="form-check-input" type="radio" id="id_parameter_jenis_teks"  name="id_parameter_jenis_teks" value="2">
+            <label class="form-check-label" for="id_parameter_jenis_teks">
                 Khusus
             </label>
             </div>
@@ -208,3 +226,13 @@
 		}
 	</script>
     @endpush
+
+    
+@push('scripts')
+    <script>
+        function reloadpage()
+        {
+        location.reload()
+        }
+    </script>
+@endpush

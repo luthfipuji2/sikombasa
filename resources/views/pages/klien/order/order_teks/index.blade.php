@@ -44,15 +44,17 @@
                 <div class="card-header">
                 <div>
                 <a onclick="layanan_basic()" class="btn btn-outline-info">
-                    <label for="basic">Layanan Basic</label>
+                    <label for="id_parameter_jenis_layanan">Layanan Basic</label>
                 </a>
                 </div>
                 <div class="card-body">
                 </div>
-                <div id="basic"></div>
+                <div id="id_parameter_jenis_layanan"></div>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="jenis_layanan" id="jenis_layanan" value="basic">
-                <label class="form-check-label" for="jenis_layanan"><h5>Pilih Layanan Basic</label>
+                
+                <input class="form-check-input" type="checkbox" name="id_parameter_jenis_layanan" id="id_parameter_jenis_layanan" value="1">
+                
+                <label class="form-check-label" for="id_parameter_jenis_layanan"><h5>Pilih Layanan Basic</label>
                 </div>
                 </div>
             </div>
@@ -71,15 +73,17 @@
                 <div class="card-header">
                 <div>
                 <a onclick="layanan_premium()" class="btn btn-outline-info">
-                    <label for="premium">Layanan Premium</label>
+                    <label for="id_parameter_jenis_layanan">Layanan Premium</label>
                 </a>
                 </div>
                 <div class="card-body">
                 </div>
-                <div id="premium"></div>
+                <div id="id_parameter_jenis_layanan"></div>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="jenis_layanan" value="premium" id="jenis_layanan">
-                <label class="form-check-label" for="jenis_layanan"><h5>Pilih Layanan Premium</label>
+                
+                <input class="form-check-input" type="checkbox" name="id_parameter_jenis_layanan" id="id_parameter_jenis_layanan" value="2">
+                
+                <label class="form-check-label" for="id_parameter_jenis_layanan"><h5>Pilih Layanan Premium</label>
                 </div>
                 </div>
             </div>
@@ -97,15 +101,17 @@
                 <div class="card-header">
                 <div>
                 <a onclick="teks_umum()" class="btn btn-outline-dark">
-                    <label for="umum">Jenis Teks Umum</label>
+                    <label for="id_parameter_jenis_teks">Jenis Teks Umum</label>
                 </a>
                 </div>
                 <div class="card-body">
                 </div>
-                <div id="umum"></div>
+                <div id="id_parameter_jenis_teks"></div>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="jenis_teks" value="umum" id="jenis_teks">
-                <label class="form-check-label" for="jenis_teks"><h5>Pilih Jenis Teks Umum</label>
+               
+                <input class="form-check-input" type="checkbox" name="id_parameter_jenis_teks"  id="id_parameter_jenis_teks" value="1">
+                
+                <label class="form-check-label" for="id_parameter_jenis_teks"><h5>Pilih Jenis Teks Umum</label>
                 </div>
                 </div>
             </div>
@@ -123,15 +129,17 @@
                 <div class="card-header">
                 <div>
                 <a onclick="teks_khusus()" class="btn btn-outline-dark">
-                    <label for="khusus">Jenis Teks Khusus</label>
+                    <label for="id_parameter_jenis_teks">Jenis Teks Khusus</label>
                 </a>
                 </div>
                 <div class="card-body">
                 </div>
-                <div id="khusus"></div>
+                <div id="id_parameter_jenis_teks"></div>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="jenis_teks" value="khusus" id="jenis_teks">
-                <label class="form-check-label" for="jenis_teks"><h5>Pilih Jenis Teks Khusus</label>
+                
+                <input class="form-check-input" type="checkbox" name="id_parameter_jenis_teks"  id="id_parameter_jenis_teks" value="2">
+                
+                <label class="form-check-label" for="id_parameter_jenis_teks"><h5>Pilih Jenis Teks Khusus</label>
                 </div>
                 </div>
             </div>
