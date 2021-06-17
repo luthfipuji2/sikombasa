@@ -85,6 +85,7 @@ class OrderDokumenController extends Controller
                 'pages'=>$pages,
                 'tgl_order'=>Carbon::now()->timestamp,
                 'is_status'=>'belum dibayar',
+                'menu'=>'dokumen',
             ]);
 
             $id_order=$order_dokumen->id_order;

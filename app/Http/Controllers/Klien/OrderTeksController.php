@@ -82,6 +82,7 @@ class OrderTeksController extends Controller
             'durasi_pengerjaan'=>$durasi,
             'tgl_order'=>$tgl_order,
             'is_status'=>'belum dibayar',
+            'menu'=>'teks',
         ]);
         
 

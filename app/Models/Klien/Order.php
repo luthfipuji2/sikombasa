@@ -45,6 +45,7 @@ class Order extends Model
         'is_status',
         'status_at',
         'status_by',
+        'menu',
         'harga',
     ];
 

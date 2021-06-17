@@ -68,17 +68,18 @@ class OrderTranskripController extends Controller
         $order_transkrip->latitude=$request->latitude;
         $order_transkrip->tanggal_pertemuan=$request->tanggal_pertemuan;
         $order_transkrip->waktu_pertemuan=$request->waktu_pertemuan;
+        $order_transkrip->menu='transkrip';
 
         // $ext_template = $request['path_file']->extension();
         // $size_template = $request['path_file']->getSize();
         // $nama_dokumen = $request['nama_dokumen'] . "." . $ext_template;
         // $path_template = Storage::putFileAs('https://drive.google.com/drive/folders/1vk6P4Rpicf2NgN09eEVccpbMsL_WJc1z?usp=sharing', $request->file('path_file'), $nama_dokumen);
 
-        $order_transkrip->save();
         $user = Auth::user();
         $klien=Klien::where('id', $user->id)->first();
         $order_transkrip->id_klien=$klien->id_klien;
         $id_order=$order_transkrip->id_order;
+        $order_transkrip->save();
             return redirect()->route('order-transkrip.show', $id_order)->with('success', 'Berhasil di upload!');
     } 
     

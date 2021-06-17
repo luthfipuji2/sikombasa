@@ -85,6 +85,7 @@ class OrderInterpreterController extends Controller
             'tanggal_pertemuan'=> $request->tanggal_pertemuan,
             'waktu_pertemuan'=> $request->waktu_pertemuan,
             'is_status'=>'belum dibayar',
+            'menu'=>'interpreter',
         ]);
 
         $id_order=$order_interpreter->id_order;
