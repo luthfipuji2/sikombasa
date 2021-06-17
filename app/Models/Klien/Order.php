@@ -20,6 +20,13 @@ class Order extends Model
         'id_klien',
         'id_translator',
         'id_parameter_order',
+        'id_parameter_dubber',
+        'id_parameter_jenis_layanan',
+        'id_parameter_jenis_teks',
+        'id_parameter_order_dokumen',
+        'id_parameter_order_dubbing',
+        'id_parameter_order_subtitle',
+        'id_parameter_order_teks', //buat hitung kata
         'jenis_layanan',
         'jenis_teks',
         'jumlah_halaman',
@@ -46,6 +53,7 @@ class Order extends Model
         'status_at',
         'status_by',
         'tipe_offline',
+        'harga',
     ];
 
     protected $dates = [
@@ -62,5 +70,13 @@ class Order extends Model
 
     public function parameter_order(){
         return $this->belongsTo('App\Models\Klien\ParameterOrder','id_parameter_order','id_parameter_order');
+    }
+
+    public function parameterjenislayanan(){
+        return $this->belongsTo('App\Models\Admin\ParameterJenisLayanan', 'id_parameter_jenis_layanan', 'id_parameter_jenis_layanan');
+    }
+
+    public function parameterjenisteks(){
+        return $this->belongsTo('App\Models\Admin\ParameterJenisTeks', 'id_parameter_jenis_teks', 'id_parameter_jenis_teks');
     }
 }
