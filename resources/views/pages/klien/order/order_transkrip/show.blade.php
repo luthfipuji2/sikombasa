@@ -1,6 +1,6 @@
 @extends('layouts.klien.sidebar')
 
-@section('title', 'Show Order Transkrip')
+@section('title', 'Show Order Transkrip (Audio)')
 @section('content')
 
 
@@ -73,6 +73,10 @@
                                 <tr>
                                     <td>Durasi Audio</td>
                                     <td>{{$order->durasi_audio}} Seconds</td>
+                                </tr>
+                                <tr>
+                                    <td>Harga</td>
+                                    <td>{{$order->harga}}</td>
                                 </tr>
                             </tbody>
                         </table>

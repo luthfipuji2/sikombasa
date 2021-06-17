@@ -7,7 +7,6 @@ use App\User;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use App\Models\Klien\ParameterOrder;
-use App\Models\Klien\SearchLocation ;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
@@ -45,7 +44,7 @@ class OrderInterpreterController extends Controller
         ->whereNotNull('p_durasi_pertemuan')
         ->orderBy('p_durasi_pertemuan')
         ->get();
-       
+        
         return view('pages.klien.order.order_interpreter.index',compact('menu', 'basic', 'premium')); 
     }     
     /**

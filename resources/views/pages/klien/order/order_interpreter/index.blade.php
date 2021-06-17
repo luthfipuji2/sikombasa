@@ -1,5 +1,5 @@
 @extends('layouts.klien.sidebar')
-@section('title', 'Order Offline')
+@section('title', 'Order Menu Offline')
 @section('content')
 
 <div class="container">
@@ -187,6 +187,7 @@
                             theMarker = L.marker([e.latlng.lat,e.latlng.lng]).addTo(map);
                         });
                     </script>
+                    
                 </div class="col">
                     <div class="col">
                         <label for="text">Longitude</label>

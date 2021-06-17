@@ -1,6 +1,6 @@
 @extends('layouts.klien.sidebar')
 
-@section('title', 'Show Order Interpreter')
+@section('title', 'Show Order Menu Offline')
 @section('content')
 
 <div class="container">
