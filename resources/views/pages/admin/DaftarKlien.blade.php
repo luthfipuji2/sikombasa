@@ -74,7 +74,7 @@
                 <label>KTP</label>
                 <br>
                 @if (!empty($k->foto_ktp))
-                <a href="{{ route('translator.download', $k->id_klien) }}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i></a>
+                <a href="{{ route('klien.download', $k->id_klien) }}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i></a>
                 @endif            
             </div>
             <div class="form-group">

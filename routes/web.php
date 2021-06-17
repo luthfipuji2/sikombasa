@@ -11,6 +11,7 @@ use App\Http\Controllers\Klien\OrderTeksController;
 use App\Http\Controllers\Klien\OrderDubbingController;
 use App\Http\Controllers\Klien\OrderSubtitleController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
  
@@ -36,25 +37,25 @@ Route::middleware(['auth'])->group(function () {
 
         Route::resource('menu-order', 'App\Http\Controllers\Klien\OrderMenuController');
 
-        //order menu dokumen
-        Route::get('/order-dokumen', [App\Http\Controllers\Klien\OrderDokumenController::class, 'menuOrder'])->name('menu-order');
-        Route::resource('order-dokumen', 'App\Http\Controllers\Klien\OrderDokumenController');
-        Route::put('/order-dokumen/{id_order}', 'App\Http\Controllers\Klien\OrderDokumenController@update')->name('update_order_dokumen');
-
-        //order teks
-        Route::get('/order-teks', [App\Http\Controllers\Klien\OrderTeksController::class, 'menuOrder'])->name('menu-order');
-        Route::resource('order-teks', 'App\Http\Controllers\Klien\OrderTeksController');
-        Route::put('/order-teks/{id_order}', 'App\Http\Controllers\Klien\OrderTeksController@update')->name('update_order_teks');
-
-        //order dubbing
-        Route::get('/order-subtitle', [App\Http\Controllers\Klien\OrderSubtitleController::class, 'menuOrder'])->name('menu-order');
-        Route::resource('order-dubbing', 'App\Http\Controllers\Klien\OrderDubbingController');
-        Route::put('/order-dubbing/{id_order}', 'App\Http\Controllers\Klien\OrderDubbingController@update')->name('update_order_dubbing');
+         //order menu dokumen
+         Route::get('/order-dokumen', [App\Http\Controllers\Klien\OrderDokumenController::class, 'menuOrder'])->name('menu-order');
+         Route::resource('order-dokumen', 'App\Http\Controllers\Klien\OrderDokumenController');
+         Route::put('/order-dokumen/{id_order}', 'App\Http\Controllers\Klien\OrderDokumenController@update')->name('update_order_dokumen');
         
-        //order subtitle
-        Route::get('/order-subtitle', [App\Http\Controllers\Klien\OrderSubtitleController::class, 'menuOrder'])->name('menu-order');
-        Route::resource('order-subtitle', 'App\Http\Controllers\Klien\OrderSubtitleController');
-        Route::put('/order-subtitle/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@update')->name('update_order_subtitle');
+         //order teks
+         Route::get('/order-teks', [App\Http\Controllers\Klien\OrderTeksController::class, 'menuOrder'])->name('menu-order');
+         Route::resource('order-teks', 'App\Http\Controllers\Klien\OrderTeksController');
+         Route::put('/order-teks/{id_order}', 'App\Http\Controllers\Klien\OrderTeksController@update')->name('update_order_teks');
+ 
+         //order dubbing
+         Route::get('/order-subtitle', [App\Http\Controllers\Klien\OrderSubtitleController::class, 'menuOrder'])->name('menu-order');
+         Route::resource('order-dubbing', 'App\Http\Controllers\Klien\OrderDubbingController');
+         Route::put('/order-dubbing/{id_order}', 'App\Http\Controllers\Klien\OrderDubbingController@update')->name('update_order_dubbing');
+         
+         //order subtitle
+         Route::get('/order-subtitle', [App\Http\Controllers\Klien\OrderSubtitleController::class, 'menuOrder'])->name('menu-order');
+         Route::resource('order-subtitle', 'App\Http\Controllers\Klien\OrderSubtitleController');
+         Route::put('/order-subtitle/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@update')->name('update_order_subtitle');
 
        //Order Interpreter
        Route::get('/order-interpreter', [App\Http\Controllers\Klien\OrderInterpreterController::class, 'menuOrder'])->name('menu-order');
@@ -118,6 +119,7 @@ Route::middleware(['auth'])->group(function () {
         
         Route::resource('daftar-admin', 'App\Http\Controllers\Admin\AdminController');
         Route::resource('daftar-klien', 'App\Http\Controllers\Admin\DaftarKlienController');
+        Route::get('/klien/download/{id_klien}', 'App\Http\Controllers\Admin\DaftarKlienController@download')->name('klien.download');
         Route::resource('daftar-translator', 'App\Http\Controllers\Admin\DaftarTranslatorController');
         Route::get('/translator/download/{id_translator}', 'App\Http\Controllers\Admin\DaftarTranslatorController@download')->name('translator.download');
         Route::resource('profile-admin', 'App\Http\Controllers\Admin\ProfileController');
@@ -148,7 +150,12 @@ Route::middleware(['auth'])->group(function () {
         redirect('/');
     });
 
+    Route::get('test', function() {
+        Storage::disk('google')->put('test.txt', 'Hello World');
+    dd('done');
+    });
+
     });
 
 
-Addchat::routes();
+

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<!-- Modal Detail -->
+<!-- Modal Detail Belum Bayar-->
 @foreach ($order_pembayaran as $o)
 <div class="modal fade" id="detailModal{{$o->id_order}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
@@ -113,6 +113,15 @@
                               </div>
                               @endif
 
+                              @if (!empty($o->tipe_offline))
+                              <div class="user-block">
+                                  <b>Jenis Menu Offline</b>
+                                  <p class="text-muted">
+                                    {{$o->tipe_offline}}
+                                  </p>
+                              </div>
+                              @endif
+
                               @if (!empty($o->durasi_pengerjaan))
                               <div class="user-block">
                                   <b>Durasi Pengerjaan</b>
@@ -145,6 +154,24 @@
                                   <b>Lokasi</b>
                                   <p class="text-muted">
                                     {{$o->lokasi}}
+                                  </p>
+                              </div>
+                              @endif
+
+                              @if (!empty($o->tanggal_pertemuan))
+                              <div class="user-block">
+                                  <b>Tanggal Pertemuan</b>
+                                  <p class="text-muted">
+                                    {{$o->tanggal_pertemuan}}
+                                  </p>
+                              </div>
+                              @endif
+
+                              @if (!empty($o->waktu_pertemuan))
+                              <div class="user-block">
+                                  <b>Waktu Pertemuan</b>
+                                  <p class="text-muted">
+                                    {{$o->waktu_pertemuan}}
                                   </p>
                               </div>
                               @endif
@@ -305,7 +332,7 @@
                               <div class="user-block">
                                   <b>Durasi Pertemuan</b>
                                   <p class="text-muted">
-                                    {{$r->durasi_pertemuan}}
+                                    {{$r->p_durasi_pertemuan}}
                                   </p>
                               </div>
                               @endif
@@ -342,6 +369,24 @@
                                   <b>Lokasi</b>
                                   <p class="text-muted">
                                     {{$r->lokasi}}
+                                  </p>
+                              </div>
+                              @endif
+
+                              @if (!empty($r->tanggal_pertemuan))
+                              <div class="user-block">
+                                  <b>Tanggal Pertemuan</b>
+                                  <p class="text-muted">
+                                    {{$r->tanggal_pertemuan}}
+                                  </p>
+                              </div>
+                              @endif
+
+                              @if (!empty($r->waktu_pertemuan))
+                              <div class="user-block">
+                                  <b>Waktu Pertemuan</b>
+                                  <p class="text-muted">
+                                    {{$r->waktu_pertemuan}}
                                   </p>
                               </div>
                               @endif
@@ -474,6 +519,9 @@
                   @foreach ($order_pembayaran as $bayar)
                     <div class="card">
                       <div class="card-header">
+                      <div class="float-right">
+                      <p style="color:red;"><i>*Tagihan akan hilang jika dalam 24 jam tidak ada pembayaran</i></p>
+                    </div>
                         <h5 class="card-title m-0">Order #{{$bayar->id_order}}</h5>
                       </div>
                       <div class="card-body">
@@ -488,6 +536,7 @@
                       </div>
                     </div>
                   @endforeach
+                    
                   </div>
 
                   <!-- /.tab-pane -->

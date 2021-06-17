@@ -2,9 +2,13 @@
 
 @section('title',)
 @section('content')
-    
+
 <div class="container">
-        
+
+<section class="content">
+
+<div class="container-fluid">
+
         <div class="row justify-content-center">
                 <div class="card">
                     <div class="card-header">Menu List</div>
@@ -23,7 +27,7 @@
                         <div class="card text-center">
                         <div class="card-body">
                             <!-- Title -->
-                            <h4 class="card-title-center">Transkrip</h4>
+                            <h4 class="card-title-center">Transkrip (Audio)</h4>
                             <hr>
                             <!-- Text -->
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
@@ -47,7 +51,7 @@
                         <div class="card text-center">
                         <div class="card-body">
                             <!-- Title -->
-                            <h4 class="card-title-center">Interpreter</h4>
+                            <h4 class="card-title-center">Interpreter & Transkrip <br> (Bertemu langsung)</h4>
                             <hr>
                             <!-- Text -->
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
@@ -159,8 +163,11 @@
                     </div>
                     </div>
                 </div>
-            </div>
-        </div>
+          
+       
+
+</div>
+</section>
 </div>
 
 @endsection

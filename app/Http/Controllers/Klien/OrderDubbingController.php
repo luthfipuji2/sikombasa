@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Klien;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Models\Admin\ParameterJenisLayanan;
+use App\Models\Admin\ParameterDubber;
+use App\Models\Admin\ParameterOrderSubtitle;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use Illuminate\Support\Facades\Storage;
@@ -30,7 +33,9 @@ class OrderDubbingController extends Controller
 
     public function index(){
         $menu=Order::all();
-        return view('pages.klien.order.order_dubbing.index', compact('menu'));
+        $jenis_layanan=ParameterJenisLayanan::all();
+        $jml_dubber=ParameterDubber::all();
+        return view('pages.klien.order.order_dubbing.index', compact('menu', 'jenis_layanan', 'jml_dubber'));
     }
 
     /**
@@ -51,10 +56,61 @@ class OrderDubbingController extends Controller
      */
     public function store(Request $request, Order $order_dubbing)
     {
+
+        $jenis_layanan=ParameterJenisLayanan::all();
+        $jml_dubber = ParameterDubber::all();
+        $tgl_order=Carbon::now();
+        $user=Auth::user();
+        $klien=Klien::where('id', $user->id)->first();
+        $jml_dubber=$request->jumlah_dubber;
+        $harga_video=$request->durasi_video;
+        // return ($harga_video);
+        // exit();
+
+        if($jml_dubber = 1 )
+        {
+            // $harga=ParameterOrderTeks::select('id_parameter_order_teks')->first();
+            $hasil_dubber = "1";
+        }elseif($jml_dubber = 2){
+            $hasil_dubber = "2";
+        }elseif($jml_dubber = 3){
+            $hasil_dubber = "3";
+        }elseif($jml_dubber = 4){
+            $hasil_dubber = "4";
+        }elseif($jml_dubber = 5){
+            $hasil_dubber = "5";
+        }
+
+
+        if($harga_video >= 1 && $harga_video <= 100)
+        {
+            // $harga=ParameterOrderTeks::select('id_parameter_order_teks')->first();
+            $hasil = "1";
+        }elseif($harga_video >= 101 && $harga_video <= 200){
+            $hasil = "2";
+        }elseif($harga_video >= 201 && $harga_video <= 300){
+            $hasil = "3";
+        }elseif($harga_video >= 301 && $harga_video <= 400){
+            $hasil = "4";
+        }elseif($harga_video >= 401 && $harga_video <= 500){
+            $hasil = "5";
+        }elseif($harga_video >= 501 && $harga_video <= 600){
+            $hasil = "6";
+        }elseif($harga_video >= 601 && $harga_video <= 700){
+            $hasil = "7";
+        }elseif($harga_video >= 701 && $harga_video <= 800){
+            $hasil = "8";
+        }elseif($harga_video >= 801 && $harga_video <= 900){
+            $hasil = "9";
+        }elseif($harga_video >= 901 && $harga_video <= 1000){
+            $hasil = "10";
+        }
+
+
         //return($request);
         if($request->hasFile('path_file')){
             $validate_data = $request->validate([
-                'jenis_layanan'=>'required',
+                'id_parameter_jenis_layanan'=>'required',
                 'durasi_pengerjaan'=>'required',
                 'jumlah_dubber'=>'required',
                 'nama_dokumen'=>'required',
@@ -62,7 +118,7 @@ class OrderDubbingController extends Controller
                 'durasi_video'=>'required',
             ]);
 
-            $jenis_layanan = $validate_data['jenis_layanan'];
+            $id_parameter_jenis_layanan = $validate_data['id_parameter_jenis_layanan'];
             $durasi = $validate_data['durasi_pengerjaan'];
             $jml_dubber = $validate_data['jumlah_dubber'];
             $durasi_video = $validate_data['durasi_video'];
@@ -76,7 +132,9 @@ class OrderDubbingController extends Controller
 
             $order_dubbing=Order::create([
                 'id_klien'=>$klien->id_klien,
-                'jenis_layanan'=>$jenis_layanan,
+                'id_parameter_jenis_layanan'=>$id_parameter_jenis_layanan,
+                'id_parameter_dubber'=>$hasil_dubber,
+                'id_parameter_order_dubbing'=>$hasil,
                 'durasi_pengerjaan'=>$durasi,
                 'jumlah_dubber'=>$jml_dubber,
                 'nama_dokumen'=>$nama_dokumen,
@@ -105,12 +163,50 @@ class OrderDubbingController extends Controller
     {
         $user=Auth::user();
         $klien=Klien::where('id', $user->id)->first();
+        $order=Order::findOrFail($id_order); //dapat id order
+        // return ($order);
+        if($order != null){
+            $j_layanan = ParameterJenisLayanan::where('id_parameter_jenis_layanan', $order->id_parameter_jenis_layanan)->first();
+            $dr_video = ParameterOrderSubtitle::where('id_parameter_order_subtitle', $order->id_parameter_order_dubbing)->first();
+            $jml_dubber = ParameterDubber::where('id_parameter_dubber', $order->id_parameter_dubber)->first();
+    
+            if($j_layanan != null){
+                $result_layanan = [
+                    'harga' => $j_layanan->harga
+                ];
+            }
 
-        $order=Order::findOrFail($id_order);
-       // return ($order);
-        return view('pages.klien.order.order_dubbing.show', compact('order', 'user', 'klien'));
+            if($dr_video != null){
+                $result_video = [
+                    'harga' => $dr_video->harga
+                ];
+            }
+
+            if($jml_dubber != null){
+                $result_dubber = [
+                    'harga' => $jml_dubber->harga
+                ];
+            }
+
+            $result[] = [
+                'j_layanan' => $result_layanan,
+                'dr_video'=>$result_video,
+                'jml_dubber'=>$result_dubber,
+            ];
+        }
+
+        $harga = ($result_layanan['harga']) + ($result_video['harga']) + ($result_dubber['harga']);
+        
+        $save_harga = Order::where('id_order', $order->id_order)
+                            ->update([
+                                'harga'=>$harga
+                            ]);
+        // return ($save_harga);
+
+        return view('pages.klien.order.order_dubbing.show', compact('order', 'user', 'klien', 'save_harga'));
     }
 
+    
     /**
      * Show the form for editing the specified resource.
      *
@@ -131,11 +227,20 @@ class OrderDubbingController extends Controller
      */
     public function update(Request $request, $id_order)
     {
+        $this->validate($request, [
+            'id_parameter_jenis_layanan' => 'required',
+            'durasi_pengerjaan' => 'required',
+            'jumlah_dubber' => 'required',
+            'nama_dokumen' => 'required',
+            'path_file' => 'required',
+            'durasi_video' => 'required',
+        ]);
+
         $order=Order::findOrFail($id_order);
 
         Order::where('id_order', $id_order)
             ->update([
-                'jenis_layanan'=>$request->jenis_layanan,
+                'id_parameter_jenis_layanan'=>$request->id_parameter_jenis_layanan,
                 'durasi_pengerjaan'=>$request->durasi_pengerjaan,
                 'jumlah_dubber'=>$request->jumlah_dubber,
                 'nama_dokumen'=>$request->nama_dokumen,

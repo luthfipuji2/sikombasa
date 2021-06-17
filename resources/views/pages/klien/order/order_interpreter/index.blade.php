@@ -1,7 +1,10 @@
 @extends('layouts.klien.sidebar')
-
-@section('title', 'Order Interpreter')
+@section('title', 'Order Menu Offline')
 @section('content')
+
+<div class="container">
+
+<section class="content">
 
 <div class="container-fluid">
         <div class="row">
@@ -14,7 +17,6 @@
                 <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link active" href="#certificate" data-toggle="tab">Order Menu</a></li>
                 <li class="nav-item"><a class="nav-link disabled" href="#certificate" data-toggle="tab">View Order</a></li>
-                <li class="nav-item"><a class="nav-link disabled" href="#progress" data-toggle="tab">Transaksi</a></li>
                 </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -34,33 +36,44 @@
                 <div class="active tab-pane" id="certificate">
                 <form action="/order-interpreter" method="POST" enctype="multipart/form-data">
                 @csrf
-                <!-- layanan basic -->
+                
+     <!-- layanan basic -->
         <div class="card card-statistic-1">
-                <div class="card-icon bg-cyan">
+            <div class="card-icon bg-cyan">
                 &nbsp;
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
-                </div>
+            </div>
             <div class="card-wrap">
                 <div class="card-header">
-                <div>
-                <button onclick="layanan_basic()" class="btn bg-cyan">
-                    <label for="basic">Layanan Basic</label>
-                </button>
+                    <div>
+                    <a onclick="layanan_basic()" class="btn bg-cyan">
+                        <label for="basic">Layanan Basic</label>
+                    </a>
+                    </div>
+                    <div class="card-body">
+                    <input type="text" name="p_jenis_layanan2" value="Basic" hidden>
+                        <div class="form-group">
+                            <label for="basic">Durasi Pertemuan</label>
+                                <select class="form-control @error('id_parameter_order') is-invalid @enderror" 
+                                id="id_parameter_order" name="id_parameter_order2">
+                                    <option value="">--Pilih Durasi Pertemuan--</option>
+                                    @foreach ($basic as $b)
+                                    <option value="{{$b->id_parameter_order}}">{{$b->p_durasi_pertemuan}}</option>
+                                    @endforeach
+                                </select>
+                                @error ('id_parameter_order')
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                {{$message}}
+                                </div>
+                                @enderror
+                        </div>   
+                    </div>
                 </div>
-                <div class="card-body">
-                </div>
-                <div id="basic"></div>
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="jenis_layanan" id="jenis_layanan" value="basic">
-                <label class="form-check-label" for="jenis_layanan"><h5>Pilih Layanan Basic</label>
-                </div>
-                </div>
-            </div>
             </div>
         </div>
-        <!--selesai layanan baisc -->
+        <!--selesai layanan basic -->
 
             <!-- layanan premium -->
             <div class="card card-statistic-1">
@@ -76,58 +89,69 @@
             <div class="card-wrap">
                 <div class="card-header">
                 <div>
-                <button onclick="layanan_premium()" class="btn btn-danger">
+                <a onclick="layanan_premium()" class="btn btn-danger">
                     <label for="premium">Layanan Premium</label>
-                </button>
+                </a>
                 </div>
                 <div class="card-body">
+                    <input type="text" name="p_jenis_layanan" value="Premium" hidden>
+                        <div class="form-group">
+                            <label for="basic">Durasi Pertemuan</label>
+                                <select class="form-control @error('id_parameter_order') is-invalid @enderror" 
+                                id="id_parameter_order" name="id_parameter_order">
+                                    <option value="">--Pilih Durasi Pertemuan--</option>
+                                    @foreach ($premium as $p)
+                                    <option value="{{$p->id_parameter_order}}">{{$p->p_durasi_pertemuan}}</option>
+                                    @endforeach
+                                </select>
+                                @error ('id_parameter_order')
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                {{$message}}
+                                </div>
+                                @enderror
+                        </div>   
+                    </div>   
                 </div>
-                <div id="premium"></div>
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="jenis_layanan" value="premium" id="jenis_layanan">
-                <label class="form-check-label" for="jenis_layanan"><h5>Pilih Layanan Premium</label>
-                </div>
-                </div>
-            </div>
             </div>
         </div>
         <!-- Selesai layanan premium -->
-        <br>
+        
 
         <div class="form-group">
-            <label for="durasi_pertemuan">Durasi Pertemuan</label>
-            <select class="form-control @error('durasi_pertemuan') is-invalid @enderror" 
-            id="durasi_pertemuan " placeholder="Durasi Pertemuan" name="durasi_pertemuan">
-            <option value="<=1 Day"><=1 Day</option>
-            <option value="1-3 Day">1-3 Day</option>
-            <option value="3-5 Day">3-5 Day</option>
+            <label for="tipe_offline">Jenis Menu Offline</label>
+            <select onchange="showtipetranskrip()" class="form-control @error('tipe_offline') is-invalid @enderror" 
+		        id="tipe_offline" name="tipe_offline">
+                <option value="">--Pilih Jenis Menu Offline--</option>
+                <option value="Interpreter">Interpreter</option>
+                <option value="Transkrip">Transkrip</option>
             </select>
-            @error ('durasi_pertemuan')
-            <div id="validationServerUsernameFeedback" class="invalid-feedback">
-            {{$message}}
+            @error ('tipe_offline')
+                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    {{$message}}
+                </div>
+                    @enderror
+        </div>
+
+        <div class="row">
+            <div class="col">
+            <div class="form-group">
+                <label for="tanggal_pertemuan"> Masukkan Tanggal Pertemuan</label>
+                <input type="date" id="tanggal_pertemuan" name="tanggal_pertemuan" class="form-control @error('tanggal_pertemuan') is-invalid @enderror">
             </div>
-            @enderror
-        </div>
-
-        <div class="form-group">
-            <label for="tanggal_pertemuan"> Masukkan Tanggal Pertemuan</label>
-            <input type="date" id="tanggal_pertemuan" name="tanggal_pertemuan" class="form-control @error('tanggal_pertemuan') is-invalid @enderror">
-        </div>
-        <div class="form-group">
-            <label for="waktu_pertemuan">Masukkan Waktu Pertemuan</label>
-            <input type="time" id="waktu_pertemuan" name="waktu_pertemuan" class="form-control">
-        </div>
+            </div class="col">
+        <div class="col">
+            <div class="form-group">
+                <label for="waktu_pertemuan">Masukkan Waktu Pertemuan</label>
+                <input type="time" id="waktu_pertemuan" name="waktu_pertemuan" class="form-control">
+            </div>
+        </div class="col">
+        </div class="row">
        
-                        
-                            
-
-        <br>
         {{ csrf_field() }}
-                   <div class="form-group">
-                        <label for="lokasi" class="col-form-label">Catatan Tambahan</label>
-                        <input type="text" class="form-control" id="lokasi" name="lokasi">
-                    </div>
-                    
+        <br>
+                <div class="row">
+                <div class="col">
+                    <label for="lokasi" class="col-form-label">Tentukan Lokasi Anda Saat Ini</label>
                     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
                     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
                     crossorigin=""/>
@@ -139,7 +163,7 @@
                     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
                     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
-                    <style>#mapid { height: 350px; }</style>
+                    <style>#mapid { height: 300px; }</style>
                     
                     <div id="mapid"></div>
 
@@ -163,25 +187,24 @@
                             theMarker = L.marker([e.latlng.lat,e.latlng.lng]).addTo(map);
                         });
                     </script>
-                    </br>
-                    <label for="text">Longitude</label>
-                    <input type="text" class="form-control"  id="latitude" name="latitude">
-                            
-                    </br>
-                    <label for="text">Latitude</label>
-                    <input type="text" class="form-control" id="longitude" name="longitude">
-                    </div>
                     
+                </div class="col">
+                    <div class="col">
+                        <label for="text">Longitude</label>
+                        <input type="text" class="form-control"  id="latitude" name="latitude">
+                        <label for="text">Latitude</label>
+                        <input type="text" class="form-control" id="longitude" name="longitude">
+                        <label for="lokasi" class="col-form-label">Tuliskan Catatan Lokasi</label>
+                        <input type="text" class="form-control" id="lokasi" name="lokasi">
+                    </div class="col">
+                </div class="row">
+                    </div>
                     <hr>
                     <div class="col-sm-2">
                     <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
-                    <br>
-
-                    
+                    <br>          
                 </form> 
-
-                
                 </div>
                 <!-- /.tab-content -->
             </div>
@@ -193,10 +216,10 @@
         </div>
         <!-- /.row -->
     </div><!-- /.container-fluid -->
+</section>
+</div>
+
 @endsection
-
-
-
 
 @push('scripts')
 <script type="text/javascript">

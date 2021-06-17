@@ -32,6 +32,8 @@ class MenuPembayaranController extends Controller
                 ->join('parameter_order', 'order.id_parameter_order', '=', 
                         'parameter_order.id_parameter_order')
                 ->where("users.id",$user->id)
+                ->where('order.tgl_order', '>=', Carbon::now()->subDay()->toDateTimeString())
+                ->orderBy('order.id_order')
                 ->get();
         
         $bank = Bank::all();
@@ -43,6 +45,7 @@ class MenuPembayaranController extends Controller
             ->join('parameter_order', 'order.id_parameter_order', '=', 
                     'parameter_order.id_parameter_order')
             ->where("users.id",$user->id)
+            ->orderBy('order.id_order')
             ->get();
 
         return view('pages.klien.menu_pembayaran', compact('order_pembayaran', 'bank', 'riwayat'));
@@ -92,7 +95,7 @@ class MenuPembayaranController extends Controller
             'bukti_transaksi'    => $request->file('bukti_transaksi')->getClientOriginalName()
         ]);
 
-        return redirect('/menu-pembayaran');
+        return redirect('/menu-pembayaran')->with('success', 'Bukti transaksi Anda berhasil diunggah');;
     }
 
     /**

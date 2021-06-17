@@ -33,25 +33,28 @@
                 <div class="active tab-pane" id="certificate">
                 <form action="{{route('order-subtitle.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <!-- layanan basic -->
+        <!-- layanan basic -->
+                
         <div class="card card-statistic-1">
-                <div class="card-icon bg-info">
+                <div class="card-icon bg-primary">
                 <i class="nav-icon fas fa-star"></i>
                 </div>
             </a>
             <div class="card-wrap">
                 <div class="card-header">
                 <div>
-                <a onclick="layanan_basic()" class="btn btn-info">
-                    <label for="basic">Layanan Basic</label>
+                <a onclick="layanan_basic()" class="btn btn-outline-info">
+                    <label for="id_parameter_jenis_layanan">Layanan Basic</label>
                 </a>
                 </div>
                 <div class="card-body">
                 </div>
-                <div id="basic"></div>
+                <div id="id_parameter_jenis_layanan"></div>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="jenis_layanan" id="jenis_layanan" value="basic">
-                <label class="form-check-label" for="jenis_layanan"><h5>Pilih Layanan Basic</label>
+                
+                <input class="form-check-input" type="checkbox" name="id_parameter_jenis_layanan" id="id_parameter_jenis_layanan" value="1">
+                
+                <label class="form-check-label" for="id_parameter_jenis_layanan"><h5>Pilih Layanan Basic</label>
                 </div>
                 </div>
             </div>
@@ -61,7 +64,7 @@
 
             <!-- layanan premium -->
             <div class="card card-statistic-1">
-                <div class="card-icon bg-info">
+                <div class="card-icon bg-primary">
                 <i class="nav-icon fas fa-star"></i>
                 <i class="nav-icon fas fa-star"></i>
                 </div>
@@ -69,21 +72,23 @@
             <div class="card-wrap">
                 <div class="card-header">
                 <div>
-                <a onclick="layanan_premium()" class="btn btn-info">
-                    <label for="premium">Layanan Premium</label>
+                <a onclick="layanan_premium()" class="btn btn-outline-info">
+                    <label for="id_parameter_jenis_layanan">Layanan Premium</label>
                 </a>
                 </div>
                 <div class="card-body">
                 </div>
-                <div id="premium"></div>
+                <div id="id_parameter_jenis_layanan"></div>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="jenis_layanan" value="premium" id="jenis_layanan">
-                <label class="form-check-label" for="jenis_layanan"><h5>Pilih Layanan Premium</label>
+                
+                <input class="form-check-input" type="checkbox" name="id_parameter_jenis_layanan" id="id_parameter_jenis_layanan" value="2">
+                
+                <label class="form-check-label" for="id_parameter_jenis_layanan"><h5>Pilih Layanan Premium</label>
                 </div>
                 </div>
             </div>
             </div>
-        </div>
+            <br><hr color="grey">
         <!-- Selesai layanan premium -->
         <br>
 

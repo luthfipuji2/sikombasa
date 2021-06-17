@@ -78,9 +78,20 @@ class DaftarTranslatorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_translator)
     {
-        //
+        $this->validate($request,[
+            'status' => 'required',
+        ]);
+
+        $trans = Translator::find($id_translator);
+        
+        Translator::where('id_translator', $trans->id_translator)
+                    ->update([
+                        'status'    => $request->status,
+                    ]);
+
+        return redirect('/daftar-translator')->with('success', 'Status Translator berhasil diubah');
     }
 
     /**

@@ -14,5 +14,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UserSeeder::class);
+        $this->call(ParameterDubberSeeder::class);
+        $this->call(ParameterJenisLayananSeeder::class);
+        $this->call(ParameterJenisTeksSeeder::class);
+        $this->call(ParameterOrderDokumenSeeder::class);
+        $this->call(ParameterOrderSubtitleSeeder::class);
+        $this->call(ParameterOrderTeksSeeder::class);
     }
 }
