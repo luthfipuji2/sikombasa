@@ -1,6 +1,6 @@
 @extends('layouts.klien.sidebar')
 
-@section('title', 'Order Transkrip')
+@section('title', 'Order Transkrip (Audio)')
 @section('content')
 <div class="container-fluid">
         <div class="row">
