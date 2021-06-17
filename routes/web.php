@@ -78,7 +78,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'index']);
         Route::patch('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'update']);  
         Route::get('/find-a-job', [App\Http\Controllers\Translator\TranslatorController::class, 'find']);
-        Route::get('/to-do-list', [App\Http\Controllers\Translator\TranslatorController::class, 'todo']);
+        Route::get('/to-do-list', [App\Http\Controllers\Translator\ToDoController::class, 'index']);
         Route::get('/review', [App\Http\Controllers\Translator\TranslatorController::class, 'review']);
         Route::get('/career', [App\Http\Controllers\Translator\CareerController::class, 'index']);
         Route::post('/career', [App\Http\Controllers\Translator\CareerController::class, 'store']);

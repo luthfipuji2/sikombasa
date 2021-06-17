@@ -107,6 +107,7 @@ class OrderTeksController extends Controller
             'durasi_pengerjaan'=>$request->durasi_pengerjaan,
             'tgl_order'=>Carbon::now(),
             'is_status'=>'belum dibayar',
+            'menu'=>'teks',
         ]);
         $id_order=$order_teks->id_order;
 

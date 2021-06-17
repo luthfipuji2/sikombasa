@@ -127,6 +127,7 @@ class OrderDokumenController extends Controller
                 'jumlah_halaman'=>$jumlah_halaman,
                 'tgl_order'=>Carbon::now()->timestamp,
                 'is_status'=>'belum dibayar',
+                'menu'=>'dokumen',
             ]);
 
             $id_order=$order_dokumen->id_order;
