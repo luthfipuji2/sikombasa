@@ -13,7 +13,6 @@
                 <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link active" href="#certificate" data-toggle="tab">Order Menu</a></li>
                 <li class="nav-item"><a class="nav-link disabled" href="#certificate" data-toggle="tab">View Order</a></li>
-                <li class="nav-item"><a class="nav-link disabled" href="#progress" data-toggle="tab">Transaksi</a></li>
                 </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -33,35 +32,37 @@
                 <div class="active tab-pane" id="certificate">
                 <form action="{{route('order-transkrip.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
-       
-<!-- layanan basic -->
-<div class="card card-statistic-1">
+        
+        
+        <!-- layanan basic -->
+        <div class="card card-statistic-1">
                 <div class="card-icon bg-cyan">
                 &nbsp;
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
                 </div>
-				
-				<div class="card-wrap">
+            <div class="card-wrap">
                 <div class="card-header">
                 <div>
-                <button onclick="layanan_basic()" class="btn bg-cyan">
-                    <label for="basic">Layanan Basic</label>
-                </button>
+                <a onclick="layanan_basic()" class="btn bg-cyan">
+                    <label for="id_parameter_jenis_layanan">Layanan Basic</label>
+                </a>
                 </div>
                 <div class="card-body">
                 </div>
-                <div id="basic"></div>
+                <div id="id_parameter_jenis_layanan"></div>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="jenis_layanan" id="jenis_layanan" value="basic">
-                <label class="form-check-label" for="jenis_layanan"><h5>Pilih Layanan Basic</label>
+                
+                <input class="form-check-input" type="checkbox" name="id_parameter_jenis_layanan" id="id_parameter_jenis_layanan" value="1">
+                
+                <label class="form-check-label" for="id_parameter_jenis_layanan"><h5>Pilih Layanan Basic</label>
                 </div>
                 </div>
             </div>
             </div>
         </div>
-        <!--selesai layanan basic -->
+        <!--selesai layanan baisc -->
 
             <!-- layanan premium -->
             <div class="card card-statistic-1">
@@ -73,28 +74,27 @@
                 <i class="nav-item fas fa-crown"></i>
                 <i class="nav-item fas fa-crown"></i>
                 </div>
-            </a>
             <div class="card-wrap">
                 <div class="card-header">
                 <div>
-                <button onclick="layanan_premium()" class="btn btn-danger">
-                    <label for="premium">Layanan Premium</label>
-                </button>
+                <a onclick="layanan_premium()" class="btn btn-danger">
+                    <label for="id_parameter_jenis_layanan">Layanan Premium</label>
+                </a>
                 </div>
                 <div class="card-body">
                 </div>
-                <div id="premium"></div>
+                <div id="id_parameter_jenis_layanan"></div>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="jenis_layanan" value="premium" id="jenis_layanan">
-                <label class="form-check-label" for="jenis_layanan"><h5>Pilih Layanan Premium</label>
+                
+                <input class="form-check-input" type="checkbox" name="id_parameter_jenis_layanan" id="id_parameter_jenis_layanan" value="2">
+                
+                <label class="form-check-label" for="id_parameter_jenis_layanan"><h5>Pilih Layanan Premium</label>
                 </div>
                 </div>
             </div>
             </div>
-        </div>
+            <br>
         <!-- Selesai layanan premium -->
-
-        <br>
 
         <div class="form-group">
                         <label for="durasi_pengerjaan">Durasi Pengerjaan</label>
@@ -115,11 +115,11 @@
         <br>
         {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="nama_dokumen" class="col-form-label">Nama Audio</label>
+                        <label for="nama_dokumen" class="col-form-label">Tulis Nama Audio</label>
                         <input type="text" class="form-control" id="nama_dokumen" name="nama_dokumen">
                     </div>
                     <div class="form-group">
-                        <label for="path_file" class="col-form-label">Upload Audio</label>
+                        <label for="path_file" class="col-form-label">Upload Audio (Size Max 30 Mb)</label>
                         <div class="modal-body">
                                 {{ csrf_field() }}
                                 <div class="form-group">
@@ -162,7 +162,6 @@ $(document).ready(function() {
         var html = $(".copy").html();
         $(".after-add-more").after(html);
     });
-
     // saat tombol remove dklik control group akan dihapus 
     $("body").on("click",".remove",function(){ 
         $(this).parents(".control-group").remove();
@@ -196,7 +195,6 @@ $(document).ready(function() {
              console.log(myAudios);
         window.URL = window.URL || window.webkitURL;
         document.getElementById('path_file').onchange = setFileInfo;
-
         function setFileInfo() {
         var files = this.files;
              console.log(files);
@@ -204,7 +202,6 @@ $(document).ready(function() {
         var audio = document.createElement('audio');
              console.log(audio);
         audio.preload = 'metadata';
-
         audio.onloadedmetadata = function() {
             window.URL.revokeObjectURL(audio.src);
             var duration = audio.duration;
@@ -215,17 +212,14 @@ $(document).ready(function() {
         }
         audio.src = URL.createObjectURL(files[0]);;
         }
-
         function updateInfos() {
         var duration = audio.duration;
              console.log(duration);
         $('#durasi_audio').val(duration);
-
         $("#durasi_audio").val()
         var dr_audio = document.getElementById("dr_audio");
              console.log(dr_audio);
         $('#durasi_audio').val(dr_audio);
-
         var durasi_audio = document.getElementById("durasi_audio");
              console.log(durasi_audio);
             
