@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
+            ParameterOrderAudioSeeder::class,
+            ParameterJenisLayananSeeder::class,
         ]);
     }
 }

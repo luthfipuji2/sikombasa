@@ -90,8 +90,8 @@
                                     <td>{{$order->latitude}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Harga</td>
-                                    <td>{{$order->parameter_order->harga}}</td>
+                                    <td><b>Harga</b></td>
+                                    <td><b> Rp. {{$order->parameter_order->harga}}</b></td>
                                 </tr>
                             </tbody>
                         </table>

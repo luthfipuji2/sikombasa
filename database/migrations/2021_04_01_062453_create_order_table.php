@@ -22,6 +22,10 @@ class CreateOrderTable extends Migration
             $table->foreign('id_translator')->references('id_translator')->on('translator')->onDelete('cascade');
             $table->unsignedBigInteger('id_parameter_order')->nullable();
             $table->foreign('id_parameter_order')->references('id_parameter_order')->on('parameter_order')->onDelete('cascade');
+            $table->unsignedBigInteger('id_parameter_jenis_layanan')->nullable();
+            // $table->foreign('id_parameter_jenis_layanan')->references('id_parameter_jenis_layanan')->on('parameter_jenis_layanan')->onDelete('cascade');
+            $table->unsignedBigInteger('id_parameter_order_audio')->nullable();
+            // $table->foreign('id_parameter_order_audio')->references('id_parameter_order_audio')->on('parameter_order_audio')->onDelete('cascade');
             $table->string('jenis_layanan')->nullable();
             $table->string('jenis_teks')->nullable();
             $table->string('jumlah_halaman')->nullable();
@@ -48,6 +52,7 @@ class CreateOrderTable extends Migration
             $table->string('is_status')->nullable();
             $table->string('status_at')->nullable();
             $table->string('status_by')->nullable();
+            $table->string('harga')->nullable();
 
             $table->timestamps();
         });
