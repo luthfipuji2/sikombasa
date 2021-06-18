@@ -3,7 +3,7 @@
 @section('title', 'Show Order Dokumen')
 @section('content')
 
-
+<link rel="stylesheet" href="{{ asset('css/refresh.css') }}">
 <div class="container-fluid">
         <div class="row">
         <div class="container ">
@@ -32,7 +32,12 @@
                 <!-- Tab Document di sini -->
                 </div>
 
-                <div class="active tab-pane" id="certificate">
+                <body>
+                    <button type="submit" value="Refresh Page" onClick="document.location.reload(true)" class="btn-green" >
+                        <img  class="icon" src="https://htmlacademy.ru/assets/icons/reload-6x-white.png"> &nbsp; &nbsp; Cek Harga
+                    </button>
+                </body>
+
                     <form action="  " method="POST" enctype="multipart/form-data">
                     @csrf
                     
@@ -54,13 +59,13 @@
                             </tr>
                             </div>
                             <br>
-                                <tr>
-                                    <td>Jenis Layanan</td>
-                                    <td>{{$order->jenis_layanan}}</td>
+                            <tr>
+                                <td>Jenis Layanan</td>
+                                    <td>{{$order->parameterjenislayanan->p_jenis_layanan}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Jenis Dokumen</td>
-                                    <td>{{$order->jenis_teks}}</td>
+                                    <td>Jenis Teks</td>
+                                    <td>{{$order->parameterjenisteks->p_jenis_teks}}</td>
                                 </tr>
                                 <tr>
                                     <td>Durasi Pengerjaan</td>
@@ -72,15 +77,19 @@
                                 </tr>
                                 <tr>
                                     <td>Jumlah Halaman Dokumen</td>
-                                    <td>{{$order->pages}}</td>
+                                    <td>{{$order->jumlah_halaman}}</td>
                                 </tr>
                                 <tr>
                                     <td>Dokumen</td>
-                                    <td>{{$order->path_file}}</td>
+                                    <td >{{$order->path_file}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Total Harga</th>
+                                    <th>{{$order->harga}}</th>
                                 </tr>
                             </tbody>
                         </table>
-                        <button class="btn btn-success mx-1 btn-icon" type="submit" onclick="return confirm('Are you sure ?')" class="text-right" style="float: right;"><i class="fas fa-sign-in-alt"></i>   Transaksi</button>
+                        <a href="{{ url ('/menu-pembayaran') }}" class="btn btn-success mx-1 btn-icon" class="text-right" style="float: right;">Transaksi    <i class="fas fa-sign-in-alt"></i></a>
                     </div>
                 </div>
             </div>
@@ -96,60 +105,69 @@
         <!-- /.row -->
     </div><!-- /.container-fluid -->
 
+                        {{-- menampilkan error validasi --}}
+                            @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
 
-    <!-- Modal Edit -->
-    <div class="modal fade" id="exampleModal{{$order->id_order}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Update Order</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-            
-        <div class="modal-body">
-        <form action="{{route('update_order_dokumen', $order->id_order)}}" method="post">
-            @csrf
-            @method('PUT')
-            <input type="text" name="idLampiran" value="{{$order->id_order}}" hidden></td>
-            <div class="form-group">
-                <label for="jenis_layanan">Jenis Layanan</label>
-                <input type="text" class="form-control" placeholder="Masukkan nama lampiran" name="jenis_layanan" id="jenis_layanan" value="{{$order->jenis_layanan}}" readonly>
-            </div>
+            <!-- Modal Edit -->
+            <div class="modal fade" id="exampleModal{{$order->id_order}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Order</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    
+                <div class="modal-body">
+                <form action="{{route('update_order_dokumen', $order->id_order)}}" method="post">
+                {{ csrf_field() }}
+                @method('PUT')
+                    <input type="text" name="idLampiran" value="{{ old('id_order') }}" hidden></td>
+                    <div class="form-group">
+                        <label for="id_parameter_jenis_layanan">Jenis Layanan</label>
+                        <input type="text" class="form-control" placeholder="Masukkan jenis layanan" value="{{$order->parameterjenislayanan->p_jenis_layanan}}" readonly>
+                    </div>
 
-            <div class="form-check">
-            <input class="form-check-input" type="radio" id="jenis_layanan" name="jenis_layanan" value="basic">
-            <label class="form-check-label" for="jenis_layanan">
-                Basic
-            </label>
-            </div>
-            <div class="form-check">
-            <input class="form-check-input" type="radio" id="jenis_layanan"  name="jenis_layanan" value="premium">
-            <label class="form-check-label" for="jenis_layanan">
-                Premium
-            </label>
-            </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_jenis_layanan" name="id_parameter_jenis_layanan" value="1">
+                    <label class="form-check-label" for="id_parameter_jenis_layanan">
+                        Basic
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_jenis_layanan"  name="id_parameter_jenis_layanan" value="2">
+                    <label class="form-check-label" for="id_parameter_jenis_layanan">
+                        Premium
+                    </label>
+                    </div>
+                    <br>
 
-            <br>
-            <div class="form-group">
-                <label for="jenis_teks">Jenis Dokumen</label>
-                <input type="text" class="form-control" placeholder="Masukkan jenis dokumen" name="jenis_teks" id="jenis_teks" value="{{$order->jenis_teks}}" readonly>
-            </div>
+                    <div class="form-group">
+                        <label for="id_parameter_jenis_teks">Jenis Teks</label>
+                        <input type="text" class="form-control" placeholder="Masukkan jenis teks"  value="{{$order->parameterjenisteks->p_jenis_teks}}" readonly>
+                    </div>
 
-            <div class="form-check">
-            <input class="form-check-input" type="radio" id="jenis_teks" name="jenis_teks" value="umum">
-            <label class="form-check-label" for="jenis_teks">
-                Umum
-            </label>
-            </div>
-            <div class="form-check">
-            <input class="form-check-input" type="radio" id="jenis_teks"  name="jenis_teks" value="khusus">
-            <label class="form-check-label" for="jenis_teks">
-                Khusus
-            </label>
-            </div>
-
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_jenis_teks" name="id_parameter_jenis_teks" value="1">
+                    <label class="form-check-label" for="id_parameter_jenis_teks">
+                        Umum
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_parameter_jenis_teks"  name="id_parameter_jenis_teks" value="2">
+                    <label class="form-check-label" for="id_parameter_jenis_teks">
+                        Khusus
+                    </label>
+                    </div>
 
                     <br>
                     <div class="form-group">
@@ -162,9 +180,9 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="number" name="pages" value="{{$order->pages}}" hidden></td>
-                        <label for="pages" class="col-form-label">Jumlah Halaman Dokumen</label>
-                        <input type="number" class="form-control" id="pages" name="pages" value="{{$order->pages}}">
+                        <input type="number" name="jumlah_halaman" value="{{$order->jumlah_halaman}}" hidden></td>
+                        <label for="jumlah_halaman" class="col-form-label">Jumlah Halaman Dokumen</label>
+                        <input type="number" class="form-control" id="jumlah_halaman" name="jumlah_halaman" value="{{$order->jumlah_halaman}}">
                     </div>
 
                     <div class="form-group">
@@ -206,5 +224,14 @@
         $(document).ready(function() {
             $('#kriteria-table').DataTable();
         } );
+    </script>
+@endpush
+
+@push('scripts')
+    <script>
+        function reloadpage()
+        {
+        location.reload()
+        }
     </script>
 @endpush

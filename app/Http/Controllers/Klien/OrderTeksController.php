@@ -3,16 +3,21 @@
 namespace App\Http\Controllers\Klien;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\ParameterJenisLayanan;
+use App\Models\Admin\ParameterJenisTeks;
 use App\User;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
+use App\Models\Admin\ParameterOrderHarga;
+use App\Models\Admin\ParameterOrderTeks;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
+use Mockery\Generator\Parameter;
 
 class OrderTeksController extends Controller
 {
@@ -31,7 +36,9 @@ class OrderTeksController extends Controller
 
     public function index(){
         $menu=Order::all();
-        return view('pages.klien.order.order_teks.index', compact('menu'));
+        $jenis_layanan=ParameterJenisLayanan::all();
+        $jenis_teks=ParameterJenisTeks::all();
+        return view('pages.klien.order.order_teks.index', compact('menu', 'jenis_layanan', 'jenis_teks'));
     }
 
     /**
@@ -52,40 +59,60 @@ class OrderTeksController extends Controller
      */
     public function store(Request $request, Order $order_teks)
     {
-        // return($request);
-        
-        $validate_data=$request->validate([
-            'jenis_layanan'=>'required',
-            'jenis_teks'=>'required',
-            'durasi_pengerjaan'=>'required',
-            'text'=>'required',
-            'jumlah_karakter'=>'required',
-        ]);
-        
-        
-        $jenis_layanan = $validate_data['jenis_layanan'];
-        $jenis_teks = $validate_data['jenis_teks'];
-        $durasi = $validate_data['durasi_pengerjaan'];
-        $text = $validate_data['text'];
-        $jumlah_karakter = $validate_data['jumlah_karakter'];
-        $tgl_order=Carbon::now()->timestamp;
+        $jenis_layanan=ParameterJenisLayanan::all();
+        $jenis_teks = ParameterJenisTeks::all();
+        $tgl_order=Carbon::now();
         $user=Auth::user();
         $klien=Klien::where('id', $user->id)->first();
-        
+        $harga_teks=$request->jumlah_karakter;
+        // return ($harga_teks);
+        // exit();
 
+        //kondisi if cek
+        // $result = [];
+        if($harga_teks >= 1 && $harga_teks <= 100)
+        {
+            // $harga=ParameterOrderTeks::select('id_parameter_order_teks')->first();
+            $hasil = "1";
+        }elseif($harga_teks >= 101 && $harga_teks <= 200){
+            $hasil = "2";
+        }elseif($harga_teks >= 201 && $harga_teks <= 300){
+            $hasil = "3";
+        }elseif($harga_teks >= 301 && $harga_teks <= 400){
+            $hasil = "4";
+        }elseif($harga_teks >= 401 && $harga_teks <= 500){
+            $hasil = "5";
+        }elseif($harga_teks >= 501 && $harga_teks <= 600){
+            $hasil = "6";
+        }elseif($harga_teks >= 601 && $harga_teks <= 700){
+            $hasil = "7";
+        }elseif($harga_teks >= 701 && $harga_teks <= 800){
+            $hasil = "8";
+        }elseif($harga_teks >= 801 && $harga_teks <= 900){
+            $hasil = "9";
+        }elseif($harga_teks >= 901 && $harga_teks <= 1000){
+            $hasil = "10";
+        }
+
+        // return ($hasil);
+        // exit();
+    
         $order_teks=Order::create([
             'id_klien'=>$klien->id_klien,
-            'jenis_layanan'=>$jenis_layanan, 
-            'jenis_teks'=>$jenis_teks,
-            'text'=>$text,
-            'jumlah_karakter'=>$jumlah_karakter,
-            'durasi_pengerjaan'=>$durasi,
-            'tgl_order'=>$tgl_order,
+            'id_parameter_jenis_layanan'=>$request->id_parameter_jenis_layanan, 
+            'id_parameter_jenis_teks'=>$request->id_parameter_jenis_teks,
+            'id_parameter_order_teks'=>$hasil,
+            'text'=>$request->text,
+            'jumlah_karakter'=>$request->jumlah_karakter,
+            'durasi_pengerjaan'=>$request->durasi_pengerjaan,
+            'tgl_order'=>Carbon::now(),
             'is_status'=>'belum dibayar',
+            'menu'=>'teks',
         ]);
-        
-
         $id_order=$order_teks->id_order;
+
+
+        // return ($order_teks);
         return redirect(route('order-teks.show', $id_order))->with('success', 'Berhasil di upload!');
         } 
     
@@ -100,10 +127,49 @@ class OrderTeksController extends Controller
     {
         $user=Auth::user();
         $klien=Klien::where('id', $user->id)->first();
-
+        $jenis_layanan=ParameterJenisLayanan::all();
+        $jenis_teks=ParameterJenisTeks::all();
         $order=Order::findOrFail($id_order);
-       // return ($order);
-        return view('pages.klien.order.order_teks.show', compact('order', 'user', 'klien'));
+
+        if($order != null){
+            $j_layanan = ParameterJenisLayanan::where('id_parameter_jenis_layanan', $order->id_parameter_jenis_layanan)->first();
+            $j_teks = ParameterJenisTeks::where('id_parameter_jenis_teks', $order->id_parameter_jenis_teks)->first();
+            $jml_karakter = ParameterOrderTeks::where('id_parameter_order_teks', $order->id_parameter_order_teks)->first();
+    
+            if($j_layanan != null){
+                $result_layanan = [
+                    'harga' => $j_layanan->harga
+                ];
+            }
+            if($j_teks != null){
+                $result_teks = [
+                    'harga' => $j_teks->harga
+                ];
+            }
+            if($jml_karakter != null){
+                $result_karakter = [
+                    'harga' => $jml_karakter->harga
+                ];
+            }
+
+            $result[] = [
+                'j_layanan' => $result_layanan,
+                'j_teks'=>$result_teks,
+                'jml_karakter'=>$result_karakter
+            ];
+        }
+
+        $harga = ($result_layanan['harga']) + ($result_teks['harga']) + ($result_karakter['harga']);
+        
+        $save_harga = Order::where('id_order', $order->id_order)
+                            ->update([
+                                'harga'=>$harga
+                            ]);
+        // return ($save_harga);
+
+
+        //return ($order);
+        return view('pages.klien.order.order_teks.show', compact('order', 'user', 'klien', 'jenis_layanan', 'jenis_teks', 'save_harga'));
     }
 
     /**
@@ -121,19 +187,21 @@ class OrderTeksController extends Controller
     {
         //dd($order);
         
-        // $this->validate($request, [
-        //     'jenis_layanan' => 'required',
-        //     'durasi_pengerjaan' => 'required',
-        //     'text' => 'required',
-        // ]);
+        $this->validate($request, [
+            'id_parameter_jenis_layanan' => 'required',
+            'id_parameter_jenis_teks' => 'required',
+            'durasi_pengerjaan' => 'required',
+            'text' => 'required',
+            'jumlah_karakter' => 'required',
+        ]);
 
         // $order=Order::find($id_order);
         $order=Order::findOrFail($id_order);
 
         Order::where('id_order', $id_order)
             ->update([
-                'jenis_layanan'=>$request->jenis_layanan,
-                'jenis_teks'=>$request->jenis_teks,
+                'id_parameter_jenis_layanan'=>$request->id_parameter_jenis_layanan,
+                'id_parameter_jenis_teks'=>$request->id_parameter_jenis_teks,
                 'durasi_pengerjaan'=>$request->durasi_pengerjaan,
                 'text'=>$request->text,
                 'jumlah_karakter'=>$request->jumlah_karakter,

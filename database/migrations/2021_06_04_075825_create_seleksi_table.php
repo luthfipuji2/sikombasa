@@ -19,11 +19,11 @@ class CreateSeleksiTable extends Migration
             $table->unsignedBigInteger('id_translator');
             $table->foreign('id_translator')->references('id_translator')->on('translator')->onDelete('cascade');
             $table->float('nilai_berkas')->nullable();
-            $table->string('hasil')->default('tidak lolos');
+            $table->string('hasil')->nullable();
             $table->string('pewawancara')->nullable();
             $table->string('catatan')->nullable();
             $table->float('nilai_wawancara')->nullable();
-            $table->string('hasil_wawancara')->default('tidak lolos');
+            $table->string('hasil_wawancara')->nullable();
             $table->timestamps();
         });
     }

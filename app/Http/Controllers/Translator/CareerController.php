@@ -19,16 +19,21 @@ class CareerController extends Controller
 {
     public function index()
     {
-        // $career = DB::table('translator')->get();
         $user = Auth::user();
-        // $provinces = Province::pluck('name', 'id');
-        return view('pages.translator.biodata', compact('user'));
+        
+        if (Translator::where('id', $user->id)->exists()) {
+            $users = Auth::user(); //current authenticated user
+            return view('pages.translator.progress'); 
+        }else{
+            $users = Auth::user(); //current authenticated user
+            return view('pages.translator.biodata', compact('user'));
+        }
     }
     public function store(Request $request){
 
         $this->validate($request, [
             'nik'           => 'required|size:16|unique:translator',
-            'nama'      => 'required',
+            'nama'          => 'required',
             'keahlian'      => 'required',
             'alamat'        => 'required|string|max:255',
             'provinsi'      => 'required|string|max:255',
