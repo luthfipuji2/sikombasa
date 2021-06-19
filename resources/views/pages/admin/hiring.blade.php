@@ -64,7 +64,7 @@
                     </div>
                     <div class="form-group row">
                       <label for="hasil" class="col-sm-5 col-form-label">Pelamar dinyatakan</label>
-                        @if($d->hasil=='')
+                        @if(empty($d->hasil))
                         <div class="col-sm-12">
                           <div class="custom-control custom-radio">
                             <input type="radio" id="customRadio1" name="hasil" value="tidak lolos" class="custom-control-input">

@@ -1,4 +1,4 @@
-@extends('layouts.translator.master')
+@extends('layouts.klien.sidebar')
 
 @section('title', 'Career')
 @section('content')

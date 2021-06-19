@@ -1,6 +1,6 @@
-@extends('layouts.translator.master')
+@extends('layouts.klien.sidebar')
 
-@section('title', 'Career')
+@section('title', 'Get a Job')
 @section('content')
       <div class="container-fluid">
         <div class="row">

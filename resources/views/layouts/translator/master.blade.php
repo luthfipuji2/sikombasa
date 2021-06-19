@@ -116,14 +116,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="/career" class="nav-link">
-              <i class="nav-icon fas fa-user-tie"></i>
-              <p>
-                Career (trial)
-              </p>
-            </a>
-          </li>
 
           <li class="nav-item">
           <a class="nav-link" href="{{ route('logout') }}"

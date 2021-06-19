@@ -140,6 +140,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
                 </ul>
             </li>
+              <li class="nav-item">
+              <a href="/career" class="nav-link">
+                <i class="nav-icon fas fa-user-tie"></i>
+                <p>
+                  Get a Job
+                </p>
+              </a>
+            </li>
             <li class="nav-item">
                 <a href="/klien-garansi" class="nav-link">
                 <i class="nav-icon fas fa-user-cog"></i>
