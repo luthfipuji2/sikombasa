@@ -7,9 +7,9 @@
 <section class="content">
 
 <div class="container-fluid">
-        <div class="row">
-        <div class="container ">
-        {{-- status --}}
+    <div class="row">
+    <div class="container ">
+    {{-- status --}}
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -44,30 +44,27 @@
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
+                &nbsp;
+                <b>Layanan Basic</b>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <div>
-                    <a onclick="layanan_basic()" class="btn bg-cyan">
-                        <label for="basic">Layanan Basic</label>
-                    </a>
-                    </div>
                     <div class="card-body">
-                    <input type="text" name="p_jenis_layanan2" value="Basic" hidden>
+                        <input type="text" name="p_jenis_layanan2" value="Basic" hidden>
                         <div class="form-group">
                             <label for="basic">Durasi Pertemuan</label>
-                                <select class="form-control @error('id_parameter_order') is-invalid @enderror" 
+                            <select class="form-control @error('id_parameter_order') is-invalid @enderror" 
                                 id="id_parameter_order" name="id_parameter_order2">
-                                    <option value="">--Pilih Durasi Pertemuan--</option>
-                                    @foreach ($basic as $b)
-                                    <option value="{{$b->id_parameter_order}}">{{$b->p_durasi_pertemuan}}</option>
-                                    @endforeach
-                                </select>
-                                @error ('id_parameter_order')
-                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                <option value="">--Pilih Durasi Pertemuan--</option>
+                                @foreach ($basic as $b)
+                                <option value="{{$b->id_parameter_order}}">{{$b->p_durasi_pertemuan}}</option>
+                                 @endforeach
+                            </select>
+                            @error ('id_parameter_order')
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                 {{$message}}
-                                </div>
-                                @enderror
+                            </div>
+                            @enderror
                         </div>   
                     </div>
                 </div>
@@ -75,40 +72,36 @@
         </div>
         <!--selesai layanan basic -->
 
-            <!-- layanan premium -->
-            <div class="card card-statistic-1">
-                <div class="card-icon bg-danger">
+        <!-- layanan premium -->
+        <div class="card card-statistic-1">
+            <div class="card-icon bg-danger">
                 &nbsp;
                 <i class="nav-icon fas fa-crown"></i>
                 <i class="nav-item fas fa-crown"></i>
                 <i class="nav-item fas fa-crown"></i>
                 <i class="nav-item fas fa-crown"></i>
                 <i class="nav-item fas fa-crown"></i>
-                </div>
-            </a>
+                &nbsp;
+                <b>Layanan Premium</b>
+            </div>
             <div class="card-wrap">
                 <div class="card-header">
-                <div>
-                <a onclick="layanan_premium()" class="btn btn-danger">
-                    <label for="premium">Layanan Premium</label>
-                </a>
-                </div>
                 <div class="card-body">
                     <input type="text" name="p_jenis_layanan" value="Premium" hidden>
                         <div class="form-group">
                             <label for="basic">Durasi Pertemuan</label>
-                                <select class="form-control @error('id_parameter_order') is-invalid @enderror" 
+                            <select class="form-control @error('id_parameter_order') is-invalid @enderror" 
                                 id="id_parameter_order" name="id_parameter_order">
-                                    <option value="">--Pilih Durasi Pertemuan--</option>
-                                    @foreach ($premium as $p)
-                                    <option value="{{$p->id_parameter_order}}">{{$p->p_durasi_pertemuan}}</option>
-                                    @endforeach
-                                </select>
-                                @error ('id_parameter_order')
-                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                <option value="">--Pilih Durasi Pertemuan--</option>
+                                @foreach ($premium as $p)
+                                <option value="{{$p->id_parameter_order}}">{{$p->p_durasi_pertemuan}}</option>
+                                 @endforeach
+                            </select>
+                            @error ('id_parameter_order')
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                 {{$message}}
-                                </div>
-                                @enderror
+                            </div>
+                            @enderror
                         </div>   
                     </div>   
                 </div>
@@ -149,7 +142,7 @@
        
         {{ csrf_field() }}
         <br>
-                <div class="row">
+            <div class="row">
                 <div class="col">
                     <label for="lokasi" class="col-form-label">Tentukan Lokasi Anda Saat Ini</label>
                     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -189,70 +182,48 @@
                     </script>
                     
                 </div class="col">
-                    <div class="col">
-                        <label for="text">Longitude</label>
-                        <input type="text" class="form-control"  id="latitude" name="latitude">
-                        <label for="text">Latitude</label>
-                        <input type="text" class="form-control" id="longitude" name="longitude">
-                        <label for="lokasi" class="col-form-label">Tuliskan Catatan Lokasi</label>
-                        <input type="text" class="form-control" id="lokasi" name="lokasi">
-                    </div class="col">
-                </div class="row">
-                    </div>
-                    <hr>
-                    <div class="col-sm-2">
-                    <button class="btn btn-primary" type="submit">Submit</button>
-                    </div>
-                    <br>          
-                </form> 
-                </div>
-                <!-- /.tab-content -->
-            </div>
-            <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+                <div class="col">
+                    <label for="text">Longitude</label>
+                    <input type="text" class="form-control"  id="latitude" name="latitude">
+                    <label for="text">Latitude</label>
+                    <input type="text" class="form-control" id="longitude" name="longitude">
+                    <label for="lokasi" class="col-form-label">Tuliskan Catatan Lokasi</label>
+                    <input type="text" class="form-control" id="lokasi" name="lokasi">
+                </div class="col">
+            </div class="row">
         </div>
-        <!-- /.col -->
+        <hr>
+        <div class="col-sm-2">
+            <button class="btn btn-primary" type="submit">Submit</button>
         </div>
-        <!-- /.row -->
-    </div><!-- /.container-fluid -->
+        <br>          
+    </form> 
+</div>
+<!-- /.tab-content -->
+</div>
+<!-- /.card-body -->
+</div>
+<!-- /.card -->
+</div>
+<!-- /.col -->
+</div>
+<!-- /.row -->
+</div><!-- /.container-fluid -->
 </section>
 </div>
-
 @endsection
 
 @push('scripts')
 <script type="text/javascript">
-$(document).ready(function() {
-    $(".add-more").click(function(){ 
-        var html = $(".copy").html();
-        $(".after-add-more").after(html);
+    $(document).ready(function() {
+        $(".add-more").click(function(){ 
+            var html = $(".copy").html();
+            $(".after-add-more").after(html);
+         });
+        // saat tombol remove diklik control group akan dihapus 
+        $("body").on("click",".remove",function(){ 
+            $(this).parents(".control-group").remove();
+         });
     });
-
-    // saat tombol remove dklik control group akan dihapus 
-    $("body").on("click",".remove",function(){ 
-        $(this).parents(".control-group").remove();
-    });
-    });
-</script>
-@endpush
-
-@push('scripts')
-<script >		
-    // membuat function tampilkan_nama
-    function layanan_basic(){
-        document.getElementById("basic").innerHTML = "Garansi 1 Bulan Setelah 3x Order<hr>";
-    }
-    
-</script>
-@endpush
-
-@push('scripts')
-<script >		
-    // membuat function tampilkan_nama
-    function layanan_premium(){
-        document.getElementById("premium").innerHTML = " Garansi 3 Bulan Sejak Berlangganan<hr> ";
-    }
-    
 </script>
 @endpush

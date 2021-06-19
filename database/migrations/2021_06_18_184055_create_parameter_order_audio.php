@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateParameterJenisLayananTable extends Migration
+class CreateParameterOrderAudio extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateParameterJenisLayananTable extends Migration
      */
     public function up()
     {
-        Schema::create('parameter_jenis_layanan', function (Blueprint $table) {
-            $table->bigIncrements('id_parameter_jenis_layanan');
-            $table->string('p_jenis_layanan')->nullable();
+        Schema::create('parameter_order_audio', function (Blueprint $table) {
+            $table->bigIncrements('id_parameter_order_audio');
+            $table->string('min_durasi_audio')->nullable();
+            $table->string('max_durasi_audio')->nullable();
             $table->string('harga')->nullable();
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ class CreateParameterJenisLayananTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('parameter_jenis_layanan');
+        Schema::dropIfExists('parameter_order_audio');
     }
 }
