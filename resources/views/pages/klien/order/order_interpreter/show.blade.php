@@ -1,5 +1,4 @@
 @extends('layouts.klien.sidebar')
-
 @section('title', 'Show Order Menu Offline')
 @section('content')
 
@@ -8,11 +7,11 @@
 <section class="content">
 
 <div class="container-fluid">
-        <div class="row">
-        <div class="container ">
-        {{-- status --}}
+<div class="row">
+<div class="container ">
+{{-- status --}}
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-11">
             <div class="card">
             <div class="card-header p-2">
                 <ul class="nav nav-pills">
@@ -35,16 +34,15 @@
                 </div>
 
                 <div class="active tab-pane" id="certificate">
-                    <form action="  " method="POST" enctype="multipart/form-data">
-                    @csrf
+                <form action="  " method="POST" enctype="multipart/form-data">
+                @csrf
                     
-
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-11">
                         <table class="table table-bordered table-striped">
                             <tbody>
-                            <div>
+                        <div>
                             <form action="/order-interpreter" method="POST" class="d-inline">
                                 @method('Delete')
                                 @csrf
@@ -52,48 +50,46 @@
                                 <button type="button" class="btn btn-primary mx-1 btn-icon" data-toggle="modal" data-target="#exampleModal{{$order->id_order}}" class="text-right" style="float: right;"><i class="fas fa-pencil-alt"></i>    Update Order</button>
                                 <br>
                                 <br>
-                                </form>
-                                </td>
-                            </tr>
-                            </div>
-                            <br>
-                                <tr>
-                                    <td>Jenis Layanan</td>
-                                    <td>{{$order->parameter_order->p_jenis_layanan}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Jenis Menu Offline</td>
-                                    <td>{{$order->tipe_offline}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Durasi Pertemuan</td>
-                                    <td>{{$order->parameter_order->p_durasi_pertemuan}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Tanggal Pertemuan</td>
-                                    <td>{{$order->tanggal_pertemuan}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Waktu Pertemuan</td>
-                                    <td>{{$order->waktu_pertemuan}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Catatan Lokasi</td>
-                                    <td>{{$order->lokasi}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Longitude</td>
-                                    <td>{{$order->longitude}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Latitude</td>
-                                    <td>{{$order->latitude}}</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Harga</b></td>
-                                    <td><b> Rp. {{$order->parameter_order->harga}}</b></td>
-                                </tr>
-                            </tbody>
+                            </form>
+                        </div>
+                        <br>
+                        <tr>
+                            <td><b>Jenis Layanan</b></td>
+                            <td>{{$order->parameter_order->p_jenis_layanan}}</td>
+                        </tr>
+                        <tr>
+                        <td><b>Jenis Menu Offline</b></td>
+                        <td>{{$order->tipe_offline}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Durasi Pertemuan</b></td>
+                            <td>{{$order->parameter_order->p_durasi_pertemuan}} Hari</td>
+                        </tr>
+                        <tr>
+                            <td><b>Tanggal Pertemuan</b></td>
+                            <td>{{$order->tanggal_pertemuan}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Waktu Pertemuan</b></td>
+                            <td>{{$order->waktu_pertemuan}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Catatan Lokasi</b></td>
+                            <td>{{$order->lokasi}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Longitude</b></td>
+                            <td>{{$order->longitude}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Latitude</b></td>
+                            <td>{{$order->latitude}}</td>
+                        </tr>
+                        <tr>
+                            <td class="bg-cyan"><i class="fas fa-tags"></i>&nbsp;&nbsp;<b>Harga (Sudah Termasuk Biaya Transportasi Translator)</b></td>
+                            <td class="bg-cyan"><b> Rp. {{$order->parameter_order->harga}}</b></td>
+                        </tr>
+                        </tbody>
                         </table>
                         <a href="{{ url ('/menu-pembayaran') }}" class="btn btn-success mx-1 btn-icon" type="submit" class="text-right" style="float: right;"><i class="fas fa-sign-in-alt"></i>Transaksi</a>
                     </div>
@@ -149,30 +145,27 @@
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
                 <i class="nav-icon fas fa-medal"></i>
+                &nbsp;
+                <b>Layanan Basic</b>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <div>
-                    <a onclick="layanan_basic()" class="btn bg-cyan">
-                        <label for="basic">Layanan Basic</label>
-                    </a>
-                    </div>
                     <div class="card-body">
                     <input type="text" name="p_jenis_layanan2" value="Basic" hidden>
                         <div class="form-group">
                             <label for="basic">Durasi Pertemuan</label>
-                                <select class="form-control @error('id_parameter_order') is-invalid @enderror" 
+                            <select class="form-control @error('id_parameter_order') is-invalid @enderror" 
                                 id="id_parameter_order" name="id_parameter_order2">
-                                    <option value="">--Pilih Durasi Pertemuan--</option>
-                                    @foreach ($basic as $b)
-                                    <option value="{{$b->id_parameter_order}}">{{$b->p_durasi_pertemuan}}</option>
-                                    @endforeach
-                                </select>
-                                @error ('id_parameter_order')
-                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                <option value="">--Pilih Durasi Pertemuan--</option>
+                                @foreach ($basic as $b)
+                                <option value="{{$b->id_parameter_order}}">{{$b->p_durasi_pertemuan}}</option>
+                                 @endforeach
+                             </select>
+                            @error ('id_parameter_order')
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                 {{$message}}
-                                </div>
-                                @enderror
+                            </div>
+                            @enderror
                         </div>   
                     </div>
                 </div>
@@ -180,7 +173,7 @@
         </div>
         <!--selesai layanan basic -->
 
-            <!-- layanan premium -->
+        <!-- layanan premium -->
             <div class="card card-statistic-1">
                 <div class="card-icon bg-danger">
                 &nbsp;
@@ -189,37 +182,52 @@
                 <i class="nav-item fas fa-crown"></i>
                 <i class="nav-item fas fa-crown"></i>
                 <i class="nav-item fas fa-crown"></i>
+                &nbsp;
+                <b>Layanan Premium</b>
                 </div>
-            </a>
             <div class="card-wrap">
                 <div class="card-header">
-                <div>
-                <a onclick="layanan_premium()" class="btn btn-danger">
-                    <label for="premium">Layanan Premium</label>
-                </a>
-                </div>
                 <div class="card-body">
                     <input type="text" name="p_jenis_layanan" value="Premium" hidden>
                         <div class="form-group">
                             <label for="basic">Durasi Pertemuan</label>
-                                <select class="form-control @error('id_parameter_order') is-invalid @enderror" 
+                            <select class="form-control @error('id_parameter_order') is-invalid @enderror" 
                                 id="id_parameter_order" name="id_parameter_order">
-                                    <option value="">--Pilih Durasi Pertemuan--</option>
-                                    @foreach ($premium as $p)
-                                    <option value="{{$p->id_parameter_order}}">{{$p->p_durasi_pertemuan}}</option>
-                                    @endforeach
-                                </select>
-                                @error ('id_parameter_order')
-                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                                {{$message}}
-                                </div>
-                                @enderror
+                                <option value="">--Pilih Durasi Pertemuan--</option>
+                                @foreach ($premium as $p)
+                                <option value="{{$p->id_parameter_order}}">{{$p->p_durasi_pertemuan}}</option>
+                                @endforeach
+                            </select>
+                            @error ('id_parameter_order')
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            {{$message}}
+                            </div>
+                            @enderror
                         </div>   
                     </div>   
                 </div>
             </div>
         </div>
         <!-- Selesai layanan premium -->
+
+        <div class="form-group">
+            <label for="tipe_offline">Jenis Menu Offline</label>
+            <input type="text" class="form-control" name="tipe_offline" id="tipe_offline" value="{{$order->tipe_offline}}" readonly>
+        </div>
+
+        <div class="form-group">
+            <select class="form-control @error('tipe_offline') is-invalid @enderror" 
+		        id="tipe_offline" name="tipe_offline">
+                <option value="">--Edit Jenis Menu Offline--</option>
+                <option value="Interpreter">Interpreter</option>
+                <option value="Transkrip">Transkrip</option>
+            </select>
+            @error ('tipe_offline')
+                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    {{$message}}
+                </div>
+                    @enderror
+        </div>
 
         <div class="row">
         <div class="col">
@@ -259,29 +267,25 @@
             <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
         </div>
-
     </form>
-    </div> 
-    
-                <!-- /.tab-content -->
-            </div>
-            <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.col -->
-        </div>
-        <!-- /.row -->
-        </section>
-    </div><!-- /.container-fluid -->
-
-
+</div> 
+<!-- /.tab-content -->
+</div>
+<!-- /.card-body -->
+</div>
+<!-- /.card -->
+</div>
+<!-- /.col -->
+</div>
+<!-- /.row -->
+</section>
+</div><!-- /.container-fluid -->
 @endsection
 
 @push('addon-script')
-    <script>
-        $(document).ready(function() {
-            $('#kriteria-table').DataTable();
-        } );
-    </script>
+<script>
+    $(document).ready(function() {
+        $('#kriteria-table').DataTable();
+    });
+</script>
 @endpush
