@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Translator;
+namespace App\Http\Controllers\Klien;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -22,11 +22,10 @@ class CareerController extends Controller
         $user = Auth::user();
         
         if (Translator::where('id', $user->id)->exists()) {
-            $users = Auth::user(); //current authenticated user
-            return view('pages.translator.progress'); 
+            return redirect('/progress');
         }else{
             $users = Auth::user(); //current authenticated user
-            return view('pages.translator.biodata', compact('user'));
+            return view('pages.klien.data-diri', compact('user'));
         }
     }
     public function store(Request $request){
@@ -89,12 +88,12 @@ class CareerController extends Controller
     public function indexDocument()
     {
         $user = Auth::user();
-        return view('pages.translator.document', compact('user'));
+        return view('pages.klien.document', compact('user'));
     }
     public function indexCertificate()
     {
         $user = Auth::user();
-        return view('pages.translator.certificate', compact('user'));
+        return view('pages.klien.certificate', compact('user'));
     }
     public function submitCertificate(Request $request){
 
@@ -192,7 +191,13 @@ class CareerController extends Controller
     public function indexProgress(){
 
         $user = Auth::user();
-        return view('pages.translator.progress', compact('user'));
+        $translator = Translator::where('id', $user->id)->first();
+        $seleksi = Seleksi::where('id_translator', $translator->id_translator)->first();
+        return view('pages.klien.progress', [
+            'user'=>$user,
+            'translator'=>$translator,
+            'seleksi'=>$seleksi
+            ]);
     }
 }
 ?>
