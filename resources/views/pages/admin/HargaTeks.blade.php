@@ -4,12 +4,12 @@
 
 @section('container')
 
-<!-- Modal Tambah -->
+<!-- Modal Tambah Kata-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Harga Teks</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Parameter Teks</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -19,16 +19,12 @@
 
       {{ csrf_field() }}
         <div class="modal-body">
-
+    
             <div class="form-group">
-                <label>Jenis Layanan</label>
-                <select type="text" name="p_jenis_layanan" class="form-control @error('p_jenis_layanan') is-invalid @enderror"
-                 placeholder="" value="{{ old('p_jenis_layanan') }}">
-                    <option value="{{old('p_jenis_layanan')}}" hidden selected>{{old('p_jenis_layanan')}}</option>
-                    <option value="Basic">Basic</option>
-                    <option value="Premium">Premium</option>
-                </select>
-                @error ('p_jenis_layanan')
+                <label>Jumlah Kata Min</label>
+                <input type="number" class="form-control @error('jumlah_karakter_min') is-invalid @enderror" 
+                name="jumlah_karakter_min" id="jumlah_karakter_min" value="{{ old('p_jumlah_karakter_min') }}" placeholder="Masukkan Jumlah minimal kata">
+                @error ('jumlah_karakter_min')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       {{$message}}
                   </div>
@@ -36,28 +32,29 @@
             </div>
 
             <div class="form-group">
-                <label>Jumlah Karakter</label>
-                <input type="text" name="p_jumlah_karakter" class="form-control @error('p_jumlah_karakter') is-invalid @enderror"
-                 placeholder="Masukkan Range Jumlah Karakter ex. 0-200" value="{{ old('p_jumlah_karakter') }}">
-                @error ('p_jumlah_karakter')
+                <label>Jumlah Kata Max</label>
+                <input type="number" class="form-control @error('jumlah_karakter_max') is-invalid @enderror" 
+                name="jumlah_karakter_max" id="jumlah_karakter_max" value="{{ old('p_jumlah_karakter_max') }}" placeholder="Masukkan Jumlah maximal kata">
+                @error ('jumlah_karakter_max')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       {{$message}}
                   </div>
                 @enderror
             </div>
-            
+
             <div class="form-group">
                 <label>Harga</label>
-                <input type="text" name="harga" class="form-control @error('harga') is-invalid @enderror"
-                 placeholder="Masukkan harga ex. 100000" value="{{ old('harga') }}">
+                <input type="number" class="form-control @error('harga') is-invalid @enderror" 
+                name="harga" id="harga" value="{{ old('harga') }}" placeholder="Masukkan harga ex. 100000">
                 @error ('harga')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       {{$message}}
                   </div>
                 @enderror
-            </div>
+            </div> 
+
+            
         </div>
-      
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -68,47 +65,29 @@
   </div>
 </div>
 
-<!-- Modal Edit -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Edit Kata -->
+@foreach($harga as $h)
+<div class="modal fade" id="updateKataModal{{$h->id_parameter_order_teks}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Data Harga Teks</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Parameter Teks</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
-      <form action="/daftar-harga-teks" method="POST" id="editForm">
-
-      {{ csrf_field() }}
-      {{ method_field('PUT') }}
+      <form method="POST" action="/daftar-harga-teks/{{$h->id_parameter_order_teks}}">
+      @method('patch')
+      @csrf
       
-        <div class="modal-body">
-        
+      <div class="modal-body">
+    
           <div class="form-group">
-                <label for="p_jenis_layanan">Jenis Layanan</label>
-                    <select class="form-control @error('p_jenis_layanan') is-invalid @enderror" 
-                     id="p_jenis_layanan" placeholder="Jenis Layanan" name="p_jenis_layanan">
-                    
-                      <option value="Basic">Basic</option>
-                      <option value="Premium">Premium</option>
-                    
-                    </select>
-                    @error ('p_jenis_layanan')
-                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                            {{$message}}
-                        </div>
-                    @enderror
-            </div> 
-               
-            
-
-            <div class="form-group">
-                <label>Jumlah Karakter</label>
-                <input type="text" class="form-control @error('p_jumlah_karakter') is-invalid @enderror" 
-                name="p_jumlah_karakter" id="p_jumlah_karakter" placeholder="Masukkan Range Jumlah Karakter ex. 0-200">
-                @error ('p_jumlah_karakter')
+                <label>Jumlah Kata Min</label>
+                <input type="number" class="form-control @error('jumlah_karakter_min') is-invalid @enderror" 
+                name="jumlah_karakter_min" id="jumlah_karakter_min" value="{{$h->jumlah_karakter_min}}" placeholder="Masukkan Jumlah minimal kata">
+                @error ('jumlah_karakter_min')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       {{$message}}
                   </div>
@@ -116,20 +95,30 @@
             </div>
 
             <div class="form-group">
-                <label>Harga</label>
-                <input type="text" class="form-control @error('harga') is-invalid @enderror" 
-                name="harga" id="harga" placeholder="Masukkan harga ex. 100000">
-                @error ('harga')
+                <label>Jumlah Kata Max</label>
+                <input type="number" class="form-control @error('jumlah_karakter_max') is-invalid @enderror" 
+                name="jumlah_karakter_max" id="jumlah_karakter_max" value="{{$h->jumlah_karakter_max}}" placeholder="Masukkan Jumlah maximal kata">
+                @error ('jumlah_karakter_max')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       {{$message}}
                   </div>
                 @enderror
-            </div> 
+            </div>
 
-            
-        </div>
+          <div class="form-group">
+              <label>Harga</label>
+              <input type="number" class="form-control @error('harga') is-invalid @enderror" 
+              name="harga" id="harga" value="{{$h->harga}}" placeholder="Masukkan harga ex. 100000">
+              @error ('harga')
+                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    {{$message}}
+                </div>
+              @enderror
+          </div> 
+
+          
+      </div>
         
-
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
             <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
@@ -138,8 +127,9 @@
     </div>
   </div>
 </div>
+@endforeach
 
-<!-- Main content -->
+<!-- Parameter Jumlah Kata -->
 <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -147,12 +137,13 @@
             <div class="card">
               <div class="card-header">
                 <div class="card-tools">
-              
+
+                 
                   <!-- Button trigger modal -->
                   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-                  <i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data Harga
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Parameter Teks
                   </button>
-
+                 
                 </div>
               </div>
               <!-- /.card-header -->
@@ -160,25 +151,23 @@
                 <table id="datatable" class="table table-bordered">
                   <thead>   
                   <tr>
-                    <th scope="row" class="text-center">No</th>
-                    <th hidden>ID Harga</th>
-                    <th scope="row" class="text-center">Jenis Layanan</th>
-                    <th scope="row" class="text-center">Jumlah Karakter</th>
+                    <th scope="row" class="text-center" style="width: 100px">No</th>
+                    <th hidden>ID</th>
+                    <th scope="row" class="text-center">Jumlah Kata</th>
                     <th scope="row" class="text-center">Harga</th>
-                    <th scope="row" class="text-center">Action</th>
+                    <th scope="row" class="text-center" style="width: 100px">Action</th>
                   </tr>
                   </thead>
                   <tbody>
                   @foreach($harga as $harga)
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
-                    <td scope="row" class="text-center" hidden>{{$harga->id_parameter_order}}</td>
-                    <td scope="row" class="text-center">{{$harga->p_jenis_layanan}}</td>
-                    <td scope="row" class="text-center">{{$harga->p_jumlah_karakter}}</td>
+                    <td scope="row" class="text-center" hidden>{{$harga->id_parameter_order_teks}}</td>
+                    <td scope="row" class="text-center">{{$harga->jumlah_karakter_min}} - {{$harga->jumlah_karakter_max}}</td>
                     <td scope="row" class="text-center">{{$harga->harga}}</td>
                     <td scope="row" class="text-center">
-                      <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#updateModal"><i class="fas fa-pencil-alt"></i></button>
-                      <a href="#" class="btn btn-sm btn-danger delete" harga-num="{{$loop->iteration}}" harga-id="{{$harga->id_parameter_order}}"><i class="fas fa-trash-alt"></i></a>
+                      <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#updateKataModal{{$harga->id_parameter_order_teks}}"><i class="fas fa-pencil-alt"></i></button>
+                      <a href="#" class="btn btn-sm btn-danger delete" harga-num="{{$loop->iteration}}" harga-id="{{$harga->id_parameter_order_teks}}"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
                   @endforeach
@@ -201,7 +190,7 @@
 
 @push('addon-script')
 
-
+<!-- Delete Kata -->
 <script>
     $('.delete').click(function(){
 
@@ -209,8 +198,8 @@
         var harga_num = $(this).attr('harga-num')
 
         Swal.fire({
-          title: "Apakah anda yakin?",
-          text: "Hapus data harga "+harga_num+"??",
+          title: "Apakah Anda Yakin?",
+          text: "Hapus parameter jumlah kata "+harga_num+"??",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -229,6 +218,7 @@
     });
 </script>
 
+<!-- Data table -->
 <script>
 $(document).ready(function () {
 
@@ -257,26 +247,7 @@ $(document).ready(function () {
                 titleAttr: 'PDF'
             }
     ]
-  })
-     
-    table.on('click', '.edit', function(){
-
-    $tr = $(this).closest('tr');
-    if($($tr).hasClass('child')) {
-      $tr = $tr.prev('.parent');
-    }
-
-    var data = table.row($tr).data();
-    console.log(data);
-
-    $('#p_jenis_layanan').val(data[2]);
-    $('#p_jumlah_karakter').val(data[3]);
-    $('#harga').val(data[4]); 
-
-    $('#editForm').attr('action', '/daftar-harga-teks/'+data[1]);
-    $('#editModal').modal('show');
-    
-  });
+  })   
 });
 </script>
 @endpush

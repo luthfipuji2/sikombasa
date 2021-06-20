@@ -7,7 +7,7 @@ use App\Models\Admin\Harga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class HargaInterpreterController extends Controller
+class HargaOfflineController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,9 @@ class HargaInterpreterController extends Controller
      */
     public function index()
     {
-        $interpreter = DB::table('parameter_order')->whereNull('p_tipe_transkrip')
-        ->whereNotNull('p_durasi_pertemuan')
+        $offline = DB::table('parameter_order')
         ->get();
-        return view('pages.admin.HargaInterpreter', ['interpreter' => $interpreter]);
+        return view('pages.admin.HargaOffline', compact('offline'));
     }
 
     /**
@@ -52,7 +51,7 @@ class HargaInterpreterController extends Controller
             'harga' => $request->harga
         ]);
 
-        return redirect('/daftar-harga-interpreter')->with('success', 'Harga baru berhasil ditambahkan');
+        return redirect('/daftar-harga-offline')->with('success', 'Parameter menu offline berhasil ditambahkan');
     }
 
     /**
@@ -100,7 +99,7 @@ class HargaInterpreterController extends Controller
                         'p_durasi_pertemuan' => $request->p_durasi_pertemuan,
                         'harga' => $request->harga
                     ]);
-        return redirect('/daftar-harga-interpreter')->with('success', 'Data harga berhasil diubah');
+        return redirect('/daftar-harga-offline')->with('success', 'Parameter menu offline berhasil diubah');
     }
 
     /**
@@ -112,6 +111,6 @@ class HargaInterpreterController extends Controller
     public function destroy(Harga $harga)
     {
         Harga::destroy($harga->id_parameter_order);
-        return redirect('/daftar-harga-interpreter')->with('success', 'Data harga berhasil dihapus');
+        return redirect('/daftar-harga-offline')->with('success', 'Parameter menu offline berhasil dihapus');
     }
 }

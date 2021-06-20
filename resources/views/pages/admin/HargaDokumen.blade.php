@@ -5,7 +5,7 @@
 @section('container')
 
 <!-- Modal Tambah -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -19,42 +19,39 @@
 
       {{ csrf_field() }}
         <div class="modal-body">
-          <div class="form-group">
-                <label>Jenis Layanan</label>
-                <select type="text" name="p_jenis_layanan" class="form-control @error('p_jenis_layanan') is-invalid @enderror"
-                 placeholder="" value="{{ old('p_jenis_layanan') }}">
-                    <option value="{{old('p_jenis_layanan')}}" hidden selected>{{old('p_jenis_layanan')}}</option>
-                    <option value="Basic">Basic</option>
-                    <option value="Premium">Premium</option>
-                </select>
-                @error ('p_jenis_layanan')
-                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                      {{$message}}
-                  </div>
-                @enderror
-          </div>
+        <div class="form-group">
+                  <label>Jumlah Halaman Min</label>
+                  <input type="number" class="form-control @error('jumlah_halaman_min') is-invalid @enderror" 
+                  name="jumlah_halaman_min" id="jumlah_halaman_min" value="{{ old('jumlah_halaman_min') }}" placeholder="Masukkan Jumlah minimal halaman">
+                  @error ('jumlah_halaman_min')
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                  @enderror
+              </div>
 
-            <div class="form-group">
-                <label>Jumlah Halaman</label>
-                <input type="text" name="p_jumlah_halaman" class="form-control @error('p_jumlah_halaman') is-invalid @enderror"
-                 placeholder="Masukkan Range Jumlah Halaman ex. 0-200" value="{{ old('p_jumlah_halaman') }}">
-                @error ('p_jumlah_halaman')
-                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                      {{$message}}
-                  </div>
-                @enderror
-            </div>
-            
-            <div class="form-group">
-                <label>Harga</label>
-                <input type="text" name="harga" class="form-control @error('harga') is-invalid @enderror"
-                 placeholder="Masukkan harga ex. 100000" value="{{ old('harga') }}">
-                @error ('harga')
-                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                      {{$message}}
-                  </div>
-                @enderror
-            </div>
+              <div class="form-group">
+                  <label>Jumlah Halaman Max</label>
+                  <input type="number" class="form-control @error('jumlah_halaman_max') is-invalid @enderror" 
+                  name="jumlah_halaman_max" id="jumlah_halaman_max" value="{{ old('jumlah_halaman_max') }}" placeholder="Masukkan Jumlah maximal halaman">
+                  @error ('jumlah_halaman_max')
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                  @enderror
+              </div>
+
+              <div class="form-group">
+                  <label>Harga</label>
+                  <input type="text" class="form-control @error('harga') is-invalid @enderror" 
+                  name="harga" id="harga" value="{{ old('harga') }}" placeholder="Masukkan harga ex. 100000">
+                  @error ('harga')
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                  @enderror
+              </div>
+
         </div>
       
 
@@ -68,7 +65,8 @@
 </div>
 
 <!-- Modal Edit -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach ($dokumen as $edit)
+<div class="modal fade" id="updateModal{{$edit->id_parameter_order_dokumen}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -78,47 +76,45 @@
         </button>
       </div>
 
-      <form action="/daftar-harga-dokumen" method="POST" id="editForm">
-
-      {{ csrf_field() }}
-      {{ method_field('PUT') }}
+      <form method="POST" action="/daftar-harga-dokumen/{{$edit->id_parameter_order_dokumen}}">
+      @method('patch')
+      @csrf
 
         <div class="modal-body">
-          <div class="form-group">
-                <label for="p_jenis_layanan">Jenis Layanan</label>
-                    <select class="form-control @error('p_jenis_layanan') is-invalid @enderror" 
-                    id="p_jenis_layanan" placeholder="Jenis Layanan" name="p_jenis_layanan">
-                        <option value="Basic">Basic</option>
-                        <option value="Premium">Premium</option>
-                    </select>
-                    @error ('p_jenis_layanan')
-                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                            {{$message}}
-                        </div>
-                    @enderror
-            </div>
 
-            <div class="form-group">
-                <label>Jumlah Halaman</label>
-                <input type="text" name="p_jumlah_halaman" class="form-control @error('p_jumlah_halaman') is-invalid @enderror"
-                 placeholder="Masukkan Range Jumlah Halaman ex. 0-200" id="p_jumlah_halaman">
-                @error ('p_jumlah_halaman')
-                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                      {{$message}}
-                  </div>
-                @enderror
-            </div>
-            
-            <div class="form-group">
-                <label>Harga</label>
-                <input type="text" name="harga" class="form-control @error('harga') is-invalid @enderror"
-                 placeholder="Masukkan harga ex. 100000" id="harga">
-                @error ('harga')
-                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                      {{$message}}
-                  </div>
-                @enderror
-            </div>
+              <div class="form-group">
+                  <label>Jumlah Halaman Min</label>
+                  <input type="number" class="form-control @error('jumlah_halaman_min') is-invalid @enderror" 
+                  name="jumlah_halaman_min" id="jumlah_halaman_min" value="{{$edit->jumlah_halaman_min}}" placeholder="Masukkan jumlah minimal halaman">
+                  @error ('jumlah_halaman_min')
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                  @enderror
+              </div>
+
+              <div class="form-group">
+                  <label>Jumlah Halaman Max</label>
+                  <input type="number" class="form-control @error('jumlah_halaman_max') is-invalid @enderror" 
+                  name="jumlah_halaman_max" id="jumlah_halaman_max" value="{{$edit->jumlah_halaman_max}}" placeholder="Masukkan jumlah maximal halaman">
+                  @error ('jumlah_halaman_max')
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                  @enderror
+              </div>
+
+              <div class="form-group">
+                  <label>Harga</label>
+                  <input type="text" class="form-control @error('harga') is-invalid @enderror" 
+                  name="harga" id="harga" value="{{$edit->harga}}" placeholder="Masukkan harga ex. 100000">
+                  @error ('harga')
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                  @enderror
+              </div> 
+
         </div>
 
         <div class="modal-footer">
@@ -129,6 +125,7 @@
     </div>
   </div>
 </div>
+@endforeach
 
 <!-- Main content -->
 <section class="content">
@@ -140,7 +137,7 @@
                 <div class="card-tools">
               
                   <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">
                   <i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data Harga
                   </button>
 
@@ -151,25 +148,23 @@
                 <table id="datatable" class="table table-bordered">
                   <thead>   
                   <tr>
-                    <th scope="row" class="text-center">No</th>
-                    <th hidden>ID Harga</th>
-                    <th scope="row" class="text-center">Jenis Layanan</th>
+                    <th scope="row" class="text-center" style="width: 100px">No</th>
+                    <th hidden>ID</th>
                     <th scope="row" class="text-center">Jumlah Halaman</th>
                     <th scope="row" class="text-center">Harga</th>
-                    <th scope="row" class="text-center">Action</th>
+                    <th scope="row" class="text-center" style="width: 100px">Action</th>
                   </tr>
                   </thead>
                   <tbody>
                   @foreach($dokumen as $harga)
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
-                    <td scope="row" class="text-center" hidden>{{$harga->id_parameter_order}}</td>
-                    <td scope="row" class="text-center">{{$harga->p_jenis_layanan}}</td>
-                    <td scope="row" class="text-center">{{$harga->p_jumlah_halaman}}</td>
+                    <td scope="row" class="text-center" hidden>{{$harga->id_parameter_order_dokumen}}</td>
+                    <td scope="row" class="text-center">{{$harga->jumlah_halaman_min}}-{{$harga->jumlah_halaman_max}}</td>
                     <td scope="row" class="text-center">{{$harga->harga}}</td>
                     <td scope="row" class="text-center">
-                      <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#updateModal"><i class="fas fa-pencil-alt"></i></button>
-                      <a href="#" class="btn btn-sm btn-danger delete" harga-num="{{$loop->iteration}}" harga-id="{{$harga->id_parameter_order}}"><i class="fas fa-trash-alt"></i></a>
+                      <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#updateModal{{$harga->id_parameter_order_dokumen}}"><i class="fas fa-pencil-alt"></i></button>
+                      <a href="#" class="btn btn-sm btn-danger delete" harga-num="{{$loop->iteration}}" harga-id="{{$harga->id_parameter_order_dokumen}}"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
                   @endforeach

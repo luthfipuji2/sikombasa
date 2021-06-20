@@ -97,36 +97,65 @@ Route::middleware(['auth'])->group(function () {
     //Route Admin
     Route::middleware(['admin'])->group(function () {
 
-        
         Route::get('/admin', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('admin');
         Route::resource('users', 'App\Http\Controllers\Admin\UsersController');
         Route::get('/users/{user}/delete', 'App\Http\Controllers\Admin\UsersController@destroy');
         Route::get('/users/download/{id}', 'App\Http\Controllers\Admin\UsersController@download')->name('users.download');
+
+        //Route Bank
         Route::resource('bank', 'App\Http\Controllers\Admin\BankController');
         Route::get('/bank/{bank}/delete', 'App\Http\Controllers\Admin\BankController@destroy');
         
-        //Route Daftar Harga
+        //Route Daftar Harga Teks
         Route::resource('daftar-harga-teks', 'App\Http\Controllers\Admin\HargaTeksController');
-        Route::get('/daftar-harga-teks/{harga}/delete', 'App\Http\Controllers\Admin\HargaTeksController@destroy');
+        Route::get('/daftar-harga-teks/{kata}/delete', 'App\Http\Controllers\Admin\HargaTeksController@destroy');
+
+        //Route Daftar Harga Dokumen
         Route::resource('daftar-harga-dokumen', 'App\Http\Controllers\Admin\HargaDokumenController');
         Route::get('/daftar-harga-dokumen/{harga}/delete', 'App\Http\Controllers\Admin\HargaDokumenController@destroy');
+
+        //Route Daftar Harga Subtitle
         Route::resource('daftar-harga-subtitle', 'App\Http\Controllers\Admin\HargaSubtitleController');
         Route::get('/daftar-harga-subtitle/{harga}/delete', 'App\Http\Controllers\Admin\HargaSubtitleController@destroy');
+
+        //Route Daftar Harga Dubbing
         Route::resource('daftar-harga-dubbing', 'App\Http\Controllers\Admin\HargaDubbingController');
         Route::get('/daftar-harga-dubbing/{harga}/delete', 'App\Http\Controllers\Admin\HargaDubbingController@destroy');
+        //Route Daftar Harga Dubber
+        Route::post('/daftar-harga-dubbing.storeDubber', 'App\Http\Controllers\Admin\HargaDubbingController@storeDubber');
+        Route::patch('daftar-harga-dubbing.updateDubber/{e}', 'App\Http\Controllers\Admin\HargaDubbingController@updateDubber')->name('update.dubber');
+        Route::get('/daftar-harga-dubbing.destroyDubber/{dubber}/deleteDubber', 'App\Http\Controllers\Admin\HargaDubbingController@destroyDubber');
+        
         Route::resource('daftar-harga-transkrip', 'App\Http\Controllers\Admin\HargaTranskripController');
         Route::get('/daftar-harga-transkrip/{harga}/delete', 'App\Http\Controllers\Admin\HargaTranskripController@destroy');
-        Route::resource('daftar-harga-interpreter', 'App\Http\Controllers\Admin\HargaInterpreterController');
-        Route::get('/daftar-harga-interpreter/{harga}/delete', 'App\Http\Controllers\Admin\HargaInterpreterController@destroy');
+
+        //Route Daftar Harga Menu Offline
+        Route::resource('daftar-harga-offline', 'App\Http\Controllers\Admin\HargaOfflineController');
+        Route::get('/daftar-harga-offline/{harga}/delete', 'App\Http\Controllers\Admin\HargaOfflineController@destroy');
+
+        //Route Daftar Harga Tambahan
+        Route::resource('daftar-harga-tambahan', 'App\Http\Controllers\Admin\HargaTambahanController');
+        Route::get('/daftar-harga-tambahan/{harga}/delete', 'App\Http\Controllers\Admin\HargaTambahanController@destroy');
+        Route::post('/daftar-harga-tambahan.storeJenis', 'App\Http\Controllers\Admin\HargaTambahanController@storeJenis');
+        Route::patch('daftar-harga-tambahan.updateJenis/{j}', 'App\Http\Controllers\Admin\HargaTambahanController@updateJenis')->name('update.jenis');
+        Route::get('/daftar-harga-tambahan.destroyJenis/{jenis}/deleteJenis', 'App\Http\Controllers\Admin\HargaTambahanController@destroyJenis');
+
         
+        //Route Daftar Admin, Klien, Translator
         Route::resource('daftar-admin', 'App\Http\Controllers\Admin\AdminController');
         Route::resource('daftar-klien', 'App\Http\Controllers\Admin\DaftarKlienController');
         Route::get('/klien/download/{id_klien}', 'App\Http\Controllers\Admin\DaftarKlienController@download')->name('klien.download');
         Route::resource('daftar-translator', 'App\Http\Controllers\Admin\DaftarTranslatorController');
         Route::get('/translator/download/{id_translator}', 'App\Http\Controllers\Admin\DaftarTranslatorController@download')->name('translator.download');
+
+        //Route Frofile & Biodata Admin
         Route::resource('profile-admin', 'App\Http\Controllers\Admin\ProfileController');
         Route::patch('biodata-admin/{users}', 'App\Http\Controllers\Admin\ProfileController@updateBiodata');
+
+        //Route Daftar Transaksi
         Route::resource('daftar-transaksi', 'App\Http\Controllers\Admin\DaftarTransaksiController');
+
+        //Route Distribusi Fee
         Route::resource('distribusi-fee', 'App\Http\Controllers\Admin\DistribusiFeeController');
 
         

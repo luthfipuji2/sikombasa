@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Harga;
+use App\Models\Admin\ParameterOrderSubtitle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,8 +17,9 @@ class HargaSubtitleController extends Controller
      */
     public function index()
     {
-        $subtitle = DB::table('parameter_order')->whereNotNull('p_durasi_file')->get();
-        return view('pages.admin.HargaSubtitle', ['subtitle' => $subtitle]);
+        $subtitle = DB::table('parameter_order_subtitle')
+        ->get();
+        return view('pages.admin.HargaSubtitle', compact('subtitle'));
     }
 
     /**
@@ -39,18 +41,24 @@ class HargaSubtitleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'p_jenis_layanan' => 'required',
-            'p_durasi_file' => 'required',
+            'durasi_video_min' => 'required|integer',
+            'durasi_video_max' => 'required|integer',
             'harga' => 'required|integer'
         ]);
-
-        Harga::create([
-            'p_jenis_layanan' => $request->p_jenis_layanan,
-            'p_durasi_file' => $request->p_durasi_file,
-            'harga' => $request->harga
-        ]);
-
-        return redirect('/daftar-harga-subtitle')->with('success', 'Harga baru berhasil ditambahkan');
+        
+        if($request->durasi_video_min < $request->durasi_video_max)
+        {
+            ParameterOrderSubtitle::create([
+                'durasi_video_min' => $request->durasi_video_min,
+                'durasi_video_max' => $request->durasi_video_max,
+                'harga' => $request->harga
+            ]);
+            return redirect('/daftar-harga-subtitle')->with('success', 'Parameter harga subtitle berhasil diubah');
+        }
+        else
+        {
+            return redirect('/daftar-harga-subtitle')->with('failed', 'Parameter harga subtitle gagal diubah, cek kembali data Anda!');
+        }
     }
 
     /**
@@ -82,23 +90,30 @@ class HargaSubtitleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_parameter_order)
+    public function update(Request $request, $id_parameter_order_subtitle)
     {
         $this->validate($request,[
-            'p_jenis_layanan' => 'required',
-            'p_durasi_file' => 'required',
+            'durasi_video_min' => 'required|integer',
+            'durasi_video_max' => 'required|integer',
             'harga' => 'required|integer'
         ]);
 
-        $harga = Harga::find($id_parameter_order);
+        $subtitle = ParameterOrderSubtitle::find($id_parameter_order_subtitle);
         
-        Harga::where('id_parameter_order', $harga->id_parameter_order)
+        if($request->durasi_video_min < $request->durasi_video_max)
+        {
+            ParameterOrderSubtitle::where('id_parameter_order_subtitle', $subtitle->id_parameter_order_subtitle)
                     ->update([
-                        'p_jenis_layanan' => $request->p_jenis_layanan,
-                        'p_durasi_file' => $request->p_durasi_file,
+                        'durasi_video_min' => $request->durasi_video_min,
+                        'durasi_video_max' => $request->durasi_video_max,
                         'harga' => $request->harga
                     ]);
-        return redirect('/daftar-harga-subtitle')->with('success', 'Data harga berhasil diubah');
+            return redirect('/daftar-harga-subtitle')->with('success', 'Parameter harga subtitle berhasil diubah');
+        }
+        else
+        {
+            return redirect('/daftar-harga-subtitle')->with('failed', 'Parameter harga subtitle gagal diubah, cek kembali data Anda!');
+        }
     }
 
     /**
@@ -107,9 +122,9 @@ class HargaSubtitleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Harga $harga)
+    public function destroy(ParameterOrderSubtitle $harga)
     {
-        Harga::destroy($harga->id_parameter_order);
-        return redirect('/daftar-harga-subtitle')->with('success', 'Data harga berhasil dihapus');
+        ParameterOrderSubtitle::destroy($harga->id_parameter_order_subtitle);
+        return redirect('/daftar-harga-subtitle')->with('success', 'Parameter harga subtitle berhasil dihapus');
     }
 }

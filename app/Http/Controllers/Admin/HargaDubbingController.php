@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Harga;
+use App\Models\Admin\ParameterDubber;
+use App\Models\Admin\ParameterOrderDubbing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Builder\Param;
 
 class HargaDubbingController extends Controller
 {
@@ -16,9 +19,13 @@ class HargaDubbingController extends Controller
      */
     public function index()
     {
-        $dubbing = DB::table('parameter_order')->whereNotNull('p_jumlah_dubber')
+        $dubbing = DB::table('parameter_order_dubbing')
         ->get();
-        return view('pages.admin.HargaDubbing', ['dubbing' => $dubbing]);
+
+        $dubber = DB::table('parameter_dubber')
+        ->get();
+
+        return view('pages.admin.HargaDubbing', compact('dubbing', 'dubber'));
     }
 
     /**
@@ -40,20 +47,41 @@ class HargaDubbingController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'p_jenis_layanan' => 'required',
-            'p_durasi_file' => 'required',
-            'p_jumlah_dubber' =>'required',
+            'durasi_video_min' => 'required|integer',
+            'durasi_video_max' => 'required|integer',
             'harga' => 'required|integer'
         ]);
+        
+        if($request->durasi_video_min < $request->durasi_video_max)
+        {
+            ParameterOrderDubbing::create([
+                'durasi_video_min' => $request->durasi_video_min,
+                'durasi_video_max' => $request->durasi_video_max,
+                'harga' => $request->harga
+            ]);
+            return redirect('/daftar-harga-dubbing')->with('success', 'Parameter harga dubbing berhasil diubah');
+        }
+        else
+        {
+            return redirect('/daftar-harga-dubbing')->with('failed', 'Parameter harga dubbing gagal diubah, cek kembali data Anda!');
+        }
+    }
 
-        Harga::create([
-            'p_jenis_layanan' => $request->p_jenis_layanan,
-            'p_durasi_file' => $request->p_durasi_file,
-            'p_jumlah_dubber' => $request->p_jumlah_dubber,
-            'harga' => $request->harga
+    public function storeDubber(Request $request)
+    {
+        $this->validate($request,[
+            'p_jumlah_dubber' => 'required',
+            'harga_dubber' => 'required|integer'
         ]);
 
-        return redirect('/daftar-harga-dubbing')->with('success', 'Harga baru berhasil ditambahkan');
+        if (ParameterDubber::where('p_jumlah_dubber', '=', $request->p_jumlah_dubber)->exists()) {
+            return redirect('/daftar-harga-dubbing')->with('failed', 'Parameter jumlah dubber sudah ada');
+        }
+        ParameterDubber::create([
+                        'p_jumlah_dubber' => $request->p_jumlah_dubber,
+                        'harga' => $request->harga_dubber
+                    ]);
+        return redirect('/daftar-harga-dubbing')->with('success', 'Parameter dubber berhasil diubah');
     }
 
     /**
@@ -85,25 +113,47 @@ class HargaDubbingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_parameter_order)
+    public function update(Request $request, $id_parameter_order_dubbing)
     {
         $this->validate($request,[
-            'p_jenis_layanan' => 'required',
-            'p_durasi_file' => 'required',
-            'p_jumlah_dubber' => 'required',
+            'durasi_video_min' => 'required|integer',
+            'durasi_video_max' => 'required|integer',
             'harga' => 'required|integer'
         ]);
 
-        $harga = Harga::find($id_parameter_order);
+        $dubbing = ParameterOrderDubbing::find($id_parameter_order_dubbing);
         
-        Harga::where('id_parameter_order', $harga->id_parameter_order)
+        if($request->durasi_video_min < $request->durasi_video_max)
+        {
+            ParameterOrderDubbing::where('id_parameter_order_dubbing', $dubbing->id_parameter_order_dubbing)
                     ->update([
-                        'p_jenis_layanan' => $request->p_jenis_layanan,
-                        'p_durasi_file' => $request->p_durasi_file,
-                        'p_jumlah_dubber' => $request->p_jumlah_dubber,
+                        'durasi_video_min' => $request->durasi_video_min,
+                        'durasi_video_max' => $request->durasi_video_max,
                         'harga' => $request->harga
                     ]);
-        return redirect('/daftar-harga-dubbing')->with('success', 'Data harga berhasil diubah');
+            return redirect('/daftar-harga-dubbing')->with('success', 'Parameter harga dubbing berhasil diubah');
+        }
+        else
+        {
+            return redirect('/daftar-harga-dubbing')->with('failed', 'Parameter harga dubbing gagal diubah, cek kembali data Anda!');
+        }
+    }
+
+    public function updateDubber(Request $request, $id_parameter_dubber)
+    {
+        $this->validate($request,[
+            'p_jumlah_dubber' => 'required',
+            'harga_dubber' => 'required|integer'
+        ]);
+
+        $jenis = ParameterDubber::find($id_parameter_dubber);
+        
+        ParameterDubber::where('id_parameter_dubber', $jenis->id_parameter_dubber)
+                    ->update([
+                        'p_jumlah_dubber' => $request->p_jumlah_dubber,
+                        'harga' => $request->harga_dubber
+                    ]);
+        return redirect('/daftar-harga-dubbing')->with('success', 'Parameter dubber berhasil diubah');
     }
 
     /**
@@ -112,9 +162,15 @@ class HargaDubbingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Harga $harga)
+    public function destroy(ParameterOrderDubbing $harga)
     {
-        Harga::destroy($harga->id_parameter_order);
-        return redirect('/daftar-harga-dubbing')->with('success', 'Data harga berhasil dihapus');
+        ParameterOrderDubbing::destroy($harga->id_parameter_order_dubbing);
+        return redirect('/daftar-harga-dubbing')->with('success', 'Parameter harga dubbing berhasil dihapus');
+    }
+
+    public function destroyDubber(ParameterDubber $dubber)
+    {
+        ParameterDubber::destroy($dubber->id_parameter_dubber);
+        return redirect('/daftar-harga-dubbing')->with('success', 'Parameter jumlah dubber berhasil dihapus');
     }
 }
