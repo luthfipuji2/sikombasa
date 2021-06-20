@@ -1,6 +1,6 @@
 @extends('layouts/admin/template')
 
-@section('title', 'Daftar Harga Menu Interpreter')
+@section('title', 'Daftar Harga Menu Offline')
 
 @section('container')
 
@@ -9,13 +9,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Harga Interpreter</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Parameter Menu Ofline</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
-      <form action="{{route('daftar-harga-interpreter.store')}}" method="POST">
+      <form action="{{route('daftar-harga-offline.store')}}" method="POST">
 
       {{ csrf_field() }}
         <div class="modal-body">
@@ -72,13 +72,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Data Harga Interpreter</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Parameter Menu Offline</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
-      <form action="/daftar-harga-interpreter" method="POST" id="editForm">
+      <form action="/daftar-harga-offline" method="POST" id="editForm">
 
       {{ csrf_field() }}
       {{ method_field('PUT') }}
@@ -144,7 +144,7 @@
               
                   <!-- Button trigger modal -->
                   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-                  <i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data Harga
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Parameter Menu Offline
                   </button>
 
                 </div>
@@ -163,7 +163,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  @foreach($interpreter as $harga)
+                  @foreach($offline as $harga)
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
                     <td scope="row" class="text-center" hidden>{{$harga->id_parameter_order}}</td>
@@ -202,7 +202,7 @@
 
         Swal.fire({
           title: "Apakah anda yakin?",
-          text: "Hapus data harga "+harga_id+"??",
+          text: "Hapus parameter menu offline "+harga_id+"??",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -210,7 +210,7 @@
           confirmButtonText: 'Ya, hapus!'
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location = "/daftar-harga-interpreter/"+harga_id+"/delete";  
+            window.location = "/daftar-harga-offline/"+harga_id+"/delete";  
             Swal.fire(
               'Berhasil!',
               'Data berhasil dihapus ',
@@ -265,7 +265,7 @@ $(document).ready(function () {
     $('#p_durasi_pertemuan').val(data[3]);
     $('#harga').val(data[4]); 
 
-    $('#editForm').attr('action', '/daftar-harga-interpreter/'+data[1]);
+    $('#editForm').attr('action', '/daftar-harga-offline/'+data[1]);
     $('#editModal').modal('show');
     
   });

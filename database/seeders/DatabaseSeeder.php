@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ParameterJenisTeksSeeder::class);
         $this->call(ParameterOrderDokumenSeeder::class);
         $this->call(ParameterOrderSubtitleSeeder::class);
+        $this->call(ParameterOrderDubbingSeeder::class);
         $this->call(ParameterOrderTeksSeeder::class);
     }
 }
