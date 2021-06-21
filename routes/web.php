@@ -68,7 +68,9 @@ Route::middleware(['auth'])->group(function () {
        Route::put('/order-transkrip/{id_order}', 'App\Http\Controllers\Klien\OrderTranskripController@update')->name('update_order_transkrip');
        Route::post('/order-transkrip/create', [OrderTranskripController::class, 'store']);
 
+        //Route Transaksi
         Route::resource('menu-pembayaran', 'App\Http\Controllers\Klien\MenuPembayaranController');
+        Route::get('/detail-order-{id_order}', 'App\Http\Controllers\Klien\MenuPembayaranController@show')->name('detail-order');
         Route::get('/bukti/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@download')->name('bukti.download');
         Route::get('/invoice/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@invoice')->name('pdf.download');
 

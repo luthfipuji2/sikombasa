@@ -44,7 +44,7 @@
 
               <div class="form-group">
                   <label>Harga</label>
-                  <input type="text" class="form-control @error('harga') is-invalid @enderror" 
+                  <input type="number" class="form-control @error('harga') is-invalid @enderror" 
                   name="harga" id="harga" value="{{ old('harga') }}" placeholder="Masukkan harga ex. 100000">
                   @error ('harga')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -106,7 +106,7 @@
 
               <div class="form-group">
                   <label>Harga</label>
-                  <input type="text" class="form-control @error('harga') is-invalid @enderror" 
+                  <input type="number" class="form-control @error('harga') is-invalid @enderror" 
                   name="harga" id="harga" value="{{$edit->harga}}" placeholder="Masukkan harga ex. 100000">
                   @error ('harga')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
