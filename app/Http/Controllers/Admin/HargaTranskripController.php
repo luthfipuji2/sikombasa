@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Harga;
+use App\Models\Admin\ParameterOrderAudio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,8 +17,7 @@ class HargaTranskripController extends Controller
      */
     public function index()
     {
-        $transkrip = DB::table('parameter_order')->whereNotNull('p_durasi_pertemuan')
-        ->whereNotNull('p_tipe_transkrip')
+        $transkrip = DB::table('parameter_order_audio')
         ->get();
         return view('pages.admin.HargaTranskrip', ['transkrip' => $transkrip]);
     }
@@ -41,20 +41,24 @@ class HargaTranskripController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'p_jenis_layanan' => 'required',
-            'p_tipe_transkrip' => 'required',
-            'p_durasi_pertemuan' => 'required',
+            'min_durasi_audio' => 'required|integer',
+            'max_durasi_audio' => 'required|integer',
             'harga' => 'required|integer'
         ]);
-
-        Harga::create([
-            'p_jenis_layanan' => $request->p_jenis_layanan,
-            'p_tipe_transkrip' => $request->p_tipe_transkrip,
-            'p_durasi_pertemuan' => $request->p_durasi_pertemuan,
-            'harga' => $request->harga
-        ]);
-
-        return redirect('/daftar-harga-transkrip')->with('success', 'Harga baru berhasil ditambahkan');
+        
+        if($request->min_durasi_audio < $request->max_durasi_audio)
+        {
+            ParameterOrderAudio::create([
+                'min_durasi_audio' => $request->min_durasi_audio,
+                'max_durasi_audio' => $request->max_durasi_audio,
+                'harga' => $request->harga
+            ]);
+            return redirect('/daftar-harga-transkrip')->with('success', 'Parameter harga transkrip berhasil diubah');
+        }
+        else
+        {
+            return redirect('/daftar-harga-transkrip')->with('failed', 'Parameter harga transkrip gagal diubah, cek kembali data Anda!');
+        }
     }
 
     /**
@@ -86,25 +90,30 @@ class HargaTranskripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_parameter_order)
+    public function update(Request $request, $id_parameter_order_audio)
     {
         $this->validate($request,[
-            'p_jenis_layanan' => 'required',
-            'p_tipe_transkrip' => 'required',
-            'p_durasi_pertemuan' => 'required',
+            'min_durasi_audio' => 'required|integer',
+            'max_durasi_audio' => 'required|integer',
             'harga' => 'required|integer'
         ]);
 
-        $harga = Harga::find($id_parameter_order);
+        $transkrip = ParameterOrderAudio::find($id_parameter_order_audio);
         
-        Harga::where('id_parameter_order', $harga->id_parameter_order)
+        if($request->min_durasi_audio < $request->max_durasi_audio)
+        {
+            ParameterOrderAudio::where('id_parameter_order_audio', $transkrip->id_parameter_order_audio)
                     ->update([
-                        'p_jenis_layanan' => $request->p_jenis_layanan,
-                        'p_tipe_transkrip' => $request->p_tipe_transkrip,
-                        'p_durasi_pertemuan' => $request->p_durasi_pertemuan,
+                        'min_durasi_audio' => $request->min_durasi_audio,
+                        'max_durasi_audio' => $request->max_durasi_audio,
                         'harga' => $request->harga
                     ]);
-        return redirect('/daftar-harga-transkrip')->with('success', 'Data harga berhasil diubah');
+            return redirect('/daftar-harga-transkrip')->with('success', 'Parameter harga transkrip berhasil diubah');
+        }
+        else
+        {
+            return redirect('/daftar-harga-transkrip')->with('failed', 'Parameter harga transkrip gagal diubah, cek kembali data Anda!');
+        }
     }
 
     /**
@@ -113,9 +122,9 @@ class HargaTranskripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Harga $harga)
+    public function destroy(ParameterOrderAudio $harga)
     {
-        Harga::destroy($harga->id_parameter_order);
-        return redirect('/daftar-harga-transkrip')->with('success', 'Data harga berhasil dihapus');
+        ParameterOrderAudio::destroy($harga->id_parameter_order_audio);
+        return redirect('/daftar-harga-transkrip')->with('success', 'Parameter transkrip berhasil dihapus');
     }
 }

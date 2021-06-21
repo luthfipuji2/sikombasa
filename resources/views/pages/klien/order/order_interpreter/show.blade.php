@@ -87,7 +87,7 @@
                         </tr>
                         <tr>
                             <td class="bg-cyan"><i class="fas fa-tags"></i>&nbsp;&nbsp;<b>Harga (Sudah Termasuk Biaya Transportasi Translator)</b></td>
-                            <td class="bg-cyan"><b> Rp. {{$order->parameter_order->harga}}</b></td>
+                            <td class="bg-cyan"><b> Rp. {{$order->parameter_order->p_harga}}</b></td>
                         </tr>
                         </tbody>
                         </table>

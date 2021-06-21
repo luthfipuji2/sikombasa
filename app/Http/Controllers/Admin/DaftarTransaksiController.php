@@ -20,7 +20,7 @@ class DaftarTransaksiController extends Controller
             ->join('order', 'transaksi.id_order', '=', 'order.id_order')
             ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
             ->join('users', 'users.id', '=', 'klien.id')
-            ->join('parameter_order', 'order.id_parameter_order', '=', 
+            ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
                     'parameter_order.id_parameter_order')
             ->get();
         return view('pages.admin.DaftarTransaksi',  ['transaksi' => $transaksi]);

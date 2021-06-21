@@ -9,7 +9,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Harga Dokumen</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Parameter Dokumen</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -43,7 +43,7 @@
 
               <div class="form-group">
                   <label>Harga</label>
-                  <input type="text" class="form-control @error('harga') is-invalid @enderror" 
+                  <input type="number" class="form-control @error('harga') is-invalid @enderror" 
                   name="harga" id="harga" value="{{ old('harga') }}" placeholder="Masukkan harga ex. 100000">
                   @error ('harga')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -70,7 +70,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Data Harga Dokumen</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Parameter Dokumen</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -106,7 +106,7 @@
 
               <div class="form-group">
                   <label>Harga</label>
-                  <input type="text" class="form-control @error('harga') is-invalid @enderror" 
+                  <input type="number" class="form-control @error('harga') is-invalid @enderror" 
                   name="harga" id="harga" value="{{$edit->harga}}" placeholder="Masukkan harga ex. 100000">
                   @error ('harga')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -138,7 +138,7 @@
               
                   <!-- Button trigger modal -->
                   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">
-                  <i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data Harga
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Parameter Dokumen
                   </button>
 
                 </div>
@@ -195,7 +195,7 @@
 
         Swal.fire({
           title: "Apakah anda yakin?",
-          text: "Hapus data harga "+harga_num+"??",
+          text: "Hapus parameter dokumen "+harga_num+"??",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
