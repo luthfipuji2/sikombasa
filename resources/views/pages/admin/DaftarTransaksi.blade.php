@@ -314,7 +314,7 @@
                     <td scope="row" class="text-center">{{$t->status_transaksi}}</td>
                     <td scope="row" class="text-center">
                       <button type="button" class="btn btn-success btn-sm edit" data-toggle="modal" data-target="#updateModal">Edit Status</button>
-                      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#detailModal{{$t->id_transaksi}}"><i class="fas fa-info"></i></button>
+                      <a href="{{route('detail-transaksi', $t->id_transaksi)}}" class="btn btn-sm btn-primary">Detail</i></a>
                     </td>
                   </tr>
                   @endforeach

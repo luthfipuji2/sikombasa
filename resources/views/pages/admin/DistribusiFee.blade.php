@@ -31,7 +31,7 @@
             </div>  
             <div class="form-group">
                 <label>Fee Translator</label>
-                <input type="text" class="form-control @error('fee_translator') is-invalid @enderror" 
+                <input type="number" class="form-control @error('fee_translator') is-invalid @enderror" 
                 name="fee_translator" id="fee_translator" placeholder="Masukkan Fee Translator">
                 @error ('fee_translator')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label>Fee Sistem</label>
-                <input type="text" class="form-control @error('fee_sistem') is-invalid @enderror" 
+                <input type="number" class="form-control @error('fee_sistem') is-invalid @enderror" 
                 name="fee_sistem" id="fee_sistem" placeholder="Masukkan Fee Sistem">
                 @error ('fee_sistem')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -90,7 +90,7 @@
             </div>  
             <div class="form-group">
                 <label>Fee Translator</label>
-                <input type="text" class="form-control @error('fee_translator') is-invalid @enderror" 
+                <input type="number" class="form-control @error('fee_translator') is-invalid @enderror" 
                 name="fee_translator" placeholder="Masukkan Fee Translator">
                 @error ('fee_translator')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -100,7 +100,7 @@
             </div>
             <div class="form-group">
                 <label>Fee Sistem</label>
-                <input type="text" class="form-control @error('fee_sistem') is-invalid @enderror" 
+                <input type="number" class="form-control @error('fee_sistem') is-invalid @enderror" 
                 name="fee_sistem" placeholder="Masukkan Fee Sistem">
                 @error ('fee_sistem')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">

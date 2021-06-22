@@ -154,8 +154,7 @@ class MenuPembayaranController extends Controller
 
         $order = Order::find($id_order);
 
-        $detail = DB::table('order')
-            ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
+        $detail = Order::join('klien', 'order.id_klien', '=', 'klien.id_klien')
             ->join('users', 'klien.id', '=', 'users.id')
             ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
                     'parameter_order.id_parameter_order')
@@ -214,17 +213,6 @@ class MenuPembayaranController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function download($id_transaksi)
-    {
-        $dl = Transaksi::find($id_transaksi);
-
-        $bukti_transaksi = $dl->bukti_transaksi;
-
-        $pathToFile = public_path('transaksi/').$bukti_transaksi;
-        
-        return response()->download($pathToFile);
     }
 
     public function invoice($id_transaksi)

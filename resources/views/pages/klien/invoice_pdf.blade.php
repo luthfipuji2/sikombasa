@@ -110,7 +110,7 @@
             
 							<tr>
 								<td class="title">
-									<img src="https://www.sparksuite.com/images/logo.png" style="width: 100%; max-width: 300px" />
+									<b>SIKOMBASA</b>
 								</td>
 
 								<td>

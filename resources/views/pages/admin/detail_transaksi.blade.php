@@ -1,24 +1,59 @@
-@extends('layouts.klien.sidebar')
+@extends('layouts/admin/template')
 
-@section('title', 'Detail Order')
+@section('title', 'Detail Transaksi')
 
-@section('content')
-    
-<div class="container">
+@section('container')
+
     <section class="content">  
       <div class="container-fluid">
         <div class="row">
 
           <!-- /.col -->
-          <div class="col-md-12">
+          <div class="col-12 mt-3">
+                
             <div class="card">
-                <div class="card-header p-2">
-                    <a href="{{ url ('/menu-pembayaran') }}" class="btn btn-primary mx-1 btn-icon" type="submit" class="text-right" style="float: left;"><i class="fas fa-arrow-left"></i> Kembali ke Menu Pembayaran</a>
-                </div><!-- /.card-header -->
-
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
+                            <h4>
+                                <i class="fas fa-globe"></i> SIKOMBASA
+                                <small class="float-right">Date: 2/10/2014</small>
+                            </h4>
+
+                            <!-- info row -->
+                            <div class="row invoice-info">
+                                <div class="col-sm-4 invoice-col">
+                                From
+                                <address>
+                                    <strong>SIKOMBASA</strong><br>
+                                    795 Folsom Ave, Suite 600<br>
+                                    San Francisco, CA 94107<br>
+                                    Phone: (804) 123-5432<br>
+                                    Email: info@almasaeedstudio.com
+                                </address>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-sm-4 invoice-col">
+                                To
+                                <address>
+                                    <strong>{{$detail->name}}</strong><br>
+                                    {{$detail->alamat}}<br>
+                                    {{$detail->no_telp}}<br>
+                                    {{$detail->email}}
+                                </address>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-sm-4 invoice-col">
+                                <b>Invoice #{{$detail->id_transaksi}}</b><br>
+                                <br>
+                                <b>Order ID:</b> {{$detail->id_order}}<br>
+                                <b>Waktu Order:</b> {{$detail->tgl_order}}<br>
+                                <b>Waktu Transaksi:</b> {{$detail->tgl_transaksi}}<br>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+
                             <table class="table table-bordered table-striped">
                                 <tbody>
                                 <tr>
@@ -144,7 +179,7 @@
 
 
                                 <tr>
-                                    <td class="bg-cyan"><i class="fas fa-tags"></i>&nbsp;&nbsp;<b>Harga</b></td>
+                                    <td class="bg-cyan"><i class="fas fa-tags"></i>&nbsp;&nbsp;<b>Harga Total</b></td>
                                     @if(!empty($detail->p_harga))
                                     <td class="bg-cyan"><b> Rp. {{$detail->p_harga}}</b></td>
                                     @elseif(!empty($detail->harga_total))
@@ -153,15 +188,33 @@
                                 </tr>
                                 </tbody>
                             </table>
+
+                            <div class="row">
+                                <!-- /.col -->
+                                <div class="col-12">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                    <tr>
+                                        <th style="width:50%">Metode Pembayaran:</th>
+                                        <td>Transfer Bank {{$detail->nama_bank}}-{{$detail->no_rekening}} ({{$detail->nama_rekening}})</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Status Transaksi</th>
+                                        <td>{{$detail->status_transaksi}}</td>
+                                    </tr>
+                                    </table>
+                                </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+
                         </div>
                     </div>
                 </div>
-
             </div>
           </div>
         </div>
       </div>
     </section>
-</div>
-
 @endsection
