@@ -75,17 +75,6 @@
                             <label class="custom-control-label" for="customRadio2">Lolos</label>
                           </div>
                         </div>
-                        @elseif($d->hasil=='tidak lolos')
-                        <div class="col-sm-12">
-                          <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio1" name="hasil" value="tidak lolos" class="custom-control-input" checked>
-                            <label class="custom-control-label" for="customRadio1">Tidak Lolos</label>
-                          </div>
-                          <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio2" name="hasil" value="lolos" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio2">Lolos</label>
-                          </div>
-                        </div>
                         @elseif($d->hasil=='lolos')
                         <div class="col-sm-12">
                           <div class="custom-control custom-radio">
@@ -94,6 +83,17 @@
                           </div>
                           <div class="custom-control custom-radio">
                             <input type="radio" id="customRadio2" name="hasil" value="lolos" class="custom-control-input" checked>
+                            <label class="custom-control-label" for="customRadio2">Lolos</label>
+                          </div>
+                        </div>
+                        @elseif($d->hasil=='tidak lolos')
+                        <div class="col-sm-12">
+                          <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio1" name="hasil" value="tidak lolos" class="custom-control-input" checked>
+                            <label class="custom-control-label" for="customRadio1">Tidak Lolos</label>
+                          </div>
+                          <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio2" name="hasil" value="lolos" class="custom-control-input">
                             <label class="custom-control-label" for="customRadio2">Lolos</label>
                           </div>
                         </div>

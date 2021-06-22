@@ -85,6 +85,7 @@ class BiodataKlienController extends Controller
         $profile->tgl_lahir = $request->tgl_lahir;
         $profile->jenis_kelamin = $request->jenis_kelamin;
         $profile->no_telp = $request->no_telp;
+        $profile->name = Auth::user()->name;
         //$profile->foto_ktp = $request->foto_ktp;
         $profile->save();
 
