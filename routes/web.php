@@ -82,6 +82,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/certificate', [App\Http\Controllers\Klien\CareerController::class, 'indexCertificate']);
         Route::post('/certificate', [App\Http\Controllers\Klien\CareerController::class, 'submitCertificate'])->name('certificate');
         Route::get('/progress', [App\Http\Controllers\Klien\CareerController::class, 'indexProgress']);
+        Route::get('/post-apply', [App\Http\Controllers\Klien\PostController::class, 'index']);
+        Route::patch('/biodata-post', [App\Http\Controllers\Klien\PostController::class, 'updateBiodata']);
+        Route::get('/document-post', [App\Http\Controllers\Klien\PostController::class, 'indexDocument']);
+        Route::patch('/document-post', [App\Http\Controllers\Klien\PostController::class, 'updateDocument']);
+
+        
     });
 
     Route::middleware(['translator'])->group(function () {

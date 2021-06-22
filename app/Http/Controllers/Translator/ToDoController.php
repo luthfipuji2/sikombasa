@@ -10,7 +10,8 @@ use App\Models\Translator\Certificate;
 use App\Models\Translator\Master_keahlian;
 use App\Models\Translator\Document;
 use App\Models\Admin\Seleksi;
-use App\Models\KLien\Order;
+use App\Models\Klien\Order;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 class ToDoController extends Controller
@@ -19,6 +20,7 @@ class ToDoController extends Controller
         $user = Auth::user();
         $translator = Translator::where('id', $user->id)->first();
         $order = DB::table('order')
+                ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
                 ->where('id_translator', $translator->id_translator)
                 ->get();
 

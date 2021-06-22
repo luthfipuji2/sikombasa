@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-md-7 pt-4">
                           <h3>Terimakasih telah mengisi formulir, {{$translator->nama}}!</h3>
-                          <p class="fst-italic">
+                          <p class="font-italic">
                           Data Anda akan segera kami proses. Pengisian formulir dilakukan pada {{$translator->updated_at}}
                           </p>
                         </div>
@@ -47,11 +47,11 @@
                       <br>
                       <div class="row" data-aos="fade-up">
                         <div class="col-md-3">
-                          <img src="./img/yes-document.jpg" class="img-fluid" alt="">
+                          <img src="./img/Office workers organizing data storage.jpg" class="img-fluid" alt="">
                         </div>
                         <div class="col-md-7 pt-4">
                           <h3>Selamat, {{$translator->nama}}!</h3>
-                          <p class="fst-italic">
+                          <p class="font-italic">
                             Anda dinyatakan lulus tahap pertama (Seleksi Administrasi) menjadi translator SIKOMBASA. Untuk selanjutnya Anda dapat melakukan sesi wawancara bersama kami. Terimakasih! 
                           </p>
                         </div>
@@ -67,10 +67,16 @@
                           </div>
                           <div class="col-md-7 pt-4">
                             <h3>Sayang sekali, {{$translator->nama}}!</h3>
-                            <p class="fst-italic">
+                            <p class="font-italic">
                               Anda dinyatakan tidak lulus tahap pertama (Seleksi Administrasi) menjadi translator SIKOMBASA. Semoga pada kesempatan berikutnya Anda dapat bergabung bersama kami. Terimakasih!
                             </p>
                           </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                          <a href="/post-apply" class="btn btn-primary">
+                            Coba lagi
+                          </a>
                         </div>
                       @elseif($seleksi->hasil=='lolos' && $seleksi->hasil_wawancara=='tidak lolos')
                         <div class="progress">
@@ -79,14 +85,19 @@
                         <br>
                         <div class="row" data-aos="fade-up">
                           <div class="col-md-3">
-                            <img src="./img/documents(1).jpg" class="img-fluid" alt="">
+                            <img src="./img/3024051.jpg" class="img-fluid" alt="">
                           </div>
                           <div class="col-md-7 pt-4">
                             <h3>Sayang sekali, {{$translator->nama}}!</h3>
-                            <p class="fst-italic">
+                            <p class="font-italic">
                               Anda dinyatakan tidak lulus tahap terakhir (Seleksi Wawancara) menjadi translator SIKOMBASA. Semoga pada kesempatan berikutnya Anda dapat bergabung bersama kami. Terimakasih!
                             </p>
                           </div>
+                        </div>
+                        <div class="form-group row">
+                          <a href="/post-apply" class="btn btn-primary">
+                            Coba lagi
+                          </a>
                         </div>
                       @elseif($seleksi->hasil=='lolos' && $seleksi->hasil_wawancara=='lolos')
                         <div class="progress">
@@ -95,15 +106,16 @@
                         <br>
                         <div class="row" data-aos="fade-up">
                           <div class="col-md-3">
-                            <img src="./img/documents(1).jpg" class="img-fluid" alt="">
+                            <img src="./img/7482.jpg" class="img-fluid" alt="">
                           </div>
                           <div class="col-md-7 pt-4">
                             <h3>Selamat, {{$translator->nama}}!</h3>
-                            <p class="fst-italic">
+                            <p class="font-italic">
                             Anda dinyatakan lulus tahap terakhir (Seleksi Wawancara) menjadi translator SIKOMBASA. Semoga sukses untuk posisi barunya. Sekali lagi selamat dan terimakasih!
                             </p>
                           </div>
                         </div>
+                        <br>
                       @endif
                       <br>
                       <!-- <div class="col-md-4">
