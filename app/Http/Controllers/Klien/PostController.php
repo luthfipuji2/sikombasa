@@ -34,7 +34,7 @@ class PostController extends Controller
         $id_user = $user->id; //id user yang login
 
         $t = Translator::where('id', $user->id)->first();
-        DB::table('seleksi')->where('id_translator', $t->id_translator)->delete();
+        // DB::table('seleksi')->where('id_translator', $t->id_translator)->delete();
 
         Translator::where('id', $id_user)->update([
             'nama' => $request->nama,
@@ -54,13 +54,13 @@ class PostController extends Controller
         ]);
 
         if($request->hasFile('foto_ktp')){
-            $request->file('foto_ktp')->move(public_path().'\img\biodata',
+            $request->file('foto_ktp')->move(public_path().'/img/biodata/',
             $request->file('foto_ktp')->getClientOriginalName());
             
             $translator = Translator::where('id', $id_user)->first();
             $currentPhoto = $translator->foto_ktp;
 
-            $userPhoto = public_path('\img\biodata').$currentPhoto;
+            $userPhoto = public_path('/img/biodata/').$currentPhoto;
             if(file_exists($userPhoto)){
                 @unlink($userPhoto);
             }
@@ -92,97 +92,185 @@ class PostController extends Controller
     {
         $user = Auth::user(); //user yang login
         $id_user = $user->id; //id user yang login
+        $translator = Translator::where('id', $user->id)->first();
 
         if($request->hasFile('cv')){
-            $request->file('cv')->move(public_path().'\img\dokumen',
+            $request->file('cv')->move(public_path().'/img/dokumen',
             $request->file('cv')->getClientOriginalName());
             
-            $dokumen = Document::where('id', $id_user)->first();
+            $dokumen = Document::where('id_translator', $translator->id_translator)->first();
             $currentPhoto = $dokumen->cv;
 
-            $userPhoto = public_path('\img\dokumen').$currentPhoto;
+            $userPhoto = public_path('/img/dokumen/').$currentPhoto;
             if(file_exists($userPhoto)){
                 @unlink($userPhoto);
             }
 
-            Document::where('id', $id_user)
+            Document::where('id_translator', $translator->id_translator)
                     ->update([
                         'cv'    => $request->file('cv')->getClientOriginalName()
             ]);
         }
 
         if($request->hasFile('ijazah_terakhir')){
-            $request->file('ijazah_terakhir')->move(public_path().'\img\dokumen',
+            $request->file('ijazah_terakhir')->move(public_path().'/img/dokumen',
             $request->file('ijazah_terakhir')->getClientOriginalName());
             
-            $dokumen = Document::where('id', $id_user)->first();
+            $dokumen = Document::where('id_translator', $translator->id_translator)->first();
             $currentPhoto = $dokumen->ijazah_terakhir;
 
-            $userPhoto = public_path('\img\dokumen').$currentPhoto;
+            $userPhoto = public_path('/img/dokumen/').$currentPhoto;
             if(file_exists($userPhoto)){
                 @unlink($userPhoto);
             }
 
-            Document::where('id', $id_user)
+            Document::where('id_translator', $translator->id_translator)
                     ->update([
                         'ijazah_terakhir'    => $request->file('ijazah_terakhir')->getClientOriginalName()
             ]);
         }
 
         if($request->hasFile('portofolio')){
-            $request->file('portofolio')->move(public_path().'\img\dokumen',
+            $request->file('portofolio')->move(public_path().'/img/dokumen',
             $request->file('portofolio')->getClientOriginalName());
             
-            $dokumen = Document::where('id', $id_user)->first();
+            $dokumen = Document::where('id_translator', $translator->id_translator)->first();
             $currentPhoto = $dokumen->portofolio;
 
-            $userPhoto = public_path('\img\dokumen').$currentPhoto;
+            $userPhoto = public_path('/img/dokumen/').$currentPhoto;
             if(file_exists($userPhoto)){
                 @unlink($userPhoto);
             }
 
-            Document::where('id', $id_user)
+            Document::where('id_translator', $translator->id_translator)
                     ->update([
                         'portofolio'    => $request->file('portofolio')->getClientOriginalName()
             ]);
         }
 
         if($request->hasFile('sk_sehat')){
-            $request->file('sk_sehat')->move(public_path().'\img\dokumen',
+            $request->file('sk_sehat')->move(public_path().'/img/dokumen',
             $request->file('sk_sehat')->getClientOriginalName());
             
-            $dokumen = Document::where('id', $id_user)->first();
+            $dokumen = Document::where('id_translator', $translator->id_translator)->first();
             $currentPhoto = $dokumen->sk_sehat;
 
-            $userPhoto = public_path('\img\dokumen').$currentPhoto;
+            $userPhoto = public_path('/img/dokumen/').$currentPhoto;
             if(file_exists($userPhoto)){
                 @unlink($userPhoto);
             }
 
-            Document::where('id', $id_user)
+            Document::where('id_translator', $translator->id_translator)
                     ->update([
                         'sk_sehat'    => $request->file('sk_sehat')->getClientOriginalName()
             ]);
         }
 
         if($request->hasFile('skck')){
-            $request->file('skck')->move(public_path().'\img\dokumen',
+            $request->file('skck')->move(public_path().'/img/dokumen',
             $request->file('skck')->getClientOriginalName());
             
-            $dokumen = Document::where('id', $id_user)->first();
+            $dokumen = Document::where('id_translator', $translator->id_translator)->first();
             $currentPhoto = $dokumen->skck;
 
-            $userPhoto = public_path('\img\dokumen').$currentPhoto;
+            $userPhoto = public_path('/img/dokumen/').$currentPhoto;
             if(file_exists($userPhoto)){
                 @unlink($userPhoto);
             }
 
-            Document::where('id', $id_user)
+            Document::where('id_translator', $translator->id_translator)
                     ->update([
                         'skck'    => $request->file('skck')->getClientOriginalName()
             ]);
         }
 
-        return redirect('/document-post')->with('success', 'Data Updated Successfully!');        
+        return redirect('/certificate-post')->with('success', 'Data Updated Successfully!');        
+    }
+    public function indexCertificate()
+    {
+        $user = Auth::user(); //user yang login
+        $id_user = $user->id; //id user yang login
+
+        $translator = Translator::where('id', $id_user)->first();
+        $certificate = DB::table('keahlian')
+            ->join('master_keahlian', 'keahlian.id_keahlian', '=', 'master_keahlian.id_keahlian')
+            ->where("master_keahlian.id_translator", $translator->id_translator)
+            ->get();
+            return view('pages.klien.post-sertifikat', [
+                'user'=>$user,
+                'certificate'=>$certificate
+                ]);
+    }
+    public function createCertificate(Request $request)
+    {
+        $nama_sertifikat=$request->nama_sertifikat;
+        $no_sertifikat=$request->no_sertifikat;
+        $bukti_dokumen = $request->bukti_dokumen;
+        $diterbitkan_oleh=$request->diterbitkan_oleh;
+        $masa_berlaku=$request->masa_berlaku;
+
+        $nm_dokumen=$bukti_dokumen->getClientOriginalName();
+
+        $keahlian = new Certificate;
+        $keahlian->nama_sertifikat = $nama_sertifikat;
+        $keahlian->no_sertifikat = $no_sertifikat;
+        $keahlian->bukti_dokumen = $nm_dokumen;
+        $keahlian->diterbitkan_oleh = $diterbitkan_oleh;
+        $keahlian->masa_berlaku = $masa_berlaku;
+
+        $bukti_dokumen->move(public_path().'/img/sertifikat', $nm_dokumen);
+
+        $keahlian->save();
+
+        $user = Auth::user();
+
+        $translator = Translator::where('id', $user->id)->first();
+
+        $id = Master_keahlian::create([
+            'id_keahlian'=>$keahlian->id_keahlian,
+            'id_translator'=>$translator->id_translator
+        ]);
+        
+        return redirect('/certificate-post')->with('toast_success', 'Data Created Successfully!');
+    }
+    public function updateCertificate(Request $request, $id_keahlian)
+    {
+        $user = Auth::user(); //user yang login
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+
+            Certificate::where(['id_keahlian'=>$id_keahlian])->update([
+                'nama_sertifikat' => $request->nama_sertifikat,
+                'no_sertifikat' => $request->no_sertifikat,
+                'diterbitkan_oleh' => $request->diterbitkan_oleh,
+                'masa_berlaku' => $request->masa_berlaku,
+            ]);
+
+            $keahlian = Certificate::find($id_keahlian);
+
+            if($request->hasFile('bukti_dokumen')){
+                $request->file('bukti_dokumen')->move(public_path().'/img/sertifikat',
+                $request->file('bukti_dokumen')->getClientOriginalName());
+                
+                $currentPhoto = $keahlian->bukti_dokumen;
+                
+                $userPhoto = public_path('/img/sertifikat/').$currentPhoto;
+                if(file_exists($userPhoto)){
+                    @unlink($userPhoto);
+                }
+                
+                Certificate::where('id_keahlian', $keahlian->id_keahlian)
+                        ->update([
+                            'bukti_dokumen'    => $request->file('bukti_dokumen')->getClientOriginalName()
+                ]);
+            }
+        }
+
+        return redirect('/certificate-post')->with('success', 'Data Updated Successfully!');
+    }
+    public function deleteCertificate($id_keahlian){
+        DB::table('keahlian')->where('id_keahlian', $id_keahlian)->delete();
+        return redirect('/certificate-post')->with('info', 'Data Deleted Successfully!'); 
     }
 }

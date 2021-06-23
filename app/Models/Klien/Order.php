@@ -55,6 +55,7 @@ class Order extends Model
         'status_by',
         'tipe_offline',
         'harga',
+        'menu',
     ];
 
     protected $dates = [

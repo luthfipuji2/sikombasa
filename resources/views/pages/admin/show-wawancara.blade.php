@@ -161,7 +161,8 @@
                 </div>
             @endforeach
         </form>
-        <form action="/catatan-{{$translator->id_translator}}" method="POST">
+        
+        <form action="/catatan-{{$catatan->id_seleksi_berkas}}" method="POST">
                     @csrf
                         <div class="form-group row">
                             <label for="catatan" class="col-sm-3 col-form-label">Catatan</label>

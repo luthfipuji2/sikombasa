@@ -86,17 +86,32 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('/biodata-post', [App\Http\Controllers\Klien\PostController::class, 'updateBiodata']);
         Route::get('/document-post', [App\Http\Controllers\Klien\PostController::class, 'indexDocument']);
         Route::patch('/document-post', [App\Http\Controllers\Klien\PostController::class, 'updateDocument']);
+        Route::get('/certificate-post', [App\Http\Controllers\Klien\PostController::class, 'indexCertificate']);
+        Route::post('/certificate-post-create', [App\Http\Controllers\Klien\PostController::class, 'createCertificate']); 
+        Route::match(['get', 'post'], '/certificate-post-update/{id_keahlian}', [App\Http\Controllers\Klien\PostController::class, 'updateCertificate']);
+        Route::get('/certificate-post/{id_keahlian}', [App\Http\Controllers\Klien\PostController::class, 'deleteCertificate']); 
 
         
     });
 
     Route::middleware(['translator'])->group(function () {
+        //Dashboard
         Route::get('/translator', [App\Http\Controllers\Translator\TranslatorController::class, 'index']);
+
+        //Profile Translator
         Route::get('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'index']);
-        Route::patch('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'update']);  
+        Route::patch('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'update']);
+        
+        //Find a Job
         Route::get('/find-a-job', [App\Http\Controllers\Translator\TranslatorController::class, 'find']);
+
+        //To Do List
         Route::get('/to-do-list', [App\Http\Controllers\Translator\ToDoController::class, 'index']);
+
+        //Review
         Route::get('/review', [App\Http\Controllers\Translator\TranslatorController::class, 'review']);
+
+        //Profile Certificate
         Route::post('/certificate-create', [App\Http\Controllers\Translator\ProfileController::class, 'createCertificate']); 
         Route::post('/certificate-update/{id_keahlian}', [App\Http\Controllers\Translator\ProfileController::class, 'updateCertificate']); 
         Route::get('/certificate/{id_keahlian}', [App\Http\Controllers\Translator\ProfileController::class, 'deleteCertificate']); 
@@ -170,11 +185,11 @@ Route::middleware(['auth'])->group(function () {
          //Hiring
          Route::get('/hire', [App\Http\Controllers\Admin\HiringController::class, 'index']);
          Route::get('/index-wawancara', [App\Http\Controllers\Admin\HiringController::class, 'indexWawancara']);
-         Route::get('/wawancara-{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'showWawancara']);
+         Route::get('/wawancara-{id_translator}-{id_seleksi_berkas}', 'App\Http\Controllers\Admin\HiringController@showWawancara')->name('wawancara.show');
          Route::get('/{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'show'])->name('hire.show');
-         Route::match(['get', 'post'],'/wawancara/{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'wawancara']);
-         Route::match(['get', 'post'],'/berkas/{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'berkas']);
-         Route::match(['get', 'post'], '/catatan-{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'catatan']);
+         Route::match(['get', 'post'],'/wawancara/{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'wawancara']);
+         Route::match(['get', 'post'],'/berkas/{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'berkas']);
+         Route::match(['get', 'post'], '/catatan-{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'catatan']);
          
         
 
