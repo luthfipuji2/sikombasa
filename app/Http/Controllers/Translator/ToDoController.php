@@ -21,6 +21,7 @@ class ToDoController extends Controller
         $translator = Translator::where('id', $user->id)->first();
         $order = DB::table('order')
                 ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
+                ->join('users', 'klien.id', '=', 'users.id')
                 ->where('id_translator', $translator->id_translator)
                 ->get();
 

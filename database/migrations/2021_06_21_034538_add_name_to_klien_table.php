@@ -26,7 +26,7 @@ class AddNameToKlienTable extends Migration
     public function down()
     {
         Schema::table('klien', function (Blueprint $table) {
-            //
+            $table->string('name');
         });
     }
 }
