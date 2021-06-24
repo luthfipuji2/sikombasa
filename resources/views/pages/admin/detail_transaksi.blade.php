@@ -26,10 +26,10 @@
                                 From
                                 <address>
                                     <strong>SIKOMBASA</strong><br>
-                                    795 Folsom Ave, Suite 600<br>
-                                    San Francisco, CA 94107<br>
-                                    Phone: (804) 123-5432<br>
-                                    Email: info@almasaeedstudio.com
+                                    SIKOMBASA<br>
+                                    Jl Kolonel Sutarto 150 K,<br>
+                                    Jebres Surakarta, Jawa Tengah<br>
+                                    0271-664126
                                 </address>
                                 </div>
                                 <!-- /.col -->

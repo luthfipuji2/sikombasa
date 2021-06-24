@@ -125,8 +125,8 @@
                         <p class="card-text text-muted">Status Transaksi : <b>{{$trans->status_transaksi}}</b></p>
 
                         <div class="float-right">
-                          <a href="{{route('detail-order', $trans->id_order)}}" class="btn btn-sm btn-primary">Detail Order</i></a>
-                            <a href="{{route('pdf.download', $trans->id_transaksi)}}" class="btn btn-sm btn-default">Cetak Transaksi <i class="fas fa-print"></i></a>
+                          <!-- <a href="{{route('detail-order', $trans->id_transaksi)}}" class="btn btn-sm btn-primary">Detail Order</i></a> -->
+                            <a href="{{route('pdf.download', $trans->id_transaksi)}}"  class="btn btn-sm btn-default">Cetak Transaksi <i class="fas fa-print"></i></a>
                         </div>
                       </div>
                     </div>
