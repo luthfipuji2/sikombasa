@@ -48,7 +48,7 @@ class HargaOfflineController extends Controller
         Harga::create([
             'p_jenis_layanan' => $request->p_jenis_layanan,
             'p_durasi_pertemuan' => $request->p_durasi_pertemuan,
-            'harga' => $request->harga
+            'p_harga' => $request->harga
         ]);
 
         return redirect('/daftar-harga-offline')->with('success', 'Parameter menu offline berhasil ditambahkan');
@@ -97,7 +97,7 @@ class HargaOfflineController extends Controller
                     ->update([
                         'p_jenis_layanan' => $request->p_jenis_layanan,
                         'p_durasi_pertemuan' => $request->p_durasi_pertemuan,
-                        'harga' => $request->harga
+                        'p_harga' => $request->harga
                     ]);
         return redirect('/daftar-harga-offline')->with('success', 'Parameter menu offline berhasil diubah');
     }

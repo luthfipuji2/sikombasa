@@ -136,6 +136,7 @@
                   <thead>   
                   <tr>
                     <th scope="row" class="text-center">No</th>
+                    <th scope="row" class="text-center" hidden>ID</th>
                     <th scope="row" class="text-center" hidden>ID Transaksi</th>
                     <th scope="row" class="text-center">Tanggal Transaksi</th>
                     <th scope="row" class="text-center">Nominal Transaksi</th>
@@ -148,6 +149,7 @@
                   @foreach ($fee as $f)
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
+                    <td scope="row" class="text-center" hidden>{{$f->id_fee}}</td>
                     <td scope="row" class="text-center" hidden>{{$f->id_transaksi}}</td>
                     <td scope="row" class="text-center">{{$f->tgl_transaksi}}</td>
                     <td scope="row" class="text-center">{{$f->nominal_transaksi}}</td>
@@ -159,6 +161,7 @@
                       @else
                       <button type="button" class="btn btn-success btn-sm edit" data-toggle="modal" data-target="#editModal">Edit Fee</button>
                       @endif
+                      <a href="{{route('detail-transaksi', $f->id_transaksi)}}" class="btn btn-sm btn-primary">Detail Transaksi</i></a>
                     </td>
                   </tr>
                   @endforeach
