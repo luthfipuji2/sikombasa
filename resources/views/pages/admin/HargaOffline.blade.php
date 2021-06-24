@@ -169,7 +169,7 @@
                     <td scope="row" class="text-center" hidden>{{$harga->id_parameter_order}}</td>
                     <td scope="row" class="text-center">{{$harga->p_jenis_layanan}}</td>
                     <td scope="row" class="text-center">{{$harga->p_durasi_pertemuan}}</td>
-                    <td scope="row" class="text-center">{{$harga->harga}}</td>
+                    <td scope="row" class="text-center">{{$harga->p_harga}}</td>
                     <td scope="row" class="text-center">
                       <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#updateModal"><i class="fas fa-pencil-alt"></i></button>
                       <a href="#" class="btn btn-sm btn-danger delete" harga-id="{{$harga->id_parameter_order}}"><i class="fas fa-trash-alt"></i></a>

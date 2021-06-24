@@ -128,7 +128,7 @@
                     <th scope="row" class="text-center" hidden>ID Admin</th>
                     <th scope="row" class="text-center">Nama Admin</th>
                     <th scope="row" class="text-center" hidden>Email</th>
-                    <th scope="row" class="text-center" hidden>Role</th>
+                    
                     <th scope="row" class="text-center" hidden>Jenis Kelamin</th>
                     <th scope="row" class="text-center" hidden>Tanggal Lahir</th>
                     <th scope="row" class="text-center" hidden>Nomor Telepon</th>
@@ -147,7 +147,7 @@
                     <td scope="row" class="text-center" hidden>{{$admin->id_admin}}</td>
                     <td scope="row" class="text-center">{{$admin->name}}</td>
                     <td scope="row" class="text-center" hidden>{{$admin->email}}</td>
-                    <td scope="row" class="text-center" hidden>{{$admin->role}}</td>
+         
                     <td scope="row" class="text-center" hidden>{{$admin->jenis_kelamin}}</td>
                     <td scope="row" class="text-center" hidden>{{$admin->tgl_lahir}}</td>
                     <td scope="row" class="text-center" hidden>{{$admin->no_telp}}</td>

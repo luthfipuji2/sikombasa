@@ -18,4 +18,12 @@ class Transaksi extends Model
         'bukti_transaksi',
         'status_transaksi',
     ];
+
+    public function order(){
+        return $this->belongsTo('App\Models\Klien\Order','id_order','id_order');
+    }
+
+    public function parameter_order(){
+        return $this->belongsTo('App\Models\Klien\ParameterOrder','id_parameter_order','id_parameter_order');
+    }
 }

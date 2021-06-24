@@ -39,7 +39,7 @@
 
             <input type="text" name="nominal_transaksi" value="{{$p->p_harga}}" hidden>
 
-            <input type="text" name="nominal_transaksi_total" value="{{$p->harga_total}}" hidden>
+            <input type="text" name="nominal_transaksi_total" value="{{$p->order->harga}}" hidden>
 
             <div class="form-group">
               <label for="profile_photo_path">Bukti Transaksi</label>
@@ -96,8 +96,8 @@
                         @endif
                         @if(!empty($bayar->p_harga))
                         <p class="card-text text-muted">Total Harga : {{$bayar->p_harga}}</p>
-                        @elseif(!empty($bayar->harga_total))
-                        <p class="card-text text-muted">Total Harga : {{$bayar->harga_total}}</p>
+                        @elseif(!empty($bayar->order->harga))
+                        <p class="card-text text-muted">Total Harga : {{$bayar->order->harga}}</p>
                         @endif
 
                         <div class="float-right">
