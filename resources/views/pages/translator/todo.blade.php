@@ -68,21 +68,21 @@
                   <div class="modal-body">
                         @if($o->menu=='Text')
                         <div class="form-group row">
-                          <label for="jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
+                          <label for="p_jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" name="jenis_layanan" id="jenis_layanan" readonly value="{{$o->jenis_layanan}}">
+                            <input type="text" class="form-control" name="p_jenis_layanan" id="p_jenis_layanan" readonly value="{{$o->p_jenis_layanan}}">
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label for="jenis_teks" class="col-sm-3 col-form-label">Jenis Teks</label>
+                          <label for="p_jenis_teks" class="col-sm-3 col-form-label">Jenis Teks</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" name="jenis_teks" id="jenis_teks" readonly value="{{$o->jenis_teks}}">
+                            <input type="text" class="form-control" name="p_jenis_teks" id="p_jenis_teks" readonly value="{{$o->p_jenis_teks}}">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label for="teks" class="col-sm-3 col-form-label">Teks</label>
                           <div class="col-sm-9">
-                            <textarea class="form-control" id="teks" name="teks" rows="5">{{$o->text}}</textarea>
+                            <textarea class="form-control" id="teks" name="teks" rows="5" readonly="readonly">{{$o->text}}</textarea>
                           </div>
                         </div>
                         <div class="form-group row">
@@ -97,15 +97,22 @@
                             <input type="text" class="form-control" name="ndurasi_pengerjaan" id="ndurasi_pengerjaan" readonly value="{{$o->durasi_pengerjaan}} hari">
                           </div>
                         </div>
-                        <form>
+                        <form action="/text-translator/{{$o->id_order}}" method="POST">
+                        @csrf
+                          <div class="form-group row">
+                            <label for="text_trans" class="col-sm-3 col-form-label">Terjemahan</label>
+                            <div class="col-sm-9">
+                              <textarea class="form-control" id="text_trans" name="text_trans" rows="5">{{$o->text_trans}}</textarea>
+                            </div>
+                          </div>
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
-                        @elseif($o->menu=='Transkrip' && $o->tipe_transkrip=='1')
+                        @elseif($o->menu=='Transkrip')
                         <div class="form-group row">
-                            <label for="jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
+                            <label for="p_jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="jenis_layanan" id="jenis_layanan" readonly value="{{$o->jenis_layanan}}">
+                              <input type="text" class="form-control" name="p_jenis_layanan" id="p_jenis_layanan" readonly value="{{$o->p_jenis_layanan}}">
                             </div>
                           </div>
                           <div class="form-group row">
@@ -130,11 +137,11 @@
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Submit</button>
                           </form>
-                        @elseif($o->menu=='Transkrip' && $o->tipe_transkrip=='2')
+                        @elseif($o->menu=='Transkrip' && $o->tipe_offline=="Transkrip")
                         <div class="form-group row">
-                          <label for="jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
+                          <label for="p_jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" name="jenis_layanan" id="jenis_layanan" readonly value="{{$o->jenis_layanan}}">
+                            <input type="text" class="form-control" name="p_jenis_layanan" id="p_jenis_layanan" readonly value="{{$o->p_jenis_layanan}}">
                           </div>
                         </div>
                         <div class="form-group row">
@@ -167,9 +174,9 @@
                         </form>
                         @elseif($o->menu=='Dubbing')
                         <div class="form-group row">
-                          <label for="jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
+                          <label for="p_jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" name="jenis_layanan" id="jenis_layanan" readonly value="{{$o->jenis_layanan}}">
+                            <input type="text" class="form-control" name="p_jenis_layanan" id="p_jenis_layanan" readonly value="{{$o->p_jenis_layanan}}">
                           </div>
                         </div>
                         <div class="form-group row">
@@ -196,16 +203,29 @@
                             <input type="text" class="form-control" name="ndurasi_pengerjaan" id="ndurasi_pengerjaan" readonly value="{{$o->durasi_pengerjaan}} hari">
                           </div>
                         </div>
-                        <form>
+                        <div class="form-group row">
+                          <label for="path_file" class="col-sm-3 col-form-label">Download File</label>
+                          <div class="col-sm-9">
+                           <a href="/to-do-list-download/{{$o->id_order}}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download </a>
+                          </div>
+                        </div>
+                        <form action="/tdl-upload-video/{{$o->id_order}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                          <div class="form-group row">
+                            <label for="path_file_trans" class="col-sm-3 col-form-label">Upload File</label>
+                            <div class="col-sm-9">
+                              <input type="file" name="path_file_trans" class="form-input">
+                            </div>
+                          </div>
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
-                        @elseif($o->menu=='Interpreter')
+                        @elseif($o->tipe_offline=='Interpreter')
                         <div class="form-group row">
                         <div class="form-group row">
-                          <label for="jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
+                          <label for="p_jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" name="jenis_layanan" id="jenis_layanan" readonly value="{{$o->jenis_layanan}}">
+                            <input type="text" class="form-control" name="p_jenis_layanan" id="p_jenis_layanan" readonly value="{{$o->p_jenis_layanan}}">
                           </div>
                         </div>
                         <div class="form-group row">
@@ -238,15 +258,15 @@
                         </form>
                         @elseif($o->menu=='Dokumen')
                         <div class="form-group row">
-                          <label for="jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
+                          <label for="p_jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" name="jenis_layanan" id="jenis_layanan" readonly value="{{$o->jenis_layanan}}">
+                            <input type="text" class="form-control" name="p_jenis_layanan" id="p_jenis_layanan" readonly value="{{$o->p_jenis_layanan}}">
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label for="jenis_teks" class="col-sm-3 col-form-label">Jenis Dokumen</label>
+                          <label for="p_jenis_teks" class="col-sm-3 col-form-label">Jenis Dokumen</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" name="jenis_teks" id="jenis_teks" readonly value="{{$o->jenis_teks}}">
+                            <input type="text" class="form-control" name="p_jenis_teks" id="p_jenis_teks" readonly value="{{$o->p_jenis_teks}}">
                           </div>
                         </div>
                         <div class="form-group row">
@@ -273,15 +293,28 @@
                             <input type="text" class="form-control" name="ndurasi_pengerjaan" id="ndurasi_pengerjaan" readonly value="{{$o->durasi_pengerjaan}} hari">
                           </div>
                         </div>
-                        <form>
+                        <div class="form-group row">
+                          <label for="path_file" class="col-sm-3 col-form-label">Download File</label>
+                          <div class="col-sm-9">
+                           <a href="/to-do-list-download/{{$o->id_order}}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download </a>
+                          </div>
+                        </div>
+                        <form action="/tdl-upload-dokumen/{{$o->id_order}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                          <div class="form-group row">
+                            <label for="path_file_trans" class="col-sm-3 col-form-label">Upload File</label>
+                            <div class="col-sm-9">
+                              <input type="file" name="path_file_trans" class="form-input">
+                            </div>
+                          </div>
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                         @elseif($o->menu=='Subtitle')
                         <div class="form-group row">
-                          <label for="jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
+                          <label for="p_jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" name="jenis_layanan" id="jenis_layanan" readonly value="{{$o->jenis_layanan}}">
+                            <input type="text" class="form-control" name="p_jenis_layanan" id="p_jenis_layanan" readonly value="{{$o->p_jenis_layanan}}">
                           </div>
                         </div>
                         <div class="form-group row">
@@ -308,7 +341,20 @@
                             <input type="text" class="form-control" name="ndurasi_pengerjaan" id="ndurasi_pengerjaan" readonly value="{{$o->durasi_pengerjaan}} hari">
                           </div>
                         </div>
-                        <form>
+                        <div class="form-group row">
+                          <label for="path_file" class="col-sm-3 col-form-label">Download File</label>
+                          <div class="col-sm-9">
+                           <a href="/to-do-list-download/{{$o->id_order}}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download </a>
+                          </div>
+                        </div>
+                        <form action="/tdl-upload-video/{{$o->id_order}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                          <div class="form-group row">
+                            <label for="path_file_trans" class="col-sm-3 col-form-label">Upload File</label>
+                            <div class="col-sm-9">
+                              <input type="file" name="path_file_trans" class="form-input">
+                            </div>
+                          </div>
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
