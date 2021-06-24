@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNameToKlienTable extends Migration
+class AddPathFileTransToOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddNameToKlienTable extends Migration
      */
     public function up()
     {
-        Schema::table('klien', function (Blueprint $table) {
-            $table->string('name');
+        Schema::table('order', function (Blueprint $table) {
+            $table->text('text_trans')->nullable();
+            $table->string('path_file_trans')->nullable();
         });
     }
 
@@ -25,8 +26,8 @@ class AddNameToKlienTable extends Migration
      */
     public function down()
     {
-        Schema::table('klien', function (Blueprint $table) {
-            $table->string('name');
+        Schema::table('order', function (Blueprint $table) {
+            //
         });
     }
 }
