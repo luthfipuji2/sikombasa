@@ -74,7 +74,7 @@ class CareerController extends Controller
         $translator->no_telp = $request->no_telp;
         $translator->foto_ktp = $nm_ktp;
 
-        $foto_ktp->move(public_path().'\img\biodata', $nm_ktp);
+        $foto_ktp->move(public_path().'/img/biodata', $nm_ktp);
         // $profile_photo_path->move(public_path().'\img\profile', $nm_pp);
 
         $translator->save();
@@ -123,7 +123,7 @@ class CareerController extends Controller
             $data['diterbitkan_oleh'] = $diterbitkan_oleh[$i];
             $data['masa_berlaku'] = $masa_berlaku[$i];
 
-            $bukti_dokumen[$i]->move(public_path().'\img\sertifikat', $bukti_dokumen[$i]->getClientOriginalName());
+            $bukti_dokumen[$i]->move(public_path().'/img/sertifikat', $bukti_dokumen[$i]->getClientOriginalName());
 
             $keahlian = Certificate::create($data);
 
@@ -177,11 +177,11 @@ class CareerController extends Controller
         $dokumen->sk_sehat = $nm_sk;
         $dokumen->skck = $nm_skck;
 
-        $cv->move(public_path().'\img\dokumen', $nm_cv);
-        $ijazah_terakhir->move(public_path().'\img\dokumen', $nm_ijazah);
-        $portofolio->move(public_path().'\img\dokumen', $nm_portofolio);
-        $sk_sehat->move(public_path().'\img\dokumen', $nm_sk);
-        $skck->move(public_path().'\img\dokumen', $nm_skck);
+        $cv->move(public_path().'/img/dokumen', $nm_cv);
+        $ijazah_terakhir->move(public_path().'/img/dokumen', $nm_ijazah);
+        $portofolio->move(public_path().'/img/dokumen', $nm_portofolio);
+        $sk_sehat->move(public_path().'/img/dokumen', $nm_sk);
+        $skck->move(public_path().'/img/dokumen', $nm_skck);
 
         $dokumen->save();
         return redirect('/certificate')->with('toast_success', 'Data Created Successfully!');
@@ -192,7 +192,7 @@ class CareerController extends Controller
 
         $user = Auth::user();
         $translator = Translator::where('id', $user->id)->first();
-        $seleksi = Seleksi::where('id_translator', $translator->id_translator)->first();
+        $seleksi = Seleksi::where('id_translator', $translator->id_translator)->latest('updated_at')->first();
         return view('pages.klien.progress', [
             'user'=>$user,
             'translator'=>$translator,

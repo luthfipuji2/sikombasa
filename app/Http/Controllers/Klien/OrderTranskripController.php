@@ -116,6 +116,7 @@ class OrderTranskripController extends Controller
                 'size'=>$size_template,
                 'tgl_order'=>Carbon::now()->timestamp,
                 'is_status'=>'belum dibayar',
+                'menu'=>'Transkrip',
             ]);
 
 

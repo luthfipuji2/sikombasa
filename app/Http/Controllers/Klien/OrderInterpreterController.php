@@ -127,6 +127,7 @@ class OrderInterpreterController extends Controller
                 'waktu_pertemuan'=> $request->waktu_pertemuan,
                 'is_status'=>$request->status_transaksi,
                 'tgl_order'=>$tgl_order,
+                'menu'=>'Interpreter',
             ]);
         };
 

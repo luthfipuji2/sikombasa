@@ -21,7 +21,7 @@ class HiringController extends Controller
 
         $data = DB::table('translator') //join tabel users dan translator di mana antara id users dan translator adalah sama
             ->leftJoin('seleksi', 'translator.id_translator', '=', 'seleksi.id_translator')
-            ->select('translator.id_translator','translator.updated_at','translator.nama', 'seleksi.penyeleksi', 'seleksi.nilai_berkas', 'seleksi.hasil')
+            ->select('translator.id_translator','translator.updated_at','translator.nama', 'seleksi.id_seleksi_berkas', 'seleksi.penyeleksi', 'seleksi.nilai_berkas', 'seleksi.hasil')
             ->get();//load data
 
         return view('pages.admin.hiring', [
@@ -55,14 +55,14 @@ class HiringController extends Controller
         // return $translator;
     }
 
-    public function berkas(Request $request, $id_translator)
+    public function berkas(Request $request, $id_seleksi_berkas)
     {
         $user = Auth::user(); //user yang login
 
         if($request->isMethod('post')){
             $data = $request->all();
 
-            Seleksi::where(['id_translator'=>$id_translator])->update([
+            Seleksi::where(['id_seleksi_berkas'=>$id_seleksi_berkas])->update([
                 'penyeleksi' => $user->name,
                 'nilai_berkas' => $request->nilai_berkas,
                 'hasil' => $request->hasil
@@ -79,7 +79,7 @@ class HiringController extends Controller
 
         $data = DB::table('translator')
             ->leftJoin('seleksi', 'translator.id_translator', '=', 'seleksi.id_translator')
-            ->select('translator.id_translator','translator.updated_at','translator.nama', 'seleksi.penyeleksi', 'seleksi.nilai_berkas', 'seleksi.hasil', 'seleksi.pewawancara', 'seleksi.catatan', 'seleksi.nilai_wawancara', 'seleksi.hasil_wawancara')
+            ->select('translator.id_translator','translator.updated_at','translator.nama', 'seleksi.id_seleksi_berkas', 'seleksi.penyeleksi', 'seleksi.nilai_berkas', 'seleksi.hasil', 'seleksi.pewawancara', 'seleksi.catatan', 'seleksi.nilai_wawancara', 'seleksi.hasil_wawancara')
             ->where('seleksi.hasil', "lolos")
             ->get();//load data
 
@@ -89,7 +89,7 @@ class HiringController extends Controller
             ]);
     }
 
-    public function showWawancara($id_translator){
+    public function showWawancara($id_translator, $id_seleksi_berkas){
 
         $user = Auth::user();
         $translator = DB::table('translator')
@@ -106,7 +106,7 @@ class HiringController extends Controller
                         ->get();
 
         $catatan = DB::table('seleksi')
-                    ->where('id_translator', $id_translator)
+                    ->where('id_seleksi_berkas', $id_seleksi_berkas)
                     ->first();
 
         return view('pages.admin.show-wawancara', [
@@ -118,16 +118,18 @@ class HiringController extends Controller
             ]);
 
         // return $translator;
+
+        // dd($id_translator, $id_seleksi_berkas);
     }
 
-    public function catatan(Request $request, $id_translator)
+    public function catatan(Request $request, $id_seleksi_berkas)
     {
         $user = Auth::user(); //user yang login
         
         if($request->isMethod('post')){
             $data = $request->all();
 
-            Seleksi::where(['id_translator'=>$id_translator])->update([
+            Seleksi::where(['id_seleksi_berkas'=>$id_seleksi_berkas])->update([
                 'pewawancara' => $user->name,
                 'catatan' => $request->catatan
             ]);
@@ -135,16 +137,16 @@ class HiringController extends Controller
         return redirect('/index-wawancara')->with('success', 'Catatan Berhasil Ditambahkan');
     }
 
-    public function wawancara(Request $request, $id_translator)
+    public function wawancara(Request $request, $id_seleksi_berkas)
     {
         $user = Auth::user(); //user yang login
 
-        $seleksi = Seleksi::where('id_translator', $id_translator)->first();
+        $seleksi = Seleksi::where('id_seleksi_berkas', $id_seleksi_berkas)->first();
 
         if($request->isMethod('post')){
             $data = $request->all();
 
-            Seleksi::where(['id_translator'=>$id_translator])->update([
+            Seleksi::where(['id_seleksi_berkas'=>$id_seleksi_berkas])->update([
                 'penyeleksi' => $seleksi->penyeleksi,
                 'nilai_berkas' => $seleksi->nilai_berkas,
                 'hasil' => $seleksi->hasil,
