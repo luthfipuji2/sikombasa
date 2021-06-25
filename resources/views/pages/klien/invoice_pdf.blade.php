@@ -5,6 +5,22 @@
 		<title>Invoice</title>
 
 		<style>
+			@media print {
+			.invoice {
+				font-size: 11px!important;
+				overflow: hidden!important
+			}
+
+			.invoice footer {
+				position: absolute;
+				bottom: 10px;
+				page-break-after: always
+			}
+
+			.invoice>div:last-child {
+				page-break-before: always
+			}
+		}
 			.invoice-title h2, .invoice-title h3 {
 				display: inline-block;
 			}
@@ -29,6 +45,13 @@
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 		<!------ Include the above in your HEAD tag ---------->
+
+		<div class="toolbar hidden-print">
+			<div class="text-right">
+				<button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+			</div>
+			<hr>
+		</div>
 
 		<div class="container">
 			<div class="row">
@@ -237,3 +260,12 @@
     
 </body>
 </html>
+
+<script>
+	 $('#printInvoice').click(function(){
+
+                window.print();
+                return true;
+            }
+        );
+</script>
