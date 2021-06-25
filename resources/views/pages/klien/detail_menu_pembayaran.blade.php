@@ -147,8 +147,8 @@
                                     <td class="bg-cyan"><i class="fas fa-tags"></i>&nbsp;&nbsp;<b>Harga</b></td>
                                     @if(!empty($detail->p_harga))
                                     <td class="bg-cyan"><b> Rp. {{$detail->p_harga}}</b></td>
-                                    @elseif(!empty($detail->harga_total))
-                                    <td class="bg-cyan"><b> Rp. {{$detail->harga_total}}</b></td>
+                                    @elseif(!empty($detail->order->harga))
+                                    <td class="bg-cyan"><b> Rp. {{$detail->order->harga}}</b></td>
                                     @endif
                                 </tr>
                                 </tbody>

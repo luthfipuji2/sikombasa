@@ -47,7 +47,7 @@
             
             <div class="form-group">
                 <label>Harga</label>
-                <input type="text" name="harga" class="form-control @error('harga') is-invalid @enderror"
+                <input type="number" name="harga" class="form-control @error('harga') is-invalid @enderror"
                  placeholder="Masukkan harga ex. 100000" value="{{ old('harga') }}">
                 @error ('harga')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -114,7 +114,7 @@
             
             <div class="form-group">
                 <label>Harga</label>
-                <input type="text" name="harga" class="form-control @error('harga') is-invalid @enderror"
+                <input type="number" name="harga" class="form-control @error('harga') is-invalid @enderror"
                  placeholder="Masukkan harga ex. 100000" id="harga">
                 @error ('harga')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -172,7 +172,7 @@
                     <td scope="row" class="text-center">{{$harga->p_harga}}</td>
                     <td scope="row" class="text-center">
                       <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#updateModal"><i class="fas fa-pencil-alt"></i></button>
-                      <a href="#" class="btn btn-sm btn-danger delete" harga-id="{{$harga->id_parameter_order}}"><i class="fas fa-trash-alt"></i></a>
+                      <a href="#" class="btn btn-sm btn-danger delete" harga-num="{{$loop->iteration}}" harga-id="{{$harga->id_parameter_order}}"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
                   @endforeach
@@ -199,10 +199,11 @@
     $('.delete').click(function(){
 
         var harga_id = $(this).attr('harga-id')
+        var harga_num = $(this).attr('harga-num')
 
         Swal.fire({
           title: "Apakah anda yakin?",
-          text: "Hapus parameter menu offline "+harga_id+"??",
+          text: "Hapus parameter menu offline "+harga_num+"??",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
