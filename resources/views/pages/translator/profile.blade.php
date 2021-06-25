@@ -13,15 +13,11 @@
                 <ul class="nav nav-pills">
                   <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile</a></li>
                   <li class="nav-item"><a class="nav-link" href="#certificate" data-toggle="tab">Skills Certificate</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">Activity</a></li>
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
-                  <div class="tab-pane" id="activity">
- 
-                  </div>
-
+                  
                   <div class="active tab-pane" id="profile">
                     <form class="form-horizontal" action="/profile-translator" method="POST" enctype="multipart/form-data">
                     @method('patch')

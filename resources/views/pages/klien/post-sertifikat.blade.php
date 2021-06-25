@@ -165,7 +165,8 @@
                   <!-- /.tab-pane -->
                 </div>
                 <!-- /.tab-content -->
-              <div class="form-group row">
+              <br>
+              <div class="float-right">
                 <div class=" col-sm-10">
                     <a href="/progress" class="btn btn-primary">
                      Continue

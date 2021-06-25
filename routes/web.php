@@ -100,6 +100,8 @@ Route::middleware(['auth'])->group(function () {
         //Profile Translator
         Route::get('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'index']);
         Route::patch('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'update']);
+        Route::get('/account-translator', [App\Http\Controllers\Translator\AccountController::class, 'index']);
+        Route::patch('/account-translator/{id}', [App\Http\Controllers\Translator\AccountController::class, 'update']);
         
         //Find a Job
         Route::get('/find-a-job', [App\Http\Controllers\Translator\TranslatorController::class, 'find']);
