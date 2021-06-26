@@ -24,8 +24,25 @@ class AccountController extends Controller
         $translator = Translator::where('id', $user->id)->first();
         $order = DB::table('order')
         ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
+        ->join('users', 'klien.id', '=', 'users.id')
         ->leftJoin('revisi', 'order.id_order', '=', 'revisi.id_order')
         ->leftJoin('transaksi', 'order.id_order', '=', 'transaksi.id_order')
+        ->leftJoin('distribusi_fee', 'transaksi.id_transaksi', '=', 'distribusi_fee.id__transaksi')
+        ->select('order.created_at', 
+                 'order.menu', 
+                 'users.email', 
+                 'users.name', 
+                 'order.text', 
+                 'order.nama_dokumen', 
+                 'order.tipe_offline', 
+                 'transaksi.nominal_transaksi', 
+                 'order.id_translator',
+                 'order.path_file_trans',
+                 'order.text_trans',
+                 'revisi.pesan_revisi',
+                 'revisi.path_file_revisi',
+                 'revisi.text_revisi',
+                 'distribusi_fee.bukti_fee_trans')
         ->where('id_translator', $translator->id_translator)
         ->get();
 

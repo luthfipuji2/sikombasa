@@ -15,7 +15,7 @@
         </button>
       </div>
 
-      <form action="/distribusi-fee" method="POST" id="editForm">
+      <form action="/distribusi-fee" method="POST" id="editForm" enctype="multipart/form-data">
 
       {{ csrf_field() }}
       {{ method_field('PUT') }}
@@ -49,6 +49,16 @@
                   </div>
                 @enderror
             </div>
+            <div class="form-group">
+                <label>Bukti Pembayaran Fee</label>
+                <input type="file" class="form-control @error('bukti_fee_trans') is-invalid @enderror" 
+                name="bukti_fee_trans" id="bukti_fee_trans" placeholder="Masukkan Fee Sistem">
+                @error ('bukti_fee_trans')
+                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                      {{$message}}
+                  </div>
+                @enderror
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -71,7 +81,7 @@
         </button>
       </div>
 
-      <form action="{{route('distribusi-fee.store')}}" method="POST">
+      <form action="{{route('distribusi-fee.store')}}" method="POST" enctype="multipart/form-data">
 
       {{ csrf_field() }}
 
@@ -102,6 +112,16 @@
                 <label>Fee Sistem</label>
                 <input type="number" class="form-control @error('fee_sistem') is-invalid @enderror" 
                 name="fee_sistem" placeholder="Masukkan Fee Sistem">
+                @error ('fee_sistem')
+                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                      {{$message}}
+                  </div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label>Bukti Pembayaran Fee</label>
+                <input type="file" class="form-control @error('bukti_fee_trans') is-invalid @enderror" 
+                name="bukti_fee_trans" id="bukti_fee_trans" placeholder="Masukkan Fee Sistem">
                 @error ('fee_sistem')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       {{$message}}
@@ -142,6 +162,7 @@
                     <th scope="row" class="text-center">Nominal Transaksi</th>
                     <th scope="row" class="text-center">Fee Translator</th>
                     <th scope="row" class="text-center">Fee Sistem</th>
+                    <th scope="row" class="text-center">Bukti Pembayaran Fee</th>
                     <th scope="row" class="text-center">Action</th>
                   </tr>
                   </thead>
@@ -155,6 +176,7 @@
                     <td scope="row" class="text-center">{{$f->nominal_transaksi}}</td>
                     <td scope="row" class="text-center">{{$f->fee_translator}}</td>
                     <td scope="row" class="text-center">{{$f->fee_sistem}}</td>
+                    <td scope="row" class="text-center">{{$f->bukti_fee_trans}}</td>
                     <td scope="row" class="text-center">
                       @if (empty($f->fee_translator) && empty($f->fee_sistem))
                       <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#inputModal{{$f->id_transaksi}}">Input Fee</button>
