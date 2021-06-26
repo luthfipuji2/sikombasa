@@ -47,15 +47,30 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="keahlian" class="col-sm-2 col-form-label">Keahlian</label>
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Video Editing</label>
+                        @if($translator->keahlian=='ya')
                         <div class="col-sm-10">
-                          <input type="text" class="form-control @error('keahlian') is-invalid @enderror" name="keahlian" id="keahlian" placeholder="Keahlian" value="{{$translator->keahlian}}">
-                          @error('keahlian')
-                          <div id="validationServer03Feedback" class="invalid-feedback">
-                            {{$message}}
+                          <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio3" name="keahlian" value="ya" class="custom-control-input" checked>
+                            <label class="custom-control-label" for="customRadio3">Ya, saya menguasainya</label>
                           </div>
-                          @enderror
+                          <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio4" name="keahlian" value="tidak" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio4">Tidak, saya tidak menguasainya</label>
+                          </div>
                         </div>
+                        @elseif($translator->keahlian=='tidak')
+                        <div class="col-sm-10">
+                          <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio3" name="keahlian" value="ya" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio3">Ya, saya menguasainya</label>
+                          </div>
+                          <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio4" name="keahlian" value="tidak" class="custom-control-input" checked>
+                            <label class="custom-control-label" for="customRadio4">Tidak, saya tidak menguasainya</label>
+                          </div>
+                        </div>
+                        @endif
                       </div>
                       <div class="form-group row">
                         <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
@@ -206,7 +221,7 @@
                       </div>
 
                       <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
+                        <div class="col-sm-2">
                           <button type="submit" class="btn btn-success">Update</button>
                         </div>
                       </div>

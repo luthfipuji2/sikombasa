@@ -13,6 +13,7 @@ class DistribusiFee extends Model
     protected $fillable = [
         'id__transaksi',
         'fee_translator',
-        'fee_sistem'
+        'fee_sistem',
+        'bukti_fee_trans'
     ];
 }
