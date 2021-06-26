@@ -51,11 +51,16 @@ class DistribusiFeeController extends Controller
             'fee_sistem' => 'required|integer'
         ]);
 
+        $bukti_fee_trans = $request->bukti_fee_trans;
+        $nm_bukti = $bukti_fee_trans->getClientOriginalName();
+        $bukti = $bukti_fee_trans->move(public_path().'/fee', $nm_bukti);
+
         if ($request->fee_translator + $request->fee_sistem == $request->nominal_transaksi){
             DistribusiFee::create([
                 'id__transaksi'     => $request->id_transaksi,
                 'fee_translator'    => $request->fee_translator,
                 'fee_sistem'        => $request->fee_sistem,
+                'bukti_fee_trans'   => $nm_bukti
             ]);
     
             return redirect('/distribusi-fee')->with('success', 'Nominal fee berhasil ditambahkan');
@@ -95,20 +100,33 @@ class DistribusiFeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_transaksi)
+    public function update(Request $request, $id_fee)
     {
         $this->validate($request,[
             'fee_translator' => 'required|integer',
             'fee_sistem' => 'required|integer'
         ]);
 
-        $t = Transaksi::find($id_transaksi);
+        $t = DistribusiFee::find($id_fee);
+
+        // if($request->hasFile('bukti_fee_trans')){
+        //     $request->file('bukti_fee_trans')->move(public_path().'/fee',
+        //     $request->file('bukti_fee_trans')->getClientOriginalName());
+            
+        //     $currentPhoto = $t->bukti_fee_trans;
+
+        //     $userPhoto = public_path('/fee/').$currentPhoto;
+        //     if(file_exists($userPhoto)){
+        //         @unlink($userPhoto);
+        //     }
+        // }
 
         if ($request->fee_translator + $request->fee_sistem == $request->nominal_transaksi){
-            DistribusiFee::where('id__transaksi', $t->id_transaksi)
+            DistribusiFee::where('id_fee', $t->id_fee)
                     ->update([
                         'fee_translator'    => $request->fee_translator,
                         'fee_sistem'        => $request->fee_sistem,
+                        // 'bukti_fee_trans'    => $request->file('bukti_fee_trans')->getClientOriginalName()
                     ]);
 
             return redirect('/distribusi-fee')->with('success', 'Nominal fee berhasil diubah');

@@ -38,7 +38,7 @@
           <span class="text">:</span>
           <span class="text">{{$o->menu}}</span>
           <!-- Emphasis label -->
-          @if($o->menu=='Interpreter' || $o->menu=='Transkrip' && $o->tipe_transkrip=='2')
+          @if($o->menu=='Interpreter' || $o->menu=='Transkrip' && $o->tipe_offline=='Transkrip')
           <small class="badge badge-primary"><i class="far fa-clock"></i> {{Carbon\Carbon::parse($o->tanggal_pertemuan)->diffInDays($today)}} hari </small>
           @else
           <small class="badge badge-danger"><i class="far fa-clock"></i> {{Carbon\Carbon::parse($today)->addDays($o->durasi_pengerjaan)->diffInDays($today)}} hari </small>
@@ -133,10 +133,23 @@
                               <input type="text" class="form-control" name="ndurasi_pengerjaan" id="ndurasi_pengerjaan" readonly value="{{$o->durasi_pengerjaan}} hari">
                             </div>
                           </div>
-                          <form>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                          </form>
+                          <div class="form-group row">
+                          <label for="path_file" class="col-sm-3 col-form-label">Download File</label>
+                          <div class="col-sm-9">
+                           <a href="/to-do-list-download/{{$o->id_order}}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download </a>
+                          </div>
+                          </div>
+                          <form action="/tdl-upload-audio/{{$o->id_order}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                          <div class="form-group row">
+                            <label for="path_file_trans" class="col-sm-3 col-form-label">Upload File</label>
+                            <div class="col-sm-9">
+                              <input type="file" name="path_file_trans" class="form-input">
+                            </div>
+                          </div>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
                         @elseif($o->menu=='Transkrip' && $o->tipe_offline=="Transkrip")
                         <div class="form-group row">
                           <label for="p_jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
