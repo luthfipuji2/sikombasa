@@ -223,10 +223,10 @@ $(document).ready(function () {
       var data = table.row($tr).data();
       console.log(data);
 
-      $('#tgl_transaksi').val(data[2]);
-      $('#nominal_transaksi').val(data[3]); 
-      $('#fee_translator').val(data[4]); 
-      $('#fee_sistem').val(data[5]); 
+      $('#tgl_transaksi').val(data[3]);
+      $('#nominal_transaksi').val(data[4]); 
+      $('#fee_translator').val(data[5]); 
+      $('#fee_sistem').val(data[6]); 
 
       $('#editForm').attr('action', '/distribusi-fee/'+data[1]);
       $('#editModal').modal('show');

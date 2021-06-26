@@ -95,17 +95,17 @@ class DistribusiFeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_transaksi)
+    public function update(Request $request, $id_fee)
     {
         $this->validate($request,[
             'fee_translator' => 'required|integer',
             'fee_sistem' => 'required|integer'
         ]);
 
-        $t = Transaksi::find($id_transaksi);
+        $t = DistribusiFee::find($id_fee);
 
         if ($request->fee_translator + $request->fee_sistem == $request->nominal_transaksi){
-            DistribusiFee::where('id__transaksi', $t->id_transaksi)
+            DistribusiFee::where('id_fee', $t->id_fee)
                     ->update([
                         'fee_translator'    => $request->fee_translator,
                         'fee_sistem'        => $request->fee_sistem,
