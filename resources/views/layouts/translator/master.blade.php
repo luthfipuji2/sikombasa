@@ -94,18 +94,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">        
               <li class="nav-item">
+                <a href="/account-translator" class="nav-link">
+                  <i class="fas fa-user-cog nav-icon"></i>
+                  <p>Pengaturan Akun</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="/profile-translator" class="nav-link">
                   <i class="fas fa-file-signature nav-icon"></i>
                   <p>Data Diri</p>
                 </a>
               </li>
 
-              <li class="nav-item">
-                <a href="/account-translator" class="nav-link">
-                  <i class="fas fa-user-cog nav-icon"></i>
-                  <p>Pengaturan Akun</p>
-                </a>
-              </li>
 
             </ul>
           </li>

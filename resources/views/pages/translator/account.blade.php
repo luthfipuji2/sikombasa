@@ -92,111 +92,118 @@
                   <div class="tab-pane" id="activity">
                     <div class="container-fluid">
                       @foreach($order as $o)
-                          <!-- Timelime example  -->
+                      <div class="card">
+                        <div class="card-header">
+                        <p class="font-weight-bold">No. Order #{{$o->id_order}}</p>
+                        {{$o->created_at}}
+                        </div>
+                        <div class="card-body">
+                          <table width="400px">
+                            <tr>
+                              <td><p class="text-left">Nama Klien</p><td> 
+                              <td><p class="font-weight-bold text-left"><a href="#">{{$o->name}}</a> {{$o->email}}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="text-left">Menu</p><td> 
+                              <td><p class="font-weight-bold text-left">{{$o->menu}}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="text-left">Nilai Order</p><td> 
+                              <td><p class="font-weight-bold text-left">IDR {{$o->nominal_transaksi}},-</p></td>
+                            </tr>
+                          </table>
+                        </div>
+                        <div class="card-footer bg-info">
                           <div class="row">
-                            <div class="col-md-12">
-                              <!-- The time line -->
-                              <div class="timeline">
-                                <!-- timeline time label -->
-                                <div class="time-label">
-                                  <span class="bg-red">{{$o->created_at}}</span>
-                                </div>
-                                <!-- /.timeline-label -->
-                                <!-- timeline item -->
-                                <div>
-                                  <i class="fas fa-envelope bg-blue"></i>
-                                  <div class="timeline-item">
-                                    <h3 class="timeline-header"><a href="#">{{$o->name}}</a> {{$o->email}}</h3>
-                                    <div class="timeline-body">
-                                      <table width="100px">
-                                      <tr>
-                                        <td><p class="font-weight-bold text-left">Menu</p><td> 
-                                        <td><p class="text-left">{{$o->menu}}</p></td>
-                                      </tr>
-                                      <tr>
-                                        <td><p class="font-weight-bold text-left">Harga</p><td> 
-                                        <td><p class="text-left">10000</p></td>
-                                      </tr>
-                                      </table>
-                                      @if(!empty($o->id_translator) && empty($o->path_file_trans) && empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
-                                      <div class="progress" style="height: 10px;">
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                      </div>
-                                      @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
-                                      <div class="progress" style="height: 10px;">
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                      </div>
-                                      @elseif(!empty($o->id_translator) && !empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
-                                      <div class="progress" style="height: 10px;">
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                      </div>
-                                      @elseif(!empty($o->id_translator) && !empty($o->text_trans) && !empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
-                                      <div class="progress" style="height: 10px;">
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                      </div>
-                                      @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && !empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
-                                      <div class="progress" style="height: 10px;">
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                      </div>
-                                      @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
-                                      <div class="progress" style="height: 10px;">
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                      </div>
-                                      @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && empty($o->bukti_fee_trans))
-                                      <div class="progress" style="height: 10px;">
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                      </div>
-                                      @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && !empty($o->bukti_fee_trans))
-                                      <div class="progress" style="height: 10px;">
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                      </div>
-                                      @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && !empty($o->bukti_fee_trans))
-                                      <div class="progress" style="height: 10px;">
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                      </div>
-                                      @elseif(!empty($o->id_translator) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($path_file_revisi) && !empty($o->bukti_fee_trans))
-                                      <div class="progress" style="height: 10px;">
-                                        <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                      </div>
-                                      @endif
-                                    </div>
-                                    <div class="timeline-footer">
-                                      <a class="btn btn-primary btn-sm">Read more</a>
-                                      <a class="btn btn-danger btn-sm">Delete</a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- END timeline item -->
-                                <!-- timeline item -->
-                                <!-- END timeline item -->
-                                <!-- timeline time label -->
-                                <!-- END timeline item -->
-                              </div>
+                            <div class="col-sm-2">
+                              @if(!empty($o->id_translator) && empty($o->path_file_trans) && empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-light">2</span>
+                              <span class="badge badge-pill badge-light">3</span>
+                              <span class="badge badge-pill badge-light">4</span>
+                              <span class="badge badge-pill badge-light">5</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-primary">2</span>
+                              <span class="badge badge-pill badge-light">3</span>
+                              <span class="badge badge-pill badge-light">4</span>
+                              <span class="badge badge-pill badge-light">5</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-primary">2</span>
+                              <span class="badge badge-pill badge-light">3</span>
+                              <span class="badge badge-pill badge-light">4</span>
+                              <span class="badge badge-pill badge-light">5</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->text_trans) && !empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-primary">2</span>
+                              <span class="badge badge-pill badge-primary">3</span>
+                              <span class="badge badge-pill badge-light">4</span>
+                              <span class="badge badge-pill badge-light">5</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && !empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-primary">2</span>
+                              <span class="badge badge-pill badge-primary">3</span>
+                              <span class="badge badge-pill badge-light">4</span>
+                              <span class="badge badge-pill badge-light">5</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-primary">2</span>
+                              <span class="badge badge-pill badge-primary">3</span>
+                              <span class="badge badge-pill badge-primary">4</span>
+                              <span class="badge badge-pill badge-light">5</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-primary">2</span>
+                              <span class="badge badge-pill badge-primary">3</span>
+                              <span class="badge badge-pill badge-primary">4</span>
+                              <span class="badge badge-pill badge-light">5</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && !empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-primary">2</span>
+                              <span class="badge badge-pill badge-primary">3</span>
+                              <span class="badge badge-pill badge-primary">4</span>
+                              <span class="badge badge-pill badge-primary">5</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && !empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-primary">2</span>
+                              <span class="badge badge-pill badge-primary">3</span>
+                              <span class="badge badge-pill badge-primary">4</span>
+                              <span class="badge badge-pill badge-primary">5</span>
+                              @elseif(!empty($o->id_translator) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($path_file_revisi) && !empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-primary">2</span>
+                              <span class="badge badge-pill badge-primary">3</span>
+                              <span class="badge badge-pill badge-primary">4</span>
+                              <span class="badge badge-pill badge-primary">5</span>
+                              @endif
                             </div>
-                            <!-- /.col -->
+                            <div class="col-sm-10">
+                              @if(!empty($o->id_translator) && empty($o->path_file_trans) && empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <p class="text-right">Status: Menerima order</p>
+                              @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <p class="text-right">Status: Menyelesaikan order</p>
+                              @elseif(!empty($o->id_translator) && !empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <p class="text-right">Status: Menyelesaikan order</p>
+                              @elseif(!empty($o->id_translator) && !empty($o->text_trans) && !empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <p class="text-right">Status: Menerima permintaan revisi</p>
+                              @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && !empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <p class="text-right">Status: Menerima permintaan revisi</p>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <p class="text-right">Status: Menyelesaikan permintaan revisi</p>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && empty($o->bukti_fee_trans))
+                              <p class="text-right">Status: Menyelesaikan permintaan revisi</p>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && !empty($o->bukti_fee_trans))
+                              <p class="text-right">Status: Menerima pembayaran. Download bukti pembayaran <a href="/activity-download/{{$o->id_transaksi}}">disini</a></p>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && !empty($o->bukti_fee_trans))
+                              <p class="text-right">Status: Menerima pembayaran. Download bukti pembayaran <a href="/activity-download/{{$o->id_transaksi}}">disini</a></p>
+                              @elseif(!empty($o->id_translator) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($path_file_revisi) && !empty($o->bukti_fee_trans))
+                              <p class="text-right">Status: Menerima pembayaran. Download bukti pembayaran <a href="/activity-download/{{$o->id_transaksi}}">disini</a></p>
+                              @endif
+                            </div>
                           </div>
+                        </div>
+                      </div>
                       @endforeach
                       </div>
                       <!-- /.timeline -->

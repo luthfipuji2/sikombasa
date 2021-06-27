@@ -13,6 +13,9 @@ use App\Models\Translator\Certificate;
 use App\Models\Translator\Master_keahlian;
 use App\Models\Translator\Document;
 use App\Models\Admin\Seleksi;
+use App\Models\Admin\Transaksi;
+use App\Models\Admin\DistribusiFee;
+
 use App\Models\User;
 
 use Illuminate\Http\Request;
@@ -37,12 +40,15 @@ class AccountController extends Controller
                  'order.tipe_offline', 
                  'transaksi.nominal_transaksi', 
                  'order.id_translator',
+                 'order.id_order',
                  'order.path_file_trans',
                  'order.text_trans',
                  'revisi.pesan_revisi',
                  'revisi.path_file_revisi',
                  'revisi.text_revisi',
-                 'distribusi_fee.bukti_fee_trans')
+                 'distribusi_fee.bukti_fee_trans',
+                 'transaksi.id_transaksi',
+                 'distribusi_fee.id_fee')
         ->where('id_translator', $translator->id_translator)
         ->get();
 
@@ -103,6 +109,17 @@ class AccountController extends Controller
                     ]);
 
         return redirect('/account-translator')->with('success', 'Profile anda berhasil diubah');
+    }
+
+    public function downloadBukti($id_fee){
+
+        $fee = DistribusiFee::where('id_fee', $id_fee)->first();
+
+        $bukti_fee = $fee->bukti_fee_trans;
+
+        $pathToFile = public_path('fee/').$bukti_fee;
+        
+        return response()->download($pathToFile);
     }
 
 }
