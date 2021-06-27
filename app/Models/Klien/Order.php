@@ -50,6 +50,7 @@ class Order extends Model
         'tanggal_pertemuan',
         'waktu_pertemuan',
         'tipe_transkrip',
+        'status',
         'is_status',
         'status_at',
         'status_by',
