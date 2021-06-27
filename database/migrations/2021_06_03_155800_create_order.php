@@ -23,7 +23,7 @@ class CreateOrder extends Migration
             $table->unsignedBigInteger('id_parameter_order')->nullable();
             $table->foreign('id_parameter_order')->references('id_parameter_order')->on('parameter_order')->onDelete('cascade');
             $table->unsignedBigInteger('id_parameter_order_audio')->nullable();
-            $table->foreign('id_parameter_order_audio')->references('id_parameter_order_audio')->on('parameter_order_audio')->onDelete('cascade');
+            // $table->foreign('id_parameter_order_audio')->references('id_parameter_order_audio')->on('parameter_order_audio')->onDelete('cascade');
             $table->unsignedBigInteger('id_parameter_dubber')->nullable();
             $table->foreign('id_parameter_dubber')->references('id_parameter_dubber')->on('parameter_dubber')->onDelete('cascade');
             $table->unsignedBigInteger('id_parameter_jenis_layanan')->nullable();
@@ -61,8 +61,8 @@ class CreateOrder extends Migration
             $table->date('tanggal_pertemuan')->nullable();
             $table->time('waktu_pertemuan')->nullable();
             $table->string('tipe_offline')->nullable();
-            $table->string('is_status')->default("belum selesai");
-            $table->string('status_at')->nullable();
+            $table->string('is_status')->nullable();
+            $table->string('status_at')->default("belum selesai");
             $table->string('status_by')->nullable();
             $table->string('harga')->nullable();
 

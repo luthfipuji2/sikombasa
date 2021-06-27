@@ -184,10 +184,11 @@ Route::middleware(['auth'])->group(function () {
         //Route Daftar Transaksi
         Route::resource('daftar-transaksi', 'App\Http\Controllers\Admin\DaftarTransaksiController');
         Route::get('/detail-transaksi-{id_transaksi}', 'App\Http\Controllers\Admin\DaftarTransaksiController@show')->name('detail-transaksi');
-        Route::get('/bukti/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@download')->name('bukti.download');
+        Route::get('/bukti/download/{id_transaksi}', 'App\Http\Controllers\Admin\DaftarTransaksiController@download')->name('bukti.download');
 
         //Route Distribusi Fee
         Route::resource('distribusi-fee', 'App\Http\Controllers\Admin\DistribusiFeeController');
+        Route::get('/fee/download/{id_fee}', 'App\Http\Controllers\Admin\DistribusiFeeController@download')->name('fee.download');
 
         
          //Hiring
