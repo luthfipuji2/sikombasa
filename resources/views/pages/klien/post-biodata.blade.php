@@ -48,25 +48,25 @@
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Video Editing</label>
-                        @if($translator->keahlian=='ya')
+                        @if($translator->keahlian=='Bisa')
                         <div class="col-sm-10">
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio3" name="keahlian" value="ya" class="custom-control-input" checked>
+                            <input type="radio" id="customRadio3" name="keahlian" value="Bisa" class="custom-control-input" checked>
                             <label class="custom-control-label" for="customRadio3">Ya, saya menguasainya</label>
                           </div>
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio4" name="keahlian" value="tidak" class="custom-control-input">
+                            <input type="radio" id="customRadio4" name="keahlian" value="Tidak bisa" class="custom-control-input">
                             <label class="custom-control-label" for="customRadio4">Tidak, saya tidak menguasainya</label>
                           </div>
                         </div>
-                        @elseif($translator->keahlian=='tidak')
+                        @elseif($translator->keahlian=='Tidak bisa')
                         <div class="col-sm-10">
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio3" name="keahlian" value="ya" class="custom-control-input">
+                            <input type="radio" id="customRadio3" name="keahlian" value="Bisa" class="custom-control-input">
                             <label class="custom-control-label" for="customRadio3">Ya, saya menguasainya</label>
                           </div>
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio4" name="keahlian" value="tidak" class="custom-control-input" checked>
+                            <input type="radio" id="customRadio4" name="keahlian" value="Tidak bisa" class="custom-control-input" checked>
                             <label class="custom-control-label" for="customRadio4">Tidak, saya tidak menguasainya</label>
                           </div>
                         </div>
@@ -173,25 +173,25 @@
                       </div>
                       <div class="form-group row">
                         <label for="jenis_kelamin" class="col-sm-2 col-form-label">Jenis Kelamin</label>
-                        @if($translator->jenis_kelamin=='laki-laki')
+                        @if($translator->jenis_kelamin=='Laki-laki')
                         <div class="col-sm-10">
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio1" name="jenis_kelamin" value="laki-laki" class="custom-control-input" checked>
+                            <input type="radio" id="customRadio1" name="jenis_kelamin" value="Laki-laki" class="custom-control-input" checked>
                             <label class="custom-control-label" for="customRadio1">Laki-laki</label>
                           </div>
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio2" name="jenis_kelamin" value="perempuan" class="custom-control-input">
+                            <input type="radio" id="customRadio2" name="jenis_kelamin" value="Perempuan" class="custom-control-input">
                             <label class="custom-control-label" for="customRadio2">Perempuan</label>
                           </div>
                         </div>
-                        @elseif($translator->jenis_kelamin=='perempuan')
+                        @elseif($translator->jenis_kelamin=='Perempuan')
                         <div class="col-sm-10">
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio1" name="jenis_kelamin" value="laki-laki" class="custom-control-input">
+                            <input type="radio" id="customRadio1" name="jenis_kelamin" value="Laki-laki" class="custom-control-input">
                             <label class="custom-control-label" for="customRadio1">Laki-laki</label>
                           </div>
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio2" name="jenis_kelamin" value="perempuan" class="custom-control-input" checked>
+                            <input type="radio" id="customRadio2" name="jenis_kelamin" value="Perempuan" class="custom-control-input" checked>
                             <label class="custom-control-label" for="customRadio2">Perempuan</label>
                           </div>
                         </div>
