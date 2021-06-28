@@ -50,11 +50,11 @@
                         <label for="keahlian" class="col-sm-2 col-form-label">Video Editing</label>
                         <div class="col-sm-10">
                             <div class="custom-control custom-radio">
-                              <input type="radio" id="customRadio3" name="keahlian" value="ya" class="custom-control-input">
+                              <input type="radio" id="customRadio3" name="keahlian" value="Bisa" class="custom-control-input">
                               <label class="custom-control-label" for="customRadio3">Ya, saya menguasainya</label>
                             </div>
                             <div class="custom-control custom-radio">
-                              <input type="radio" id="customRadio4" name="keahlian" value="tidak" class="custom-control-input">
+                              <input type="radio" id="customRadio4" name="keahlian" value="Tidak bisa" class="custom-control-input">
                               <label class="custom-control-label" for="customRadio4">Tidak, saya tidak menguasainya</label>
                             </div>
                             @error('keahlian')
@@ -170,11 +170,11 @@
                         <label for="inputName2" class="col-sm-2 col-form-label">Jenis Kelamin</label>
                         <div class="col-sm-10">
                             <div class="custom-control custom-radio">
-                              <input type="radio" id="customRadio1" name="jenis_kelamin" value="laki-laki" class="custom-control-input">
+                              <input type="radio" id="customRadio1" name="jenis_kelamin" value="Laki-laki" class="custom-control-input">
                               <label class="custom-control-label" for="customRadio1">Laki-laki</label>
                             </div> 
                             <div class="custom-control custom-radio">
-                              <input type="radio" id="customRadio2" name="jenis_kelamin" value="perempuan" class="custom-control-input">
+                              <input type="radio" id="customRadio2" name="jenis_kelamin" value="Perempuan" class="custom-control-input">
                               <label class="custom-control-label" for="customRadio2">Perempuan</label>
                             </div>
                             @error('jenis_kelamin')
