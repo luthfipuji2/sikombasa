@@ -114,9 +114,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/tdl-upload-video/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadVideo']);
         Route::post('/tdl-upload-audio/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadAudio']);
         Route::post('/tdl-upload-dokumen/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadDokumen']);
+        Route::post('/tdl-upload-offline/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadOffline']);
 
         //Review
-        Route::get('/review', [App\Http\Controllers\Translator\TranslatorController::class, 'review']);
+        Route::get('/review', [App\Http\Controllers\Translator\ReviewController::class, 'index']);
 
         //Profile Certificate
         Route::post('/certificate-create', [App\Http\Controllers\Translator\ProfileController::class, 'createCertificate']); 

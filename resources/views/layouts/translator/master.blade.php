@@ -113,7 +113,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="/find-a-job" class="nav-link">
               <i class="nav-icon fas fa-search"></i>
               <p>
-                Find a Job
+                Cari Order
               </p>
             </a>
           </li>
@@ -121,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="/to-do-list" class="nav-link">
               <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
-                To Do List
+                Pekerjaan
               </p>
             </a>
           </li>
@@ -129,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="/review" class="nav-link">
               <i class="nav-icon fas fa-star"></i>
               <p>
-                Review
+                Ulasan
               </p>
             </a>
           </li>
