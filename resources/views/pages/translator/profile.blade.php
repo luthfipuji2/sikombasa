@@ -11,8 +11,8 @@
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#certificate" data-toggle="tab">Skills Certificate</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Data Diri</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#certificate" data-toggle="tab">Sertifikat</a></li>
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">

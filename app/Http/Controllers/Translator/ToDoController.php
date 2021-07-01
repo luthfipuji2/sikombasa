@@ -128,5 +128,27 @@ class ToDoController extends Controller
         return redirect('/to-do-list')->with('success', 'File telah selesai dikerjakan');
 
     }
+
+    public function uploadOffline(Request $request, $id_order)
+    {
+        $order = Order::find($id_order);
+
+        if($request->hasFile('path_file_trans')){
+
+            $ext_template = $request->file('path_file_trans')->extension();
+            $nama_file = $request->file('path_file_trans')->getClientOriginalName();
+            $file = $nama_file . "." . $ext_template;
+
+            $path_template = Storage::putFileAs('public/data_bertemu', $request->file('path_file_trans'), $file);
+            
+
+            Order::where('id_order', $order->id_order)
+                        ->update([
+                            'path_file_trans'    => $path_template
+                ]);
+        }
+
+        return redirect('/to-do-list')->with('success', 'Pertemuan telah selesai');
+    }
 }
 ?>
