@@ -56,6 +56,7 @@ class Order extends Model
         'status_by',
         'tipe_offline',
         'harga',
+        'jarak',
         'menu',
     ];
 
@@ -68,7 +69,7 @@ class Order extends Model
     }
 
     public function translator(){
-        return $this->belongsTo('App\Translator');
+        return $this->belongsTo('App\Models\Traslator\Translator','id_translator','id_translator');
     }
 
     public function parameter_order(){

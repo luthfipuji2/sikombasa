@@ -1,132 +1,105 @@
 @extends('layouts.klien.sidebar')
-
-@section('title', 'Order Transkrip (Audio)')
 @section('content')
 <div class="container-fluid">
         <div class="row">
         <div class="container ">
         {{-- status --}}
     <div class="row">
-        <div class="col-md-12">
+        <div class="p-3 mb-3">
             <div class="card">
-            <div class="card-header p-2">
-                <ul class="nav nav-pills">
-                <li class="nav-item"><a class="nav-link active" href="#certificate" data-toggle="tab">Order Menu</a></li>
-                <li class="nav-item"><a class="nav-link disabled" href="#certificate" data-toggle="tab">View Order</a></li>
-                </ul>
+            <div class="card-header p-2 bg-blue">
+            <h4> <i class="fab fa-shopify"></i> Form Order Transkrip Audio</h4>
             </div><!-- /.card-header -->
             <div class="card-body">
                 <div class="tab-content">
-                <div class="disabled tab-pane" id="progress">
-                    <!-- Tab Activity di sini -->
-                </div>
-
-                <div class="disabled tab-pane" id="profile">
-                    <!-- Tab Profile di sini -->
-                </div>
-
-                <div class="disabled tab-pane" id="document">
-                <!-- Tab Document di sini -->
-                </div>
-
                 <div class="active tab-pane" id="certificate">
                 <form action="{{route('order-transkrip.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
         
+            <div class="row" data-aos="fade-up">
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+            <div class="col-md-3 pt-6">
+                <img src="./img/myicon/3.jpg" class="img-fluid" alt="">
+            </div>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+            <div class="col-md-7 pt-4">
+                <div class="row">
+                    <div class="col">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon bg-cyan">
+                            <div id="jenis_layanan"></div>
+                                <div class="form-check">
+                                &nbsp;<input class="form-check-input" type="radio" name="jenis_layanan" id="jenis_layanan" value="Basic">
+                                <label class="form-check-label" for="jenis_layanan"><b>Basic</b></label>
+                                <i class="nav-icon fas fa-medal"></i>
+                                <i class="nav-icon fas fa-medal"></i>
+                                <i class="nav-icon fas fa-medal"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <dic class="col">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon bg-danger">
+                                <div id="jenis_layanan"></div>
+                                <div class="form-check">
+                                &nbsp;<input class="form-check-input" type="radio" name="jenis_layanan" id="jenis_layanan" value="Premium ">
+                                <label class="form-check-label" for="jenis_layanan"><b>Premium</b></label>
+                                <i class="nav-icon fas fa-crown"></i>
+                                <i class="nav-item fas fa-crown"></i>
+                                <i class="nav-item fas fa-crown"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="form-group">
+                    <select class="form-control @error('durasi_pengerjaan') is-invalid @enderror" 
+                        id="durasi_pengerjaan" placeholder="Durasi Pengerjaan" name="durasi_pengerjaan">
+                        <option value="">--Pilih Durasi Pengerjaan--</option>
+                        <option value="1">1 Hari</option>
+                        <option value="2">2 Hari</option>
+                        <option value="3">3 Hari</option>
+                    </select>
+                    @error ('durasi_pengerjaan')
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    {{$message}}
+                    </div>
+                    @enderror
+                </div>
+
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Tuliskan Nama Audio" id="nama_dokumen" name="nama_dokumen">
+                </div>
+                <div class="form-group">
+                    <label for="path_file" class="col-form-label">Upload Audio (Size Max 30 Mb)</label>
+                    <div class="modal-body">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                    <input type="file" id="path_file" name="path_file" required="required">
+                    </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="hidden" name="durasi_audio" id="durasi_audio" oninput="updateInfos()">
+                    <span type="text"  id="dr_audio" name="dr_audio">
+                </div>
+            <div>
+        </div>
+    </div>
+</div>
         
-        <!-- layanan basic -->
-        <div class="card card-statistic-1">
-            <div class="card-icon bg-cyan">
-                &nbsp;
-                <i class="nav-icon fas fa-medal"></i>
-                <i class="nav-icon fas fa-medal"></i>
-                <i class="nav-icon fas fa-medal"></i>
-                &nbsp;
-                <b>Layanan Basic</b>
-            </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                <div class="card-body">
-                <div id="id_parameter_jenis_layanan"></div>
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="id_parameter_jenis_layanan" id="id_parameter_jenis_layanan" value="1">
-                <label class="form-check-label" for="id_parameter_jenis_layanan"><h5>Pilih Layanan Basic</label>
-                </div>
-                </div>
-                </div>
-            </div>
-        </div>
-        <!--selesai layanan baisc -->
+        
 
-        <!-- layanan premium -->
-        <div class="card card-statistic-1">
-            <div class="card-icon bg-danger">
-                &nbsp;
-                <i class="nav-icon fas fa-crown"></i>
-                <i class="nav-item fas fa-crown"></i>
-                <i class="nav-item fas fa-crown"></i>
-                <i class="nav-item fas fa-crown"></i>
-                <i class="nav-item fas fa-crown"></i>
-                &nbsp;
-                <b>Layanan Premium</b>
-            </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                <div class="card-body">
-                <div id="id_parameter_jenis_layanan"></div>
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="id_parameter_jenis_layanan" id="id_parameter_jenis_layanan" value="2">
-                <label class="form-check-label" for="id_parameter_jenis_layanan"><h5>Pilih Layanan Premium</label>
-                </div>
-                </div>
-                </div>
-            </div>
+        
+        <div class="col-sm-2 ml-auto">
+            <button class="btn bg-green" type="submit">ORDER &nbsp;<i class="fab fa-shopify"></i></button>
         </div>
-        <br>
-        <!-- Selesai layanan premium -->
-
-        <div class="form-group">
-            <label for="durasi_pengerjaan">Durasi Pengerjaan</label>
-            <select class="form-control @error('durasi_pengerjaan') is-invalid @enderror" 
-                id="durasi_pengerjaan" placeholder="Durasi Pengerjaan" name="durasi_pengerjaan">
-                <option value="">--Pilih Durasi Pengerjaan--</option>
-                <option value="1">1 Day</option>
-                <option value="2">2 Day</option>
-                <option value="3">3 Day</option>
-            </select>
-            @error ('durasi_pengerjaan')
-            <div id="validationServerUsernameFeedback" class="invalid-feedback">
-            {{$message}}
-            </div>
-            @enderror
-        </div>
-        <br>
-        {{ csrf_field() }}
-        <div class="form-group">
-            <label for="nama_dokumen" class="col-form-label">Tulis Nama Audio</label>
-            <input type="text" class="form-control" id="nama_dokumen" name="nama_dokumen">
-        </div>
-        <div class="form-group">
-            <label for="path_file" class="col-form-label">Upload Audio (Size Max 30 Mb)</label>
-            <div class="modal-body">
-            {{ csrf_field() }}
-            <div class="form-group">
-            <input type="file" id="path_file" name="path_file" required="required">
-            </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <input type="hidden" name="durasi_audio" id="durasi_audio" oninput="updateInfos()">
-            <span type="text"  id="dr_audio" name="dr_audio">
-        </div>
-        <hr>
-                    
-        <div class="col-sm-2">
-        <button class="btn btn-primary" type="submit">Submit</button>
-        </div>
-        <br>
         </form> 
+        </div>
+        </div>
+        </div>
         </div>
     <!-- /.tab-content -->
     </div>
@@ -195,3 +168,6 @@
     }
 </script>
 @endpush
+
+
+

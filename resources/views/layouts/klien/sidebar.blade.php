@@ -29,11 +29,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
                 
       <form action="" method="POST" class="d-inline">
-      <a href="{{ url ('/menu-order') }}" class="btn btn-success" class="text-right" style="float: right;"><i class="fa fa-shopping-cart" aria-hidden="true" ></i></a>
+      <a href="{{ url ('/menu-order') }}" class="btn text-success" class="text-right" style="float: right;"><i class="fa fa-shopping-cart" aria-hidden="true" ></i></a>
       </form>
       &nbsp;
       <form action="" method="POST" class="d-inline">
-          <a href="{{ url ('/') }}" class="btn btn-primary" class="text-right" style="float: right;"><i class="fa fa-comments" aria-hidden="true" ></i></a>
+          <a href="{{ url ('/') }}" class="btn text-primary" class="text-right" style="float: right;"><i class="fa fa-comments" aria-hidden="true" ></i></a>
       </form>
       <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -126,7 +126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/klien-status_order" class="nav-link">
+                        <a href="status-order" class="nav-link">
                         <i class="nav-icon fas fa-handshake"></i>
                         <p>Status Order</p>
                     </a>

@@ -17,6 +17,7 @@ class CreateParameterOrderTable extends Migration
             $table->bigIncrements('id_parameter_order');
             $table->string('p_durasi_pertemuan')->nullable();
             $table->string('p_jenis_layanan')->nullable();
+            $table->string('p_durasi_audio')->nullable();
             $table->integer('p_harga')->nullable();
             $table->timestamps();   
         });
