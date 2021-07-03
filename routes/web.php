@@ -62,9 +62,22 @@ Route::middleware(['auth'])->group(function () {
          Route::resource('order-subtitle', 'App\Http\Controllers\Klien\OrderSubtitleController');
          Route::put('/order-subtitle/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@update')->name('update_order_subtitle');
 
+       //Order Interpreter
+       Route::get('/order-interpreter', [App\Http\Controllers\Klien\OrderInterpreterController::class, 'menuOrder'])->name('menu-order');
+       Route::resource('order-interpreter', 'App\Http\Controllers\Klien\OrderInterpreterController');
+       Route::put('/order-interpreter/{id_order}', 'App\Http\Controllers\Klien\OrderInterpreterController@update')->name('update_order_interpreter');
+
+       //Order Transkrip 
+       Route::get('/order-transkrip', [App\Http\Controllers\Klien\OrderTranskripController::class, 'menuOrder'])->name('menu-order');
+       Route::resource('order-transkrip', 'App\Http\Controllers\Klien\OrderTranskripController');
+       Route::put('/order-transkrip/{id_order}', 'App\Http\Controllers\Klien\OrderTranskripController@update')->name('update_order_transkrip');
+       Route::post('/order-transkrip/create', [OrderTranskripController::class, 'store']);
+
+        //Route Transaksi
         Route::resource('menu-pembayaran', 'App\Http\Controllers\Klien\MenuPembayaranController');
         Route::resource('status-order', 'App\Http\Controllers\Klien\StatusOrderController');
         Route::get('/bukti/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@download')->name('bukti.download');
+        Route::get('/detail-order-{id_order}', 'App\Http\Controllers\Klien\MenuPembayaranController@show')->name('detail-order');
         Route::get('/invoice/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@invoice')->name('pdf.download');
 
         //Order Interpreter
@@ -91,20 +104,50 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/certificate', [App\Http\Controllers\Klien\CareerController::class, 'indexCertificate']);
         Route::post('/certificate', [App\Http\Controllers\Klien\CareerController::class, 'submitCertificate'])->name('certificate');
         Route::get('/progress', [App\Http\Controllers\Klien\CareerController::class, 'indexProgress']);
+        Route::get('/post-apply', [App\Http\Controllers\Klien\PostController::class, 'index']);
+        Route::patch('/biodata-post', [App\Http\Controllers\Klien\PostController::class, 'updateBiodata']);
+        Route::get('/document-post', [App\Http\Controllers\Klien\PostController::class, 'indexDocument']);
+        Route::patch('/document-post', [App\Http\Controllers\Klien\PostController::class, 'updateDocument']);
+        Route::get('/certificate-post', [App\Http\Controllers\Klien\PostController::class, 'indexCertificate']);
+        Route::post('/certificate-post-create', [App\Http\Controllers\Klien\PostController::class, 'createCertificate']); 
+        Route::match(['get', 'post'], '/certificate-post-update/{id_keahlian}', [App\Http\Controllers\Klien\PostController::class, 'updateCertificate']);
+        Route::get('/certificate-post/{id_keahlian}', [App\Http\Controllers\Klien\PostController::class, 'deleteCertificate']); 
+
+        
     });
 
     Route::middleware(['translator'])->group(function () {
+        //Dashboard
         Route::get('/translator', [App\Http\Controllers\Translator\TranslatorController::class, 'index']);
+
+        //Profile Translator
         Route::get('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'index']);
         Route::patch('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'update']); 
 
+        Route::patch('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'update']);
+        Route::get('/account-translator', [App\Http\Controllers\Translator\AccountController::class, 'index']);
+        Route::patch('/account-translator/{id}', [App\Http\Controllers\Translator\AccountController::class, 'update']);
+        Route::get('/activity-download/{id_fee}', [App\Http\Controllers\Translator\AccountController::class, 'downloadBukti']);
+        
+        //Find a Job
         Route::get('/find-a-job', [App\Http\Controllers\Translator\FindaJobController::class, 'index']);
         Route::resource('find-a-job', 'App\Http\Controllers\Translator\FindaJobController');
         Route::put('/find-a-job', 'App\Http\Controllers\Translator\FindaJobController@update');
         // Route::match(['get', 'post'],'/find-a-job/{id_order}', [App\Http\Controllers\Translator\FindaJobController::class, 'update']);
 
+        //To Do List
         Route::get('/to-do-list', [App\Http\Controllers\Translator\ToDoController::class, 'index']);
-        Route::get('/review', [App\Http\Controllers\Translator\TranslatorController::class, 'review']);
+        Route::post('/text-translator/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'text']);
+        Route::get('/to-do-list-download/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'download']);
+        Route::post('/tdl-upload-video/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadVideo']);
+        Route::post('/tdl-upload-audio/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadAudio']);
+        Route::post('/tdl-upload-dokumen/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadDokumen']);
+        Route::post('/tdl-upload-offline/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadOffline']);
+
+        //Review
+        Route::get('/review', [App\Http\Controllers\Translator\ReviewController::class, 'index']);
+
+        //Profile Certificate
         Route::post('/certificate-create', [App\Http\Controllers\Translator\ProfileController::class, 'createCertificate']); 
         Route::post('/certificate-update/{id_keahlian}', [App\Http\Controllers\Translator\ProfileController::class, 'updateCertificate']); 
         Route::get('/certificate/{id_keahlian}', [App\Http\Controllers\Translator\ProfileController::class, 'deleteCertificate']); 
@@ -170,19 +213,22 @@ Route::middleware(['auth'])->group(function () {
 
         //Route Daftar Transaksi
         Route::resource('daftar-transaksi', 'App\Http\Controllers\Admin\DaftarTransaksiController');
+        Route::get('/detail-transaksi-{id_transaksi}', 'App\Http\Controllers\Admin\DaftarTransaksiController@show')->name('detail-transaksi');
+        Route::get('/bukti/download/{id_transaksi}', 'App\Http\Controllers\Admin\DaftarTransaksiController@download')->name('bukti.download');
 
         //Route Distribusi Fee
         Route::resource('distribusi-fee', 'App\Http\Controllers\Admin\DistribusiFeeController');
+        Route::get('/fee/download/{id_fee}', 'App\Http\Controllers\Admin\DistribusiFeeController@download')->name('fee.download');
 
         
          //Hiring
          Route::get('/hire', [App\Http\Controllers\Admin\HiringController::class, 'index']);
          Route::get('/index-wawancara', [App\Http\Controllers\Admin\HiringController::class, 'indexWawancara']);
-         Route::get('/wawancara-{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'showWawancara']);
+         Route::get('/wawancara-{id_translator}-{id_seleksi_berkas}', 'App\Http\Controllers\Admin\HiringController@showWawancara')->name('wawancara.show');
          Route::get('/{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'show'])->name('hire.show');
-         Route::match(['get', 'post'],'/wawancara/{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'wawancara']);
-         Route::match(['get', 'post'],'/berkas/{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'berkas']);
-         Route::match(['get', 'post'], '/catatan-{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'catatan']);
+         Route::match(['get', 'post'],'/wawancara/{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'wawancara']);
+         Route::match(['get', 'post'],'/berkas/{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'berkas']);
+         Route::match(['get', 'post'], '/catatan-{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'catatan']);
          
         
 

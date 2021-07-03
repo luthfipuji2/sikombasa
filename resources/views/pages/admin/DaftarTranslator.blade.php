@@ -77,6 +77,10 @@
                 <input type="text" value="{{$t->name}}" class="form-control" readonly>
             </div>
             <div class="form-group">
+                <label>Nama Lengkap</label>
+                <input type="text" value="{{$t->nama}}" class="form-control" readonly>
+            </div>
+            <div class="form-group">
                 <label>Foto Profile</label>
                 <br>
                 @if (!empty($t->profile_photo_path))
@@ -192,6 +196,7 @@
                     <th scope="row" class="text-center" style="width: 50px">No</th>
                     <th scope="row" class="text-center" hidden>ID</th>
                     <th scope="row" class="text-center">Nama Translator</th>
+                    <th scope="row" class="text-center" hidden>Nama Lengkap</th>
                     <th scope="row" class="text-center" style="width: 100px">Status</th>
                     <th scope="row" class="text-center" hidden>Email</th>
                     <th scope="row" class="text-center" hidden>Keahlian</th>
@@ -216,6 +221,7 @@
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
                     <td scope="row" class="text-center" hidden>{{$trans->id_translator}}</td>
                     <td scope="row" class="text-center">{{$trans->name}}</td>
+                    <td scope="row" class="text-center" hidden>{{$trans->nama}}</td>
                     <td scope="row" class="text-center">{{$trans->status}}</td>
                     <td scope="row" class="text-center" hidden>{{$trans->email}}</td>
                     <td scope="row" class="text-center" hidden>{{$trans->keahlian}}</td>
@@ -285,7 +291,7 @@ $(document).ready(function () {
                 text:      '<i class="far fa-file-pdf"></i>',
                 titleAttr: 'PDF',
                 orientation: 'landscape',
-                pageSize: 'LEGAL',
+                pageSize: 'TABLOID',
             }
     ]
   })
@@ -301,23 +307,24 @@ $(document).ready(function () {
     console.log(data);
 
     $('#name').val(data[2]);
-    $('#status').val(data[3]);
-    $('#email').val(data[4]);
-    $('#role').val(data[5]); 
-    $('#keahlian').val(data[6]);
-    $('#jenis_kelamin').val(data[7]); 
-    $('#tgl_lahir').val(data[8]); 
-    $('#no_telp').val(data[9]); 
-    $('#nama_bank').val(data[10]); 
-    $('#nama_rekening').val(data[11]); 
-    $('#rekening_bank').val(data[12]); 
-    $('#nik').val(data[13]);
-    $('#foto_ktp').val(data[14]);
-    $('#alamat').val(data[15]); 
-    $('#kecamatan').val(data[16]); 
-    $('#kabupaten').val(data[17]); 
-    $('#provinsi').val(data[18]); 
-    $('#kode_pos').val(data[19]); 
+    $('#nama').val(data[3]);
+    $('#status').val(data[4]);
+    $('#email').val(data[5]);
+    $('#role').val(data[6]); 
+    $('#keahlian').val(data[7]);
+    $('#jenis_kelamin').val(data[8]); 
+    $('#tgl_lahir').val(data[9]); 
+    $('#no_telp').val(data[10]); 
+    $('#nama_bank').val(data[11]); 
+    $('#nama_rekening').val(data[12]); 
+    $('#rekening_bank').val(data[13]); 
+    $('#nik').val(data[14]);
+    $('#foto_ktp').val(data[15]);
+    $('#alamat').val(data[16]); 
+    $('#kecamatan').val(data[17]); 
+    $('#kabupaten').val(data[18]); 
+    $('#provinsi').val(data[19]); 
+    $('#kode_pos').val(data[20]); 
 
     $('#editForm').attr('action', '/daftar-translator/'+data[1]);
     $('#editModal').modal('show');

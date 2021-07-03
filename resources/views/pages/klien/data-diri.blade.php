@@ -47,14 +47,21 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Keahlian</label>
+                        <label for="keahlian" class="col-sm-2 col-form-label">Video Editing</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control @error('keahlian') is-invalid @enderror" name="keahlian" value="{{ old('keahlian') }}" placeholder="Keahlian">
-                          @error('keahlian')
-                          <div id="validationServer03Feedback" class="invalid-feedback">
-                            {{$message}}
-                          </div>
-                          @enderror
+                            <div class="custom-control custom-radio">
+                              <input type="radio" id="customRadio3" name="keahlian" value="Bisa" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadio3">Ya, saya menguasainya</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                              <input type="radio" id="customRadio4" name="keahlian" value="Tidak bisa" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadio4">Tidak, saya tidak menguasainya</label>
+                            </div>
+                            @error('keahlian')
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                              {{$message}}
+                            </div>
+                            @enderror 
                         </div>
                       </div>
                       <div class="form-group row">
@@ -162,19 +169,19 @@
                       <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">Jenis Kelamin</label>
                         <div class="col-sm-10">
-                        <div class="custom-control custom-radio">
-                          <input type="radio" id="customRadio1" name="jenis_kelamin" value="laki-laki" class="custom-control-input">
-                          <label class="custom-control-label" for="customRadio1">Laki-laki</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                          <input type="radio" id="customRadio2" name="jenis_kelamin" value="perempuan" class="custom-control-input">
-                          <label class="custom-control-label" for="customRadio2">Perempuan</label>
-                        </div>
-                        @error('jenis_kelamin')
-                          <div id="validationServer03Feedback" class="invalid-feedback">
-                            {{$message}}
-                          </div>
-                          @enderror
+                            <div class="custom-control custom-radio">
+                              <input type="radio" id="customRadio1" name="jenis_kelamin" value="Laki-laki" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadio1">Laki-laki</label>
+                            </div> 
+                            <div class="custom-control custom-radio">
+                              <input type="radio" id="customRadio2" name="jenis_kelamin" value="Perempuan" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadio2">Perempuan</label>
+                            </div>
+                            @error('jenis_kelamin')
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                              {{$message}}
+                            </div>
+                            @enderror
                         </div>
                       </div>
                       <div class="form-group row">

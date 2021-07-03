@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Starter</title>
+  <title>@yield('title')</title>
 
   <link rel="stylesheet" href="/css/app.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
@@ -84,19 +84,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="/profile-translator" class="nav-link">
-              <i class="nav-icon fas fa-user-alt"></i>
+          <li class="nav-item menu-close has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
               <p>
                 Profile
+                <i class="right fa fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">        
+              <li class="nav-item">
+                <a href="/account-translator" class="nav-link">
+                  <i class="fas fa-user-cog nav-icon"></i>
+                  <p>Pengaturan Akun</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/profile-translator" class="nav-link">
+                  <i class="fas fa-file-signature nav-icon"></i>
+                  <p>Data Diri</p>
+                </a>
+              </li>
+
+
+            </ul>
           </li>
           <li class="nav-item">
             <a href="/find-a-job" class="nav-link">
               <i class="nav-icon fas fa-search"></i>
               <p>
-                Find a Job
+                Cari Order
               </p>
             </a>
           </li>
@@ -104,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="/to-do-list" class="nav-link">
               <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
-                To Do List
+                Pekerjaan
               </p>
             </a>
           </li>
@@ -112,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="/review" class="nav-link">
               <i class="nav-icon fas fa-star"></i>
               <p>
-                Review
+                Ulasan
               </p>
             </a>
           </li>
@@ -144,7 +161,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">@yield('title')</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
           </div><!-- /.col -->

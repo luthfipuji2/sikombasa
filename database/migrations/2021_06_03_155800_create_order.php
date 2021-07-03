@@ -61,7 +61,7 @@ class CreateOrder extends Migration
             $table->time('waktu_pertemuan')->nullable();
             $table->string('tipe_offline')->nullable();
             $table->string('is_status')->nullable();
-            $table->string('status_at')->nullable();
+            $table->string('status_at')->default("belum selesai");
             $table->string('status_by')->nullable();
             $table->string('harga')->nullable();
 

@@ -17,7 +17,7 @@ class ParameterOrder extends Model
         'p_durasi_pertemuan',
         'p_jenis_layanan',
         'p_durasi_audio',
-        'harga'
+        'p_harga'
     ];
 
     public function order(){

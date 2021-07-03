@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Harga;
+use App\Models\Klien\ParameterOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -45,10 +46,10 @@ class HargaOfflineController extends Controller
             'harga' => 'required|integer'
         ]);
 
-        Harga::create([
+        ParameterOrder::create([
             'p_jenis_layanan' => $request->p_jenis_layanan,
             'p_durasi_pertemuan' => $request->p_durasi_pertemuan,
-            'harga' => $request->harga
+            'p_harga' => $request->harga
         ]);
 
         return redirect('/daftar-harga-offline')->with('success', 'Parameter menu offline berhasil ditambahkan');
@@ -91,13 +92,13 @@ class HargaOfflineController extends Controller
             'harga' => 'required|integer'
         ]);
 
-        $harga = Harga::find($id_parameter_order);
+        $harga = ParameterOrder::find($id_parameter_order);
         
-        Harga::where('id_parameter_order', $harga->id_parameter_order)
+        ParameterOrder::where('id_parameter_order', $harga->id_parameter_order)
                     ->update([
                         'p_jenis_layanan' => $request->p_jenis_layanan,
                         'p_durasi_pertemuan' => $request->p_durasi_pertemuan,
-                        'harga' => $request->harga
+                        'p_harga' => $request->harga
                     ]);
         return redirect('/daftar-harga-offline')->with('success', 'Parameter menu offline berhasil diubah');
     }
@@ -108,9 +109,9 @@ class HargaOfflineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Harga $harga)
+    public function destroy(ParameterOrder $harga)
     {
-        Harga::destroy($harga->id_parameter_order);
+        ParameterOrder::destroy($harga->id_parameter_order);
         return redirect('/daftar-harga-offline')->with('success', 'Parameter menu offline berhasil dihapus');
     }
 }

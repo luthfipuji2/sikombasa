@@ -199,7 +199,7 @@
 
         Swal.fire({
           title: "Apakah Anda Yakin?",
-          text: "Hapus parameter jumlah kata "+harga_num+"??",
+          text: "Hapus parameter teks "+harga_num+"??",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',

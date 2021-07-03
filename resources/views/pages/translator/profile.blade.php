@@ -11,17 +11,13 @@
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#certificate" data-toggle="tab">Skills Certificate</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">Activity</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Data Diri</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#certificate" data-toggle="tab">Sertifikat</a></li>
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
-                  <div class="tab-pane" id="activity">
- 
-                  </div>
-
+                  
                   <div class="active tab-pane" id="profile">
                     <form class="form-horizontal" action="/profile-translator" method="POST" enctype="multipart/form-data">
                     @method('patch')
@@ -49,15 +45,30 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="keahlian" class="col-sm-2 col-form-label">Keahlian</label>
+                      <label for="inputEmail" class="col-sm-2 col-form-label">Video Editing</label>
+                        @if($data->keahlian=='Bisa')
                         <div class="col-sm-10">
-                          <input type="text" class="form-control @error('keahlian') is-invalid @enderror" name="keahlian" id="keahlian" placeholder="Keahlian" value="{{$data->keahlian}}">
-                          @error('keahlian')
-                          <div id="validationServer03Feedback" class="invalid-feedback">
-                            {{$message}}
+                          <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio3" name="keahlian" value="Bisa" class="custom-control-input" checked>
+                            <label class="custom-control-label" for="customRadio3">Ya, saya menguasainya</label>
                           </div>
-                          @enderror
+                          <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio4" name="keahlian" value="Tidak bisa" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio4">Tidak, saya tidak menguasainya</label>
+                          </div>
                         </div>
+                        @elseif($data->keahlian=='Tidak bisa')
+                        <div class="col-sm-10">
+                          <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio3" name="keahlian" value="Bisa" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio3">Ya, saya menguasainya</label>
+                          </div>
+                          <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio4" name="keahlian" value="Tidak bisa" class="custom-control-input" checked>
+                            <label class="custom-control-label" for="customRadio4">Tidak, saya tidak menguasainya</label>
+                          </div>
+                        </div>
+                        @endif
                       </div>
                       <div class="form-group row">
                         <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
@@ -160,25 +171,25 @@
                       </div>
                       <div class="form-group row">
                         <label for="jenis_kelamin" class="col-sm-2 col-form-label">Jenis Kelamin</label>
-                        @if($data->jenis_kelamin=='laki-laki')
+                        @if($data->jenis_kelamin=='Laki-laki')
                         <div class="col-sm-10">
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio1" name="jenis_kelamin" value="laki-laki" class="custom-control-input" checked>
+                            <input type="radio" id="customRadio1" name="jenis_kelamin" value="Laki-laki" class="custom-control-input" checked>
                             <label class="custom-control-label" for="customRadio1">Laki-laki</label>
                           </div>
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio2" name="jenis_kelamin" value="perempuan" class="custom-control-input">
+                            <input type="radio" id="customRadio2" name="jenis_kelamin" value="Perempuan" class="custom-control-input">
                             <label class="custom-control-label" for="customRadio2">Perempuan</label>
                           </div>
                         </div>
-                        @elseif($data->jenis_kelamin=='perempuan')
+                        @elseif($data->jenis_kelamin=='Perempuan')
                         <div class="col-sm-10">
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio1" name="jenis_kelamin" value="laki-laki" class="custom-control-input">
+                            <input type="radio" id="customRadio1" name="jenis_kelamin" value="Laki-laki" class="custom-control-input">
                             <label class="custom-control-label" for="customRadio1">Laki-laki</label>
                           </div>
                           <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio2" name="jenis_kelamin" value="perempuan" class="custom-control-input" checked>
+                            <input type="radio" id="customRadio2" name="jenis_kelamin" value="Perempuan" class="custom-control-input" checked>
                             <label class="custom-control-label" for="customRadio2">Perempuan</label>
                           </div>
                         </div>
@@ -208,7 +219,7 @@
                       </div>
 
                       <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
+                        <div class="col-sm-2">
                           <button type="submit" class="btn btn-success">Update</button>
                         </div>
                       </div>

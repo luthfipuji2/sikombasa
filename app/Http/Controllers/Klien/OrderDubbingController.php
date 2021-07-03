@@ -114,7 +114,7 @@ class OrderDubbingController extends Controller
                 'durasi_pengerjaan'=>'required',
                 'jumlah_dubber'=>'required',
                 'nama_dokumen'=>'required',
-                'path_file'=>'required|file|max:10000',
+                'path_file'=>'required|file|max:5000000',
                 'durasi_video'=>'required',
             ]);
 
@@ -144,7 +144,7 @@ class OrderDubbingController extends Controller
                 'size'=>$size_template,
                 'tgl_order'=>Carbon::now()->timestamp,
                 'is_status'=>'belum dibayar',
-                'menu'=>'dubbing',
+                'menu'=>'Dubbing',
             ]);
 
             $id_order=$order_dubbing->id_order;

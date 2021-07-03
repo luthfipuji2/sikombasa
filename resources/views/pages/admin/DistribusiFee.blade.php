@@ -15,7 +15,7 @@
         </button>
       </div>
 
-      <form action="/distribusi-fee" method="POST" id="editForm">
+      <form action="/distribusi-fee" method="POST" id="editForm" enctype="multipart/form-data">
 
       {{ csrf_field() }}
       {{ method_field('PUT') }}
@@ -31,7 +31,7 @@
             </div>  
             <div class="form-group">
                 <label>Fee Translator</label>
-                <input type="text" class="form-control @error('fee_translator') is-invalid @enderror" 
+                <input type="number" class="form-control @error('fee_translator') is-invalid @enderror" 
                 name="fee_translator" id="fee_translator" placeholder="Masukkan Fee Translator">
                 @error ('fee_translator')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -41,9 +41,19 @@
             </div>
             <div class="form-group">
                 <label>Fee Sistem</label>
-                <input type="text" class="form-control @error('fee_sistem') is-invalid @enderror" 
+                <input type="number" class="form-control @error('fee_sistem') is-invalid @enderror" 
                 name="fee_sistem" id="fee_sistem" placeholder="Masukkan Fee Sistem">
                 @error ('fee_sistem')
+                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                      {{$message}}
+                  </div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label>Bukti Pembayaran Fee</label>
+                <input type="file" class="form-control @error('bukti_fee_trans') is-invalid @enderror" 
+                name="bukti_fee_trans" id="bukti_fee_trans" placeholder="Masukkan Fee Sistem">
+                @error ('bukti_fee_trans')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       {{$message}}
                   </div>
@@ -71,7 +81,7 @@
         </button>
       </div>
 
-      <form action="{{route('distribusi-fee.store')}}" method="POST">
+      <form action="{{route('distribusi-fee.store')}}" method="POST" enctype="multipart/form-data">
 
       {{ csrf_field() }}
 
@@ -90,7 +100,7 @@
             </div>  
             <div class="form-group">
                 <label>Fee Translator</label>
-                <input type="text" class="form-control @error('fee_translator') is-invalid @enderror" 
+                <input type="number" class="form-control @error('fee_translator') is-invalid @enderror" 
                 name="fee_translator" placeholder="Masukkan Fee Translator">
                 @error ('fee_translator')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -100,8 +110,18 @@
             </div>
             <div class="form-group">
                 <label>Fee Sistem</label>
-                <input type="text" class="form-control @error('fee_sistem') is-invalid @enderror" 
+                <input type="number" class="form-control @error('fee_sistem') is-invalid @enderror" 
                 name="fee_sistem" placeholder="Masukkan Fee Sistem">
+                @error ('fee_sistem')
+                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                      {{$message}}
+                  </div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label>Bukti Pembayaran Fee</label>
+                <input type="file" class="form-control @error('bukti_fee_trans') is-invalid @enderror" 
+                name="bukti_fee_trans" id="bukti_fee_trans" placeholder="Masukkan Fee Sistem">
                 @error ('fee_sistem')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       {{$message}}
@@ -136,29 +156,47 @@
                   <thead>   
                   <tr>
                     <th scope="row" class="text-center">No</th>
+                    <th scope="row" class="text-center" hidden>ID</th>
                     <th scope="row" class="text-center" hidden>ID Transaksi</th>
                     <th scope="row" class="text-center">Tanggal Transaksi</th>
                     <th scope="row" class="text-center">Nominal Transaksi</th>
                     <th scope="row" class="text-center">Fee Translator</th>
                     <th scope="row" class="text-center">Fee Sistem</th>
-                    <th scope="row" class="text-center">Action</th>
+                    <th scope="row" class="text-center" style="width: 100">Bukti Pembayaran Fee</th>
+                    <th scope="row" class="text-center">Status order</th>
+                    <th scope="row" class="text-center" >Action</th>
                   </tr>
                   </thead>
                   <tbody>
                   @foreach ($fee as $f)
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
+                    <td scope="row" class="text-center" hidden>{{$f->id_fee}}</td>
                     <td scope="row" class="text-center" hidden>{{$f->id_transaksi}}</td>
                     <td scope="row" class="text-center">{{$f->tgl_transaksi}}</td>
                     <td scope="row" class="text-center">{{$f->nominal_transaksi}}</td>
                     <td scope="row" class="text-center">{{$f->fee_translator}}</td>
                     <td scope="row" class="text-center">{{$f->fee_sistem}}</td>
+                    <td scope="row" class="text-center">{{$f->bukti_fee_trans}}</td>
+                    
                     <td scope="row" class="text-center">
-                      @if (empty($f->fee_translator) && empty($f->fee_sistem))
-                      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#inputModal{{$f->id_transaksi}}">Input Fee</button>
-                      @else
-                      <button type="button" class="btn btn-success btn-sm edit" data-toggle="modal" data-target="#editModal">Edit Fee</button>
+                    @if(!empty($f->status))
+                    {{$f->status}}
+                    @elseif(!empty($f->status_at))
+                    {{$f->status_at}}
+                    </td>
+                    @endif
+
+                    <td scope="row" class="text-center">
+                      
+                      
+                      @if(!empty($f->fee_translator) && !empty($f->fee_sistem) && !empty($f->bukti_fee_trans))
+                      @elseif (!empty($f->fee_translator) && !empty($f->fee_sistem) && empty($f->bukti_fee_trans))
+                      <button type="button" class="btn btn-success btn-sm edit" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button>
+                      @elseif ($f->status_at === 'selesai' || $f->status === 'selesai')
+                      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#inputModal{{$f->id_transaksi}}"><i class="fas fa-plus-square"></i></button>
                       @endif
+                      <a href="{{route('detail-transaksi', $f->id_transaksi)}}" class="btn btn-sm btn-info"><i class="fas fa-info"></i></a>
                     </td>
                   </tr>
                   @endforeach
@@ -220,10 +258,10 @@ $(document).ready(function () {
       var data = table.row($tr).data();
       console.log(data);
 
-      $('#tgl_transaksi').val(data[2]);
-      $('#nominal_transaksi').val(data[3]); 
-      $('#fee_translator').val(data[4]); 
-      $('#fee_sistem').val(data[5]); 
+      $('#tgl_transaksi').val(data[3]);
+      $('#nominal_transaksi').val(data[4]); 
+      $('#fee_translator').val(data[5]); 
+      $('#fee_sistem').val(data[6]); 
 
       $('#editForm').attr('action', '/distribusi-fee/'+data[1]);
       $('#editModal').modal('show');

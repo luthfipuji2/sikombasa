@@ -50,12 +50,14 @@ class Order extends Model
         'tanggal_pertemuan',
         'waktu_pertemuan',
         'tipe_transkrip',
+        'status',
         'is_status',
         'status_at',
         'status_by',
         'tipe_offline',
         'harga',
         'jarak',
+        'menu',
     ];
 
     protected $dates = [
