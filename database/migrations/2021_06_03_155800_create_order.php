@@ -22,8 +22,6 @@ class CreateOrder extends Migration
             $table->foreign('id_translator')->references('id_translator')->on('translator')->onDelete('cascade');
             $table->unsignedBigInteger('id_parameter_order')->nullable();
             $table->foreign('id_parameter_order')->references('id_parameter_order')->on('parameter_order')->onDelete('cascade');
-            $table->unsignedBigInteger('id_parameter_order_audio')->nullable();
-            // $table->foreign('id_parameter_order_audio')->references('id_parameter_order_audio')->on('parameter_order_audio')->onDelete('cascade');
             $table->unsignedBigInteger('id_parameter_dubber')->nullable();
             $table->foreign('id_parameter_dubber')->references('id_parameter_dubber')->on('parameter_dubber')->onDelete('cascade');
             $table->unsignedBigInteger('id_parameter_jenis_layanan')->nullable();
@@ -54,6 +52,7 @@ class CreateOrder extends Migration
             $table->string('durasi_pertemuan')->nullable();   
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
+            $table->string('jarak')->nullable();
             $table->string('lokasi')->nullable();
             $table->dateTime('tgl_order')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->integer('durasi_pengerjaan')->nullable();

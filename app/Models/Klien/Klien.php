@@ -35,9 +35,4 @@ class Klien extends Model
     public function user(){
         return $this->hasMany('App\Models\User');
     }
-    
-    public function searchlokasi(){
-        return $this->belongsTo('App\Models\Klien\SearchLocation', 'id_lokasi','nama_lokasi');
-    }
-
 }

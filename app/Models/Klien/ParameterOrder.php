@@ -16,6 +16,7 @@ class ParameterOrder extends Model
     protected $fillable = [
         'p_durasi_pertemuan',
         'p_jenis_layanan',
+        'p_durasi_audio',
         'harga'
     ];
 

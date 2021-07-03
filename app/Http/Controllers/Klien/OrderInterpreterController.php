@@ -47,22 +47,12 @@ class OrderInterpreterController extends Controller
         
         return view('pages.klien.order.order_interpreter.index',compact('menu', 'basic', 'premium')); 
     }     
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, Order $order_interpreter)
     {
         if(!empty($request->id_parameter_order && $request->p_jenis_layanan) && empty($request->id_parameter_order2 && $request->p_jenis_layanan2)){
@@ -86,10 +76,11 @@ class OrderInterpreterController extends Controller
                 'id_klien'=>$klien->id_klien,
                 'id_parameter_order' => $request->id_parameter_order,
                 'jenis_layanan' => $request->p_jenis_layanan,
-                'tipe_offline'=>$tipe_offline,
-                'lokasi'=>$lokasi,
-                'longitude'=>$longitude,
-                'latitude'=>$latitude,
+                'tipe_offline'=>$request->tipe_offline,
+                'lokasi'=>$request->lokasi,
+                'longitude'=>$request->longitude,
+                'latitude'=>$request->latitude,
+                'jarak'=>$request->jarak,
                 'tanggal_pertemuan'=> $request->tanggal_pertemuan,
                 'waktu_pertemuan'=> $request->waktu_pertemuan,
                 'is_status'=>$request->status_transaksi,
@@ -119,28 +110,22 @@ class OrderInterpreterController extends Controller
                 'id_klien'=>$klien->id_klien,
                 'id_parameter_order' => $request->id_parameter_order2,
                 'jenis_layanan' => $request->p_jenis_layanan2,
-                'tipe_offline'=>$tipe_offline,
-                'lokasi'=>$lokasi,
-                'longitude'=>$longitude,
-                'latitude'=>$latitude,
+                'tipe_offline'=>$request->tipe_offline,
+                'lokasi'=>$request->lokasi,
+                'longitude'=>$request->longitude,
+                'latitude'=>$request->latitude,
+                'jarak'=>$request->jarak,
                 'tanggal_pertemuan'=> $request->tanggal_pertemuan,
                 'waktu_pertemuan'=> $request->waktu_pertemuan,
-                'is_status'=>$request->status_transaksi,
                 'tgl_order'=>$tgl_order,
             ]);
         };
 
         $id_order=$order_interpreter->id_order;
-        return redirect(route('order-interpreter.show', $id_order))->with('success', 'Berhasil di upload!');
-        } 
+        return redirect(route('order-interpreter.show', $id_order))->with('success', 'Data Order Anda Berhasil Tersimpan');
+    } 
     
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id_order)
     {
         $user=Auth::user();
@@ -161,12 +146,7 @@ class OrderInterpreterController extends Controller
         return view('pages.klien.order.order_interpreter.show', compact('order', 'user', 'klien','basic', 'premium'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     function edit($id)
     {
         //
@@ -180,16 +160,17 @@ class OrderInterpreterController extends Controller
             Order::where('id_order', $id_order)
                 ->update([
                     'id_parameter_order'=>$request->id_parameter_order,
+                    'jenis_layanan' => $request->p_jenis_layanan,
+                    'tipe_offline'=>$request->tipe_offline,
                     'durasi_pertemuan'=>$request->durasi_pertemuan,
                     'tipe_offline'=>$request->tipe_offline,
                     'lokasi'=>$request->lokasi,
                     'longitude'=>$request->longitude,
                     'latitude'=>$request->latitude,
+                    'jarak'=>$request->jarak,
                     'tanggal_pertemuan'=>$request->tanggal_pertemuan,
                     'waktu_pertemuan'=>$request->waktu_pertemuan,
                 ]);
-
-            return redirect(route('order-interpreter.show', $id_order))->with('success', 'Berhasil di upload!');
         };
 
         if(!empty($request->id_parameter_order2 && $request->p_jenis_layanan2) && empty($request->id_parameter_order && $request->p_jenis_layanan)){
@@ -197,30 +178,25 @@ class OrderInterpreterController extends Controller
 
             Order::where('id_order', $id_order)
                 ->update([
-                    'id_parameter_order'=>$request->id_parameter_order,
-                    'durasi_pertemuan'=>$request->durasi_pertemuan,
+                    'id_parameter_order'=>$request->id_parameter_order2,
+                    'jenis_layanan' => $request->p_jenis_layanan2,
                     'tipe_offline'=>$request->tipe_offline,
                     'lokasi'=>$request->lokasi,
                     'longitude'=>$request->longitude,
                     'latitude'=>$request->latitude,
+                    'jarak'=>$request->jarak,
                     'tanggal_pertemuan'=>$request->tanggal_pertemuan,
                     'waktu_pertemuan'=>$request->waktu_pertemuan,
                 ]);
-
-            return redirect(route('order-interpreter.show', $id_order))->with('success', 'Berhasil di upload!');
         };
+        return redirect(route('order-interpreter.show', $id_order))->with('success', 'Data Order Anda Berhasil Di Edit');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     function destroy($id_order)
     {
         Order::destroy($id_order);
-        return redirect(route('order-interpreter.index'))->with('success','data berhasil di hapus');
+        return redirect(route('order-interpreter.index'))->with('success','Data Order Anda berhasil di hapus');
 
     }
 
