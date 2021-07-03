@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ParameterOrderSubtitleSeeder::class);
         $this->call(ParameterOrderDubbingSeeder::class);
         $this->call(ParameterOrderTeksSeeder::class);
-        $this->call(ParameterOrderAudioSeeder::class);
+        $this->call(ParameterTerjemahanLisanSeeder::class);
     }
 }

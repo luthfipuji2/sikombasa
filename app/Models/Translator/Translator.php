@@ -26,5 +26,9 @@ class Translator extends Model{
     public function keahlian(){
     return $this->belongsToMany(Certificate::class, 'master_keahlian', 'id_translator', 'id_keahlian');
     }
+    public function order(){
+        return $this->hasMany(Order::class,'id_order','id_translator');
+    }
+    
 }
 ?>
