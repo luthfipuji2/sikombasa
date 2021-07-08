@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Harga;
-use App\Models\Admin\ParameterOrderAudio;
+use App\Models\Klien\ParameterOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +17,8 @@ class HargaTranskripController extends Controller
      */
     public function index()
     {
-        $transkrip = DB::table('parameter_order_audio')
+        $transkrip = DB::table('parameter_order')
+        ->whereNull('p_durasi_pertemuan')
         ->get();
         return view('pages.admin.HargaTranskrip', ['transkrip' => $transkrip]);
     }
@@ -41,24 +42,24 @@ class HargaTranskripController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'min_durasi_audio' => 'required|integer',
-            'max_durasi_audio' => 'required|integer',
-            'harga' => 'required|integer'
+            'p_durasi_audio' => 'required',
+            'p_jenis_layanan'=>'required',
+            'p_harga' => 'required'
         ]);
         
-        if($request->min_durasi_audio < $request->max_durasi_audio)
-        {
-            ParameterOrderAudio::create([
-                'min_durasi_audio' => $request->min_durasi_audio,
-                'max_durasi_audio' => $request->max_durasi_audio,
-                'harga' => $request->harga
+        // if($request->min_durasi_audio < $request->max_durasi_audio)
+        // {
+            ParameterOrder::create([
+                'p_durasi_audio' => $request->p_durasi_audio,
+                'p_jenis_layanan' => $request->p_jenis_layanan,
+                'p_harga' => $request->p_harga
             ]);
             return redirect('/daftar-harga-transkrip')->with('success', 'Parameter harga transkrip berhasil diubah');
-        }
-        else
-        {
-            return redirect('/daftar-harga-transkrip')->with('failed', 'Parameter harga transkrip gagal diubah, cek kembali data Anda!');
-        }
+        // }
+        // else
+        // {
+        //     return redirect('/daftar-harga-transkrip')->with('failed', 'Parameter harga transkrip gagal diubah, cek kembali data Anda!');
+        // }
     }
 
     /**
@@ -90,30 +91,30 @@ class HargaTranskripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_parameter_order_audio)
+    public function update(Request $request, $id_parameter_order)
     {
         $this->validate($request,[
-            'min_durasi_audio' => 'required|integer',
-            'max_durasi_audio' => 'required|integer',
-            'harga' => 'required|integer'
+            'p_durasi_audio' => 'required',
+            'p_jenis_layanan'=>'required',
+            'p_harga' => 'required'
         ]);
 
-        $transkrip = ParameterOrderAudio::find($id_parameter_order_audio);
+        $transkrip = ParameterOrder::find($id_parameter_order);
         
-        if($request->min_durasi_audio < $request->max_durasi_audio)
-        {
-            ParameterOrderAudio::where('id_parameter_order_audio', $transkrip->id_parameter_order_audio)
+        // if($request->min_durasi_audio < $request->max_durasi_audio)
+        // {
+            ParameterOrder::where('id_parameter_order', $transkrip->id_parameter_order)
                     ->update([
-                        'min_durasi_audio' => $request->min_durasi_audio,
-                        'max_durasi_audio' => $request->max_durasi_audio,
-                        'harga' => $request->harga
+                        'p_durasi_audio' => $request->p_durasi_audio,
+                        'p_jenis_layanan' => $request->p_jenis_layanan,
+                        'p_harga' => $request->p_harga
                     ]);
             return redirect('/daftar-harga-transkrip')->with('success', 'Parameter harga transkrip berhasil diubah');
-        }
-        else
-        {
-            return redirect('/daftar-harga-transkrip')->with('failed', 'Parameter harga transkrip gagal diubah, cek kembali data Anda!');
-        }
+        // }
+        // else
+        // {
+        //     return redirect('/daftar-harga-transkrip')->with('failed', 'Parameter harga transkrip gagal diubah, cek kembali data Anda!');
+        // }
     }
 
     /**
@@ -122,9 +123,9 @@ class HargaTranskripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ParameterOrderAudio $harga)
+    public function destroy(ParameterOrder $harga)
     {
-        ParameterOrderAudio::destroy($harga->id_parameter_order_audio);
+        ParameterOrder::destroy($harga->id_parameter_order);
         return redirect('/daftar-harga-transkrip')->with('success', 'Parameter transkrip berhasil dihapus');
     }
 }

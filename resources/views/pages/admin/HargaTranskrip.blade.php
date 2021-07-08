@@ -19,23 +19,25 @@
 
       {{ csrf_field() }}
         <div class="modal-body">
-
-              <div class="form-group">
-                  <label>Durasi Audio Min (detik)</label>
-                  <input type="number" class="form-control @error('min_durasi_audio') is-invalid @enderror" 
-                  name="min_durasi_audio" id="min_durasi_audio" value="{{ old('min_durasi_audio') }}"  placeholder="Masukkan durasi minimal audio (detik)">
-                  @error ('min_durasi_audio')
+          <div class="form-group">
+                  <label>Jenis Layanan</label>
+                  <select type="text" name="p_jenis_layanan" class="form-control @error('p_jenis_layanan') is-invalid @enderror"
+                  placeholder="" value="{{ old('p_jenis_layanan') }}">
+                      <option value="{{old('p_jenis_layanan')}}" hidden selected>{{old('p_jenis_layanan')}}</option>
+                      <option value="Basic">Basic</option>
+                      <option value="Premium">Premium</option>
+                  </select>
+                  @error ('p_jenis_layanan')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                         {{$message}}
                     </div>
                   @enderror
               </div>
-
               <div class="form-group">
-                  <label>Durasi Audio Max (detik)</label>
-                  <input type="number" class="form-control @error('max_durasi_audio') is-invalid @enderror" 
-                  name="max_durasi_audio" id="max_durasi_audio" value="{{ old('max_durasi_audio') }}" placeholder="Masukkan durasi maximal audio (detik)">
-                  @error ('max_durasi_audio')
+                  <label>Durasi Audio (detik)</label>
+                  <input type="text" class="form-control @error('p_durasi_audio') is-invalid @enderror" 
+                  name="p_durasi_audio" id="p_durasi_audio" value="{{ old('p_durasi_audio') }}"  placeholder="Masukkan durasi audio (detik)">
+                  @error ('p_durasi_audio')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                         {{$message}}
                     </div>
@@ -44,9 +46,9 @@
 
               <div class="form-group">
                   <label>Harga</label>
-                  <input type="number" class="form-control @error('harga') is-invalid @enderror" 
-                  name="harga" id="harga" value="{{ old('harga') }}" placeholder="Masukkan harga ex. 100000">
-                  @error ('harga')
+                  <input type="number" class="form-control @error('p_harga') is-invalid @enderror" 
+                  name="p_harga" id="p_harga" value="{{ old('p_harga') }}" placeholder="Masukkan harga ex. 100000">
+                  @error ('p_harga')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                         {{$message}}
                     </div>
@@ -66,7 +68,7 @@
 
 <!-- Modal Edit -->
 @foreach ($transkrip as $edit)
-<div class="modal fade" id="updateModal{{$edit->id_parameter_order_audio}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateModal{{$edit->id_parameter_order}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -76,28 +78,29 @@
         </button>
       </div>
 
-      <form method="POST" action="/daftar-harga-transkrip/{{$edit->id_parameter_order_audio}}">
+      <form method="POST" action="/daftar-harga-transkrip/{{$edit->id_parameter_order}}">
       @method('patch')
       @csrf
 
         <div class="modal-body">
-
-              <div class="form-group">
-                  <label>Durasi Video Min (detik)</label>
-                  <input type="number" class="form-control @error('min_durasi_audio') is-invalid @enderror" 
-                  name="min_durasi_audio" id="min_durasi_audio" value="{{$edit->min_durasi_audio}}" placeholder="Masukkan durasi minimal audio (detik)">
-                  @error ('min_durasi_audio')
-                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                        {{$message}}
-                    </div>
-                  @enderror
+          <div class="form-group">
+              <label for="p_jenis_layanan">Jenis Layanan</label>
+                <select class="form-control @error('p_jenis_layanan') is-invalid @enderror" 
+                id="p_jenis_layanan" placeholder="Jenis Layanan" name="p_jenis_layanan">
+                  <option value="Basic">Basic</option>
+                  <option value="Premium">Premium</option>
+                </select>
+                @error ('p_jenis_layanan')
+                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                  {{$message}}
+                </div>
+                @enderror
               </div>
-
               <div class="form-group">
-                  <label>Durasi Video Max (detik)</label>
-                  <input type="number" class="form-control @error('max_durasi_audio') is-invalid @enderror" 
-                  name="max_durasi_audio" id="max_durasi_audio" value="{{$edit->max_durasi_audio}}" placeholder="Masukkan durasi maximal audio (detik)">
-                  @error ('max_durasi_audio')
+                  <label>Durasi Video (detik)</label>
+                  <input type="text" class="form-control @error('p_durasi_audio') is-invalid @enderror" 
+                  name="p_durasi_audio" id="p_durasi_audio" value="{{$edit->p_durasi_audio}}" placeholder="Masukkan durasi audio (detik)">
+                  @error ('p_durasi_audio')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                         {{$message}}
                     </div>
@@ -106,9 +109,9 @@
 
               <div class="form-group">
                   <label>Harga</label>
-                  <input type="number" class="form-control @error('harga') is-invalid @enderror" 
-                  name="harga" id="harga" value="{{$edit->harga}}" placeholder="Masukkan harga ex. 100000">
-                  @error ('harga')
+                  <input type="number" class="form-control @error('p_harga') is-invalid @enderror" 
+                  name="p_harga" id="p_harga" value="{{$edit->p_harga}}" placeholder="Masukkan harga ex. 100000">
+                  @error ('p_harga')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                         {{$message}}
                     </div>
@@ -150,6 +153,7 @@
                   <tr>
                     <th scope="row" class="text-center" style="width: 100px">No</th>
                     <th scope="row" class="text-center" hidden>ID</th>
+                    <th scope="row" class="text-center">Jenis Layanan</th>
                     <th scope="row" class="text-center">Durasi Audio (detik)</th>
                     <th scope="row" class="text-center">Harga</th>
                     <th scope="row" class="text-center" style="width: 100px">Action</th>
@@ -159,12 +163,13 @@
                   @foreach($transkrip as $harga)
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
-                    <td scope="row" class="text-center" hidden>{{$harga->id_parameter_order_audio}}</td>
-                    <td scope="row" class="text-center">{{$harga->min_durasi_audio}}-{{$harga->max_durasi_audio}}</td>
-                    <td scope="row" class="text-center">{{$harga->harga}}</td>
+                    <td scope="row" class="text-center" hidden>{{$harga->id_parameter_order}}</td>
+                    <td scope="row" class="text-center">{{$harga->p_jenis_layanan}}</td>
+                    <td scope="row" class="text-center">{{$harga->p_durasi_audio}}</td>
+                    <td scope="row" class="text-center">{{$harga->p_harga}}</td>
                     <td scope="row" class="text-center">
-                      <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#updateModal{{$harga->id_parameter_order_audio}}"><i class="fas fa-pencil-alt"></i></button>
-                      <a href="#" class="btn btn-sm btn-danger delete" harga-num="{{$loop->iteration}}" harga-id="{{$harga->id_parameter_order_audio}}"><i class="fas fa-trash-alt"></i></a>
+                      <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#updateModal{{$harga->id_parameter_order}}"><i class="fas fa-pencil-alt"></i></button>
+                      <a href="#" class="btn btn-sm btn-danger delete" harga-num="{{$loop->iteration}}" harga-id="{{$harga->id_parameter_order}}"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
                   @endforeach

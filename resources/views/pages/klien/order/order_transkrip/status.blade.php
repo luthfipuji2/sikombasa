@@ -42,7 +42,7 @@
                             <div class="info-box bg-light">
                               <div class="info-box-content">
                                 <span class="info-box-text text-center">Harga</span>
-                                <span class="info-box-number text-center text-blue mb-0">{{$z->harga}}</span>
+                                <span class="info-box-number text-center text-blue mb-0">Rp. {{$z->p_harga}}</span>
                               </div>
                             </div>
                           </div>
@@ -68,9 +68,9 @@
                             <div class="post">
                               @if (!empty($z->durasi_audio))
                               <div class="user-block">
-                                  <b>Durasi Video</b>
+                                  <b>Durasi Audio</b>
                                   <p class="text-muted">
-                                    {{$z->durasi_audio}}
+                                    {{(($z->durasi_audio/60)%60)}} menit
                                   </p>
                               </div>
                               @endif
@@ -84,10 +84,10 @@
                               </div>
                               @endif
                               @if (!empty($z->nama_dokumen))
-                              <b>Project files</b>
+                              <b>Nama File</b>
                               <ul class="list-unstyled">
                                 <li>
-                                  <a><i class="fas fa-folder"></i> {{$z->nama_dokumen}}</a>
+                                  <a><i class="fas fa-microphone-alt"></i> {{$z->nama_dokumen}}</a>
                                 </li>
                               </ul>
                               @endif
@@ -140,7 +140,7 @@
                             <div class="info-box bg-light">
                               <div class="info-box-content">
                                 <span class="info-box-text text-center">Total Order</span>
-                                <span class="info-box-number text-center text-blue mb-0">Rp. {{$y->harga}}</span>
+                                <span class="info-box-number text-center text-blue mb-0">Rp. {{$y->p_harga}}</span>
                               </div>
                             </div>
                           </div>
@@ -201,6 +201,106 @@
   </div>
 </div>
 @endforeach
+<!-- Modal Detail Status 3-->
+@foreach ($status3 as $x)
+<div class="modal fade" id="detail{{$x->id_transaksi}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="text-blue" id="exampleModalLabel"><i class="fab fa-shopify"></i> Detail Order</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form method="POST" id="detail{{$x->id_transaksi}}">
+
+      {{ csrf_field() }}
+      {{ method_field('PUT') }}
+
+        <div class="modal-body">
+            <section class="content">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12 ">
+                        <div class="row">
+                          <div class="col-12 col-sm-3">
+                            <div class="info-box bg-light">
+                              <div class="info-box-content">
+                                <span class="info-box-text text-center ">Nama</span>
+                                <span class="info-box-number text-center text-blue mb-0">{{$x->name}}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-3">
+                            <div class="info-box bg-light">
+                              <div class="info-box-content">
+                                <span class="info-box-text text-center">Total Order</span>
+                                <span class="info-box-number text-center text-blue mb-0">Rp. {{$x->p_harga}}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-3">
+                            <div class="info-box bg-light">
+                              <div class="info-box-content">
+                                <span class="info-box-text text-center">Status Transaksi</span>
+                                <span class="info-box-number text-center text-blue mb-0">{{$x->status_transaksi}}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-3">
+                            <div class="info-box bg-light">
+                              <div class="info-box-content">
+                                <span class="info-box-text text-center">Jenis Layanan</span>
+                                <span class="info-box-number text-center text-blue mb-0">{{$x->jenis_layanan}}</span>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      
+                        <div class="col-12">
+                            <div class="post">
+                              @if (!empty($x->durasi_audio))
+                              <div class="user-block">
+                                  <b>Durasi Video</b>
+                                  <p class="text-muted">
+                                    {{$x->durasi_audio}}
+                                  </p>
+                              </div>
+                              @endif
+                             
+                              @if (!empty($x->durasi_pengerjaan))
+                              <div class="user-block">
+                                  <b>Durasi Pengerjaan</b>
+                                  <p class="text-muted">
+                                    {{$x->durasi_pengerjaan}} Hari
+                                  </p>
+                              </div>
+                              @endif
+                              @if (!empty($x->nama_dokumen))
+                              <b>Project files</b>
+                              <ul class="list-unstyled">
+                                <li>
+                                  <a><i class="fas fa-folder"></i> {{$x->nama_dokumen}}</a>
+                                </li>
+                              </ul>
+                              @endif
+                              <div class="col-sm-9">
+                                <a href="" class="btn btn-primary btn-sm" ><i class="fas fa-download"></i> Download Hasil Terjemahan </a>
+                                <a href="" class="btn btn-danger btn-sm" ><i class="fas fa-upload"></i> Ajukan Revisi </a>
+                              </div>
+                            </div>         
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </section>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+@endforeach
 
 <div class="container">
   <section class="content">
@@ -216,60 +316,62 @@
               </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
-              <div class="tab-content">
-                <div class="active tab-pane" id="">
+              <table id="datatable" class="table table-bordered">
+                <thead>   
+                <tr>
+                  <th scope="row" class="text-center" hidden>ID</th>
+                  <th scope="row" class="text-center">Tanggal Order</th>
+                  <th scope="row" class="text-center">Tanggal Transaksi</th>
+                  <th scope="row" class="text-center">Status</th>
+                  <th scope="row" class="text-center" style="width: 100px">Action</th>
+                </tr>
+                </thead>
+                <tbody>
                 @foreach($status1 as $z)
-                  <div class="card">
-                    <div class="card-header">
-                      <h5 class="card-title m-0">Tanggal Order ({{$z->tgl_order}})</h5>
-                    </div>
-                    <div class="card-body">
-                      <div class="row" data-aos="fade-up">
-                        <div class="col-md-2">
-                          <div class="spinner-border text-primary m-5" role="status">
-                            <span class="visually-hidden"></span>
-                          </div>
-                        </div>
-                        <div class="col-md-10 pt-4">
-                          <h3>Sedang Mencari Translator . . .</h3>
-                          <p class="fst-italic">Terimakasih telah menggunakan aplikasi kami untuk melakukan pemesanan, kami akan mencarikan translator untuk Anda </p>
-                          <div class="float-right ml-auto">
-                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detail{{$z->id_transaksi}}">Detail Order</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <tr>
+                  <td scope="row" class="text-center" hidden>{{$z->id_order}}</td>
+                  <td scope="row" class="text-center">{{$z->tgl_order}}</td>
+                  <td scope="row" class="text-center">{{$z->tgl_transaksi}}</td>
+                  <td scope="row" class="text-center">
+                        <span class=" text-danger"><i class="fas fa-arrow-up"></i>
+                        <span class="badge badge-danger">Sedang Mencari Translator</span>
+                  </td>
+                  <td scope="row" class="text-center">
+                    <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#detail{{$z->id_transaksi}}"><i class="fas fa-eye"></i></button>
+                  </td>
+                </tr>
                 @endforeach
                 @foreach($status2 as $y)
-                  <div class="card">
-                    <div class="card-header">
-                      <h5 class="card-title m-0">Tanggal Order ({{$y->tgl_order}})</h5>
-                    </div>
-                    <div class="card-body">
-                      <div class="row" data-aos="fade-up">
-                        <div class="col-md-2">
-                          <div class="spinner-border text-danger m-5" role="status">
-                            <span class="visually-hidden"></span>
-                          </div>
-                        </div>
-                        <div class="col-md-10 pt-4">
-                          <h3>Order Sedang Diproses</h3>
-                          <p class="fst-italic">Terimakasih telah bersedia menunggu, translator Anda telah menerima order.<br>
-                          Harap tunggu hingga proses penerjemahan selesai, translator sedang menerjemahkan audio mu.
-                          </p>
-                          <div class="float-right ml-auto">
-                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detail{{$y->id_transaksi}}">Detail Order</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <tr>
+                  <td scope="row" class="text-center" hidden>{{$y->id_order}}</td>
+                  <td scope="row" class="text-center">{{$y->tgl_order}}</td>
+                  <td scope="row" class="text-center">{{$y->tgl_transaksi}}</td>
+                  <td scope="row" class="text-center">
+                      <span class=" text-cyan"><i class="fas fa-running fa-2x"></i>
+                      <span class="badge badge-primary"> Order Sedang Berjalan</span></span>
+                  </td>
+                  <td scope="row" class="text-center">
+                    <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#detail{{$z->id_transaksi}}"><i class="fas fa-eye"></i></button>
+                  </td>
+                </tr>
                 @endforeach
-              </div>
-            </div>
+                @foreach($status3 as $x)
+                <tr>
+                  <td scope="row" class="text-center" hidden>{{$x->id_order}}</td>
+                  <td scope="row" class="text-center">{{$x->tgl_order}}</td>
+                  <td scope="row" class="text-center">{{$x->tgl_transaksi}}</td>
+                  <td scope="row" class="text-center">
+                      <span class=" text-green"><i class="far fa-check-circle fa-2x"></i>
+                      <span class="badge badge-success"> Order Selesai</span></span>
+                  </td>
+                  <td scope="row" class="text-center">
+                    <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#detail{{$x->id_transaksi}}"><i class="fas fa-eye"></i></button>
+
+                  </td>
+                </tr>
+                @endforeach
+              </tfoot>
+              </table>
           </div>
         </div>
       </div>

@@ -63,11 +63,13 @@ Route::middleware(['auth'])->group(function () {
          Route::put('/order-subtitle/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@update')->name('update_order_subtitle');
 
        //Order Interpreter
+       Route::resource('order-interpreter/status', 'App\Http\Controllers\Klien\StatusInterpreterController');
        Route::get('/order-interpreter', [App\Http\Controllers\Klien\OrderInterpreterController::class, 'menuOrder'])->name('menu-order');
        Route::resource('order-interpreter', 'App\Http\Controllers\Klien\OrderInterpreterController');
        Route::put('/order-interpreter/{id_order}', 'App\Http\Controllers\Klien\OrderInterpreterController@update')->name('update_order_interpreter');
 
        //Order Transkrip 
+       Route::resource('order-transkrip/status', 'App\Http\Controllers\Klien\StatusTranskripController');
        Route::get('/order-transkrip', [App\Http\Controllers\Klien\OrderTranskripController::class, 'menuOrder'])->name('menu-order');
        Route::resource('order-transkrip', 'App\Http\Controllers\Klien\OrderTranskripController');
        Route::put('/order-transkrip/{id_order}', 'App\Http\Controllers\Klien\OrderTranskripController@update')->name('update_order_transkrip');
