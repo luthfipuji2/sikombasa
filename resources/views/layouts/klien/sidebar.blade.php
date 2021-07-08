@@ -104,7 +104,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
             </li>
 
-            <li class="nav-item has-treeview">
+            <li class="nav-item menu-open has-treeview">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-store"></i>
                     <p>

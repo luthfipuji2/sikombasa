@@ -101,7 +101,7 @@
                     <table class="table">
                       <tbody><tr>
                         <th style="width:50%">Harga (Sudah Termasuk Biaya Transportasi Translator)      :</th>
-                        <td> Rp. {{$order->parameter_order->harga}}</td>
+                        <td> Rp. {{$order->parameter_order->p_harga}}</td>
                       </tr>
                         </tbody>
                     </table>
@@ -233,13 +233,13 @@
                                 <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="tanggal_pertemuan">Edit Tanggal Pertemuan</label>
+                                        <label for="tanggal_pertemuan">Tanggal Pertemuan</label>
                                         <input type="date" id="tanggal_pertemuan" name="tanggal_pertemuan" value="{{$order->tanggal_pertemuan}}" class="form-control @error('tanggal_pertemuan') is-invalid @enderror">
                                     </div>
                                 </div class="col">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="waktu_pertemuan">Edit Waktu Pertemuan</label>
+                                        <label for="waktu_pertemuan">Waktu Pertemuan</label>
                                         <input type="time" id="waktu_pertemuan" name="waktu_pertemuan" value="{{$order->waktu_pertemuan}}" class="form-control">
                                     </div>
                                 </div class="col">

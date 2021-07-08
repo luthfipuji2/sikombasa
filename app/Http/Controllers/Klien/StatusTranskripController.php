@@ -45,6 +45,7 @@ class StatusTranskripController extends Controller
         $status2 = Transaksi::where('status_transaksi', 'Berhasil')
             ->join('order', 'transaksi.id_order', '=', 'order.id_order')
             ->whereNotNull('id_translator')
+            ->whereNull('path_file_trans')
             ->whereNotNull('durasi_audio')
             ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
             ->join('users', 'users.id', '=', 'klien.id')
@@ -52,20 +53,21 @@ class StatusTranskripController extends Controller
                     'parameter_order.id_parameter_order')
             ->get();
 
-        // $status3 = Transaksi::where('status_transaksi', 'Berhasil')
-        //     ->join('order', 'transaksi.id_order', '=', 'order.id_order')
-        //     ->whereNotNull('path_file_trans')
-        //      ->whereNotNull('durasi_audio')
-        //     ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
-        //     ->join('users', 'users.id', '=', 'klien.id')
-        //     ->join('parameter_order', 'order.id_parameter_order', '=', 
-        //             'parameter_order.id_parameter_order')
-        //     ->get();
+        $status3 = Transaksi::where('status_transaksi', 'Berhasil')
+            ->join('order', 'transaksi.id_order', '=', 'order.id_order')
+            ->whereNotNull('id_translator')
+            ->whereNotNull('path_file_trans')
+            ->whereNotNull('durasi_audio')
+            ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
+            ->join('users', 'users.id', '=', 'klien.id')
+            ->join('parameter_order', 'order.id_parameter_order', '=', 
+                    'parameter_order.id_parameter_order')
+            ->get();
 
         return view('pages.klien.order.order_transkrip.status', [
             'status1'=>$status1,
             'status2'=>$status2,
-            // 'status3'=>$status3
+            'status3'=>$status3
             ]);
     }
 

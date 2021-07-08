@@ -42,7 +42,6 @@
                                 <th>Jenis Layanan</th>
                                 <th>Durasi Pengerjaan</th>
                                 <th>Nama Dokumen</th>
-                                <th>Lokasi File </th>
                                 <th>Durasi Audio</th>
                                 <th>Action</th>
                             </tr>
@@ -52,14 +51,13 @@
                                 <td>{{$order->parameter_order->p_jenis_layanan}}</td>
                                 <td>{{$order->durasi_pengerjaan}} Hari</td>
                                 <td>{{$order->nama_dokumen}}</td>
-                                <td>{{$order->path_file}}</td>
-                                <td>{{$order->durasi_audio}} Detik</td>
+                                <td>{{(($order->durasi_audio/60)%60)}} Menit</td>
                                 <td>
                                     <form action="" method="POST" class="d-inline">
                                         @method('Delete')
                                         @csrf
-                                        <button class="btn btn-sm bg-red" data-toggle="modal" data-target="#delete2"  type="button" class="text-right" style="float: right;"><i class="fas fa-trash-alt"></i></button>
-                                        <button type="button" class="btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal{{$order->id_order}}" class="text-right" style="float: right;"><i class="fas fa-pencil-alt"></i></button>
+                                        <button class="btn btn-sm bg-red" data-toggle="modal" data-target="#delete2"  type="button"><i class="fas fa-trash-alt"></i></button>
+                                        <button type="button" class="btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal{{$order->id_order}}" ><i class="fas fa-pencil-alt"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -94,7 +92,7 @@
                             <tbody>
                                 <tr>
                                     <th style="width:50%">Total Biaya :</th>
-                                    <td> Rp. {{$order->parameter_order->harga}}</td>
+                                    <td> Rp. {{$order->parameter_order->p_harga}}</td>
                                 </tr>
                             </tbody>
                         </table>
