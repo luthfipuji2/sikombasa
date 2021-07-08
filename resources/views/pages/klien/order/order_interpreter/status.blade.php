@@ -42,7 +42,7 @@
                             <div class="info-box bg-light">
                               <div class="info-box-content">
                                 <span class="info-box-text text-center">Total Order</span>
-                                <span class="info-box-number text-center text-blue mb-0">Rp. {{$a->harga}}</span>
+                                <span class="info-box-number text-center text-blue mb-0">Rp. {{$a->p_harga}}</span>
                               </div>
                             </div>
                           </div>
@@ -188,7 +188,7 @@
                             <div class="info-box bg-light">
                               <div class="info-box-content">
                                 <span class="info-box-text text-center">Total Order</span>
-                                <span class="info-box-number text-center text-blue mb-0">{{$b->harga}}</span>
+                                <span class="info-box-number text-center text-blue mb-0">Rp. {{$b->p_harga}}</span>
                               </div>
                             </div>
                           </div>
@@ -295,6 +295,152 @@
 </div>
 @endforeach
 
+<!-- Modal Detail Status 3-->
+@foreach ($status3 as $c)
+<div class="modal fade" id="detail{{$c->id_transaksi}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="text-blue" id="exampleModalLabel"><i class="fab fa-shopify"></i> Detail Order</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form method="POST" id="detail{{$c->id_transaksi}}">
+
+      {{ csrf_field() }}
+      {{ method_field('PUT') }}
+
+        <div class="modal-body">
+
+          <!-- Main content -->
+            <section class="content">
+
+              <!-- Default box -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12 ">
+                        <div class="row">
+                          <div class="col-12 col-sm-3">
+                            <div class="info-box bg-light">
+                              <div class="info-box-content">
+                                <span class="info-box-text text-center ">Nama</span>
+                                <span class="info-box-number text-center text-blue mb-0">{{$c->name}}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-3">
+                            <div class="info-box bg-light">
+                              <div class="info-box-content">
+                                <span class="info-box-text text-center">Total Order</span>
+                                <span class="info-box-number text-center text-blue mb-0">Rp. {{$c->p_harga}}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-3">
+                            <div class="info-box bg-light">
+                              <div class="info-box-content">
+                                <span class="info-box-text text-center">Status Transaksi</span>
+                                <span class="info-box-number text-center text-blue mb-0">{{$c->status_transaksi}}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-3">
+                            <div class="info-box bg-light">
+                              <div class="info-box-content">
+                                <span class="info-box-text text-center">Jenis Layanan</span>
+                                <span class="info-box-number text-center text-blue mb-0">{{$c->jenis_layanan}}</span>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      
+                        <div class="col-12">
+                            <div class="post">
+                              @if (!empty($c->durasi_pertemuan))
+                              <div class="user-block">
+                                  <b>Durasi Pertemuan</b>
+                                  <p class="text-muted">
+                                    {{$c->durasi_pertemuan}}
+                                  </p>
+                              </div>
+                              @endif
+                              @if (!empty($c->tipe_offline))
+                              <div class="user-block">
+                                  <b>Jenis Menu Offline</b>
+                                  <p class="text-muted">
+                                    {{$c->tipe_offline}}
+                                  </p>
+                              </div>
+                              @endif
+                              @if (!empty($c->latitude))
+                              <div class="user-block">
+                                  <b>Latitude</b>
+                                  <p class="text-muted">
+                                    {{$c->latitude}}
+                                  </p>
+                              </div>
+                              @endif
+
+                              @if (!empty($c->longitude))
+                              <div class="user-block">
+                                  <b>Longitude</b>
+                                  <p class="text-muted">
+                                    {{$c->longitude}}
+                                  </p>
+                              </div>
+                              @endif
+
+                              @if (!empty($c->lokasi))
+                              <div class="user-block">
+                                  <b>Lokasi</b>
+                                  <p class="text-muted">
+                                    {{$c->lokasi}}
+                                  </p>
+                              </div>
+                              @endif
+
+                              @if (!empty($c->jarak))
+                              <div class="user-block">
+                                  <b>Lokasi</b>
+                                  <p class="text-muted">
+                                    {{$c->jarak}}
+                                  </p>
+                              </div>
+                              @endif
+
+                              @if (!empty($c->tanggal_pertemuan))
+                              <div class="user-block">
+                                  <b>Tanggal Pertemuan</b>
+                                  <p class="text-muted">
+                                    {{$c->tanggal_pertemuan}}
+                                  </p>
+                              </div>
+                              @endif
+
+                              @if (!empty($c->waktu_pertemuan))
+                              <div class="user-block">
+                                  <b>Waktu Pertemuan</b>
+                                  <p class="text-muted">
+                                    {{$c->waktu_pertemuan}}
+                                  </p>
+                              </div>
+                              @endif
+
+                            </div>         
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </section>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+@endforeach
+
 <!-- Halaman Utama -->
 <div class="container">
   <section class="content">
@@ -309,89 +455,62 @@
               </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
-              <div class="tab-content">
-                <div class="active tab-pane" id="status1">
-                @foreach($status1 as $a)
-                  <div class="card">
-                    <div class="card-header">
-                      <h5 class="card-title m-0">Tanggal Order ({{$a->tgl_order}})</h5>
-                    </div>
-                    <div class="card-body">
-                      <div class="row" data-aos="fade-up">
-                        <div class="col-md-2">
-                          <div class="spinner-border text-primary m-5" role="status">
-                            <span class="visually-hidden"></span>
-                          </div>
-                        </div>
-                        <div class="col-md-10 pt-4">
-                          <h3>Sedang Mencari Translator . . .</h3>
-                          <p class="fst-italic">Terimakasih telah menggunakan aplikasi kami untuk melakukan pemesanan, kami akan mencarikan translator untuk Anda </p>
-                          <div class="float-right ml-auto">
-                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detail{{$a->id_transaksi}}">Detail Order</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-            @foreach($status2 as $b)
-            <div class="card">
-              <div class="card-header">
-                <h5 class="card-title m-0">Tanggal Order ({{$b->tgl_order}})</h5>
-              </div>
-              <div class="card-body">
-                <div class="row" data-aos="fade-up">
-                  <div class="col-md-2">
-                    <div class="spinner-grow text-cyan m-5" role="status">
-                      <span class="visually-hidden"></span>
-                    </div>
-                  </div>
-                  <div class="col-md-10 pt-4">
-                    <h3>Order Sedang Diproses</h3>
-                    <p class="fst-italic">Terimakasih telah bersedia menunggu, translator Anda telah menerima order.<br>
-                     Harap tunggu di lokasi, translator sedang menuju ke alamatmu
-                     </p>
-                    <div class="float-right ml-auto">
-                      <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detail{{$b->id_transaksi}}">Detail Order</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- /.card-body -->
-            </div>
-            @endforeach
-            <!-- @foreach($status2 as $c)
-            <div class="card">
-              <div class="card-header">
-                <h5 class="card-title m-0">Tanggal Order ({{$c->tgl_order}})</h5>
-              </div>
-              <div class="card-body">
-                <div class="row" data-aos="fade-up">
-                  <div class="col-md-2">
-                    <div>
-                      <img src="./public/img/hero-img.png"> 
-                    </div>
-                  </div>
-                  <div class="col-md-10 pt-4">
-                    <h3>Order Selesai</h3>
-                    <p class="fst-italic">Terimakasih telah melakukan pemesanan di sini, jangan lupa untuk memberikan review.<br>
-                     Penilaian anda akan menjadi prioritas dalam meningkatkan pelayanan untuk anda pada order selanjutnya.
-                     </p>
-                    <div class="float-right ml-auto">
-                      <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detail">Detail Order</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <-- /.card-body -->
-            <!-- </div> -->
-            <!-- @endforeach -->
+              <table id="datatable" class="table table-bordered">
+                  <thead>   
+                  <tr>
+                    <th scope="row" class="text-center" hidden>ID</th>
+                    <th scope="row" class="text-center">Tanggal Order</th>
+                    <th scope="row" class="text-center">Tanggal Transaksi</th>
+                    <th scope="row" class="text-center">Status</th>
+                    <th scope="row" class="text-center" style="width: 100px">Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($status1 as $s1)
+                  <tr>
+                    <td scope="row" class="text-center" hidden>{{$s1->id_order}}</td>
+                    <td scope="row" class="text-center">{{$s1->tgl_order}}</td>
+                    <td scope="row" class="text-center">{{$s1->tgl_transaksi}}</td>
+                    <td scope="row" class="text-center">
+                          <span class=" text-danger"><i class="fas fa-arrow-up"></i>
+                          <span class="badge badge-danger">Sedang Mencari Translator</span>
+                    </td>
+                    <td scope="row" class="text-center">
+                      <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#detail{{$a->id_transaksi}}"><i class="fas fa-eye"></i></button>
+                    </td>
+                  </tr>
+                  @endforeach
+                  @foreach($status2 as $s2)
+                  <tr>
+                    <td scope="row" class="text-center" hidden>{{$s2->id_order}}</td>
+                    <td scope="row" class="text-center">{{$s2->tgl_order}}</td>
+                    <td scope="row" class="text-center">{{$s2->tgl_transaksi}}</td>
+                    <td scope="row" class="text-center">
+                        <span class=" text-cyan"><i class="fas fa-running fa-2x"></i>
+                        <span class="badge badge-primary"> Order Sedang Berjalan</span></span>
+                    </td>
+                    <td scope="row" class="text-center">
+                      <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#detail{{$b->id_transaksi}}"><i class="fas fa-eye"></i></button>
+                    </td>
+                  </tr>
+                  @endforeach
+                  @foreach($status3 as $s3)
+                  <tr>
+                    <td scope="row" class="text-center" hidden>{{$s3->id_order}}</td>
+                    <td scope="row" class="text-center">{{$s3->tgl_order}}</td>
+                    <td scope="row" class="text-center">{{$s3->tgl_transaksi}}</td>
+                    <td scope="row" class="text-center">
+                        <span class=" text-green"><i class="far fa-check-circle fa-2x"></i>
+                        <span class="badge badge-success"> Order Selesai</span></span>
+                    </td>
+                    <td scope="row" class="text-center">
+                      <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#detail{{$c->id_transaksi}}"><i class="fas fa-eye"></i></button>
 
-
-
-
+                    </td>
+                  </tr>
+                  @endforeach
+                </tfoot>
+                </table>
             <!-- /.card -->
           </div>
           <!-- /.col -->

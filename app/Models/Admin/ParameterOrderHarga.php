@@ -18,8 +18,7 @@ class ParameterOrderHarga extends Model
         'id_parameter_order_dubbing',
         'id_parameter_jenis_layanan',
         'id_parameter_jenis_teks',
-        'id_parameter_dubber',
-        'id_parameter_order_audio'
+        'id_parameter_dubber'
     ];
 
     public function parameterordersubtitle(){

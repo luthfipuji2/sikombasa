@@ -18,6 +18,7 @@ class HargaOfflineController extends Controller
     public function index()
     {
         $offline = DB::table('parameter_order')
+        ->whereNotNull('p_durasi_pertemuan')
         ->get();
         return view('pages.admin.HargaOffline', compact('offline'));
     }
@@ -43,13 +44,13 @@ class HargaOfflineController extends Controller
         $this->validate($request,[
             'p_jenis_layanan' => 'required',
             'p_durasi_pertemuan' => 'required',
-            'harga' => 'required|integer'
+            'p_harga' => 'required|integer'
         ]);
 
         ParameterOrder::create([
             'p_jenis_layanan' => $request->p_jenis_layanan,
             'p_durasi_pertemuan' => $request->p_durasi_pertemuan,
-            'p_harga' => $request->harga
+            'p_harga' => $request->p_harga
         ]);
 
         return redirect('/daftar-harga-offline')->with('success', 'Parameter menu offline berhasil ditambahkan');
@@ -89,7 +90,7 @@ class HargaOfflineController extends Controller
         $this->validate($request,[
             'p_jenis_layanan' => 'required',
             'p_durasi_pertemuan' => 'required',
-            'harga' => 'required|integer'
+            'p_harga' => 'required'
         ]);
 
         $harga = ParameterOrder::find($id_parameter_order);
@@ -98,7 +99,7 @@ class HargaOfflineController extends Controller
                     ->update([
                         'p_jenis_layanan' => $request->p_jenis_layanan,
                         'p_durasi_pertemuan' => $request->p_durasi_pertemuan,
-                        'p_harga' => $request->harga
+                        'p_harga' => $request->p_harga
                     ]);
         return redirect('/daftar-harga-offline')->with('success', 'Parameter menu offline berhasil diubah');
     }

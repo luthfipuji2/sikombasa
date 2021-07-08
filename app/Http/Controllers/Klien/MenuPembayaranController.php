@@ -31,8 +31,6 @@ class MenuPembayaranController extends Controller
                 ->join('users', 'klien.id', '=', 'users.id')
                 ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
                         'parameter_order.id_parameter_order')
-                ->leftJoin('parameter_order_audio', 'order.id_parameter_order_audio', '=', 
-                        'parameter_order_audio.id_parameter_order_audio')
                 ->leftJoin('parameter_dubber', 'order.id_parameter_dubber', '=', 
                         'parameter_dubber.id_parameter_dubber')
                 ->leftJoin('parameter_jenis_layanan', 'order.id_parameter_jenis_layanan', '=', 
@@ -60,8 +58,6 @@ class MenuPembayaranController extends Controller
             ->join('users', 'klien.id', '=', 'users.id')
             ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
                     'parameter_order.id_parameter_order')
-            ->leftJoin('parameter_order_audio', 'order.id_parameter_order_audio', '=', 
-                    'parameter_order_audio.id_parameter_order_audio')
             ->leftJoin('parameter_dubber', 'order.id_parameter_dubber', '=', 
                     'parameter_dubber.id_parameter_dubber')
             ->leftJoin('parameter_jenis_layanan', 'order.id_parameter_jenis_layanan', '=', 
@@ -161,8 +157,6 @@ class MenuPembayaranController extends Controller
                 ->join('users', 'klien.id', '=', 'users.id')
                 ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
                         'parameter_order.id_parameter_order')
-                ->leftJoin('parameter_order_audio', 'order.id_parameter_order_audio', '=', 
-                        'parameter_order_audio.id_parameter_order_audio')
                 ->leftJoin('parameter_dubber', 'order.id_parameter_dubber', '=', 
                         'parameter_dubber.id_parameter_dubber')
                 ->leftJoin('parameter_jenis_layanan', 'order.id_parameter_jenis_layanan', '=', 
@@ -231,8 +225,6 @@ class MenuPembayaranController extends Controller
             ->join('bank', 'bank.id_bank', '=', 'transaksi.id_bank')
             ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
                         'parameter_order.id_parameter_order')
-                ->leftJoin('parameter_order_audio', 'order.id_parameter_order_audio', '=', 
-                        'parameter_order_audio.id_parameter_order_audio')
                 ->leftJoin('parameter_dubber', 'order.id_parameter_dubber', '=', 
                         'parameter_dubber.id_parameter_dubber')
                 ->leftJoin('parameter_jenis_layanan', 'order.id_parameter_jenis_layanan', '=', 
