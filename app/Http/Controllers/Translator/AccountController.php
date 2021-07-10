@@ -113,7 +113,7 @@ class AccountController extends Controller
 
     public function downloadBukti($id_fee){
 
-        $fee = DistribusiFee::where('id_fee', $id_fee)->first();
+        $fee = DistribusiFee::find($id_fee);
 
         $bukti_fee = $fee->bukti_fee_trans;
 

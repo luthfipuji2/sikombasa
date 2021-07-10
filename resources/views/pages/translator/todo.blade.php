@@ -23,7 +23,8 @@
                     @foreach($order as $o)
                       <div class="card">
                         <div class="card-header">
-                          <p class="font-weight-bold">No. Order #{{$o->id_order}}</p>
+                          <b>No. Order #{{$o->id_order}}</b>
+                          <br>
                           {{$o->tgl_order}}
                         </div>
                         <!-- /.card-header -->
@@ -38,7 +39,7 @@
                               @if(empty($o->tipe_offline)) 
                               <td><p class="font-weight-bold text-left">{{$o->menu}}</p></td>
                               @else
-                              <td><p class="font-weight-bold text-left">{{$o->menu}} Offline</p></td>
+                              <td><p class="font-weight-bold text-left">{{$o->tipe_offline}} Offline</p></td>
                               @endif
                             </tr>
                             <tr>
@@ -116,9 +117,9 @@
                                         </form>
                                         @elseif($o->menu=='Transkrip' && $o->tipe_offline=='')
                                         <div class="form-group row">
-                                            <label for="p_jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
+                                            <label for="jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
                                             <div class="col-sm-9">
-                                              <input type="text" class="form-control" name="p_jenis_layanan" id="p_jenis_layanan" readonly value="{{$o->p_jenis_layanan}}">
+                                              <input type="text" class="form-control" name="jenis_layanan" id="jenis_layanan" readonly value="{{$o->jenis_layanan}}">
                                             </div>
                                           </div>
                                           <div class="form-group row">
@@ -156,17 +157,17 @@
                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                           <button type="submit" class="btn btn-primary">Submit</button>
                                         </form>
-                                        @elseif($o->menu=='Transkrip' && $o->tipe_offline=='Transkrip')
+                                        @elseif($o->menu=='Interpreter' && $o->tipe_offline=='Transkrip')
                                         <div class="form-group row">
                                           <label for="p_jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
                                           <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="p_jenis_layanan" id="p_jenis_layanan" readonly value="{{$o->p_jenis_layanan}}">
+                                            <input type="text" class="form-control" name="jenis_layanan" id="jenis_layanan" readonly value="{{$o->jenis_layanan}}">
                                           </div>
                                         </div>
                                         <div class="form-group row">
                                           <label for="durasi_pertemuan" class="col-sm-3 col-form-label">Durasi Pertemuan</label>
                                           <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="durasi_pertemuan" id="durasi_pertemuan" readonly value="{{$o->durasi_pertemuan}}">
+                                            <input type="text" class="form-control" name="durasi_pertemuan" id="durasi_pertemuan" readonly value="{{$o->p_durasi_pertemuan}}">
                                           </div>
                                         </div>
                                         <div class="form-group row">
@@ -250,13 +251,13 @@
                                         <div class="form-group row">
                                           <label for="p_jenis_layanan" class="col-sm-3 col-form-label">Jenis Layanan</label>
                                           <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="p_jenis_layanan" id="p_jenis_layanan" readonly value="{{$o->p_jenis_layanan}}">
+                                            <input type="text" class="form-control" name="p_jenis_layanan" id="p_jenis_layanan" readonly value="{{$o->jenis_layanan}}">
                                           </div>
                                         </div>
                                         <div class="form-group row">
                                           <label for="durasi_pertemuan" class="col-sm-3 col-form-label">Durasi Pertemuan</label>
                                           <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="durasi_pertemuan" id="durasi_pertemuan" readonly value="{{$o->durasi_pertemuan}}">
+                                            <input type="text" class="form-control" name="durasi_pertemuan" id="durasi_pertemuan" readonly value="{{$o->p_durasi_pertemuan}}">
                                           </div>
                                         </div>
                                         <div class="form-group row">
@@ -399,8 +400,9 @@
                   </div>
 
                   <div class="tab-pane" id="revisi">
-                    
-
+                  @foreach($revisi as $r)
+                  {{$r->tgl_order}}
+                  @endforeach
                   </div>
                   <!-- /.tab-pane -->
                 </div>

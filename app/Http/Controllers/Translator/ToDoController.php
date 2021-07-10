@@ -22,6 +22,7 @@ class ToDoController extends Controller
         $order = DB::table('order')
                 ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
                 ->join('users', 'klien.id', '=', 'users.id')
+                ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 'parameter_order.id_parameter_order')
                 ->leftJoin('parameter_jenis_layanan', 'order.id_parameter_jenis_layanan', '=', 'parameter_jenis_layanan.id_parameter_jenis_layanan')
                 ->leftJoin('parameter_jenis_teks', 'order.id_parameter_jenis_teks', '=', 'parameter_jenis_teks.id_parameter_jenis_teks')
                 ->where('id_translator', $translator->id_translator)
@@ -29,11 +30,25 @@ class ToDoController extends Controller
                 ->whereNull('text_trans')
                 ->get();
 
+        $revisi = DB::table('order')
+            ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
+            ->join('users', 'klien.id', '=', 'users.id')
+            ->leftJoin('revisi', 'order.id_order', '=', 'revisi.id_order')
+            ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 'parameter_order.id_parameter_order')
+            ->leftJoin('parameter_jenis_layanan', 'order.id_parameter_jenis_layanan', '=', 'parameter_jenis_layanan.id_parameter_jenis_layanan')
+            ->leftJoin('parameter_jenis_teks', 'order.id_parameter_jenis_teks', '=', 'parameter_jenis_teks.id_parameter_jenis_teks')
+            ->where('id_translator', $translator->id_translator)
+            ->whereNotNull('revisi.pesan_revisi')
+            ->whereNull('revisi.path_file_revisi')
+            ->whereNull('revisi.text_revisi')
+            ->get();
+
         $today = date("Y-m-d");
         
         return view('pages.translator.todo', [
             'order'=>$order,
-            'today'=>$today
+            'today'=>$today,
+            'revisi'=>$revisi
         ]);
     }
 
