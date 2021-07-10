@@ -286,8 +286,8 @@
                               </ul>
                               @endif
                               <div class="col-sm-9">
-                                <a href="" class="btn btn-primary btn-sm" ><i class="fas fa-download"></i> Download Hasil Terjemahan </a>
-                                <a href="" class="btn btn-danger btn-sm" ><i class="fas fa-upload"></i> Ajukan Revisi </a>
+                                <a href="/order-transkrip-download/{{$x->id_order}}" class="btn btn-primary btn-sm" ><i class="fas fa-download"></i> Download Hasil Terjemahan </a>
+                                <a href="/order-transkrip/revisi" class="btn btn-danger btn-sm" ><i class="fas fa-upload"></i> Ajukan Revisi </a>
                               </div>
                             </div>         
                         </div>
@@ -351,7 +351,7 @@
                       <span class="badge badge-primary"> Order Sedang Berjalan</span></span>
                   </td>
                   <td scope="row" class="text-center">
-                    <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#detail{{$z->id_transaksi}}"><i class="fas fa-eye"></i></button>
+                    <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#detail{{$y->id_transaksi}}"><i class="fas fa-eye"></i></button>
                   </td>
                 </tr>
                 @endforeach
