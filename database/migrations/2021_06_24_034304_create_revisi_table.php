@@ -20,7 +20,9 @@ class CreateRevisiTable extends Migration
             $table->text('text_revisi')->nullable();
             $table->string('path_file_revisi')->nullable();
             $table->text('pesan_revisi')->nullable();
-            $table->string('status')->nullable();
+            $table->dateTime('tgl_pengajuan_revisi')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->integer('durasi_pengerjaan_revisi')->nullable();
+            $table->timestamps();
         });
     }
 
