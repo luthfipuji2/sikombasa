@@ -127,7 +127,16 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('daftar-transaksi', 'App\Http\Controllers\Admin\DaftarTransaksiController');
         Route::resource('distribusi-fee', 'App\Http\Controllers\Admin\DistribusiFeeController');
 
-        
+        //menu detail order
+        Route::get('daftar-order', 'App\Http\Controllers\Admin\DetailOrderController@index')->name('daftar-order');
+        Route::get('detail-order-teks', 'App\Http\Controllers\Admin\DetailOrderController@detailTeks')->name('detail-order-teks');
+        Route::get('detail-order-dokumen', 'App\Http\Controllers\Admin\DetailOrderController@detailDokumen')->name('detail-order-dokumen');
+        Route::get('/detail-order-dokumen/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumen');
+        Route::get('detail-order-subtitle', 'App\Http\Controllers\Admin\DetailOrderController@detailSubtitle')->name('detail-order-subtitle');
+        Route::get('/detail-order-subtitle/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadSubtitle');
+        Route::get('detail-order-dubbing', 'App\Http\Controllers\Admin\DetailOrderController@detailDubbing')->name('detail-order-dubbing');
+        Route::get('/detail-order-dubbing/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDubbing');
+
          //Hiring
          Route::get('/hire', [App\Http\Controllers\Admin\HiringController::class, 'index']);
          Route::get('/index-wawancara', [App\Http\Controllers\Admin\HiringController::class, 'indexWawancara']);
@@ -137,7 +146,7 @@ Route::middleware(['auth'])->group(function () {
          Route::match(['get', 'post'],'/berkas/{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'berkas']);
          Route::match(['get', 'post'], '/catatan-{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'catatan']);
          
-        
+
 
         // Route::post('/users', [App\Http\Controllers\Admin\AdminController::class, 'storeUsers'])->name('users');
         // Route::delete('/users/{user}', [App\Http\Controllers\Admin\AdminController::class, 'destroyUsers'])->name('users');

@@ -18,4 +18,8 @@ class Transaksi extends Model
         'bukti_transaksi',
         'status_transaksi',
     ];
+
+    public function order(){
+        return $this->belongsTo('App\Models\Klien\Order', 'id_order', 'id_order');
+    }
 }

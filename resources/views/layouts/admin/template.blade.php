@@ -160,32 +160,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
               
               <li class="nav-item">
-                <a href="/daftar-translator" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="fas fa-user-tie nav-icon"></i>
                   <p>Daftar Translator</p>
                 </a>
               </li>
-
+       
               <li class="nav-item">
-                <a href="/daftar-transaksi" class="nav-link">
-                  <i class="nav-icon fas fa-wallet"></i>
-                  <p>
-                    Daftar Transaksi
-                  </p>
-                <a>
+                <a href="/daftar-order" class="nav-link">
+                  <i class="fa fa-shopping-cart"></i>
+                  <p>Daftar Order</p>
+                </a>
               </li>
-
-              <li class="nav-item">
-                <a href="/distribusi-fee" class="nav-link">
-                  <i class="nav-icon fas fa-hand-holding-usd"></i>
-                  <p>
-                    Distribusi Fee
-                  </p>
-                <a>
-              </li>
-
-            </ul>
-          </li>
 
           <li class="nav-item menu-close has-treeview">
             <a href="#" class="nav-link">

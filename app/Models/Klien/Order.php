@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\Order as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Klien\Klien;
+use App\Models\User;
 
 class Order extends Model
 {
@@ -61,11 +63,11 @@ class Order extends Model
     ];
 
     public function klien(){
-        return $this->hasMany('App\Models\Klien\Klien', 'id_klien', 'id_klien');
+        return $this->belongsTo('App\Models\Klien\Klien', 'id_klien', 'id_klien');
     }
 
     public function translator(){
-        return $this->belongsTo('App\Translator');
+        return $this->belongsTo('App\Models\Translator', 'id_translator', 'id_translator');
     }
 
     public function parameter_order(){
@@ -78,5 +80,9 @@ class Order extends Model
 
     public function parameterjenisteks(){
         return $this->belongsTo('App\Models\Admin\ParameterJenisTeks', 'id_parameter_jenis_teks', 'id_parameter_jenis_teks');
+    }
+
+    public function transaksi(){
+        return $this->hasOne('App\Models\Admin\Transaksi', 'id_order', 'id_order');
     }
 }
