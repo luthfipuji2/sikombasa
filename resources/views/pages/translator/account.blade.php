@@ -94,7 +94,8 @@
                       @foreach($order as $o)
                       <div class="card">
                         <div class="card-header">
-                        <p class="font-weight-bold">No. Order #{{$o->id_order}}</p>
+                        <b>No. Order #{{$o->id_order}}</b>
+                        <br>
                         {{$o->created_at}}
                         </div>
                         <div class="card-body">
@@ -194,11 +195,11 @@
                               @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && empty($o->bukti_fee_trans))
                               <p class="text-right">Status: Menyelesaikan permintaan revisi</p>
                               @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && !empty($o->bukti_fee_trans))
-                              <p class="text-right">Status: Menerima pembayaran. Download bukti pembayaran <a href="/activity-download/{{$o->id_transaksi}}">disini</a></p>
+                              <p class="text-right">Status: Menerima pembayaran. Download bukti pembayaran <a href="/activity-download/{{$o->id_fee}}">disini</a></p>
                               @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && !empty($o->bukti_fee_trans))
-                              <p class="text-right">Status: Menerima pembayaran. Download bukti pembayaran <a href="/activity-download/{{$o->id_transaksi}}">disini</a></p>
+                              <p class="text-right">Status: Menerima pembayaran. Download bukti pembayaran <a href="/activity-download/{{$o->id_fee}}">disini</a></p>
                               @elseif(!empty($o->id_translator) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($path_file_revisi) && !empty($o->bukti_fee_trans))
-                              <p class="text-right">Status: Menerima pembayaran. Download bukti pembayaran <a href="/activity-download/{{$o->id_transaksi}}">disini</a></p>
+                              <p class="text-right">Status: Menerima pembayaran. Download bukti pembayaran <a href="/activity-download/{{$o->id_fee}}">disini</a></p>
                               @endif
                             </div>
                           </div>

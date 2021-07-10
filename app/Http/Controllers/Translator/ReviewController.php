@@ -20,6 +20,13 @@ class ReviewController extends Controller
         ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
         ->join('users', 'klien.id', '=', 'users.id')
         ->join('review', 'order.id_order', '=', 'review.id_order')
+        ->select('order.id_order',
+                 'review.created_at',
+                 'review.rating',
+                 'review.review_text',
+                 'review.id_review',
+                 'users.name',
+                 'users.email')
         ->where('id_translator', $translator->id_translator)
         ->get();
 
