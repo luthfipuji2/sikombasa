@@ -25,6 +25,8 @@ class ToDoController extends Controller
                 ->leftJoin('parameter_jenis_layanan', 'order.id_parameter_jenis_layanan', '=', 'parameter_jenis_layanan.id_parameter_jenis_layanan')
                 ->leftJoin('parameter_jenis_teks', 'order.id_parameter_jenis_teks', '=', 'parameter_jenis_teks.id_parameter_jenis_teks')
                 ->where('id_translator', $translator->id_translator)
+                ->whereNull('path_file_trans')
+                ->whereNull('text_trans')
                 ->get();
 
         $today = date("Y-m-d");
