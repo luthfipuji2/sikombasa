@@ -122,7 +122,8 @@ class OrderSubtitleController extends Controller
                 'ekstensi'=>$ext_template,
                 'size'=>$size_template,
                 'tgl_order'=>Carbon::now()->timestamp,
-                // 'is_status'=>'belum dibayar',
+                'is_status'=>'belum dibayar',
+                'menu'=>'Subtitle',
             ]);
 
 

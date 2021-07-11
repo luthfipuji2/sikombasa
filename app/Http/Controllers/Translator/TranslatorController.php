@@ -18,11 +18,6 @@ class TranslatorController extends Controller
         $user = Auth::user();
         return view('pages.translator.find', compact('user'));
     }
-    public function todo()
-    {
-        $user = Auth::user();
-        return view('pages.translator.todo', compact('user'));
-    }
     public function review()
     {
         $user = Auth::user();

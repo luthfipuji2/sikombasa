@@ -2,18 +2,45 @@
 
 @section('title', 'Review')
 @section('content')
+@foreach ($order as $o)
 <div class="card">
   <div class="card-header">
-    Subtitle
+    <b>No. Order #{{$o->id_order}}</b>
+    <br>
+    {{$o->created_at}}
   </div>
   <div class="card-body">
   <tr>
     <td>
-        <h5 class="card-title">Ista Wiratama</h5>
-        <p class="card-text">Deadline: 3 Days</p>
-        <p class="card-text"><span class="badge badge-pill badge-success">Rp 10,000</span></p>
+        <b><a href="#">{{$o->name}}</a> {{$o->email}}</b>
+        <br>
+        @if($o->rating=='1')
+        <i class="nav-icon fas fa-star"></i>
+        @elseif($o->rating=='2')
+        <i class="nav-icon fas fa-star"></i>
+        <i class="nav-icon fas fa-star"></i>
+        @elseif($o->rating=='3')
+        <i class="nav-icon fas fa-star"></i>
+        <i class="nav-icon fas fa-star"></i>
+        <i class="nav-icon fas fa-star"></i>
+        @elseif($o->rating=='4')
+        <i class="nav-icon fas fa-star"></i>
+        <i class="nav-icon fas fa-star"></i>
+        <i class="nav-icon fas fa-star"></i>
+        <i class="nav-icon fas fa-star"></i>
+        @elseif($o->rating=='5')
+        <i class="nav-icon fas fa-star"></i>
+        <i class="nav-icon fas fa-star"></i>
+        <i class="nav-icon fas fa-star"></i>
+        <i class="nav-icon fas fa-star"></i>
+        <i class="nav-icon fas fa-star"></i>
+        @endif
+        <br>
+        <br>
+        <p class="card-text">{{$o->review_text}}</p>
     </td>
  </tr>
   </div>
 </div>
+@endforeach
 @endsection

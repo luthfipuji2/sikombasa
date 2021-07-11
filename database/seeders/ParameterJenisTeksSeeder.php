@@ -16,8 +16,8 @@ class ParameterJenisTeksSeeder extends Seeder
     public function run()
     {
         $parameter_jenis_teks = array(
-            array("umum", 2500),
-            array("khusus", 5000),
+            array("Umum", 2500),
+            array("Khusus", 5000),
         );
 
     	    for ($row = 0; $row < count($parameter_jenis_teks); $row++) {

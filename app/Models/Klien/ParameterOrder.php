@@ -14,13 +14,10 @@ class ParameterOrder extends Model
     protected $primaryKey = 'id_parameter_order';
 
     protected $fillable = [
-        'p_durasi_video',
-        'p_jumlah_dubber',
         'p_durasi_pertemuan',
-        'p_jumlah_karakter',
-        'p_jumlah_halaman',
         'p_jenis_layanan',
-        'harga'
+        'p_durasi_audio',
+        'p_harga'
     ];
 
     public function order(){

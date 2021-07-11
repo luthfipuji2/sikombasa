@@ -16,8 +16,8 @@ class ParameterJenisLayananSeeder extends Seeder
     public function run()
     {
         $parameter_jenis_layanan = array(
-            array("basic", 2500),
-            array("premium", 5000),
+            array("Basic", 5000),
+            array("Premium", 10000),
         );
 
     	    for ($row = 0; $row < count($parameter_jenis_layanan); $row++) {

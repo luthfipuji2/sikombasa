@@ -24,13 +24,27 @@ class MenuPembayaranController extends Controller
     {
         $user = Auth::user();
 
-        $order_pembayaran = DB::table('transaksi') //join table users and table user_details base from matched id;
-                ->rightJoin('order', 'transaksi.id_order', '=', 'order.id_order')
+        $order_pembayaran = Transaksi:: //join table users and table user_details base from matched id;
+                rightJoin('order', 'transaksi.id_order', '=', 'order.id_order')
                 ->whereNull('id_transaksi')
                 ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
                 ->join('users', 'klien.id', '=', 'users.id')
-                ->join('parameter_order', 'order.id_parameter_order', '=', 
+                ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
                         'parameter_order.id_parameter_order')
+                ->leftJoin('parameter_dubber', 'order.id_parameter_dubber', '=', 
+                        'parameter_dubber.id_parameter_dubber')
+                ->leftJoin('parameter_jenis_layanan', 'order.id_parameter_jenis_layanan', '=', 
+                        'parameter_jenis_layanan.id_parameter_jenis_layanan')
+                ->leftJoin('parameter_jenis_teks', 'order.id_parameter_jenis_teks', '=', 
+                        'parameter_jenis_teks.id_parameter_jenis_teks')
+                ->leftJoin('parameter_order_dokumen', 'order.id_parameter_order_dokumen', '=', 
+                        'parameter_order_dokumen.id_parameter_order_dokumen')
+                ->leftJoin('parameter_order_dubbing', 'order.id_parameter_order_dubbing', '=', 
+                        'parameter_order_dubbing.id_parameter_order_dubbing')
+                ->leftJoin('parameter_order_subtitle', 'order.id_parameter_order_subtitle', '=', 
+                        'parameter_order_subtitle.id_parameter_order_subtitle')
+                ->leftJoin('parameter_order_teks', 'order.id_parameter_order_teks', '=', 
+                        'parameter_order_teks.id_parameter_order_teks')
                 ->where("users.id",$user->id)
                 ->where('order.tgl_order', '>=', Carbon::now()->subDay()->toDateTimeString())
                 ->orderBy('order.id_order')
@@ -42,8 +56,22 @@ class MenuPembayaranController extends Controller
             ->join('order', 'order.id_order', '=', 'transaksi.id_order')
             ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
             ->join('users', 'klien.id', '=', 'users.id')
-            ->join('parameter_order', 'order.id_parameter_order', '=', 
+            ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
                     'parameter_order.id_parameter_order')
+            ->leftJoin('parameter_dubber', 'order.id_parameter_dubber', '=', 
+                    'parameter_dubber.id_parameter_dubber')
+            ->leftJoin('parameter_jenis_layanan', 'order.id_parameter_jenis_layanan', '=', 
+                    'parameter_jenis_layanan.id_parameter_jenis_layanan')
+            ->leftJoin('parameter_jenis_teks', 'order.id_parameter_jenis_teks', '=', 
+                    'parameter_jenis_teks.id_parameter_jenis_teks')
+            ->leftJoin('parameter_order_dokumen', 'order.id_parameter_order_dokumen', '=', 
+                    'parameter_order_dokumen.id_parameter_order_dokumen')
+            ->leftJoin('parameter_order_dubbing', 'order.id_parameter_order_dubbing', '=', 
+                    'parameter_order_dubbing.id_parameter_order_dubbing')
+            ->leftJoin('parameter_order_subtitle', 'order.id_parameter_order_subtitle', '=', 
+                    'parameter_order_subtitle.id_parameter_order_subtitle')
+            ->leftJoin('parameter_order_teks', 'order.id_parameter_order_teks', '=', 
+                    'parameter_order_teks.id_parameter_order_teks')
             ->where("users.id",$user->id)
             ->orderBy('order.id_order')
             ->get();
@@ -75,7 +103,6 @@ class MenuPembayaranController extends Controller
         $this->validate($request,[
             'id_order' => 'required',
             'id_bank' => 'required',
-            'nominal_transaksi' => 'required'
         ]);
 
         $request->file('bukti_transaksi')->move('transaksi/',
@@ -88,14 +115,27 @@ class MenuPembayaranController extends Controller
                 @unlink($bukti_transaksi);
         }
 
-        Transaksi::create([
-            'id_order' => $request->id_order,
-            'id_bank' => $request->id_bank,
-            'nominal_transaksi' => $request->nominal_transaksi,
-            'bukti_transaksi'    => $request->file('bukti_transaksi')->getClientOriginalName()
-        ]);
-
-        return redirect('/menu-pembayaran')->with('success', 'Bukti transaksi Anda berhasil diunggah');;
+        if(!empty($request->nominal_transaksi)){
+            Transaksi::create([
+                'id_order' => $request->id_order,
+                'id_bank' => $request->id_bank,
+                'nominal_transaksi' => $request->nominal_transaksi,
+                'bukti_transaksi'    => $request->file('bukti_transaksi')->getClientOriginalName()
+            ]);
+    
+            return redirect('/menu-pembayaran')->with('success', 'Bukti transaksi Anda berhasil diunggah');
+        }
+        elseif(!empty($request->nominal_transaksi_total)){
+            Transaksi::create([
+                'id_order' => $request->id_order,
+                'id_bank' => $request->id_bank,
+                'nominal_transaksi' => $request->nominal_transaksi_total,
+                'bukti_transaksi'    => $request->file('bukti_transaksi')->getClientOriginalName()
+            ]);
+    
+            return redirect('/menu-pembayaran')->with('success', 'Bukti transaksi Anda berhasil diunggah');
+        }
+        
     }
 
     /**
@@ -104,9 +144,38 @@ class MenuPembayaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show($id_order)
     {
-        return view ('pages.klien.detail_menu_pembayaran', compact('order'));
+        $user = Auth::user();
+
+        $order = Order::find($id_order);
+
+        $detail = Transaksi:: //join table users and table user_details base from matched id;
+                rightJoin('order', 'transaksi.id_order', '=', 'order.id_order')
+                ->whereNull('id_transaksi')
+                ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
+                ->join('users', 'klien.id', '=', 'users.id')
+                ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
+                        'parameter_order.id_parameter_order')
+                ->leftJoin('parameter_dubber', 'order.id_parameter_dubber', '=', 
+                        'parameter_dubber.id_parameter_dubber')
+                ->leftJoin('parameter_jenis_layanan', 'order.id_parameter_jenis_layanan', '=', 
+                        'parameter_jenis_layanan.id_parameter_jenis_layanan')
+                ->leftJoin('parameter_jenis_teks', 'order.id_parameter_jenis_teks', '=', 
+                        'parameter_jenis_teks.id_parameter_jenis_teks')
+                ->leftJoin('parameter_order_dokumen', 'order.id_parameter_order_dokumen', '=', 
+                        'parameter_order_dokumen.id_parameter_order_dokumen')
+                ->leftJoin('parameter_order_dubbing', 'order.id_parameter_order_dubbing', '=', 
+                        'parameter_order_dubbing.id_parameter_order_dubbing')
+                ->leftJoin('parameter_order_subtitle', 'order.id_parameter_order_subtitle', '=', 
+                        'parameter_order_subtitle.id_parameter_order_subtitle')
+                ->leftJoin('parameter_order_teks', 'order.id_parameter_order_teks', '=', 
+                        'parameter_order_teks.id_parameter_order_teks')
+                ->where("users.id",$user->id)
+                ->where("order.id_order",$order->id_order)
+                ->first();
+
+        return view ('pages.klien.detail_menu_pembayaran', compact('detail'));
     }
 
     /**
@@ -143,38 +212,43 @@ class MenuPembayaranController extends Controller
         //
     }
 
-    public function download($id_transaksi)
-    {
-        $dl = Transaksi::find($id_transaksi);
-
-        $bukti_transaksi = $dl->bukti_transaksi;
-
-        $pathToFile = public_path('transaksi/').$bukti_transaksi;
-        
-        return response()->download($pathToFile);
-    }
-
     public function invoice($id_transaksi)
     {
         $user = Auth::user();
 
         $transaksi= Transaksi::find($id_transaksi);
 
-        $invoice = DB::table('transaksi')
-            ->join('order', 'order.id_order', '=', 'transaksi.id_order')
+        $invoice = Transaksi::
+            join('order', 'order.id_order', '=', 'transaksi.id_order')
             ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
             ->join('users', 'klien.id', '=', 'users.id')
             ->join('bank', 'bank.id_bank', '=', 'transaksi.id_bank')
+            ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
+                        'parameter_order.id_parameter_order')
+                ->leftJoin('parameter_dubber', 'order.id_parameter_dubber', '=', 
+                        'parameter_dubber.id_parameter_dubber')
+                ->leftJoin('parameter_jenis_layanan', 'order.id_parameter_jenis_layanan', '=', 
+                        'parameter_jenis_layanan.id_parameter_jenis_layanan')
+                ->leftJoin('parameter_jenis_teks', 'order.id_parameter_jenis_teks', '=', 
+                        'parameter_jenis_teks.id_parameter_jenis_teks')
+                ->leftJoin('parameter_order_dokumen', 'order.id_parameter_order_dokumen', '=', 
+                        'parameter_order_dokumen.id_parameter_order_dokumen')
+                ->leftJoin('parameter_order_dubbing', 'order.id_parameter_order_dubbing', '=', 
+                        'parameter_order_dubbing.id_parameter_order_dubbing')
+                ->leftJoin('parameter_order_subtitle', 'order.id_parameter_order_subtitle', '=', 
+                        'parameter_order_subtitle.id_parameter_order_subtitle')
+                ->leftJoin('parameter_order_teks', 'order.id_parameter_order_teks', '=', 
+                        'parameter_order_teks.id_parameter_order_teks')
             ->where("users.id",$user->id)
-            ->where("transaksi.id_transaksi",$transaksi->id_transaksi)
+            ->where("id_transaksi",$id_transaksi)
             ->first();
 
-        // return view ('pages.klien.invoice_pdf', compact('invoice'));
+        return view ('pages.klien.invoice_pdf', compact('invoice'));
 
     
-        $pdf = PDF::loadView('pages.klien.invoice_pdf', ['invoice'=>$invoice]);
+        // $pdf = PDF::loadView('pages.klien.invoice_pdf', ['invoice'=>$invoice]);
         
 
-    	return $pdf->download('invoice.pdf');
+    	// return $pdf->download('invoice.pdf');
     }
 }

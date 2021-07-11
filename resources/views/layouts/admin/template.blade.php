@@ -137,9 +137,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="/daftar-harga-interpreter" class="nav-link">
+                    <a href="/daftar-harga-offline" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Interpreter</p>
+                      <p>Menu Offline</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/daftar-harga-tambahan" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Layanan Tambahan</p>
                     </a>
                   </li>
                </ul>
@@ -196,13 +202,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
 
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-user-secret nav-icon"></i>
-                  <p>Daftar Admin</p>
-                </a>
-              </li>
-
             </ul>
           </li>
           
@@ -235,6 +234,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+  {{-- menampilkan error validasi --}}
+      @if (count($errors) > 0)
+        <div class="alert alert-danger">
+          <ul>
+              @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+          </ul>
+        </div>
+      @endif
+
     @yield('container')
   </div>
   <!-- /.content-wrapper -->

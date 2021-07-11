@@ -6,32 +6,14 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Dashboard Klien</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
 
   <!-- 1. Addchat css -->
   <link href="{{asset('assets/addchat/css/addchat.min.css') }}" rel="stylesheet">
 
-  <!-- Favicons-->
-  <link href="./img/icon-sv1.png" rel="icon">
-  <link href="./img/icon-sv1.png" rel="apple-touch-icon"> 
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
-
   <!-- Vendor CSS Files-->
-  <link rel="stylesheet" href="{{ asset('vendor/animate.css/animate.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/aos/aos.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/boxicons/css/boxicons.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/glightbox/css/glightbox.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/swiper/swiper-bundle.min.css') }}"> 
-
 
   <!-- Template Main CSS File -->
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -72,7 +54,7 @@
           <div class="info-box-content">
             <span class="info-box-text">Pricing</span>
             <span class="info-box-number">
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="scrollspyHeading5" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </span>
           </div>
           <!-- /.info-box-content -->
@@ -102,82 +84,103 @@
       <div class="container">
         <div class="section-title">
           <h2 class="text-center">About</h2>
-          <p class="text-center">Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <p class="text-center">Hallo sobat sikombasa, terimakasih telah melakukan register, selamat datang di dashboard klien.</p>
         </div>
 
         <div class="row" data-aos="fade-up"  >
           <div class="col-md-3">
-            <img src="./img/features-1.svg" class="img-fluid" alt="">
+            <img src="./img/myicon/Spotlight _Monochromatic.svg" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-4">
-            <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
+            <h3 class="text-blue" >Apa itu Sikombasa ?</h3>
+            <p class="fst-italic" style="text-align:justify;">
+              Sikombasa merupakan platform layanan terjemah online untuk mempermudahkan interaksi antara pengguna dengan penyedia jasa.
+              Sikombasa dibuat dengan tujuan untuk mencapai pemerataan perekonomian secara digital.Transaksi perdagangan online  
+              di Indonesia memiliki masa depan cerah. Pasalnya, nilai transaksinya terus meningkat selama lima tahun terakhir. 
+              Marketplace adalah salah satu pemain terbesar dalam bisnis ecommerce Indonesia. Hal itulah yang memacu terbentuknya Marketplace Sikombasa.
             </p>
-            <ul>
-              <li><i class="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-            </ul>
           </div>
         </div>
-
         <div class="row" data-aos="fade-up">
           <div class="col-md-3 order-1 order-md-5 ml-auto">
-            <img src="./img/details-2.png" class="img-fluid" alt="">
+            <img src="./img/myicon/undraw_business_deal_cpi9.svg" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-5 order-2 order-md-1 ml-auto">
-            <h3>Corporis temporibus maiores provident</h3>
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
+            <h3 class="text-blue">Feature</h3>
+            <p class="fst-italic"style="text-align:justify;">
+              Sikombasa memiliki 6 jenis menu order yang disesuaikan dengan tiap ketegori antara lain : Interpreter, Transkrip (Audio), Teks, Dokumen, Dubbing, dan Subtitle.
             </p>
             <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum
+              Selain itu, sikombasa juga menyediakan feature freelance bagi pengguna yang berkeinginan untuk menjadi seorang translator.
             </p>
           </div>
         </div>
 
         <div class="row" data-aos="fade-up">
           <div class="col-md-2">
-            <img src="./img/details-3.png" class="img-fluid" alt="">
+            <img src="./img/myicon/undraw_Internet_on_the_go_re_vben.svg" class="img-fluid" alt="">
           </div>
-          <div class="col-md-7 pt-5">
-            <h3>Sunt consequatur ad ut est nulla consectetur reiciendis animi voluptas</h3>
-            <p>Cupiditate placeat cupiditate placeat est ipsam culpa. Delectus quia minima quod. Sunt saepe odit aut quia voluptatem hic voluptas dolor doloremque.</p>
-            <ul>
-              <li><i class="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-              <li><i class="bi bi-check"></i> Facilis ut et voluptatem aperiam. Autem soluta ad fugiat.</li>
-            </ul>
+          <div class="col-md-7 pt-5" style="text-align:justify;">
+            <i class="bi bi-check text-blue"><h3><b>Visi Sikombasa</b></h3></i>
+            <p>Sikombasa hadir untuk membawa dampak positif untuk memenuhi kebutuhan pengguna dalam meningkatkan laju pertumbuhan ekonomi 
+            Indonesia,dengan memanfaatkan teknologi digital.</p>
           </div>
         </div>
 
         <div class="row" data-aos="fade-up">
           <div class="col-md-2 order-1 order-md-2 ml-auto">
-            <img src="./img/details-4.png" class="img-fluid" alt="">
+            <img src="./img/myicon/illustration-6.svg" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-5 order-2 order-md-1 ml-auto">
-            <h3>Quas et necessitatibus eaque impedit ipsum animi consequatur incidunt in</h3>
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
-            </p>
-            <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum
-            </p>
+          <i class="bi bi-check text-blue"><h3><b>Misi Sikombasa.</b></h3></i>
+            <ul>
+              <li><i class="bi bi-check"></i>Memberikan kesempatan kepada setiap individu untuk mengasah kemampuan dengan menjadi freelance.</li>
+              <li><i class="bi bi-check"></i> Selalu memberikan pelayanan terbaik kepada setiap pengguna.</li>
+              <li><i class="bi bi-check"></i> Keamanan selalu menjadi prioritas.</li>
+            </ul>
           </div>
         </div>
-
+        </div>
       </div>
     </section><!-- End Features Section -->
 
+<!-- ======= Services Section ======= -->
+<section class="services">
+      <div class="container">
+      <div class="title">
+      <i class="bi bi-check text-blue"><h3 class="text-center">Pricing</h3></i>
+          <p class="text-center">CHECK OUR PRICING</p>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="fade-up">
+            <div class="icon-box icon-box-pink">
+                <img src="./img/myicon/2.jpg" style="width:55%; left: -25px;"></img>
+              <h4 class="title"><a href="">Basic</a></h4>
+              <h4 class="text-success"><sup>Rp</sup>0<span> / month</span></h4>
+              <ul>
+              <li><p class="description text-left">Tidak ada layanan revisi file lebih dari 1x</p></li>
+              <li><p class="description text-left">Tidak ada Garansi</p></li>
+              </ul>
+            </div>
+          </div>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+          <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="fade-up">
+            <div class="icon-box icon-box-cyan">
+              <img src="./img/myicon/2.jpg" style="width:55%; left: -25px;"></img>
+              <h4 class="title"><a href="">Premium</a></h4>
+              <h4 class="text-blue"><sup>Rp</sup>50.000<span> / month</span></h4>
+              <ul>
+              <li><p class="description text-left">Mendapat layanan permintaan revisi lebih dari 1x</p></li>
+              <li><p class="description text-left">Mendapat Garansi</p></li>
+              <li><p class="description text-left">Full service</p></li>
+              </ul>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section><!-- End Services Section -->
 
   <!-- Vendor JS Files-->
   <script src="{{ asset('vendor/aos/aos.js') }}"></script>

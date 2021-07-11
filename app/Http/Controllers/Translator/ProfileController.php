@@ -55,13 +55,13 @@ class ProfileController extends Controller
         ]);
 
         if($request->hasFile('foto_ktp')){
-            $request->file('foto_ktp')->move(public_path().'\img\biodata',
+            $request->file('foto_ktp')->move(public_path().'/img/biodata',
             $request->file('foto_ktp')->getClientOriginalName());
             
             $translator = Translator::where('id', $id_user)->first();
             $currentPhoto = $translator->foto_ktp;
 
-            $userPhoto = public_path('\img\biodata').$currentPhoto;
+            $userPhoto = public_path('/img/biodata/').$currentPhoto;
             if(file_exists($userPhoto)){
                 @unlink($userPhoto);
             }
@@ -91,7 +91,7 @@ class ProfileController extends Controller
         $keahlian->diterbitkan_oleh = $diterbitkan_oleh;
         $keahlian->masa_berlaku = $masa_berlaku;
 
-        $bukti_dokumen->move(public_path().'\img\sertifikat', $nm_dokumen);
+        $bukti_dokumen->move(public_path().'/img/sertifikat', $nm_dokumen);
 
         $keahlian->save();
 
@@ -118,12 +118,12 @@ class ProfileController extends Controller
                     ]);
 
         if($request->hasFile('bukti_dokumen')){
-            $request->file('bukti_dokumen')->move(public_path().'\img\sertifikat',
+            $request->file('bukti_dokumen')->move(public_path().'/img/sertifikat/',
             $request->file('bukti_dokumen')->getClientOriginalName());
             
             $currentPhoto = $keahlian->bukti_dokumen;
             
-            $userPhoto = public_path('\img\sertifikat').$currentPhoto;
+            $userPhoto = public_path('/img/sertifikat/').$currentPhoto;
             if(file_exists($userPhoto)){
                 @unlink($userPhoto);
             }

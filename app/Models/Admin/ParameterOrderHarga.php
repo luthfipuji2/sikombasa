@@ -42,4 +42,7 @@ class ParameterOrderHarga extends Model
     public function parameterorderteks(){
         return $this->belongsTo('App\Models\Admin\ParameterOrderTeks', 'id_parameter_order_teks', 'id_parameter_order_teks');
     }
+    public function parameterorderaudio(){
+        return $this->belongsTo('App\Models\Admin\ParameterOrderAudio', 'id_parameter_order_audio', 'id_parameter_order_audio');
+    }
 }

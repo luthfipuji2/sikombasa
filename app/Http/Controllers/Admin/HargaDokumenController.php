@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Harga;
+use App\Models\Admin\ParameterOrderDokumen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,8 +17,9 @@ class HargaDokumenController extends Controller
      */
     public function index()
     {
-        $dokumen = DB::table('parameter_order')->whereNotNull('p_jumlah_halaman')->get();
-        return view('pages.admin.HargaDokumen', ['dokumen' => $dokumen]);
+        $dokumen = DB::table('parameter_order_dokumen')
+        ->get();
+        return view('pages.admin.HargaDokumen', compact('dokumen'));
     }
 
     /**
@@ -39,18 +41,24 @@ class HargaDokumenController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'p_jenis_layanan' => 'required',
-            'p_jumlah_halaman' => 'required',
+            'jumlah_halaman_min' => 'required|integer',
+            'jumlah_halaman_max' => 'required|integer',
             'harga' => 'required|integer'
         ]);
-
-        Harga::create([
-            'p_jenis_layanan' => $request->p_jenis_layanan,
-            'p_jumlah_halaman' => $request->p_jumlah_halaman,
-            'harga' => $request->harga
-        ]);
-
-        return redirect('/daftar-harga-dokumen')->with('success', 'Harga baru berhasil ditambahkan');
+        
+        if($request->jumlah_halaman_min < $request->jumlah_halaman_max)
+        {
+            ParameterOrderDokumen::create([
+                'jumlah_halaman_min' => $request->jumlah_halaman_min,
+                'jumlah_halaman_max' => $request->jumlah_halaman_max,
+                'harga' => $request->harga
+            ]);
+            return redirect('/daftar-harga-dokumen')->with('success', 'Parameter harga dokumen berhasil ditambahkan');
+        }
+        else
+        {
+            return redirect('/daftar-harga-dokumen')->with('failed', 'Parameter harga dokumen gagal ditambahkan, cek kembali data Anda!');
+        }
     }
 
     /**
@@ -82,23 +90,30 @@ class HargaDokumenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_parameter_order)
+    public function update(Request $request, $id_parameter_order_dokumen)
     {
         $this->validate($request,[
-            'p_jenis_layanan' => 'required',
-            'p_jumlah_halaman' => 'required',
+            'jumlah_halaman_min' => 'required|integer',
+            'jumlah_halaman_max' => 'required|integer',
             'harga' => 'required|integer'
         ]);
 
-        $harga = Harga::find($id_parameter_order);
+        $dokumen = ParameterOrderDokumen::find($id_parameter_order_dokumen);
         
-        Harga::where('id_parameter_order', $harga->id_parameter_order)
+        if($request->jumlah_halaman_min < $request->jumlah_halaman_max)
+        {
+            ParameterOrderDokumen::where('id_parameter_order_dokumen', $dokumen->id_parameter_order_dokumen)
                     ->update([
-                        'p_jenis_layanan' => $request->p_jenis_layanan,
-                        'p_jumlah_halaman' => $request->p_jumlah_halaman,
+                        'jumlah_halaman_min' => $request->jumlah_halaman_min,
+                        'jumlah_halaman_max' => $request->jumlah_halaman_max,
                         'harga' => $request->harga
                     ]);
-        return redirect('/daftar-harga-dokumen')->with('success', 'Data harga berhasil diubah');
+            return redirect('/daftar-harga-dokumen')->with('success', 'Parameter harga dokumen berhasil diubah');
+        }
+        else
+        {
+            return redirect('/daftar-harga-dokumen')->with('failed', 'Parameter harga dokumen gagal diubah, cek kembali data Anda!');
+        }
     }
 
     /**
@@ -107,9 +122,9 @@ class HargaDokumenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Harga $harga)
+    public function destroy(ParameterOrderDokumen $harga)
     {
-        Harga::destroy($harga->id_parameter_order);
-        return redirect('/daftar-harga-dokumen')->with('success', 'Data harga berhasil dihapus');
+        ParameterOrderDokumen::destroy($harga->id_parameter_order_dokumen);
+        return redirect('/daftar-harga-dokumen')->with('success', 'Parameter harga dokumen berhasil dihapus');
     }
 }

@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Harga;
+use App\Models\Admin\ParameterJenisLayanan;
+use App\Models\Admin\ParameterJenisTeks;
+use App\Models\Admin\ParameterOrderTeks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Input\Input;
 
 class HargaTeksController extends Controller
 {
@@ -16,8 +20,14 @@ class HargaTeksController extends Controller
      */
     public function index(Harga $h)
     {
-        $harga = DB::table('parameter_order')->whereNotNull('p_jumlah_karakter')->get();
-        return view('pages.admin.HargaTeks', compact('harga'));
+        $harga = DB::table('parameter_order_teks')
+        ->orderBy('jumlah_karakter_min')
+        ->get();
+
+        $jenis = DB::table('parameter_jenis_teks')
+        ->get();
+
+        return view('pages.admin.HargaTeks', compact('harga', 'jenis'));
     }
 
     /**
@@ -39,19 +49,25 @@ class HargaTeksController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'p_jenis_layanan' => 'required',
-            'p_jumlah_karakter' => 'required',
+            'jumlah_karakter_min' => 'required',
+            'jumlah_karakter_max' => 'required',
             'harga' => 'required|integer'
         ]);
 
-        Harga::create([
-            'p_jenis_layanan' => $request->p_jenis_layanan,
-            'p_jumlah_karakter' => $request->p_jumlah_karakter,
-            'harga' => $request->harga
-        ]);
-
-        return redirect('/daftar-harga-teks')->with('success', 'Harga baru berhasil ditambahkan');
+        if($request->jumlah_halaman_min < $request->jumlah_halaman_max){
+            ParameterOrderTeks::create([
+                'jumlah_karakter_min' => $request->jumlah_karakter_min,
+                'jumlah_karakter_max' => $request->jumlah_karakter_max,
+                'harga' => $request->harga
+            ]);
+            return redirect('/daftar-harga-teks')->with('success', 'Parameter jumlah kata berhasil ditambahkan');
+        }
+        else {
+            return redirect('/daftar-harga-teks')->with('failed', 'Parameter jumlah kata gagal ditambahkan');
+        }
+            
     }
+
 
     /**
      * Display the specified resource.
@@ -82,24 +98,33 @@ class HargaTeksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_parameter_order)
+    public function update(Request $request, $id_parameter_order_teks)
     {
         $this->validate($request,[
-            'p_jenis_layanan' => 'required',
-            'p_jumlah_karakter' => 'required',
-            'harga' => 'required'
+            'jumlah_karakter_min' => 'required|integer',
+            'jumlah_karakter_max' => 'required|integer',
+            'harga' => 'required|integer'
         ]);
 
-        $harga = Harga::find($id_parameter_order);
-        
-        Harga::where('id_parameter_order', $harga->id_parameter_order)
+        $harga = ParameterOrderTeks::find($id_parameter_order_teks);
+
+        if($request->jumlah_halaman_min < $request->jumlah_halaman_max){
+            ParameterOrderTeks::where('id_parameter_order_teks', $harga->id_parameter_order_teks)
                     ->update([
-                        'p_jenis_layanan' => $request->p_jenis_layanan,
-                        'p_jumlah_karakter' => $request->p_jumlah_karakter,
+                        'jumlah_karakter_min' => $request->jumlah_karakter_min,
+                        'jumlah_karakter_max' => $request->jumlah_karakter_max,
                         'harga' => $request->harga
                     ]);
-        return redirect('/daftar-harga-teks')->with('success', 'Data harga berhasil diubah');
+            return redirect('/daftar-harga-teks')->with('success', 'Parameter jumlah kata berhasil diubah');
+        }
+        else{
+            return redirect('/daftar-harga-teks')->with('failed', 'Parameter jumlah kata gagal diubah');
+        }
+        
+        
     }
+
+    
 
     /**
      * Remove the specified resource from storage.
@@ -107,9 +132,11 @@ class HargaTeksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Harga $harga)
+    public function destroy(ParameterOrderTeks $kata)
     {
-        Harga::destroy($harga->id_parameter_order);
-        return redirect('/daftar-harga-teks')->with('success', 'Data harga berhasil dihapus');
+        ParameterOrderTeks::destroy($kata->id_parameter_order_teks);
+        return redirect('/daftar-harga-teks')->with('success', 'Parameter jumlah kata berhasil dihapus');
     }
+
+    
 }

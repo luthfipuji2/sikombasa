@@ -22,6 +22,7 @@ class Order extends Model
         'id_klien',
         'id_translator',
         'id_parameter_order',
+        'id_parameter_order_audio',
         'id_parameter_dubber',
         'id_parameter_jenis_layanan',
         'id_parameter_jenis_teks',
@@ -51,11 +52,14 @@ class Order extends Model
         'tanggal_pertemuan',
         'waktu_pertemuan',
         'tipe_transkrip',
+        'status',
         'is_status',
         'status_at',
         'status_by',
         'tipe_offline',
         'harga',
+        'jarak',
+        'menu',
     ];
 
     protected $dates = [
@@ -67,7 +71,11 @@ class Order extends Model
     }
 
     public function translator(){
+<<<<<<< HEAD
         return $this->belongsTo('App\Models\Translator', 'id_translator', 'id_translator');
+=======
+        return $this->belongsTo('App\Models\Traslator\Translator','id_translator','id_translator');
+>>>>>>> 5117698714942e7d7f2a49135fd30a3993d6b360
     }
 
     public function parameter_order(){

@@ -20,6 +20,16 @@ class Transaksi extends Model
     ];
 
     public function order(){
-        return $this->belongsTo('App\Models\Klien\Order', 'id_order', 'id_order');
+        return $this->belongsTo('App\Models\Klien\Order','id_order','id_order');
     }
+
+    public function parameter_order(){
+        return $this->belongsTo('App\Models\Klien\ParameterOrder','id_parameter_order','id_parameter_order');
+    }
+
+    public function dist_fee(){
+        return $this->belongsTo('App\Models\Admin\DistribusiFee','id__transaksi','id__transaksi');
+    }
+
+
 }
