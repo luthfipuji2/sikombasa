@@ -64,15 +64,10 @@ $(document).ready(function(){
           <div class="col-md-6">
             <div class="form-group">
                 <label>Nama Klien</label>
-                <input type="text" value="" class="form-control" readonly>
+                <input type="text" value="{{$orders->klien->user->name}}" class="form-control" readonly>
             </div>           
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-                <label>Nama Translator</label>
-                <input type="text" value=" class="form-control" readonly>
-            </div>           
-          </div>
+        
           <div class="col-md-6">
             <div class="form-group">
                 <label>Jenis Layanan</label>
@@ -112,6 +107,13 @@ $(document).ready(function(){
 
           <div class="col-md-6">
             <div class="form-group">
+                <label>Harga</label>
+                <input type="text" value="{{$orders->harga}}" class="form-control" readonly>
+            </div>           
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
             <label for="path_file" class="col-sm-3 col-form-label">Download Video Klien</label>
             <a href="/detail-order-subtitle/{{$orders->id_order}}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download Video</a>
           </div>
@@ -123,13 +125,6 @@ $(document).ready(function(){
             <a href="" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download Video</a>
           </div>
         </div>
-
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>Harga</label>
-                <input type="text" value="{{$orders->harga}}" class="form-control" readonly>
-            </div>           
-          </div>
 
           <!--/.col (left) -->
         </div>
@@ -215,11 +210,18 @@ $(document).ready(function(){
                           {{$translator}}
                           @else
                           <button type="button" class="badge badge-pill badge-warning" data-toggle="tooltip" data-html="true" title="Belum Melakukan Pembayaran">
-                                  </button>
+                              !    </button>
                           @endif
                         <td scope="row" class="text-center">
-                          
+                        @if(!empty($orders->is_status == NULL) || $orders->is_status == "belum dibayar")
+                        <span class="status text-warning">&bull;</span>Belum Dibayar
+                        @elseif($orders->transaksi->status_transaksi == "Gagal")
+                        <span class="status text-danger">&bull;</span>Gagal
+                        @else
+                        <span class="status text-success">&bull;</span>Sudah Dibayar
+                        @endif
                         </td>
+                        <td scope="row" class="text-center"></td>
                         <td>
                             <a type="button" class="view" title="View Details" data-toggle="modal" data-target="#detailModal{{$orders->id_order}}"><i class="material-icons">&#xE5C8;</i></a>
                         </td>
