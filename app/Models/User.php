@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Admin\Admin;
+use App\Models\Klien\Klien;
+use App\Models\Translator;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -84,7 +86,10 @@ class User extends Authenticatable
 
     
     public function klien(){
-        return $this->belongsTo('App\Models\Klien\Klien');
+        return $this->hasOne('App\Models\Klien\Klien', 'id', 'id');
+    }
 
+    public function translator(){
+        return $this->hasOne('App\Models\Translator', 'id', 'id');
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.klien.sidebar')
+@extends('layouts.klien.sidebar_show')
 
 @section('title', 'Show Order Dubbing')
 @section('content')

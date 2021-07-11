@@ -21,6 +21,6 @@ class ParameterJenisLayanan extends Model
     }
 
     public function order(){
-        return $this->hasOne('App\Models\Klien\Order', 'id_parameter_jenis_layanan', 'id_parameter_jenis_layanan');
+        return $this->hasMany('App\Models\Klien\Order', 'id_parameter_jenis_layanan', 'id_parameter_jenis_layanan');
     }
 }
