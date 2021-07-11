@@ -5,6 +5,7 @@
 @section('container')
 
 <!-- Vendor CSS Files -->
+<link rel="stylesheet" href="{{ asset('vendor/animate.css/buttonpill.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/animate.css/animate.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.css') }}">
@@ -208,14 +209,17 @@ $(document).ready(function(){
                 @foreach ($order as $orders)
                     <tr>
                         <td scope="row" class="text-center">{{$loop->iteration}}</td>
+                        <td scope="row" class="text-center">{{$orders->klien->user->name}}</td>
                         <td scope="row" class="text-center">
-
-                        
+                          @if(!empty($orders->is_translator))
+                          {{$translator}}
+                          @else
+                          <button type="button" class="badge badge-pill badge-warning" data-toggle="tooltip" data-html="true" title="Belum Melakukan Pembayaran">
+                                  </button>
+                          @endif
+                        <td scope="row" class="text-center">
+                          
                         </td>
-
-                        <td scope="row" class="text-center">
-
-                        <td scope="row" class="text-center"></td>
                         <td>
                             <a type="button" class="view" title="View Details" data-toggle="modal" data-target="#detailModal{{$orders->id_order}}"><i class="material-icons">&#xE5C8;</i></a>
                         </td>

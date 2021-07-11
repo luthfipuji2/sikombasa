@@ -68,8 +68,8 @@ class DetailOrderController extends Controller
         $klien=Klien::whereNotNull('id_klien')->with('user')->get();
         $translator=Translator::whereNotNull('id_translator')->with('user')->get();
         // $data=User::where('id', 'id')
-        return ($klien );exit();
-        // return view('pages.admin.detail_order.detail_dubbing', compact('order', 'klien', 'translator'));
+        // return ($klien );exit();
+        return view('pages.admin.detail_order.detail_dubbing', compact('order', 'klien', 'translator'));
     }
     public function downloadDubbing($id_order)
     {
