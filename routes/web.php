@@ -137,6 +137,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/tdl-upload-audio/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadAudio']);
         Route::post('/tdl-upload-dokumen/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadDokumen']);
         Route::post('/tdl-upload-offline/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadOffline']);
+        Route::post('/textRevisi-translator/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'textRevisi']);
+        Route::get('/to-do-list-downloadRevisi/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'downloadRevisi']);
+        Route::post('/tdl-upload-videoRevisi/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadVideoRevisi']);
+        Route::post('/tdl-upload-audioRevisi/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadAudioRevisi']);
+        Route::post('/tdl-upload-dokumenRevisi/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadDokumenRevisi']);
 
         //Review
         Route::get('/review', [App\Http\Controllers\Translator\ReviewController::class, 'index']);

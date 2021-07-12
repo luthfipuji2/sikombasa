@@ -105,8 +105,12 @@
                               <td><p class="font-weight-bold text-left"><a href="#">{{$o->name}}</a> {{$o->email}}</p></td>
                             </tr>
                             <tr>
-                              <td><p class="text-left">Menu</p><td> 
+                            <td><p class="text-left">Menu</p><td>
+                              @if(empty($o->tipe_offline)) 
                               <td><p class="font-weight-bold text-left">{{$o->menu}}</p></td>
+                              @else
+                              <td><p class="font-weight-bold text-left">{{$o->tipe_offline}} Offline</p></td>
+                              @endif
                             </tr>
                             <tr>
                               <td><p class="text-left">Nilai Order</p><td> 
