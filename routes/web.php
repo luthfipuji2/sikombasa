@@ -67,10 +67,14 @@ Route::middleware(['auth'])->group(function () {
         //Route Transaksi
         Route::resource('menu-pembayaran', 'App\Http\Controllers\Klien\MenuPembayaranController');
         Route::resource('status-order', 'App\Http\Controllers\Klien\StatusOrderController');
-        Route::resource('review-order', 'App\Http\Controllers\Klien\ReviewOrderController');
         Route::get('/bukti/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@download')->name('bukti.download');
         Route::get('/detail-order-{id_order}', 'App\Http\Controllers\Klien\MenuPembayaranController@show')->name('detail-order');
         Route::get('/invoice/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@invoice')->name('pdf.download');
+
+        //Review Order
+        Route::resource('review-order', 'App\Http\Controllers\Klien\ReviewOrderController');
+        Route::resource('order-transkrip/review', 'App\Http\Controllers\Klien\ReviewTranskripController');
+        Route::resource('order-interpreter/review', 'App\Http\Controllers\Klien\ReviewInterpreterController');
 
         //Order Interpreter
         Route::resource('order-interpreter/status', 'App\Http\Controllers\Klien\StatusInterpreterController');
@@ -80,7 +84,8 @@ Route::middleware(['auth'])->group(function () {
         
         //Order Transkrip 
         Route::resource('/order-transkrip/revisi', 'App\Http\Controllers\Klien\StatusTranskripController');
-        Route::get('/order-transkrip/revisi', 'App\Http\Controllers\Klien\StatusTranskripController@create');
+        Route::get('/order-transkrip/revisi', 'App\Http\Controllers\Klien\StatusTranskripController@store');
+        Route::get('/order-transkrip/detail/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@show')->name('detail-order');;
         Route::get('/order-transkrip/revisi-download/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@downloadrevisi');
         Route::resource('order-transkrip/status', 'App\Http\Controllers\Klien\StatusTranskripController');
         Route::get('/order-transkrip', [App\Http\Controllers\Klien\OrderTranskripController::class, 'menuOrder'])->name('menu-order');
@@ -124,11 +129,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/activity-download/{id_fee}', [App\Http\Controllers\Translator\AccountController::class, 'downloadBukti']);
         
         //Find a Job
-        Route::get('/find-a-job', [App\Http\Controllers\Translator\FindaJobController::class, 'index']);
-        Route::resource('find-a-job', 'App\Http\Controllers\Translator\FindaJobController');
-        Route::put('/find-a-job', 'App\Http\Controllers\Translator\FindaJobController@update');
-        // Route::match(['get', 'post'],'/find-a-job/{id_order}', [App\Http\Controllers\Translator\FindaJobController::class, 'update']);
-
+        Route::resource('/find-a-job', 'App\Http\Controllers\Translator\FindaJobController');
+        Route::put('/find-a-job/{id_order}', 'App\Http\Controllers\Translator\FindaJobController@update')->name('update_find_a_job');
+       
         //To Do List
         Route::get('/to-do-list', [App\Http\Controllers\Translator\ToDoController::class, 'index']);
         Route::post('/text-translator/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'text']);

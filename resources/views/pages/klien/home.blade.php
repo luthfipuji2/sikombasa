@@ -54,7 +54,7 @@
           <div class="info-box-content">
             <span class="info-box-text">Pricing</span>
             <span class="info-box-number">
-            <a href="scrollspyHeading5" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </span>
           </div>
           <!-- /.info-box-content -->
@@ -144,13 +144,17 @@
       </div>
     </section><!-- End Features Section -->
 
-<!-- ======= Services Section ======= -->
-<section class="services">
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-blue" id="staticBackdropLabel">Check Our Pricing</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <section class="services">
       <div class="container">
-      <div class="title">
-      <i class="bi bi-check text-blue"><h3 class="text-center">Pricing</h3></i>
-          <p class="text-center">CHECK OUR PRICING</p>
-        </div>
         <div class="row d-flex justify-content-center">
           <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="fade-up">
             <div class="icon-box icon-box-pink">
@@ -158,8 +162,8 @@
               <h4 class="title"><a href="">Basic</a></h4>
               <h4 class="text-success"><sup>Rp</sup>0<span> / month</span></h4>
               <ul>
-              <li><p class="description text-left">Tidak ada layanan revisi file lebih dari 1x</p></li>
-              <li><p class="description text-left">Tidak ada Garansi</p></li>
+              <li><p class="description text-left">Tidak ada layanan revisi untuk order teks, dokumen, subtitle, audio, video</p></li>
+              <li><p class="description text-left">Tidak mendapat gift kenang-kenangan dan mendapat penginapan standar untuk menu order bertemu langsung</p></li>
               </ul>
             </div>
           </div>
@@ -168,26 +172,27 @@
             <div class="icon-box icon-box-cyan">
               <img src="./img/myicon/2.jpg" style="width:55%; left: -25px;"></img>
               <h4 class="title"><a href="">Premium</a></h4>
-              <h4 class="text-blue"><sup>Rp</sup>50.000<span> / month</span></h4>
+              <h4 class="text-blue"><sup>Rp</sup>100.000<span> / month</span></h4>
               <ul>
-              <li><p class="description text-left">Mendapat layanan permintaan revisi lebih dari 1x</p></li>
-              <li><p class="description text-left">Mendapat Garansi</p></li>
-              <li><p class="description text-left">Full service</p></li>
+              <li><p class="description text-left">Mendapat layanan permintaan revisi 1x order teks, dokumen, subtitle, audio, video</p></li>
+              <li><p class="description text-left">Mendapat gift kenang-kenangan dan mendapat penginapan fasilitas hotel bintang 5 untuk menu order bertemu langsung</p></li>
               </ul>
             </div>
             </div>
           </div>
         </div>
+       </div>
       </div>
-      </div>
-    </section><!-- End Services Section -->
+      </section><!-- End Services Section -->
+    </div>
+  </div>
+</div>
 
   <!-- Vendor JS Files-->
   <script src="{{ asset('vendor/aos/aos.js') }}"></script>
   <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('vendor/glightbox/js/glightbox.min.js') }}"></script>
   <script src="{{ asset('vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
-  <script src="{{ asset('vendor/php-email-form/validate.js') }}"></script>
   <script src="{{ asset('vendor/purecounter/purecounter.js') }}"></script>
   <script src="{{ asset('vendor/swiper/swiper-bundle.min.js') }}"></script>
   <script src="{{ asset('vendor/waypoints/noframework.waypoints.js') }}"></script> 
