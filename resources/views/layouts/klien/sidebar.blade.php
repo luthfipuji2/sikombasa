@@ -133,7 +133,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </li>
                     </li>
                         <li class="nav-item">
-                            <a href="/klien-review" class="nav-link">
+                            <a href="review-order" class="nav-link">
                             <i class="nav-icon fas fa-star"></i>
                             <p>Review</p>
                         </a>
