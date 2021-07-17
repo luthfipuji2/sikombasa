@@ -12,7 +12,7 @@
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li><a href="order-interpreter/status" class=" text-center btn btn-primary">Offline</a></li>&nbsp;&nbsp;
+                  <li><a href="order-interpreter/status" class=" text-center btn btn-primary">Bertemu Langsung</a></li>&nbsp;&nbsp;
                   <li><a href="order-transkrip/status" class=" text-center btn btn-primary">Transkrip</a></li>&nbsp;&nbsp;
                   <li><a href="#" class=" text-center btn btn-primary">Teks</a></li>&nbsp;&nbsp;
                   <li><a href="#" class=" text-center btn btn-primary">Subtitle</a></li>&nbsp;&nbsp;

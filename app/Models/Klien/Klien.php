@@ -4,6 +4,7 @@ namespace App\Models\Klien;
 
 use App\Models\KlienUser;
 use App\Models\KlienOrder;
+use App\Model\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,10 +30,10 @@ class Klien extends Model
     ];
 
     public function order(){
-        return $this->belongsTo('App\Models\Klien\Order', 'id_klien', 'id_klien');
+        return $this->hasMany('App\Models\Klien\Order', 'id_klien', 'id_klien');
     }
 
     public function user(){
-        return $this->hasMany('App\Models\User');
+        return $this->belongsTo('App\Models\User', 'id', 'id');
     }
 }

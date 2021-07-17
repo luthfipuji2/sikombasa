@@ -15,7 +15,7 @@ class CreateTableTranslator extends Migration
     {
         Schema::create('translator', function (Blueprint $table) {
             $table->bigIncrements('id_translator');
-            $table->unsignedBigInteger('id');
+            $table->unsignedBigInteger('id')->nullable();
             $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
             $table->string('nik')->nullable();
             $table->string('keahlian')->nullable();

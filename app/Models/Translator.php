@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\Order as Authenticatable;
@@ -12,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Translator extends Model
 {
+    use HasFactory;
     protected $table = 'translator';
     protected $primaryKey = 'id_translator';
 
@@ -35,6 +35,10 @@ class Translator extends Model
     ];
 
     public function order(){
-        return $this->hasMany('App\Order');
+        return $this->hasMany('App\Models\Klien\Order', 'id_translator', 'id_translator');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\Models\User', 'id', 'id');
     }
 }

@@ -30,8 +30,7 @@
                             <h4 class="card-title-center">Transkrip (Audio)</h4>
                             <hr>
                             <!-- Text -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                            content.</p>
+                            <p class="card-text">Adalah menu yang akan menerjemahkan file rekaman suara atau audio ke dalam teks</p>
                             <a href="/order-transkrip" class=" text-center btn btn-primary">Order Here</a>
                         </div>
                         </div>
@@ -51,11 +50,10 @@
                         <div class="card text-center">
                         <div class="card-body">
                             <!-- Title -->
-                            <h4 class="card-title-center">Interpreter & Transkrip <br> (Bertemu langsung)</h4>
+                            <h4 class="card-title-center">Bertemu langsung</h4>
                             <hr>
                             <!-- Text -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                            content.</p>
+                            <p class="card-text">Adalah menu dimana translator akan menerjemahkan secara verbal di tempat</p>
                             <a href="/order-interpreter" class=" text-center btn btn-primary">Order Here</a>
                         </div>
                         </div>

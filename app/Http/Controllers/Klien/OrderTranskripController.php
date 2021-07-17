@@ -109,6 +109,7 @@ class OrderTranskripController extends Controller
                     'ekstensi'=>$ext_template,
                     'size'=>$size_template,
                     'tgl_order'=>Carbon::now()->timestamp,
+                    'menu'=>'Transkrip'
                 ]);
 
                 

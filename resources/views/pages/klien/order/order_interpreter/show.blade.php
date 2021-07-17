@@ -46,7 +46,6 @@
                       <th>Catatan Lokasi</th>
                       <th>Longitude</th>
                       <th>Latitude</th>
-                      <th>Jarak</th>
                       <th>Action</th>
                     </tr>
                     </thead>
@@ -60,7 +59,6 @@
                       <td>{{$order->lokasi}}</td>
                       <td>{{$order->longitude}}</td>
                       <td>{{$order->latitude}}</td>
-                      <td>{{$order->jarak}}</td>
                       <td>
                         <form action="/order-interpreter" method="POST" class="d-inline">
                         @method('Delete')

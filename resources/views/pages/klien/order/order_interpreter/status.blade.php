@@ -1,5 +1,5 @@
 @extends('layouts.klien.sidebar')
-@section('title','Status Order Offline')
+@section('title','Status Order Bertemu Langsung')
 @section('content')
 
 
@@ -450,12 +450,12 @@
           <div class="card">
             <div class="card-header p-2">
               <ul class="nav nav-pills">
-                <li><a href="{{ url ('order-interpreter/status') }}" class="text-center btn btn-primary" type="submit" class="text-right" style="float: right;">Offline</a></li>&nbsp;&nbsp;
+                <li><a href="{{ url ('order-interpreter/status') }}" class="text-center btn btn-primary" type="submit" class="text-right" style="float: right;">Bertemu Langsung</a></li>&nbsp;&nbsp;
                 <li><a href="{{ url ('order-transkrip/status') }}" class="text-center btn btn-primary" type="submit" class="text-right" style="float: right;">Transkrip</a></li>&nbsp;&nbsp;
               </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
-              <table id="datatable" class="table table-bordered">
+              <table id="mydatatable" class="table table-bordered">
                   <thead>   
                   <tr>
                     <th scope="row" class="text-center" hidden>ID</th>
@@ -521,3 +521,10 @@
     <!-- /.content -->
 </div>
 @endsection
+@push('scripts')
+<script>
+  $(document).ready( function () {
+      $('#mydatatable').DataTable();
+  } );
+</script>
+@endpush

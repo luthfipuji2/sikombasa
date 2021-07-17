@@ -81,47 +81,7 @@ class StatusTranskripController extends Controller
      */
     public function create()
     {
-            $user = Auth::user();
-
-            $revisi = Revisi:: 
-                rightJoin('order', 'revisi.id_order', '=', 'order.id_order')
-                ->whereNull('id_revisi')
-                ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
-                ->join('users', 'klien.id', '=', 'users.id')
-                ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
-                        'parameter_order.id_parameter_order')
-                ->where("users.id",$user->id)
-                ->where('order.tgl_order', '>=', Carbon::now()->subDay()->toDateTimeString())
-                ->orderBy('order.id_order')
-                ->get();
-
-            $revisi1 = Revisi:: 
-                rightJoin('order', 'revisi.id_order', '=', 'order.id_order')
-                ->whereNotNull('id_revisi')
-                ->whereNull('path_file_revisi')
-                ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
-                ->join('users', 'klien.id', '=', 'users.id')
-                ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
-                        'parameter_order.id_parameter_order')
-                ->where("users.id",$user->id)
-                ->where('order.tgl_order', '>=', Carbon::now()->subDay()->toDateTimeString())
-                ->orderBy('order.id_order')
-                ->get();
-    
-            $revisi2 = Revisi:: 
-                rightJoin('order', 'revisi.id_order', '=', 'order.id_order')
-                ->whereNotNull('id_revisi')
-                ->whereNotNull('path_file_revisi')
-                ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
-                ->join('users', 'klien.id', '=', 'users.id')
-                ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
-                        'parameter_order.id_parameter_order')
-                ->where("users.id",$user->id)
-                ->where('order.tgl_order', '>=', Carbon::now()->subDay()->toDateTimeString())
-                ->orderBy('order.id_order')
-                ->get();
-
-        return view('pages.klien.order.order_transkrip.revisi', compact('user','revisi','revisi1','revisi2'));
+        //
     }
 
     /**
@@ -141,8 +101,7 @@ class StatusTranskripController extends Controller
         Revisi::create([
             'id_order' => $request->id_order,
             'pesan_revisi' => $request->pesan_revisi,
-            'durasi_pengerjaan_revisi'=>$request->durasi_pengerjaan_revisi,
-            'tgl_order'=>Carbon::now()->timestamp
+            'durasi_pengerjaan_revisi'=>$request->durasi_pengerjaan_revisi
         ]);
 
         return redirect('/order-transkrip/status')->with('success', 'Pengajuan Revisi Anda berhasil diunggah');
@@ -154,9 +113,22 @@ class StatusTranskripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_order)
     {
-        //
+        $user = Auth::user();
+        $order=Order::findOrFail($id_order);
+
+        $revisi = Revisi:: //join table users and table user_details base from matched id;
+                rightJoin('order', 'revisi.id_order', '=', 'order.id_order')
+                ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
+                ->join('users', 'klien.id', '=', 'users.id')
+                ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
+                        'parameter_order.id_parameter_order')
+                ->where("users.id",$user->id)
+                ->where("order.id_order",$order->id_order)
+                ->first();
+
+        return view('pages.klien.order.order_transkrip.detail', compact('user','order','revisi'));
     }
 
     /**
@@ -202,7 +174,17 @@ class StatusTranskripController extends Controller
     }
     public function downloadrevisi($id_order)
     {
-        $file= Revisi::find($id_order);
+        $user = Auth::user();
+        $order=Order::findOrFail($id_order);
+        $file = Revisi:: //join table users and table user_details base from matched id;
+        rightJoin('order', 'revisi.id_order', '=', 'order.id_order')
+        ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
+        ->join('users', 'klien.id', '=', 'users.id')
+        ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
+                'parameter_order.id_parameter_order')
+        ->where("users.id",$user->id)
+        ->where("order.id_order",$order->id_order)
+        ->first();
 
         $path_file_revisi = $file->path_file_revisi;
         
