@@ -185,7 +185,7 @@
                               <b>Project files</b>
                               <ul class="list-unstyled">
                                 <li>
-                                  <a><i class="fas fa-folder"></i> {{$y->nama_dokumen}}</a>
+                                  <a><i class="fas fa-microphone-alt"></i> {{$y->nama_dokumen}}</a>
                                 </li>
                               </ul>
                               @endif
@@ -281,7 +281,7 @@
                               <b>Project files</b>
                               <ul class="list-unstyled">
                                 <li>
-                                  <a><i class="fas fa-folder"></i> {{$x->nama_dokumen}}</a>
+                                  <a><i class="fas fa-microphone-alt"></i> {{$x->nama_dokumen}}</a>
                                 </li>
                               </ul>
                               @endif
@@ -311,12 +311,12 @@
           <div class="card">
             <div class="card-header p-2">
               <ul class="nav nav-pills">
-                <li><a href="{{ url ('order-interpreter/status') }}" class="text-center btn btn-primary" type="submit" class="text-right" style="float: right;">Offline</a></li>&nbsp;&nbsp;
+                <li><a href="{{ url ('order-interpreter/status') }}" class="text-center btn btn-primary" type="submit" class="text-right" style="float: right;">Bertemu Langsung</a></li>&nbsp;&nbsp;
                 <li><a href="{{ url ('order-transkrip/status') }}" class="text-center btn btn-primary" type="submit" class="text-right" style="float: right;">Transkrip</a></li>&nbsp;&nbsp;
               </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
-              <table id="datatable" class="table table-bordered">
+              <table id="mydatatable" class="table table-bordered">
                 <thead>   
                 <tr>
                   <th scope="row" class="text-center" hidden>ID</th>
@@ -365,8 +365,7 @@
                       <span class="badge badge-success"> Order Selesai</span></span>
                   </td>
                   <td scope="row" class="text-center">
-                    <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#detail{{$x->id_transaksi}}"><i class="fas fa-eye"></i></button>
-
+                    <a href="{{route('detail-order', $x->id_order)}}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
                   </td>
                 </tr>
                 @endforeach
@@ -378,3 +377,11 @@
     </section>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+  $(document).ready( function () {
+      $('#mydatatable').DataTable();
+  } );
+</script>
+@endpush
