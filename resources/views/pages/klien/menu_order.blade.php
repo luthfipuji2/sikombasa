@@ -3,6 +3,15 @@
 @section('title',)
 @section('content')
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
 <div class="container">
 
 <section class="content">
@@ -32,7 +41,11 @@
                             <!-- Text -->
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                             content.</p>
-                            <a href="/order-transkrip" class=" text-center btn btn-primary">Order Here</a>
+                            @if(empty($klien->klien->id_klien))
+                                    <a href="#myModal" class=" text-center btn btn-primary" data-toggle="modal">Order Here</a>
+                                @else
+                                    <a href="/order-transkrip" class=" text-center btn btn-primary">Order Here</a>
+                            @endif
                         </div>
                         </div>
                         </div>
@@ -56,7 +69,11 @@
                             <!-- Text -->
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                             content.</p>
-                            <a href="/order-interpreter" class=" text-center btn btn-primary">Order Here</a>
+                            @if(empty($klien->klien->id_klien))
+                                    <a href="#myModal" class=" text-center btn btn-primary" data-toggle="modal">Order Here</a>
+                                @else
+                                    <a href="/order-interpreter" class=" text-center btn btn-primary">Order Here</a>
+                            @endif
                         </div>
                         </div>
                         </div>
@@ -80,7 +97,11 @@
                             <!-- Text -->
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                             content.</p>
-                            <a href="/order-dubbing" class=" text-center btn btn-primary">Order Here</a>
+                            @if(empty($klien->klien->id_klien))
+                                    <a href="#myModal" class=" text-center btn btn-primary" data-toggle="modal">Order Here</a>
+                                @else
+                                    <a href="/order-dubbing" class=" text-center btn btn-primary">Order Here</a>
+                            @endif
                         </div>
                         </div>
                         </div>
@@ -106,7 +127,11 @@
                             <!-- Text -->
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                             content.</p>
-                            <a href="/order-teks" class=" text-center btn btn-primary">Order Here</a>
+                            @if(empty($klien->klien->id_klien))
+                                    <a href="#myModal" class=" text-center btn btn-primary" data-toggle="modal">Order Here</a>
+                                @else
+                                    <a href="/order-teks" class=" text-center btn btn-primary">Order Here</a>
+                            @endif
                             
                         </div>
                         </div>
@@ -131,7 +156,11 @@
                             <!-- Text -->
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                             content.</p>
-                            <a href="/order-dokumen" class=" text-center btn btn-primary">Order Here</a>
+                            @if(empty($klien->klien->id_klien))
+                                    <a href="#myModal" class=" text-center btn btn-primary" data-toggle="modal">Order Here</a>
+                                @else
+                                    <a href="/order-dokumen" class=" text-center btn btn-primary">Order Here</a>
+                            @endif
                         </div>
                         </div>
                         </div>
@@ -155,7 +184,11 @@
                             <!-- Text -->
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                             content.</p>
-                            <a href="/order-subtitle" class=" text-center btn btn-primary">Order Here</a>
+                            @if(empty($klien->klien->id_klien))
+                                    <a href="#myModal" class=" text-center btn btn-primary" data-toggle="modal">Order Here</a>
+                                @else
+                                    <a href="/order-subtitle" class=" text-center btn btn-primary">Order Here</a>
+                            @endif
                         </div>
                         </div>
                         </div>
@@ -163,9 +196,26 @@
                     </div>
                     </div>
                 </div>
-          
-       
 
+                <!-- Modal HTML -->
+                    <div id="myModal" class="modal fade">
+                        <div class="modal-dialog modal-confirm">
+                            <div class="modal-content">
+                                <div class="modal-header justify-content-center">
+                                    <div class="icon-box">
+                                        <i class="material-icons">&#xE5CD;</i>
+                                    </div>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h4>Ooops!</h4>	
+                                    <p>Profil Belum Lengkap, Lengkapi Profil Terlebih Dahulu</p>
+                                    <button class="btn btn-success" data-dismiss="modal">Tutup</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>     
+    
 </div>
 </section>
 </div>

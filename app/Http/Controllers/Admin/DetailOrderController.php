@@ -22,7 +22,9 @@ class DetailOrderController extends Controller
         $dokumen = Order::whereNotNull('id_parameter_order_dokumen')->count();
         $subtitle = Order::whereNotNull('id_parameter_order_subtitle')->count();
         $teks = Order::whereNotNull('id_parameter_order_teks')->count();
-        return view('pages.admin.detail_order.index', compact('order', 'dubbing', 'dokumen', 'subtitle', 'teks'));
+        $transkrip = Order::whereNotNull('durasi_audio')->count();
+        $interpreter = Order::whereNotNull('longitude')->count();
+        return view('pages.admin.detail_order.index', compact('order', 'dubbing', 'dokumen', 'subtitle', 'teks', 'transkrip', 'interpreter'));
     }
 
     public function detailTeks(){
@@ -53,28 +55,34 @@ class DetailOrderController extends Controller
         return Storage::download($path_file);
     }
 
-    public function detailDubbing(){
-        // $user=User::all();
-        
-        // $klien=Klien::whereNotNull('id_klien')->with('user')->select('name')->get();
-        // $translator=Translator::whereNotNull('id_translator')->get();
-
-        // $id = Auth::user()->id;
-        // $bea = PendaftarPenawaran::where('id_penawaran', '=', $id);
-        // $user = PendaftarPenawaran::where('id_user', '=', $id);
-        // $idpen = $Penawaran->id_penawaran;
-        
+    public function detailDubbing(){        
         $order=Order::whereNotNull('id_parameter_order_dubbing')->with('klien')->with('translator')->get();
-        $klien=Klien::whereNotNull('id_klien')->with('user')->get();
-        $translator=Translator::whereNotNull('id_translator')->with('user')->get();
+        // $klien=Klien::whereNotNull('id_klien')->with('user')->get();
+        // $translator=Translator::whereNotNull('id_translator')->with('user')->get();
         // $data=User::where('id', 'id')
         // return ($klien );exit();
-        return view('pages.admin.detail_order.detail_dubbing', compact('order', 'klien', 'translator'));
+        return view('pages.admin.detail_order.detail_dubbing', compact('order'));
     }
     public function downloadDubbing($id_order)
     {
         $order = Order::find($id_order);
         $path_file = $order->path_file;       
         return Storage::download($path_file);
+    }
+
+    public function detailTranskrip(){
+        $order=Order::whereNotNull('durasi_audio')->get();
+        return view('pages.admin.detail_order.detail_transkrip', compact('order'));
+    }
+    public function downloadTranskrip($id_order)
+    {
+        $order = Order::find($id_order);
+        $path_file = $order->path_file;       
+        return Storage::download($path_file);
+    }
+
+    public function detailInterpreter(){
+        $order=Order::whereNotNull('longitude')->get();
+        return view('pages.admin.detail_order.detail_interpreter', compact('order'));
     }
 }

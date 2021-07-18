@@ -60,10 +60,6 @@
         <ul>
           <li><a class="active " href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="portfolio.html">Portfolio</a></li>
-          <li><a href="team.html">Team</a></li>
-          <li><a href="blog.html">Blog</a></li>
           @guest
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -105,8 +101,9 @@
       <!-- Slide 1 -->
       <div class="carousel-item active">
         <div class="carousel-container">
-          <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Moderna</span></h2>
-          <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+          <h2 class="animate__animated animate__fadeInDown">Welcome to <span>SIKOMBASA</span></h2>
+          <h4 class="animate__animated animate__fadeInUp">Sistem Informasi Komunikasi Olah dan Bahasa</h4>
+          <p class="animate__animated animate__fadeInUp">Website Penyedia Jasa Translate dan Rekruitmen Translator</p>
           <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
         </div>
       </div>
@@ -114,8 +111,8 @@
       <!-- Slide 2 -->
       <div class="carousel-item">
         <div class="carousel-container">
-          <h2 class="animate__animated animate__fadeInDown">Lorem Ipsum Dolor</h2>
-          <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+          <h2 class="animate__animated animate__fadeInDown">SIKOMBASA</h2>
+          <p class="animate__animated animate__fadeInUp">Sikombasa merupakan platform layanan terjemah online untuk mempermudahkan interaksi antara pengguna dengan penyedia jasa. Sikombasa dibuat dengan tujuan untuk mencapai pemerataan perekonomian secara digital.Transaksi perdagangan online di Indonesia memiliki masa depan cerah</p>
           <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
         </div>
       </div>
@@ -123,8 +120,8 @@
       <!-- Slide 3 -->
       <div class="carousel-item">
         <div class="carousel-container">
-          <h2 class="animate__animated animate__fadeInDown">Sequi ea ut et est quaerat</h2>
-          <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+          <h2 class="animate__animated animate__fadeInDown">SIKOMBASA</h2>
+          <p class="animate__animated animate__fadeInUp">Marketplace adalah salah satu pemain terbesar dalam bisnis ecommerce Indonesia. Hal itulah yang memacu terbentuknya Marketplace Sikombasa.</p>
           <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
         </div>
       </div>
@@ -149,32 +146,32 @@
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up">
             <div class="icon-box icon-box-pink">
                 <img src="./img/frontend/clock1.gif" style="width:55%; left: -25px;""></img>    
-              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+              <h4 class="title"><a href="">Tepat Waktu</a></h4>
+              <p class="description">Durasi pengerjaan dapat di sesuaikan oleh klien</p>
             </div>
           </div>
 
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="icon-box icon-box-cyan">
             <img  src="./img/frontend/diamond.gif" style="width:40%; left: -25px;""></img><br>
-              <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-              <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+              <h4 class="title"><a href="">Harga</a></h4>
+              <p class="description">Harga terjangkau sesuai dengan pilihan klien</p>
             </div>
           </div>
 
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
             <div class="icon-box icon-box-green">
             <img  src="./img/frontend/search.gif" style="width:40%; left: -15px;"></img><br>
-              <h4 class="title"><a href="">Magni Dolores</a></h4>
-              <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+              <h4 class="title"><a href="">Get a Job Translator</a></h4>
+              <p class="description">Terdapat sistem rekruitmen translator bagi yang punya keahlian dibidang jasa translate bahasa inggris</p>
             </div>
           </div>
 
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
             <div class="icon-box icon-box-blue">
             <img  src="./img/frontend/check.gif" style="width:40%; left: -15px;"></img><br>
-              <h4 class="title"><a href="">Nemo Enim</a></h4>
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+              <h4 class="title"><a href="">Sesuai Target</a></h4>
+              <p class="description">Pengerjaan sesuai target dari klien dan klien dapat mengajukan revisi jika pelayanan kurang puas</p>
             </div>
           </div>
 
@@ -195,10 +192,10 @@
 
             <div class="icon-box">
               <div class="icon"><i class="bx bx-fingerprint"></i></div>
-              <h4 class="title"><a href="#">Professional Translation Services</a></h4>
-              <p class="description">Access our highly trained and professional translators with just one click from anywhere in the world on any platform. This is as on-the-go as it gets.</p>
+              <h4 class="title"><a href="#">Get a Job Translator</a></h4>
+              <p class="description">SIKOMBASA membuka peluang pekerjaan sebagai translator atau jasa translate bagi yang mempunyai keahlian dibidang bahasa/sastra inggris</p>
               <div class="carousel-item active">
-                <a href="info.html" class="btn btn-outline-info  center-block">Read More</a>
+                <a href="info.html" class="btn btn-outline-info  center-block">Masuk Untuk Mendaftar</a>
             </div>
             </div>
 
@@ -214,22 +211,16 @@
 
         <div class="row">
           <div class="col-lg-6 video-box">
-            <img src="./img/why-us.jpg" class="img-fluid" alt="">
-            <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+            <img src="./img/why.jpg" class="img-fluid" alt="">
+            <a href="https://www.youtube.com/watch?v=OcKLHxl_gpI" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
           </div>
 
           <div class="col-lg-6 d-flex flex-column justify-content-center p-5">
 
             <div class="icon-box">
               <div class="icon"><i class="bx bx-fingerprint"></i></div>
-              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-            </div>
-
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-gift"></i></div>
-              <h4 class="title"><a href="">Nemo Enim</a></h4>
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+              <h4 class="title"><a href="">Profil Sekolah Vokasi UNS</a></h4>
+              <p class="description">Sekolah Vokasi Universitas Sebelas Maret Surakarta</p>
             </div>
 
           </div>
@@ -244,7 +235,6 @@
 
         <div class="section-title">
           <h2>Features</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
         </div>
 
         <div class="row" data-aos="fade-up">
@@ -252,33 +242,14 @@
             <img src="./img/features-1.svg" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-4">
-            <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
+            <h3>Freelance</h3>
             <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
+              Membuka lowongan pekerjaan sebagai penyedia jasa translate
             </p>
             <ul>
-              <li><i class="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+              <li><i class="bi bi-check"></i> Mendapatkan pengalaman dan sertifikat</li>
+              <li><i class="bi bi-check"></i> Mendapatkan Fee sesuai orderan</li>
             </ul>
-          </div>
-        </div>
-
-        <div class="row" data-aos="fade-up">
-          <div class="col-md-5 order-1 order-md-2">
-            <img src="./img/features-2.svg" class="img-fluid" alt="">
-          </div>
-          <div class="col-md-7 pt-5 order-2 order-md-1">
-            <h3>Corporis temporibus maiores provident</h3>
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
-            </p>
-            <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum
-            </p>
           </div>
         </div>
 
@@ -287,34 +258,18 @@
             <img src="./img/features-3.svg" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-5">
-            <h3>Sunt consequatur ad ut est nulla consectetur reiciendis animi voluptas</h3>
-            <p>Cupiditate placeat cupiditate placeat est ipsam culpa. Delectus quia minima quod. Sunt saepe odit aut quia voluptatem hic voluptas dolor doloremque.</p>
+            <h3>Terdapat menu order offline dan online</h3>
+            <p>Jasa Translate SIKOMBASA menyediakan 6 menu order. Order Offline seperti transkrip dan interpreter sedangakan menu online seperti teks, dokumen, subtitle dan dubbing</p>
             <ul>
-              <li><i class="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-              <li><i class="bi bi-check"></i> Facilis ut et voluptatem aperiam. Autem soluta ad fugiat.</li>
+              <li><i class="bi bi-check"></i> Dapat order lebih dari 1 kali</li>
+              <li><i class="bi bi-check"></i> Sistem pengerjaan cepat dan praktis</li>
+              <li><i class="bi bi-check"></i> Klien dapat melakukan revisi jika pelayanan kurang puas</li>
+              <li><i class="bi bi-check"></i> Klien dapat bertemu langsung dengan jasa terjemah</li>
             </ul>
           </div>
         </div>
 
-        <div class="row" data-aos="fade-up">
-          <div class="col-md-5 order-1 order-md-2">
-            <img src="./img/features-4.svg" class="img-fluid" alt="">
-          </div>
-          <div class="col-md-7 pt-5 order-2 order-md-1">
-            <h3>Quas et necessitatibus eaque impedit ipsum animi consequatur incidunt in</h3>
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
-            </p>
-            <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum
-            </p>
-          </div>
-        </div>
-
+        
       </div>
     </section><!-- End Features Section -->
 
@@ -323,55 +278,21 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
 
-    <div class="footer-newsletter">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-          </div>
-          <div class="col-lg-6">
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    
 
     <div class="footer-top">
       <div class="container">
         <div class="row">
 
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
-          </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
 
           <div class="col-lg-3 col-md-6 footer-contact">
             <h4>Contact Us</h4>
             <p>
-            Jalan Kolonel Sutarto Nomor 150K, <br>
-            Jebres, Surakarta City,<br>
-            Central Java 57126<br><br>
-              <strong>Phone:</strong> (0271) 662622<br>
+            Universitas Sebelas Maret <br>
+            Jl Kolonel Sutarto 150 K, Jebres Surakarta,<br>
+            <br>
+              <strong>Phone:</strong> 0271-664126<br>
               <strong>Email:</strong> kontak@d3ti.vokasi.uns.ac.id<br>
               <strong>Website:</strong> http://d3ti.vokasi.uns.ac.id<br>
             </p>
@@ -379,8 +300,8 @@
           </div>
 
           <div class="col-lg-3 col-md-6 footer-info">
-            <h3>About Moderna</h3>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+            <h3>About Sekolah Vokasi UNS</h3>
+            <p>Sekolah Vokasi Universitas Sebelas Maret Surakarta mengelola Program Studi Diploma, baik D3 maupun D4 atau Sarjana Terapan</p>
             <div class="social-links mt-3">
               <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
               <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>

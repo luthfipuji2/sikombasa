@@ -22,6 +22,29 @@
 
 <body>
 
+    <!-- /.col -->
+    @if(empty($klien->klien->id_klien))
+    <div class="row justify-content-right" float= "right">
+    <div class="col-14 col-sm-8 col-md-4">
+        <div class="info-box mb-4">
+                    <img src="./img/frontend/info2.gif" style="width:30%; left: -25px;""></img>    
+          <div class="info-box-content">
+          <div class="alert alert-info">
+            <strong>Info!</strong> Profil Anda Belum Lengkap
+          </div>
+          <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
+            <span class="info-box-number">
+          </span>
+          </div>
+        </div>
+      </div>
+      @else
+      <div class="alert alert-success">
+        <strong>Info!</strong> Profil Sudah Lengkap
+      </div>
+    @endif
+
+
   <!-- 2. AddChat widget -->
   <div id="addchat_app" 
         data-baseurl="{{ url('') }}"

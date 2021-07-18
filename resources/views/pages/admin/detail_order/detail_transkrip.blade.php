@@ -1,11 +1,10 @@
 @extends('layouts/admin/template')
 
-@section('title', 'Detail Order Teks')
+@section('title', 'Detail Order Transkrip')
 
 @section('container')
 
 <!-- Vendor CSS Files -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="{{ asset('vendor/animate.css/animate.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.css') }}">
@@ -42,7 +41,7 @@ $(document).ready(function(){
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Detail daftar Dokumen </h5>
+        <h5 class="modal-title" id="exampleModalLabel">Detail daftar Order Subtitle </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -69,20 +68,8 @@ $(document).ready(function(){
           </div>
           <div class="col-md-6">
             <div class="form-group">
-                <label>Jenis Teks</label>
-                <input type="text" value="{{$orders->parameterjenisteks->p_jenis_teks}}" class="form-control" readonly>
-            </div>           
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
                 <label>Jenis Layanan</label>
-                <input type="text" value="{{$orders->parameterjenislayanan->p_jenis_layanan}}" class="form-control" readonly>
-            </div>           
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-                <label>Jumlah Karakter</label>
-                <input type="text" value="{{$orders->jumlah_karakter}}" class="form-control" readonly>
+                <input type="text" value="{{$orders->jenis_layanan}}" class="form-control" readonly>
             </div>           
           </div>
           <div class="col-md-6">
@@ -91,25 +78,40 @@ $(document).ready(function(){
                 <input type="text" value="{{$orders->durasi_pengerjaan}} Hari" class="form-control" readonly>
             </div>           
           </div>
+
           <div class="col-md-6">
             <div class="form-group">
-                <label>Harga</label>
-                <input type="text" value="{{$orders->harga}}" class="form-control" readonly>
-            </div>           
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-                <label>Text Dari Klien</label>
-                <input type="text" value="{{$orders->text}}" class="form-control" readonly>
-            </div>           
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-                <label>Text pengerjaan Translator</label>
-                <input type="text" value="{{$orders->text_trans}}" class="form-control" readonly>
+                <label>Durasi Audio</label>
+                <input type="text" value="{{$orders->durasi_audio}}" class="form-control" readonly>
             </div>           
           </div>
 
+          <div class="col-md-6">
+            <div class="form-group">
+                
+            </div>           
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>Harga</label>
+                <input type="text" value="{{$orders->transaksi->nominal_transaksi}}" class="form-control" readonly>
+            </div>           
+          </div>
+          
+          <div class="col-md-6">
+            <div class="form-group">
+            <label for="path_file" class="col-sm-3 col-form-label">Download Video Klien</label>
+            <a href="/detail-order-subtitle/{{$orders->id_order}}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download Video</a>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+            <label for="path_file" class="col-sm-3 col-form-label">Download Pengerjaan Translator</label>
+            <a href="" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download Video</a>
+          </div>
+        </div>
 
 
           <!--/.col (left) -->
@@ -179,7 +181,6 @@ $(document).ready(function(){
                 <thead>
                     <tr>
                         <th scope="row" class="text-center">#</th>
-                        <th scope="row" class="text-center">Nomor Pendaftaran</th>
                         <th scope="row" class="text-center">Nama Klien</th>
                         <th scope="row" class="text-center">Nama Translator</th>
                         <th scope="row" class="text-center">Status Transaksi</th>
@@ -194,46 +195,39 @@ $(document).ready(function(){
                         <td scope="row" class="text-center">{{$orders->created_at->format('Y-m-d')}} - {{$orders->id_order}}</td>
                         <td scope="row" class="text-center">{{$orders->klien->user->name}}</td>
 
-                        <!-- kolom nama translator -->
                         <td scope="row" class="text-center">
                           @if(!empty($orders->id_translator))
                             {{$orders->translator->nama}}
                               @elseif(!empty($orders->id_translator == NULL) && ($orders->path_file_trans == NULL) && !empty($orders->transaksi->status_transaksi))
-                              <button type="button" class="badge badge-pill badge-warning" data-toggle="tooltip" data-html="true" title=" Menunggu" onclick="warning()">
-                                      !    </button>
+                              <button type="button" class="badge badge-pill badge-warning" data-toggle="tooltip" data-html="true" title="Menunggu">
+                                  !    </button>
                               @elseif(empty($orders->transaksi))
-                              <button type="button" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" title=" Belum Melakukan Pembayaran" onclick="danger()">
-                                      !    </button>
+                              <button type="button" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" title=" Belum Melakukan Pembayaran">
+                                  !    </button>
                           @endif
                         </td>
 
-                        <!-- kolom status transaksi -->
                         <td scope="row" class="text-center">
-                        @if(!empty($orders->is_status == "belum dibayar") && ($orders->is_status == NULL) )
+                        @if(!empty($orders->is_status == NULL) & $orders->is_status == "belum dibayar")
                         <span class="status text-warning">&bull;</span>Belum Dibayar
-                          @elseif($orders->transaksi)
+                          @elseif(!empty($orders->transaksi) )
                             @if($orders->transaksi->status_transaksi == "Berhasil")
                               <span class="status text-success">&bull;</span>Transaksi Berhasil
-                                @else($orders->transaksi->status_transaksi == "Pending")
-                                <span class="status text-warning">&bull;</span>Menunggu
+                              @elseif($orders->transaksi->status_transaksi == "Pending")
+                              <span class="status text-warning">&bull;</span>Menunggu
+                              @elseif($orders->transaksi->status_transaksi == "Gagal")
+                              <span class="status text-danger">&bull;</span>Gagal
                             @endif
                           @else
-                            <span class="status text-danger">&bull;</span>Gagal
-                          
+                          <span class="status text-danger">&bull;</span>Belum dibayar
                         @endif
                         </td>
 
-                        <!-- kolom status order -->
                         <td scope="row" class="text-center">
-                        @if(!empty($orders->id_translator) && ($orders->transaksi->status_transaksi == "Berhasil") && !empty($orders->text_trans))
-                        Selesai
-                          @elseif(!empty($orders->id_translator) && ($orders->transaksi->status_transaksi == "Berhasil"))
-                          Sedang dikerjakan translator
-                            @elseif(!empty($orders->path_file_trans == NULL) && ($orders->id_translator == NULL) && ($orders->transaksi))
-                            Menunggu Translator
-                              @else
-                              <button type="button" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" title=" Belum Melakukan Pembayaran" onclick="danger()">
-                                      !    </button>
+                        @if(!empty($orders->status_at) && !empty($orders->transaksi))
+                        {{$orders->status_at}}
+                          @elseif(empty($orders->transaksi))
+                          Belum Melakukan Pembayaran
                             @endif
                         </td>
 
@@ -283,28 +277,4 @@ $(document).ready(function(){
             } );
         } );
     </script>
-@endpush
-
-@push('scripts')
-<script>
-function danger() {
-  alert("Transaksi gagal, silahkan selesaikan transaksi terlebih dahulu");
-}
-</script>
-@endpush
-
-@push('scripts')
-<script>
-function warning() {
-  alert("Transaksi gagal, silahkan selesaikan transaksi terlebih dahulu");
-}
-</script>
-@endpush
-
-@push('scripts')
-<script>
-  function myFunction() {
-    alert('Button was clicked!');
-  }
-</script>
 @endpush
