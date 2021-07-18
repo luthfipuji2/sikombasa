@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\Order as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Klien\Order;
 
 
 class Revisi extends Model
@@ -23,4 +24,8 @@ class Revisi extends Model
         'tgl_pengajuan_revisi',
         'durasi_pengerjaan_revisi'
     ];
+
+    public function order(){
+        return $this->belongsTo('App\Models\Klien\Order', 'id_order', 'id_order');
+    }
 }

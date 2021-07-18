@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Klien;
 
 use App\Http\Controllers\Controller;
-use App\User;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
@@ -25,8 +25,11 @@ class OrderMenuController extends Controller
     
     public function index()
     {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $klien=User::where('id', $user->id)->with('klien')->first();
         $menu=Order::all();
-        return view('pages.klien.menu_order', compact('menu'));
+        return view('pages.klien.menu_order', compact('menu', 'klien'));
     }
 
     public function indexDokumen(){

@@ -14,7 +14,7 @@
                 <ul class="nav nav-pills">
                   <li><a href="order-interpreter/status" class=" text-center btn btn-primary">Bertemu Langsung</a></li>&nbsp;&nbsp;
                   <li><a href="order-transkrip/status" class=" text-center btn btn-primary">Transkrip</a></li>&nbsp;&nbsp;
-                  <li><a href="#" class=" text-center btn btn-primary">Teks</a></li>&nbsp;&nbsp;
+                  <li><a href="/status-order-teks" class=" text-center btn btn-primary">Teks</a></li>&nbsp;&nbsp;
                   <li><a href="#" class=" text-center btn btn-primary">Subtitle</a></li>&nbsp;&nbsp;
                   <li><a href="#" class=" text-center btn btn-primary">Dubbing</a></li>&nbsp;&nbsp;
                   <li><a href="#" class=" text-center btn btn-primary">Document</a></li>&nbsp;&nbsp;

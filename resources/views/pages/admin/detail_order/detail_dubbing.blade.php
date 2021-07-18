@@ -77,7 +77,7 @@ $(document).ready(function(){
           <div class="col-md-6">
             <div class="form-group">
                 <label>Durasi Pengerjaan</label>
-                <input type="text" value="{{$orders->durasi_pengerjaan}}" class="form-control" readonly>
+                <input type="text" value="{{$orders->durasi_pengerjaan}} Hari" class="form-control" readonly>
             </div>           
           </div>
           <div class="col-md-6">
@@ -193,6 +193,7 @@ $(document).ready(function(){
                 <thead>
                     <tr>
                         <th scope="row" class="text-center">#</th>
+                        <th scope="row" class="text-center">Nomor Pendaftaran</th>
                         <th scope="row" class="text-center">Nama Klien</th>
                         <th scope="row" class="text-center">Nama Translator</th>
                         <th scope="row" class="text-center">Status Transaksi</th>
@@ -204,24 +205,45 @@ $(document).ready(function(){
                 @foreach ($order as $orders)
                     <tr>
                         <td scope="row" class="text-center">{{$loop->iteration}}</td>
+                        <td scope="row" class="text-center">{{$orders->created_at->format('Y-m-d')}} - {{$orders->id_order}}</td>
                         <td scope="row" class="text-center">{{$orders->klien->user->name}}</td>
+
                         <td scope="row" class="text-center">
-                          @if(!empty($orders->is_translator))
-                          {{$translator}}
-                          @else
-                          <button type="button" class="badge badge-pill badge-warning" data-toggle="tooltip" data-html="true" title="Belum Melakukan Pembayaran">
-                              !    </button>
+                          @if(!empty($orders->id_translator))
+                            {{$orders->translator->nama}}
+                              @elseif(!empty($orders->id_translator == NULL) && ($orders->path_file_trans == NULL) && !empty($orders->transaksi->status_transaksi))
+                              <button type="button" class="badge badge-pill badge-warning" data-toggle="tooltip" data-html="true" title="Menunggu">
+                                  !    </button>
+                              @elseif(empty($orders->transaksi))
+                              <button type="button" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" title=" Belum Melakukan Pembayaran">
+                                  !    </button>
                           @endif
+                        </td>
+
                         <td scope="row" class="text-center">
-                        @if(!empty($orders->is_status == NULL) || $orders->is_status == "belum dibayar")
+                        @if(!empty($orders->is_status == NULL) & $orders->is_status == "belum dibayar")
                         <span class="status text-warning">&bull;</span>Belum Dibayar
-                        @elseif($orders->transaksi->status_transaksi == "Gagal")
-                        <span class="status text-danger">&bull;</span>Gagal
-                        @else
-                        <span class="status text-success">&bull;</span>Sudah Dibayar
+                          @elseif(!empty($orders->transaksi) )
+                            @if($orders->transaksi->status_transaksi == "Berhasil")
+                              <span class="status text-success">&bull;</span>Transaksi Berhasil
+                              @elseif($orders->transaksi->status_transaksi == "Pending")
+                              <span class="status text-warning">&bull;</span>Menunggu
+                              @elseif($orders->transaksi->status_transaksi == "Gagal")
+                              <span class="status text-danger">&bull;</span>Gagal
+                            @endif
+                          @else
+                          <span class="status text-danger">&bull;</span>Belum dibayar
                         @endif
                         </td>
-                        <td scope="row" class="text-center"></td>
+
+                        <td scope="row" class="text-center">
+                        @if(!empty($orders->status_at) && !empty($orders->transaksi))
+                        {{$orders->status_at}}
+                          @elseif(empty($orders->transaksi))
+                          Belum Melakukan Pembayaran
+                            @endif
+                        </td>
+
                         <td>
                             <a type="button" class="view" title="View Details" data-toggle="modal" data-target="#detailModal{{$orders->id_order}}"><i class="material-icons">&#xE5C8;</i></a>
                         </td>

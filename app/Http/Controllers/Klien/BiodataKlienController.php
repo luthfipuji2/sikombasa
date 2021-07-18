@@ -19,33 +19,33 @@ class BiodataKlienController extends Controller
     {
         $user = Auth::user();
         $user_id = $user->id;
-        $klien=User::where('id', $user->id);
+        $klien=User::where('id', $user->id)->with('klien')->first();
+        // $biodata=Klien::wi->first();
+        // return ($klien);exit();
         return view('pages.klien.home', compact('user', 'klien'));
     }
 
     //buat menu
     public function index(){
-
-        // $user = Auth::user();
-        // $user_id = $user->id;
-        // $users=User::where('id', $user_id)->first();
-        // $klien=Klien::where('id', $users->id)->first();
-        // return view('pages.klien.biodata', compact('user', 'users', 'klien'));    
-        $user = Auth::user();
-
-        if (Klien::where('id', $user->id)->exists()) {
-            $user = Auth::user(); //current authenticated user
-             //get the current authenticated user's id
-            $users = DB::table('users') //join table users and table user_details base from matched id;
-                ->join('klien', 'users.id', '=', 'klien.id')
-                ->where("users.id",$user->id) //find the record matched to the current authenticated user's id from the joint table records
-                ->first(); //get the record
-        return view('pages.klien.biodata', compact('users')); 
-        }
-        else {
-            $users = Auth::user(); //current authenticated user
-            return view('pages.klien.TambahDataKlien', compact('users'));
-        }
+        $users = Auth::user();
+        $klien=Klien::where('id', $users->id)->first();
+        // return ($klien); exit();
+        if(empty($klien))
+        return view('pages.klien.TambahDataKlien', compact('users', 'klien')); 
+        else
+        return view('pages.klien.biodata', compact('users', 'klien'));
+        // if (Klien::where('id', $user->id)->exists()) {
+        //     $user = Auth::user(); //current authenticated user
+        //     $users = DB::table('users') //join table users and table user_details base from matched id;
+        //         ->join('klien', 'users.id', '=', 'klien.id')
+        //         ->where("users.id",$user->id) //find the record matched to the current authenticated user's id from the joint table records
+        //         ->first(); //get the record
+        // return view('pages.klien.biodata', compact('users')); 
+        // }
+        // else {
+        //     $users = Auth::user(); //current authenticated user
+        //     return view('pages.klien.TambahDataKlien', compact('users'));
+        // }
     }
 
     public function show(Klien $klien){

@@ -175,7 +175,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="/daftar-order" class="nav-link">
                   <i class="fa fa-shopping-cart"></i>
-                  <p>Daftar Order</p>
+                  <p>&nbsp; Daftar Order</p>
                 </a>
               </li>
 

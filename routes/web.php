@@ -49,9 +49,12 @@ Route::middleware(['auth'])->group(function () {
          Route::put('/order-dokumen/{id_order}', 'App\Http\Controllers\Klien\OrderDokumenController@update')->name('update_order_dokumen');
         
          //order teks
-         Route::get('/order-teks', [App\Http\Controllers\Klien\OrderTeksController::class, 'menuOrder'])->name('menu-order');
-         Route::resource('order-teks', 'App\Http\Controllers\Klien\OrderTeksController');
-         Route::put('/order-teks/{id_order}', 'App\Http\Controllers\Klien\OrderTeksController@update')->name('update_order_teks');
+        Route::get('/order-teks', [App\Http\Controllers\Klien\OrderTeksController::class, 'menuOrder'])->name('menu-order');
+        Route::resource('order-teks', 'App\Http\Controllers\Klien\OrderTeksController');
+        Route::put('/order-teks/{id_order}', 'App\Http\Controllers\Klien\OrderTeksController@update')->name('update_order_teks');
+        Route::get('/status-order-teks', 'App\Http\Controllers\Klien\OrderTeksController@statusOrder')->name('status-order-teks');
+        Route::put('/revisi-teks/{id_order}', 'App\Http\Controllers\Klien\OrderTeksController@revisi')->name('revisi_order_teks');
+        Route::put('/finish-teks/{id_order}', 'App\Http\Controllers\Klien\OrderTeksController@finish')->name('finish_order_teks');
  
          //order dubbing
          Route::get('/order-subtitle', [App\Http\Controllers\Klien\OrderSubtitleController::class, 'menuOrder'])->name('menu-order');
@@ -95,6 +98,15 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/order-transkrip/create', [OrderTranskripController::class, 'store']);
         Route::get('/order-transkrip-download/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@downloadhasil');
         
+        //Route Transaksi
+        Route::resource('menu-pembayaran', 'App\Http\Controllers\Klien\MenuPembayaranController');
+        Route::resource('status-order', 'App\Http\Controllers\Klien\StatusOrderController');
+        Route::resource('review-order', 'App\Http\Controllers\Klien\ReviewOrderController');
+        Route::get('/bukti/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@download')->name('bukti.download');
+        Route::get('/detail-order-{id_order}', 'App\Http\Controllers\Klien\MenuPembayaranController@show')->name('detail-order');
+        Route::get('/invoice/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@invoice')->name('pdf.download');
+
+
         //Get a Job
         Route::get('/career', [App\Http\Controllers\Klien\CareerController::class, 'index']);
         Route::post('/career', [App\Http\Controllers\Klien\CareerController::class, 'store']);
@@ -111,17 +123,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/certificate-post-create', [App\Http\Controllers\Klien\PostController::class, 'createCertificate']); 
         Route::match(['get', 'post'], '/certificate-post-update/{id_keahlian}', [App\Http\Controllers\Klien\PostController::class, 'updateCertificate']);
         Route::get('/certificate-post/{id_keahlian}', [App\Http\Controllers\Klien\PostController::class, 'deleteCertificate']); 
-
-        
     });
 
     Route::middleware(['translator'])->group(function () {
-        //Dashboard
-        Route::get('/translator', [App\Http\Controllers\Translator\TranslatorController::class, 'index']);
-
-        //Profile Translator
-        Route::get('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'index']);
-        Route::patch('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'update']); 
+       //Dashboard
+         Route::get('/translator', [App\Http\Controllers\Translator\TranslatorController::class, 'index']);
 
         Route::patch('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'update']);
         Route::get('/account-translator', [App\Http\Controllers\Translator\AccountController::class, 'index']);
@@ -224,14 +230,25 @@ Route::middleware(['auth'])->group(function () {
 
         //menu detail order
         Route::get('daftar-order', 'App\Http\Controllers\Admin\DetailOrderController@index')->name('daftar-order');
-        Route::get('detail-order-teks', 'App\Http\Controllers\Admin\DetailOrderController@detailTeks')->name('detail-order-teks');
-        Route::get('detail-order-dokumen', 'App\Http\Controllers\Admin\DetailOrderController@detailDokumen')->name('detail-order-dokumen');
+        Route::get('det-order-teks', 'App\Http\Controllers\Admin\DetailOrderController@detailTeks')->name('det-order-teks');
+        
+        Route::get('det-order-dokumen', 'App\Http\Controllers\Admin\DetailOrderController@detailDokumen')->name('det-order-dokumen');
         Route::get('/detail-order-dokumen/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumen');
-        Route::get('detail-order-subtitle', 'App\Http\Controllers\Admin\DetailOrderController@detailSubtitle')->name('detail-order-subtitle');
+        
+        Route::get('det-order-subtitle', 'App\Http\Controllers\Admin\DetailOrderController@detailSubtitle')->name('det-order-subtitle');
         Route::get('/detail-order-subtitle/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadSubtitle');
-        Route::get('detail-order-dubbing', 'App\Http\Controllers\Admin\DetailOrderController@detailDubbing')->name('detail-order-dubbing');
+        
+        Route::get('det-order-dubbing', 'App\Http\Controllers\Admin\DetailOrderController@detailDubbing')->name('det-order-dubbing');
         Route::get('/detail-order-dubbing/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDubbing');
+        
+        Route::get('det-order-transkrip', 'App\Http\Controllers\Admin\DetailOrderController@detailTranskrip')->name('det-order-transkrip');
+        Route::get('/detail-order-transkrip/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadTranskrip');
 
+        Route::get('det-order-interpreter', 'App\Http\Controllers\Admin\DetailOrderController@detailInterpreter')->name('det-order-interpreter');
+
+
+
+        
          //Hiring
          Route::get('/hire', [App\Http\Controllers\Admin\HiringController::class, 'index']);
          Route::get('/index-wawancara', [App\Http\Controllers\Admin\HiringController::class, 'indexWawancara']);
@@ -241,7 +258,7 @@ Route::middleware(['auth'])->group(function () {
          Route::match(['get', 'post'],'/berkas/{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'berkas']);
          Route::match(['get', 'post'], '/catatan-{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'catatan']);
          
-
+        
 
         // Route::post('/users', [App\Http\Controllers\Admin\AdminController::class, 'storeUsers'])->name('users');
         // Route::delete('/users/{user}', [App\Http\Controllers\Admin\AdminController::class, 'destroyUsers'])->name('users');

@@ -10,6 +10,9 @@ use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use App\Models\Admin\ParameterOrderHarga;
 use App\Models\Admin\ParameterOrderTeks;
+use App\Models\Admin\Transaksi;
+use App\Models\Translator;
+use App\Models\Klien\Revisi;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -185,7 +188,7 @@ class OrderTeksController extends Controller
 
     public function update(Request $request, $id_order)
     {
-        //dd($order);
+        //dd($request);
         
         $this->validate($request, [
             'id_parameter_jenis_layanan' => 'required',
@@ -195,8 +198,8 @@ class OrderTeksController extends Controller
             'jumlah_karakter' => 'required',
         ]);
 
-        // $order=Order::find($id_order);
         $order=Order::findOrFail($id_order);
+        // return ($order);exit();
 
         Order::where('id_order', $id_order)
             ->update([
@@ -223,5 +226,59 @@ class OrderTeksController extends Controller
         Order::destroy($id_order);
         return redirect(route('order-teks.index'))->with('success','Order berhasil di hapus');
 
+    }
+
+    function statusOrder(){
+        $user=Auth::user();
+
+        // $transaksi=Transaksi::where('status_transaksi', 'Berhasil')->orWhere('status_transaksi', 'Pending')->orWhere('status_transaksi', 'Gagal')
+        //                     ->join('order', 'transaksi.id_order', '=', 'order.id_order')
+        //                     ->get();
+        $order=Order::whereNotNull('id_parameter_order_teks')->get();
+        Order::where('id_order', $order)
+            ->update([
+                'status_at'=> 'selesai'
+            ]);
+            // $revisi=Order::whereNotNull('id_parameter_order_teks')->get();
+
+        $status=Transaksi::where('status_transaksi', 'Berhasil')
+                            ->orWhere('status_transaksi', 'Pending')
+                            ->orWhere('status_transaksi', 'Gagal')
+                            ->with('order')
+                            ->get();
+        
+        // return $transaksi;
+        return view ('pages.klien.order.order_teks.status_order', compact('user', 'status', 'order'));
+        
+    }
+
+    public function revisi(Request $request, $id_order){
+        $user=Auth::user();
+        $order=Order::whereNotNull('id_parameter_order_teks')->get();
+        $revisi = Revisi::create([
+            'id_order'=>$request->id_order,
+            'text_revisi'=>$request->text_revisi,
+            'pesan_revisi'=>$request->pesan_revisi,
+            'tgl_pengajuan_revisi'=>Carbon::now(),
+            'durasi_pengerjaan_revisi'=>$request->durasi_pengerjaan_revisi,
+        ]);
+        // return ($revisi);exit();
+        return redirect(route('status-order-teks', $id_order))->with('success','Order teks berhasil di revisi');
+    }
+
+    public function finish (Request $request, $id_order){
+        $user=Auth::user();
+        $order_param=Order::whereNotNull('id_parameter_order_teks')->get();
+        $order=Order::findOrFail($id_order)->select('id_order')->first();
+        
+
+        $test=Order::where('id_order', $id_order)
+            ->update([
+                'status_at' => 'selesai',
+            ]);
+
+            // return($test);exit();
+        return redirect(route('status-order-teks', $id_order))->with('success', 'Order Finish!');
+        
     }
 }
