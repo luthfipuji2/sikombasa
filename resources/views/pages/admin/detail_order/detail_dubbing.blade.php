@@ -115,7 +115,7 @@ $(document).ready(function(){
           <div class="col-md-6">
             <div class="form-group">
             <label for="path_file" class="col-sm-3 col-form-label">Download Video Klien</label>
-            <a href="/detail-order-subtitle/{{$orders->id_order}}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download Video</a>
+            <a href="/detail-order-dubbing/{{$orders->id_order}}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download Video</a>
           </div>
         </div>
 

@@ -47,6 +47,12 @@ Route::middleware(['auth'])->group(function () {
          Route::get('/order-dokumen', [App\Http\Controllers\Klien\OrderDokumenController::class, 'menuOrder'])->name('menu-order');
          Route::resource('order-dokumen', 'App\Http\Controllers\Klien\OrderDokumenController');
          Route::put('/order-dokumen/{id_order}', 'App\Http\Controllers\Klien\OrderDokumenController@update')->name('update_order_dokumen');
+         Route::get('/status-order-dokumen', 'App\Http\Controllers\Klien\OrderDokumenController@statusOrder')->name('status-order-dokumen');
+         Route::put('/revisi-dokumen/{id_order}', 'App\Http\Controllers\Klien\OrderDokumenController@revisi')->name('revisi_order_dokumen');
+         Route::put('/finish-dokumen/{id_order}', 'App\Http\Controllers\Klien\OrderDokumenController@finish')->name('finish_order_dokumen');
+         Route::get('/download-dokumen-klien/{id_order}', 'App\Http\Controllers\Klien\OrderDokumenController@downloadDokumenKlien');
+         Route::get('/download-dokumen-translator/{id_order}', 'App\Http\Controllers\Klien\OrderDokumenController@downloadDokumenTranslator');
+         Route::get('/download-dokumen-revisi/{id_order}', 'App\Http\Controllers\Klien\OrderDokumenController@downloadDokumenRevisi');
         
          //order teks
         Route::get('/order-teks', [App\Http\Controllers\Klien\OrderTeksController::class, 'menuOrder'])->name('menu-order');
@@ -57,22 +63,26 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/finish-teks/{id_order}', 'App\Http\Controllers\Klien\OrderTeksController@finish')->name('finish_order_teks');
  
          //order dubbing
-         Route::get('/order-subtitle', [App\Http\Controllers\Klien\OrderSubtitleController::class, 'menuOrder'])->name('menu-order');
-         Route::resource('order-dubbing', 'App\Http\Controllers\Klien\OrderDubbingController');
-         Route::put('/order-dubbing/{id_order}', 'App\Http\Controllers\Klien\OrderDubbingController@update')->name('update_order_dubbing');
+        Route::get('/order-dubbing', [App\Http\Controllers\Klien\OrderDubbingController::class, 'menuOrder'])->name('menu-order');
+        Route::resource('order-dubbing', 'App\Http\Controllers\Klien\OrderDubbingController');
+        Route::put('/order-dubbing/{id_order}', 'App\Http\Controllers\Klien\OrderDubbingController@update')->name('update_order_dubbing');
+        Route::get('/status-order-dubbing', 'App\Http\Controllers\Klien\OrderDubbingController@statusOrder')->name('status-order-dubbing');
+        Route::put('/revisi-dubbing/{id_order}', 'App\Http\Controllers\Klien\OrderDubbingController@revisi')->name('revisi_order_dubbing');
+        Route::put('/finish-dubbing/{id_order}', 'App\Http\Controllers\Klien\OrderDubbingController@finish')->name('finish_order_dubbing');
+        Route::get('/download-dubbing-klien/{id_order}', 'App\Http\Controllers\Klien\OrderDubbingController@downloadDubbingKlien');
+        Route::get('/download-dubbing-translator/{id_order}', 'App\Http\Controllers\Klien\OrderDubbingController@downloadDubbingTranslator');
+        Route::get('/download-dubbing-revisi/{id_order}', 'App\Http\Controllers\Klien\OrderDubbingController@downloadDubbingRevisi');
          
          //order subtitle
-         Route::get('/order-subtitle', [App\Http\Controllers\Klien\OrderSubtitleController::class, 'menuOrder'])->name('menu-order');
-         Route::resource('order-subtitle', 'App\Http\Controllers\Klien\OrderSubtitleController');
-         Route::put('/order-subtitle/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@update')->name('update_order_subtitle');
-      
-
-        //Route Transaksi
-        Route::resource('menu-pembayaran', 'App\Http\Controllers\Klien\MenuPembayaranController');
-        Route::resource('status-order', 'App\Http\Controllers\Klien\StatusOrderController');
-        Route::get('/bukti/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@download')->name('bukti.download');
-        Route::get('/detail-order-{id_order}', 'App\Http\Controllers\Klien\MenuPembayaranController@show')->name('detail-order');
-        Route::get('/invoice/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@invoice')->name('pdf.download');
+        Route::get('/order-subtitle', [App\Http\Controllers\Klien\OrderSubtitleController::class, 'menuOrder'])->name('menu-order');
+        Route::resource('order-subtitle', 'App\Http\Controllers\Klien\OrderSubtitleController');
+        Route::put('/order-subtitle/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@update')->name('update_order_subtitle');
+        Route::get('/status-order-subtitle', 'App\Http\Controllers\Klien\OrderSubtitleController@statusOrder')->name('status-order-subtitle');
+        Route::put('/revisi-subtitle/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@revisi')->name('revisi_order_subtitle');
+        Route::put('/finish-subtitle/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@finish')->name('finish_order_subtitle');
+        Route::get('/download-subtitle-klien/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@downloadSubtitleKlien');
+        Route::get('/download-subtitle-translator/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@downloadSubtitleTranslator');
+        Route::get('/download-subtitle-revisi/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@downloadSubtitleRevisi');
 
         //Review Order
         Route::resource('review-order', 'App\Http\Controllers\Klien\ReviewOrderController');

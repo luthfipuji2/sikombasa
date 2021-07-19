@@ -234,21 +234,26 @@ class OrderTeksController extends Controller
         // $transaksi=Transaksi::where('status_transaksi', 'Berhasil')->orWhere('status_transaksi', 'Pending')->orWhere('status_transaksi', 'Gagal')
         //                     ->join('order', 'transaksi.id_order', '=', 'order.id_order')
         //                     ->get();
-        $order=Order::whereNotNull('id_parameter_order_teks')->get();
-        Order::where('id_order', $order)
+
+        $status=Order::whereNotNull('id_parameter_order_teks')
+                    ->join('transaksi', 'order.id_order', '=', 'transaksi.id_order')
+                    ->get();
+        
+        // return ($status);exit();
+        Order::where('id_order', $status)
             ->update([
                 'status_at'=> 'selesai'
             ]);
             // $revisi=Order::whereNotNull('id_parameter_order_teks')->get();
 
-        $status=Transaksi::where('status_transaksi', 'Berhasil')
-                            ->orWhere('status_transaksi', 'Pending')
-                            ->orWhere('status_transaksi', 'Gagal')
-                            ->with('order')
-                            ->get();
+        // $status=Transaksi::where('status_transaksi', 'Berhasil')
+        //                     ->orWhere('status_transaksi', 'Pending')
+        //                     ->orWhere('status_transaksi', 'Gagal')
+        //                     ->with('order')
+        //                     ->get();
         
         // return $transaksi;
-        return view ('pages.klien.order.order_teks.status_order', compact('user', 'status', 'order'));
+        return view ('pages.klien.order.order_teks.status_order', compact('user', 'status'));
         
     }
 

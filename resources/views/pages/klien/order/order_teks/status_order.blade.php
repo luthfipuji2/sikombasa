@@ -34,8 +34,8 @@ $(document).ready(function(){
 <link rel="stylesheet" href="{{ asset('css/detail_order.css') }}">
 
 <!-- Modal Detail -->
-@foreach ($order as $orders)
-<div class="modal fade" id="detailModal{{$orders->id_order}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach ($status as $stat)
+<div class="modal fade" id="detailModal{{$stat->id_order}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -55,47 +55,61 @@ $(document).ready(function(){
                 <!-- left column -->
                 <div class="col-md-6">
                   <div class="form-group">
+                      <label>Nama Translator</label>
+                      @if(!empty($stat->id_translator))
+                      <input type="text" value="{{$stat->translator->nama}}" class="form-control" readonly>
+                      @elseif(!empty($stat->id_translator == NULL) && ($stat->path_file_trans == NULL) && ($stat->transaksi->status_transaksi == "Berhasil") || ($stat->transaksi->status_transaksi == "Pending"))
+                      <input type="text" value="Sedang menunggu translator" class="form-control" readonly>
+                      @elseif(!empty($stat->transaksi->status_transaksi == "Gagal"))
+                      <input type="text" value="   " class="form-control" readonly>
+                      @endif
+                  </div>           
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
                       <label>Jenis Teks</label>
-                      <input type="text" value="{{$orders->parameterjenisteks->p_jenis_teks}}" class="form-control" readonly>
+                      <input type="text" value="{{$stat->parameterjenisteks->p_jenis_teks}}" class="form-control" readonly>
                   </div>           
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                       <label>Jenis Layanan</label>
-                      <input type="text" value="{{$orders->parameterjenislayanan->p_jenis_layanan}}" class="form-control" readonly>
+                      <input type="text" value="{{$stat->parameterjenislayanan->p_jenis_layanan}}" class="form-control" readonly>
                   </div>           
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                       <label>Jumlah Karakter</label>
-                      <input type="text" value="{{$orders->jumlah_karakter}}" class="form-control" readonly>
+                      <input type="text" value="{{$stat->jumlah_karakter}}" class="form-control" readonly>
                   </div>           
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                       <label>Durasi Pengerjaan</label>
-                      <input type="text" value="{{$orders->durasi_pengerjaan}} Hari" class="form-control" readonly>
+                      <input type="text" value="{{$stat->durasi_pengerjaan}} Hari" class="form-control" readonly>
                   </div>           
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                       <label>Harga</label>
-                      <input type="text" value="{{$orders->harga}}" class="form-control" readonly>
+                      <input type="text" value="{{$stat->harga}}" class="form-control" readonly>
                   </div>           
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                       <label>Text Dari Klien</label>
-                      <input type="text" value="{{$orders->text}}" class="form-control" readonly>
+                      <input type="text" value="{{$stat->text}}" class="form-control" readonly>
                   </div>           
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                      <label>Text pengerjaan Translator</label>
-                      @if(!empty($orders->text_trans))
-                      <input type="text" value="{{$orders->text_trans}}" class="form-control" readonly>
-                      @else 
-                      <input type="text" value="" class="form-control" readonly>
+                      @if(!empty($stat->revisi->text_trans))
+                      <label>Text Hasil Revisi Dari Translator</label>
+                      <input type="text" value="{{$stat->revisi->text_revisi}}" class="form-control" readonly>
+                      @else (empty($stat->revisi->text_trans))
+                      <label>Text Pengerjaan Dari Translator</label>
+                      <input type="text" value="{{$stat->text_trans}}" class="form-control" readonly>
                       @endif
                   </div>           
                 </div>
@@ -118,8 +132,8 @@ $(document).ready(function(){
 
 
 <!-- Modal Perbaikan -->
-@foreach ($order as $orders)
-<div class="modal fade" id="perbaikanModal{{$orders->id_order}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" value="{{$orders->id_order}}" aria-hidden="true">
+@foreach ($status as $stat)
+<div class="modal fade" id="perbaikanModal{{$stat->id_order}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" value="{{$stat->id_order}}" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -128,7 +142,7 @@ $(document).ready(function(){
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="{{route('revisi_order_teks', $orders->id_order)}}" method="post">
+      <form action="{{route('revisi_order_teks', $stat->id_order)}}" method="post">
       {{ csrf_field() }}
       {{ method_field('PUT') }}
         <div class="modal-body">
@@ -184,8 +198,8 @@ $(document).ready(function(){
 
 
 <!-- Modal selesai -->
-@foreach ($order as $orders)
-<div class="modal fade" id="finishModal{{$orders->id_order}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach ($status as $stat)
+<div class="modal fade" id="finishModal{{$stat->id_order}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -194,7 +208,7 @@ $(document).ready(function(){
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="{{route('finish_order_teks', $orders->id_order)}}" method="post">
+      <form action="{{route('finish_order_teks', $stat->id_order)}}" method="post">
       {{ csrf_field() }}
       {{ method_field('PUT') }}
         <div class="modal-body">
@@ -206,18 +220,18 @@ $(document).ready(function(){
 
                 <div class="col-md-6">
                   <div class="form-group">
-                      @if(!empty($orders->revisi->durasi_pengerjaan_revisi))
+                      @if(!empty($stat->revisi->durasi_pengerjaan_revisi))
                         <label>Durasi Pengerjaan Revisi</label>
-                        <input type="text" value="{{$orders->revisi->durasi_pengerjaan_revisi}} Hari" class="form-control" readonly>
+                        <input type="text" value="{{$stat->revisi->durasi_pengerjaan_revisi}} Hari" class="form-control" readonly>
                       @else
                       @endif
                   </div>           
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                      @if(!empty($orders->revisi->pesan_revisi))
+                      @if(!empty($stat->revisi->pesan_revisi))
                         <label>Pesan Revisi</label>
-                        <input type="text" value="{{$orders->revisi->pesan_revisi}}" class="form-control" readonly>
+                        <input type="text" value="{{$stat->revisi->pesan_revisi}}" class="form-control" readonly>
                       @else
                       @endif
                   </div>           
@@ -225,17 +239,17 @@ $(document).ready(function(){
                 <div class="col-md-6">
                   <div class="form-group">
                         <label>Text Anda</label>
-                        <input type="text" value="{{$orders->text}}" class="form-control" readonly>
+                        <input type="text" value="{{$stat->text}}" class="form-control" readonly>
                   </div>           
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                      @if(!empty($orders->revisi->text_trans))
+                      @if(!empty($stat->revisi->text_trans))
                       <label>Text Hasil Revisi Dari Translator</label>
-                      <input type="text" value="{{$orders->revisi->text_revisi}}" class="form-control" readonly>
-                      @else (empty($orders->revisi->text_trans))
+                      <input type="text" value="{{$stat->revisi->text_revisi}}" class="form-control" readonly>
+                      @else (empty($stat->revisi->text_trans))
                       <label>Text Pengerjaan Dari Translator</label>
-                      <input type="text" value="{{$orders->text_trans}}" class="form-control" readonly>
+                      <input type="text" value="{{$stat->text_trans}}" class="form-control" readonly>
                       @endif
                   </div>           
                 </div>
@@ -266,12 +280,12 @@ $(document).ready(function(){
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li><a href="order-interpreter/status" class=" text-center btn btn-primary">Offline</a></li>&nbsp;&nbsp;
+                <li><a href="order-interpreter/status" class=" text-center btn btn-primary">Bertemu Langsung</a></li>&nbsp;&nbsp;
                   <li><a href="order-transkrip/status" class=" text-center btn btn-primary">Transkrip</a></li>&nbsp;&nbsp;
                   <li><a href="/status-order-teks" class=" text-center btn btn-primary">Teks</a></li>&nbsp;&nbsp;
-                  <li><a href="#" class=" text-center btn btn-primary">Subtitle</a></li>&nbsp;&nbsp;
-                  <li><a href="#" class=" text-center btn btn-primary">Dubbing</a></li>&nbsp;&nbsp;
-                  <li><a href="#" class=" text-center btn btn-primary">Document</a></li>&nbsp;&nbsp;
+                  <li><a href="/status-order-subtitle" class=" text-center btn btn-primary">Subtitle</a></li>&nbsp;&nbsp;
+                  <li><a href="/status-order-dubbing" class=" text-center btn btn-primary">Dubbing</a></li>&nbsp;&nbsp;
+                  <li><a href="/status-order-dokumen" class=" text-center btn btn-primary">Dokumen</a></li>&nbsp;&nbsp;
                 </ul>
 
         <div class="container-xl">
@@ -328,7 +342,7 @@ $(document).ready(function(){
                 @foreach ($status as $stat)
                     <tr>
                         <td scope="row" class="text-center">{{$loop->iteration}}</td>
-                        <td scope="row" class="text-center">{{$stat->order->created_at->format('Y-m-d')}} - {{$stat->id_order}}</td>
+                        <td scope="row" class="text-center">{{$stat->created_at->format('Y-m-d')}} - {{$stat->id_order}}</td>
 
                         <!-- kolom status transaksi -->
                         <td scope="row" class="text-center">
@@ -337,23 +351,23 @@ $(document).ready(function(){
                             @elseif ($stat->status_transaksi == "Pending")
                             <button type="button" class="badge badge-pill badge-warning">Menunggu</button>
                                 @elseif ($stat->status_transaksi == "Gagal")
-                                <button type="button" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" title=" Belum Melakukan Pembayaran" onclick="myFunction()">
+                                <button type="button" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" onclick="myFunction()">
                                 !    </button>
                         @endif
                         </td>
 
                         <!-- kolom status order -->
                         <td scope="row" class="text-center">
-                        @if(!empty($stat->order->id_translator) && ($stat->status_transaksi == "Berhasil") && !empty($stat->order->text_trans) && empty($stat->order->revisi->id_revisi) || !empty($stat->order->revisi->text_revisi))
+                        @if(!empty($stat->id_translator) && ($stat->status_transaksi == "Berhasil") && !empty($stat->text_trans) && empty($stat->revisi->id_revisi) || !empty($stat->revisi->text_revisi))
                         <button type="button" class="badge badge-pill badge-success">Sudah dikerjakan translator</button>
-                          @elseif(!empty($stat->order->id_translator) && ($stat->status_transaksi == "Berhasil") && !empty($stat->order->revisi->id_revisi))
+                          @elseif(!empty($stat->id_translator) && ($stat->status_transaksi == "Berhasil") && !empty($stat->revisi->id_revisi))
                           <button type="button" class="badge badge-pill badge-dark">Sedang Proses Revisi</button>
-                              @elseif(!empty($stat->order->id_translator) && ($stat->status_transaksi == "Berhasil"))
+                              @elseif(!empty($stat->id_translator) && ($stat->status_transaksi == "Berhasil"))
                               <button type="button" class="badge badge-pill badge-primary">Sedang dikerjakan translator</button>
-                                  @elseif(!empty($stat->order->id_translator == NULL) && ($stat->order->path_file_trans == NULL) && !empty($stat->status_transaksi == "Pending"))
+                                  @elseif(!empty($stat->id_translator == NULL) && ($stat->path_file_trans == NULL) && !empty($stat->status_transaksi == "Pending") || !empty($stat->status_transaksi == "Berhasil"))
                                   <button type="button" class="badge badge-pill badge-warning">Sedang Menunggu Translator</button>
                                       @elseif ($stat->status_transaksi == "Gagal")
-                                      <button type="button" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" title=" Belum Melakukan Pembayaran" onclick="myFunction()">
+                                      <button type="button" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" onclick="myFunction()">
                                       !    </button>
                         @endif
                         </td>
@@ -362,32 +376,32 @@ $(document).ready(function(){
 
                         <td scope="row" class="text-center">
                             <!-- jika layanan premium -->
-                            @if(!empty($stat->order->text_trans) && ($stat->order->parameterjenislayanan->p_jenis_layanan == "Premium") && empty($stat->order->revisi->id_revisi) && ($stat->order->status_at == "belum selesai"))
+                            @if(!empty($stat->text_trans) && ($stat->parameterjenislayanan->p_jenis_layanan == "Premium") && empty($stat->revisi->id_revisi) && ($stat->status_at == "belum selesai"))
                             <a type="button" class="detail" title="Detail Order" data-toggle="modal" data-target="#detailModal{{$stat->id_order}}">Detail</a>
                             <a type="button" class="revisi" title="Ajukan Perbaikan" data-toggle="modal" data-target="#perbaikanModal{{$stat->id_order}}">Revisi</a>
                             <a type="button" class="finish" title="Selesai" data-toggle="modal" data-target="#finishModal{{$stat->id_order}}">Finish</a>
                             
-                            @elseif(!empty($stat->order->revisi->id_revisi) && ($stat->order->status_at == "belum selesai") && ($stat->order->parameterjenislayanan->p_jenis_layanan == "Premium") && !empty($stat->order->revisi->text_revisi))
+                            @elseif(!empty($stat->revisi->id_revisi) && ($stat->status_at == "belum selesai") && ($stat->parameterjenislayanan->p_jenis_layanan == "Premium") && !empty($stat->revisi->text_revisi))
                             <a type="button" class="detail" title="Detail Order" data-toggle="modal" data-target="#detailModal{{$stat->id_order}}">Detail</a>
                             <a type="button" class="finish" title="Selesai" data-toggle="modal" data-target="#finishModal{{$stat->id_order}}">Finish</a>
 
-                            @elseif(!empty($stat->order->revisi->id_revisi) && ($stat->order->status_at == "belum selesai") && ($stat->order->parameterjenislayanan->p_jenis_layanan == "Premium") && empty($stat->order->revisi->text_revisi))
+                            @elseif(!empty($stat->revisi->id_revisi) && ($stat->status_at == "belum selesai") && ($stat->parameterjenislayanan->p_jenis_layanan == "Premium") && empty($stat->revisi->text_revisi))
                             <a type="button" class="detail" title="Detail Order" data-toggle="modal" data-target="#detailModal{{$stat->id_order}}">Detail</a>
 
                             <!-- jika layanan basic -->
-                            @elseif(!empty($stat->order->text_trans) && ($stat->order->parameterjenislayanan->p_jenis_layanan == "Basic") && ($stat->order->status_at == "belum selesai"))
+                            @elseif(!empty($stat->text_trans) && ($stat->parameterjenislayanan->p_jenis_layanan == "Basic") && ($stat->status_at == "belum selesai"))
                             <a type="button" class="detail" title="Detail Order" data-toggle="modal" data-target="#detailModal{{$stat->id_order}}">Detail</a>
                             <a type="button" class="finish" title="Selesai" data-toggle="modal" data-target="#finishModal{{$stat->id_order}}">Finish</a>
                             
-                            @elseif(empty($stat->order->text_trans))
+                            @elseif(empty($stat->text_trans))
                             <a type="button" class="detail" title="Detail Order" data-toggle="modal" data-target="#detailModal{{$stat->id_order}}">Detail</a>
                             
                             <!-- jika order sudah selesai -->
-                            @elseif(!empty($stat->order->text_trans) && ($stat->order->parameterjenislayanan->p_jenis_layanan == "Premium") && !empty($stat->order->revisi->id_revisi) && ($stat->order->status_at == "selesai"))
+                            @elseif(!empty($stat->text_trans) && ($stat->parameterjenislayanan->p_jenis_layanan == "Premium") && !empty($stat->revisi->id_revisi) && ($stat->status_at == "selesai"))
                             <a type="button" class="detail" title="Detail Order" data-toggle="modal" data-target="#detailModal{{$stat->id_order}}">Detail</a>
-                            @elseif(!empty($stat->order->text_trans) && ($stat->order->parameterjenislayanan->p_jenis_layanan == "Premium") && !empty($stat->order->revisi->id_revisi) && ($stat->order->status_at == "selesai") || !empty($stat->order->revisi->text_revisi))
+                            @elseif(!empty($stat->text_trans) && ($stat->parameterjenislayanan->p_jenis_layanan == "Premium") && !empty($stat->revisi->id_revisi) && ($stat->status_at == "selesai") || !empty($stat->revisi->text_revisi))
                             <a type="button" class="detail" title="Detail Order" data-toggle="modal" data-target="#detailModal{{$stat->id_order}}">Detail</a>
-                            @elseif(!empty($stat->order->text_trans) && ($stat->order->parameterjenislayanan->p_jenis_layanan == "Basic") && ($stat->order->status_at == "selesai"))
+                            @elseif(!empty($stat->text_trans) && ($stat->parameterjenislayanan->p_jenis_layanan == "Basic") && ($stat->status_at == "selesai"))
                             <a type="button" class="detail" title="Detail Order" data-toggle="modal" data-target="#detailModal{{$stat->id_order}}">Detail</a>
                             @endif
                         </td>
