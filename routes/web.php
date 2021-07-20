@@ -53,6 +53,8 @@ Route::middleware(['auth'])->group(function () {
          Route::get('/download-dokumen-klien/{id_order}', 'App\Http\Controllers\Klien\OrderDokumenController@downloadDokumenKlien');
          Route::get('/download-dokumen-translator/{id_order}', 'App\Http\Controllers\Klien\OrderDokumenController@downloadDokumenTranslator');
          Route::get('/download-dokumen-revisi/{id_order}', 'App\Http\Controllers\Klien\OrderDokumenController@downloadDokumenRevisi');
+         Route::get('/review-dokumen', 'App\Http\Controllers\Klien\OrderDokumenController@review')->name('review_order_dokumen');
+         Route::put('/review-dokumen/{id_order}', 'App\Http\Controllers\Klien\OrderDokumenController@storeReview')->name('tambah_review_dokumen');
         
          //order teks
         Route::get('/order-teks', [App\Http\Controllers\Klien\OrderTeksController::class, 'menuOrder'])->name('menu-order');
@@ -61,6 +63,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/status-order-teks', 'App\Http\Controllers\Klien\OrderTeksController@statusOrder')->name('status-order-teks');
         Route::put('/revisi-teks/{id_order}', 'App\Http\Controllers\Klien\OrderTeksController@revisi')->name('revisi_order_teks');
         Route::put('/finish-teks/{id_order}', 'App\Http\Controllers\Klien\OrderTeksController@finish')->name('finish_order_teks');
+        Route::get('/review-teks', 'App\Http\Controllers\Klien\OrderTeksController@review')->name('review_order_teks');
+        Route::put('/review-teks/{id_order}', 'App\Http\Controllers\Klien\OrderTeksController@storeReview')->name('tambah_review_teks');
  
          //order dubbing
         Route::get('/order-dubbing', [App\Http\Controllers\Klien\OrderDubbingController::class, 'menuOrder'])->name('menu-order');
@@ -72,6 +76,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/download-dubbing-klien/{id_order}', 'App\Http\Controllers\Klien\OrderDubbingController@downloadDubbingKlien');
         Route::get('/download-dubbing-translator/{id_order}', 'App\Http\Controllers\Klien\OrderDubbingController@downloadDubbingTranslator');
         Route::get('/download-dubbing-revisi/{id_order}', 'App\Http\Controllers\Klien\OrderDubbingController@downloadDubbingRevisi');
+        Route::get('/review-dubbing', 'App\Http\Controllers\Klien\OrderDubbingController@review')->name('review_order_dubbing');
+        Route::put('/review-dubbing/{id_order}', 'App\Http\Controllers\Klien\OrderDubbingController@storeReview')->name('tambah_review_dubbing');
          
          //order subtitle
         Route::get('/order-subtitle', [App\Http\Controllers\Klien\OrderSubtitleController::class, 'menuOrder'])->name('menu-order');
@@ -83,6 +89,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/download-subtitle-klien/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@downloadSubtitleKlien');
         Route::get('/download-subtitle-translator/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@downloadSubtitleTranslator');
         Route::get('/download-subtitle-revisi/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@downloadSubtitleRevisi');
+        Route::get('/review-subtitle', 'App\Http\Controllers\Klien\OrderSubtitleController@review')->name('review_order_subtitle');
+        Route::put('/review-subtitle/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@storeReview')->name('tambah_review_subtitle');
 
         //Review Order
         Route::resource('review-order', 'App\Http\Controllers\Klien\ReviewOrderController');

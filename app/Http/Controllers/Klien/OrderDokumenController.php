@@ -10,6 +10,7 @@ use App\Models\Admin\ParameterOrderDokumen;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use App\Models\Klien\Revisi;
+use App\Models\Klien\Review;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
@@ -325,5 +326,36 @@ class OrderDokumenController extends Controller
         $result = $rev[0]->path_file_revisi;
         // return ($result);exit();
         return Storage::download($result);
+    }
+
+    public function review(){
+        $user = Auth::user();
+
+        $klien=Klien::where('id', $user->id)->first();
+        // $review = Order::whereNotNull('id_parameter_order_teks')->whereNotNull('text_trans')->where('status_at', 'selesai')->with('review')->get();
+        
+        $review = Order::where('id_klien', $klien->id_klien)
+                        ->whereNotNull('id_parameter_order_dokumen')
+                        ->whereNotNull('path_file_trans')
+                        ->where('status_at', 'selesai')
+                        // ->with('review')
+                        ->get();
+        $data=$review[0];
+        $riwayat=Review::where('id_order', $data->id_order)->get();
+        // return ($riwayat);exit();
+
+        return view ('pages.klien.order.order_dokumen.review', compact('user', 'review', 'riwayat'));
+    }
+
+    public function storeReview(Request $request, $id_order){
+        $user=Auth::user();
+        $order=Order::whereNotNull('id_parameter_order_dokumen')->whereNotNull('path_file_trans')->where('status_at', 'selesai')->get();
+        $review = Review::create([
+            'id_order'=>$request->id_order,
+            'review_text'=>$request->review_text,
+            'rating'=>$request->rating,
+        ]);
+        // return ($review);exit();
+        return redirect(route('review_order_dokumen'))->with('success','Review Berhasil Di Tambahkan');
     }
 }

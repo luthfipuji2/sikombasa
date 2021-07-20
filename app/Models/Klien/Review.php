@@ -20,4 +20,8 @@ class Review extends Model
         'review_text',
         'rating'
     ];
+
+    public function order(){
+        return $this->belongsTo('App\Models\Klien\Order', 'id_order', 'id_order');
+    }
 }

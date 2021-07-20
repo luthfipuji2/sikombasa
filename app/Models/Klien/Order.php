@@ -95,4 +95,8 @@ class Order extends Model
     public function revisi(){
         return $this->hasOne('App\Models\Klien\Revisi', 'id_order', 'id_order');
     }
+
+    public function review(){
+        return $this->hasOne('App\Models\Klien\Review', 'id_order', 'id_order');
+    }
 }
