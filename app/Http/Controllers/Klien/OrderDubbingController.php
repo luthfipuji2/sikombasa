@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Klien;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Models\Klien\Review;
 use App\Models\Admin\ParameterJenisLayanan;
 use App\Models\Admin\ParameterDubber;
 use App\Models\Admin\ParameterOrderSubtitle;
 use App\Models\Admin\Transaksi;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
+use App\Models\Klien\Revisi;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
@@ -264,5 +266,113 @@ class OrderDubbingController extends Controller
     {
         Order::destroy($id_order);
         return redirect(route('order-dubbing.index'))->with('success','Order berhasil di hapus');
+    }
+
+    function statusOrder(){
+        $user=Auth::user();
+
+        // $transaksi=Transaksi::where('status_transaksi', 'Berhasil')->orWhere('status_transaksi', 'Pending')->orWhere('status_transaksi', 'Gagal')
+        //                     ->join('order', 'transaksi.id_order', '=', 'order.id_order')
+        //                     ->get();
+        $status=Order::whereNotNull('id_parameter_order_dubbing')
+                    ->join('transaksi', 'order.id_order', '=', 'transaksi.id_order')
+                    ->get();
+        
+        // return ($status);exit();
+        Order::where('id_order', $status)
+            ->update([
+                'status_at'=> 'selesai'
+            ]);
+
+        // return ($status);exit();
+        return view ('pages.klien.order.order_dubbing.status_order', compact('user', 'status'));
+        
+    }
+
+    public function revisi(Request $request, $id_order){
+        $user=Auth::user();
+        $order=Order::whereNotNull('id_parameter_order_dubbing')->get();
+        $revisi = Revisi::create([
+            'id_order'=>$request->id_order,
+            'path_file_revisi'=>$request->path_file_revisi,
+            'pesan_revisi'=>$request->pesan_revisi,
+            'tgl_pengajuan_revisi'=>Carbon::now(),
+            'durasi_pengerjaan_revisi'=>$request->durasi_pengerjaan_revisi,
+        ]);
+        // return ($revisi);exit();
+        return redirect(route('status-order-dubbing', $id_order))->with('success','Order dubbing berhasil di revisi');
+    }
+
+    public function finish (Request $request, $id_order){
+        $user=Auth::user();
+        $order_param=Order::whereNotNull('id_parameter_order_dubbing')->get();
+        $order=Order::findOrFail($id_order)->select('id_order')->first();
+        
+
+        $test=Order::where('id_order', $id_order)
+            ->update([
+                'status_at' => 'selesai',
+            ]);
+
+            // return($test);exit();
+        return redirect(route('status-order-dubbing', $id_order))->with('success', 'Order Finish!');
+        
+    }
+
+    public function downloadDubbingKlien($id_order)
+    {
+        $order = Order::find($id_order);
+        $path_file = $order->path_file;       
+        return Storage::download($path_file);
+        // return ($path_file);exit();
+    }
+
+    public function downloadDubbingTranslator($id_order)
+    {
+        $order = Order::find($id_order);
+        $path_file_trans = $order->path_file_trans;       
+        return Storage::download($path_file_trans);
+    }
+
+    public function downloadDubbingRevisi($id_order)
+    {   
+        $order=Order::find($id_order);
+        $rev=Revisi::where('id_order', $order->id_order)->get();
+
+        //keluarin array
+        $result = $rev[0]->path_file_revisi;
+        // return ($result);exit();
+        return Storage::download($result);
+    }
+
+    public function review(){
+        $user = Auth::user();
+
+        $klien=Klien::where('id', $user->id)->first();
+        // $review = Order::whereNotNull('id_parameter_order_teks')->whereNotNull('text_trans')->where('status_at', 'selesai')->with('review')->get();
+        
+        $review = Order::where('id_klien', $klien->id_klien)
+                        ->whereNotNull('id_parameter_order_dubbing')
+                        ->whereNotNull('path_file_trans')
+                        ->where('status_at', 'selesai')
+                        // ->with('review')
+                        ->get();
+        $data=$review[0];
+        $riwayat=Review::where('id_order', $data->id_order)->get();
+        // return ($riwayat);exit();
+
+        return view ('pages.klien.order.order_dubbing.review', compact('user', 'review', 'riwayat'));
+    }
+
+    public function storeReview(Request $request, $id_order){
+        $user=Auth::user();
+        $order=Order::whereNotNull('id_parameter_order_dubbing')->whereNotNull('path_file_trans')->where('status_at', 'selesai')->get();
+        $review = Review::create([
+            'id_order'=>$request->id_order,
+            'review_text'=>$request->review_text,
+            'rating'=>$request->rating,
+        ]);
+        // return ($review);exit();
+        return redirect(route('review_order_dubbing'))->with('success','Review Berhasil Di Tambahkan');
     }
 }

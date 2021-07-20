@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\ParameterJenisLayanan;
 use App\Models\Admin\ParameterJenisTeks;
 use App\User;
+use App\Models\Klien\Review;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use App\Models\Admin\ParameterOrderHarga;
@@ -21,6 +22,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
 use Mockery\Generator\Parameter;
+use Illuminate\Support\Facades\DB;
 
 class OrderTeksController extends Controller
 {
@@ -234,21 +236,26 @@ class OrderTeksController extends Controller
         // $transaksi=Transaksi::where('status_transaksi', 'Berhasil')->orWhere('status_transaksi', 'Pending')->orWhere('status_transaksi', 'Gagal')
         //                     ->join('order', 'transaksi.id_order', '=', 'order.id_order')
         //                     ->get();
-        $order=Order::whereNotNull('id_parameter_order_teks')->get();
-        Order::where('id_order', $order)
+
+        $status=Order::whereNotNull('id_parameter_order_teks')
+                    ->join('transaksi', 'order.id_order', '=', 'transaksi.id_order')
+                    ->get();
+        
+        // return ($status);exit();
+        Order::where('id_order', $status)
             ->update([
                 'status_at'=> 'selesai'
             ]);
             // $revisi=Order::whereNotNull('id_parameter_order_teks')->get();
 
-        $status=Transaksi::where('status_transaksi', 'Berhasil')
-                            ->orWhere('status_transaksi', 'Pending')
-                            ->orWhere('status_transaksi', 'Gagal')
-                            ->with('order')
-                            ->get();
+        // $status=Transaksi::where('status_transaksi', 'Berhasil')
+        //                     ->orWhere('status_transaksi', 'Pending')
+        //                     ->orWhere('status_transaksi', 'Gagal')
+        //                     ->with('order')
+        //                     ->get();
         
         // return $transaksi;
-        return view ('pages.klien.order.order_teks.status_order', compact('user', 'status', 'order'));
+        return view ('pages.klien.order.order_teks.status_order', compact('user', 'status'));
         
     }
 
@@ -278,7 +285,38 @@ class OrderTeksController extends Controller
             ]);
 
             // return($test);exit();
-        return redirect(route('status-order-teks', $id_order))->with('success', 'Order Finish!');
+        return redirect(route('review_order_teks', $id_order))->with('success', 'Order Finish!');
         
+    }
+
+    public function review(){
+        $user = Auth::user();
+
+        $klien=Klien::where('id', $user->id)->first();
+        // $review = Order::whereNotNull('id_parameter_order_teks')->whereNotNull('text_trans')->where('status_at', 'selesai')->with('review')->get();
+        
+        $review = Order::where('id_klien', $klien->id_klien)
+                        ->whereNotNull('id_parameter_order_teks')
+                        ->whereNotNull('text_trans')
+                        ->where('status_at', 'selesai')
+                        // ->with('review')
+                        ->get();
+        $data=$review[0];
+        $riwayat=Review::where('id_order', $data->id_order)->get();
+        // return ($riwayat);exit();
+
+        return view ('pages.klien.order.order_teks.review', compact('user', 'review', 'riwayat'));
+    }
+
+    public function storeReview(Request $request, $id_order){
+        $user=Auth::user();
+        $order=Order::whereNotNull('id_parameter_order_teks')->whereNotNull('text_trans')->where('status_at', 'selesai')->get();
+        $review = Review::create([
+            'id_order'=>$request->id_order,
+            'review_text'=>$request->review_text,
+            'rating'=>$request->rating,
+        ]);
+        // return ($review);exit();
+        return redirect(route('review_order_teks'))->with('success','Review Berhasil Di Tambahkan');
     }
 }
