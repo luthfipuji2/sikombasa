@@ -54,7 +54,7 @@ class HargaTeksController extends Controller
             'harga' => 'required|integer'
         ]);
 
-        if($request->jumlah_halaman_min < $request->jumlah_halaman_max){
+        if($request->jumlah_karakter_min < $request->jumlah_karakter_max){
             ParameterOrderTeks::create([
                 'jumlah_karakter_min' => $request->jumlah_karakter_min,
                 'jumlah_karakter_max' => $request->jumlah_karakter_max,
@@ -108,7 +108,7 @@ class HargaTeksController extends Controller
 
         $harga = ParameterOrderTeks::find($id_parameter_order_teks);
 
-        if($request->jumlah_halaman_min < $request->jumlah_halaman_max){
+        if($request->jumlah_karakter_min < $request->jumlah_karakter_max){
             ParameterOrderTeks::where('id_parameter_order_teks', $harga->id_parameter_order_teks)
                     ->update([
                         'jumlah_karakter_min' => $request->jumlah_karakter_min,

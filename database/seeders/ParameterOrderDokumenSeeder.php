@@ -16,16 +16,15 @@ class ParameterOrderDokumenSeeder extends Seeder
     public function run()
     {
         $parameter_order_dokumen = array(
-            array(1, 10, 5000),
-            array(11, 20, 7500),
-            array(21, 30, 10000),
-            array(31, 40, 12500),
-            array(41, 50, 15000),
-            array(51, 60, 17500),
-            array(61, 70, 20000),
-            array(71, 80, 22500),
-            array(81, 90, 25000),
-            array(91, 100, 27500),
+            array(1, 10, 50000),
+            array(11, 20, 75000),
+            array(21, 30, 100000),
+            array(31, 40, 125000),
+            array(41, 50, 150000),
+            array(51, 60, 175000),
+            array(71, 80, 225000),
+            array(81, 90, 250000),
+            array(91, 100, 275000),
         );
 
     	    for ($row = 0; $row < count($parameter_order_dokumen); $row++) {

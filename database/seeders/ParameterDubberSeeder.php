@@ -16,11 +16,11 @@ class ParameterDubberSeeder extends Seeder
     public function run()
     {
         $parameter_dubber = array(
-            array(1, 5000),
-            array(2, 10000),
-            array(3, 15000),
-            array(4, 20000),
-            array(5, 25000),
+            array(1, 50000),
+            array(2, 100000),
+            array(3, 150000),
+            array(4, 200000),
+            array(5, 250000),
         );
 
     	    for ($row = 0; $row < count($parameter_dubber); $row++) {

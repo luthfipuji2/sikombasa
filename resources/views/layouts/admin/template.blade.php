@@ -131,6 +131,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                   </li>
                   <li class="nav-item">
+                    <a href="/daftar-harga-tambahan" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Layanan Tambahan</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
                     <a href="/daftar-harga-transkrip" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Transkrip</p>
@@ -140,12 +146,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a href="/daftar-harga-offline" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Menu Offline</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/daftar-harga-tambahan" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Layanan Tambahan</p>
                     </a>
                   </li>
                </ul>
