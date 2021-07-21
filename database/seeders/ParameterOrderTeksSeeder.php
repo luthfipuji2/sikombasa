@@ -16,16 +16,16 @@ class ParameterOrderTeksSeeder extends Seeder
     public function run()
     {
         $parameter_order_teks = array(
-            array(1, 100, 2500),
-            array(101, 200, 2500),
-            array(201, 300, 5000),
-            array(301, 400, 5000),
-            array(401, 500, 7500),
-            array(501, 600, 7500),
+            array(1, 100, 25000),
+            array(101, 200, 25000),
+            array(201, 300, 50000),
+            array(301, 400, 50000),
+            array(401, 500, 75000),
+            array(501, 600, 75000),
             array(601, 700, 10000),
-            array(701, 800, 10000),
-            array(801, 900, 12500),
-            array(901, 1000, 12500),
+            array(701, 800, 100000),
+            array(801, 900, 125000),
+            array(901, 1000, 125000),
         );
 
     	    for ($row = 0; $row < count($parameter_order_teks); $row++) {

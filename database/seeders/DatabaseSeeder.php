@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ParameterOrderDubbingSeeder::class);
         $this->call(ParameterOrderTeksSeeder::class);
         $this->call(ParameterTerjemahanLisanSeeder::class);
+        $this->call(BankSeeder::class);
+        $this->call(MenuOfflineSeeder::class);
     }
 }

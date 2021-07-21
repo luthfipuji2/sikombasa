@@ -61,7 +61,7 @@
                                 @if(!empty($detail->text))
                                 <tr>
                                     <td style="width: 200px"><b>Teks</b></td>
-                                    <td>{{ substr($detail->text, 0,  500) }}</td>
+                                    <td>{{$detail->text}}</td>
                                 </tr>
                                 @endif
 

@@ -264,7 +264,7 @@ $(document).ready(function () {
 
     $('#p_jenis_layanan').val(data[2]);
     $('#p_durasi_pertemuan').val(data[3]);
-    $('#harga').val(data[4]); 
+    $('#p_harga').val(data[4]); 
 
     $('#editForm').attr('action', '/daftar-harga-offline/'+data[1]);
     $('#editModal').modal('show');
