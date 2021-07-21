@@ -171,6 +171,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Daftar Translator</p>
                 </a>
               </li>
+              
+              <li class="nav-item">
+                <a href="/daftar-transaksi" class="nav-link">
+                  <i class="nav-icon fas fa-wallet"></i>
+                  <p>
+                    Daftar Transaksi
+                  </p>
+                <a>
+              </li>
+
+              <li class="nav-item">
+                <a href="/distribusi-fee" class="nav-link">
+                  <i class="nav-icon fas fa-hand-holding-usd"></i>
+                  <p>
+                    Distribusi Fee
+                  </p>
+                <a>
+              </li>
        
               <li class="nav-item">
                 <a href="/daftar-order" class="nav-link">
