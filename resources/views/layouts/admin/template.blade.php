@@ -189,13 +189,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </p>
                 <a>
               </li>
-       
+
               <li class="nav-item">
                 <a href="/daftar-order" class="nav-link">
-                  <i class="fa fa-shopping-cart"></i>
-                  <p>&nbsp; Daftar Order</p>
-                </a>
+                  <i class="nav-icon fas fa-shopping-cart"></i>
+                  <p>
+                    Daftar Order
+                  </p>
+                <a>
               </li>
+
+            </ul>
 
           <li class="nav-item menu-close has-treeview">
             <a href="#" class="nav-link">
@@ -243,7 +247,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </form>
             </a>
           </li>
-        </ul>
+        
       </nav>
       <!-- /.sidebar-menu -->
     </div>
