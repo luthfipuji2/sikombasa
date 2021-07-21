@@ -97,7 +97,7 @@ class OrderSubtitleController extends Controller
                 'id_parameter_jenis_layanan'=>'required',
                 'durasi_pengerjaan'=>'required',
                 'nama_dokumen'=>'required',
-                'path_file'=>'required|file|max:10000',
+                'path_file'=>'required|file|max:5000000',
                 'durasi_video'=>'required',
             ]);
         

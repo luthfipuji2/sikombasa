@@ -143,7 +143,7 @@ $(document).ready(function(){
                         <h2>Order <b>Details</b></h2>
                     </div>
                     <div class="col-sm-8">						
-                        <button type="submit" value="Refresh Page" onClick="document.location.reload(true)"  class="btn btn-primary"><i class="material-icons">&#xE863;</i> <span>Refresh List</span></button>
+                        <button type="submit" value="Refresh Page" onClick="document.location.reload(true)"  class="btn btn-primary"><i class="material-icons"></i> <span>Refresh List</span></button>
                     </div>
                 </div>
             </div>
@@ -175,8 +175,9 @@ $(document).ready(function(){
             </div>
             <table class="table table-striped table-hover">
                 <thead>
-                    <tr>
+                <tr>
                         <th scope="row" class="text-center">#</th>
+                        <th scope="row" class="text-center">Nomor Order</th>
                         <th scope="row" class="text-center">Nama Klien</th>
                         <th scope="row" class="text-center">Nama Translator</th>
                         <th scope="row" class="text-center">Status Transaksi</th>
@@ -195,11 +196,11 @@ $(document).ready(function(){
                           @if(!empty($orders->id_translator))
                             {{$orders->translator->nama}}
                               @elseif(!empty($orders->id_translator == NULL) && ($orders->path_file_trans == NULL) && !empty($orders->transaksi->status_transaksi))
-                              <button type="button" class="badge badge-pill badge-warning" data-toggle="tooltip" data-html="true" title="Menunggu">
-                                  !    </button>
+                              <button type="button" class="badge-pill badge-warning" data-toggle="tooltip" data-html="true" title="Menunggu">
+                                  !    </button><p class="font-weight text-orange">Menunggu</p>
                               @elseif(empty($orders->transaksi))
-                              <button type="button" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" title=" Belum Melakukan Pembayaran">
-                                  !    </button>
+                              <button type="button" class="badge-pill badge-danger" data-toggle="tooltip" data-html="true" title=" Belum Melakukan Pembayaran">
+                                  !    </button><p class="font-weight text-red">Menunggu</p>
                           @endif
                         </td>
 
@@ -228,7 +229,7 @@ $(document).ready(function(){
                         </td>
 
                         <td>
-                            <a type="button" class="view" title="View Details" data-toggle="modal" data-target="#detailModal{{$orders->id_order}}"><i class="material-icons">&#xE5C8;</i></a>
+                        <a type="button" class="view" title="View Details" data-toggle="modal" data-target="#detailModal{{$orders->id_order}}"><i class="fas fa-sign-in-alt material-icons"></i></a><p class="font-weight-bold text-blue">Detail</p>
                         </td>
                     </tr>
                 @endforeach
