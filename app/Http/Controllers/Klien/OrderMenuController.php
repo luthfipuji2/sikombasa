@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Klien;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Transaksi;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use App\Models\User;
@@ -137,7 +138,7 @@ class OrderMenuController extends Controller
         ]);
         return redirect(route('menu-order.index'))->with('success', 'Data berhasil ditambahkan');
     }
-    }
+    
 
     /**
      * Display the specified resource.
@@ -184,3 +185,13 @@ class OrderMenuController extends Controller
         //
     }
 
+    public function listKeranjang(){
+        $user=Auth::user();
+        $list_order=Order::with('transaksi')
+                    ->get();
+        // $trans=$status[2];
+        // return ($status);exit();
+        return view('pages.klien.list_keranjang', compact('list_order'));
+    }
+
+}
