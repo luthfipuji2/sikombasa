@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Klien\Klien;
 use App\Models\User;
+use App\Models\Klien\Revisi;
 use App\Models\Translator;
 
 class DetailOrderController extends Controller
@@ -27,60 +28,139 @@ class DetailOrderController extends Controller
         return view('pages.admin.detail_order.index', compact('order', 'dubbing', 'dokumen', 'subtitle', 'teks', 'transkrip', 'interpreter'));
     }
 
+    // ------------------------------- Order Teks -----------------------------------
     public function detailTeks(){
         $order=Order::whereNotNull('id_parameter_order_teks')->get();
         return view('pages.admin.detail_order.detail_teks', compact('order'));
     }
 
+    // ------------------------------- Order Dokumen -----------------------------------
     public function detailDokumen(){
         $order=Order::whereNotNull('id_parameter_order_dokumen')->get();
         // $path_template = Storage::disk('public/data_file/file_order_dokumen')->get();
         return view('pages.admin.detail_order.detail_dokumen', compact('order'));
     }
-    public function downloadDokumen($id_order)
+
+    public function downloadDokumenKlien($id_order)
     {
         $order = Order::find($id_order);
-        $path_file = $order->path_file; 
+        $path_file = $order->path_file;       
         return Storage::download($path_file);
+        // return ($path_file);exit();
     }
 
+    public function downloadDokumenTranslator($id_order)
+    {
+        $order = Order::find($id_order);
+        $path_file_trans = $order->path_file_trans;       
+        return Storage::download($path_file_trans);
+    }
+
+    public function downloadDokumenRevisi($id_order)
+    {   
+        $order=Order::find($id_order);
+        $rev=Revisi::where('id_order', $order->id_order)->get();
+
+        //keluarin array
+        $result = $rev[0]->path_file_revisi;
+        // return ($result);exit();
+        return Storage::download($result);
+    }
+
+    // ------------------------------- Order Subtitle -----------------------------------
     public function detailSubtitle(){
         $order=Order::whereNotNull('id_parameter_order_subtitle')->get();
         return view('pages.admin.detail_order.detail_subtitle', compact('order'));
     }
-    public function downloadSubtitle($id_order)
+    public function downloadSubtitleKlien($id_order)
     {
         $order = Order::find($id_order);
         $path_file = $order->path_file;       
         return Storage::download($path_file);
+        // return ($path_file);exit();
     }
 
+    public function downloadSubtitleTranslator($id_order)
+    {
+        $order = Order::find($id_order);
+        $path_file_trans = $order->path_file_trans;       
+        return Storage::download($path_file_trans);
+    }
+
+    public function downloadSubtitleRevisi($id_order)
+    {   
+        $order=Order::find($id_order);
+        $rev=Revisi::where('id_order', $order->id_order)->get();
+
+        //keluarin array
+        $result = $rev[0]->path_file_revisi;
+        // return ($result);exit();
+        return Storage::download($result);
+    }
+
+    // ------------------------------- Order Dubbing -----------------------------------
     public function detailDubbing(){        
         $order=Order::whereNotNull('id_parameter_order_dubbing')->with('klien')->with('translator')->get();
-        // $klien=Klien::whereNotNull('id_klien')->with('user')->get();
-        // $translator=Translator::whereNotNull('id_translator')->with('user')->get();
-        // $data=User::where('id', 'id')
-        // return ($klien );exit();
         return view('pages.admin.detail_order.detail_dubbing', compact('order'));
     }
-    public function downloadDubbing($id_order)
+    public function downloadDubbingKlien($id_order)
     {
         $order = Order::find($id_order);
         $path_file = $order->path_file;       
         return Storage::download($path_file);
+        // return ($path_file);exit();
     }
 
+    public function downloadDubbingTranslator($id_order)
+    {
+        $order = Order::find($id_order);
+        $path_file_trans = $order->path_file_trans;       
+        return Storage::download($path_file_trans);
+    }
+
+    public function downloadDubbingRevisi($id_order)
+    {   
+        $order=Order::find($id_order);
+        $rev=Revisi::where('id_order', $order->id_order)->get();
+
+        //keluarin array
+        $result = $rev[0]->path_file_revisi;
+        // return ($result);exit();
+        return Storage::download($result);
+    }
+
+    // ------------------------------- Order Transkrip -----------------------------------
     public function detailTranskrip(){
         $order=Order::whereNotNull('durasi_audio')->get();
         return view('pages.admin.detail_order.detail_transkrip', compact('order'));
     }
-    public function downloadTranskrip($id_order)
+    public function downloadTranskripKlien($id_order)
     {
         $order = Order::find($id_order);
         $path_file = $order->path_file;       
         return Storage::download($path_file);
+        // return ($path_file);exit();
     }
 
+    public function downloadTranskripTranslator($id_order)
+    {
+        $order = Order::find($id_order);
+        $path_file_trans = $order->path_file_trans;       
+        return Storage::download($path_file_trans);
+    }
+
+    public function downloadTranskripRevisi($id_order)
+    {   
+        $order=Order::find($id_order);
+        $rev=Revisi::where('id_order', $order->id_order)->get();
+
+        //keluarin array
+        $result = $rev[0]->path_file_revisi;
+        // return ($result);exit();
+        return Storage::download($result);
+    }
+
+    // ------------------------------- Order Interpreter -----------------------------------
     public function detailInterpreter(){
         $order=Order::whereNotNull('longitude')->get();
         return view('pages.admin.detail_order.detail_interpreter', compact('order'));

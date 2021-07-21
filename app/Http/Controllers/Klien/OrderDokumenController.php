@@ -100,7 +100,7 @@ class OrderDokumenController extends Controller
                 'id_parameter_jenis_teks'=>'required',
                 'durasi_pengerjaan'=>'required',
                 'nama_dokumen'=>'required',
-                'path_file'=>'required|file|max:500000',
+                'path_file'=>'required|file|max:5000000',
                 'jumlah_halaman'=>'required',
             ]);
 
