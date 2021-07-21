@@ -5,7 +5,6 @@
 @section('container')
 
 <!-- Vendor CSS Files -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="{{ asset('vendor/animate.css/animate.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.css') }}">
@@ -145,7 +144,7 @@ $(document).ready(function(){
                         <h2>Order <b>Details</b></h2>
                     </div>
                     <div class="col-sm-8">						
-                        <button type="submit" value="Refresh Page" onClick="document.location.reload(true)"  class="btn btn-primary"><i class="material-icons">&#xE863;</i> <span>Refresh List</span></button>
+                        <button type="submit" value="Refresh Page" onClick="document.location.reload(true)"  class="btn btn-primary"><span>Refresh List</span></button>
                     </div>
                 </div>
             </div>
@@ -199,11 +198,11 @@ $(document).ready(function(){
                           @if(!empty($orders->id_translator))
                             {{$orders->translator->nama}}
                               @elseif(!empty($orders->id_translator == NULL) && ($orders->path_file_trans == NULL) && !empty($orders->transaksi->status_transaksi))
-                              <button type="button" class="badge badge-pill badge-warning" data-toggle="tooltip" data-html="true" title=" Menunggu" onclick="warning()">
-                                      !    </button>
+                              <button type="button" class="badge-pill badge-warning" data-toggle="tooltip" data-html="true" title=" Menunggu" onclick="warning()">
+                                      !    </button><p class="font-weight text-orange">Menunggu</p>
                               @elseif(empty($orders->transaksi))
-                              <button type="button" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" title=" Belum Melakukan Pembayaran" onclick="danger()">
-                                      !    </button>
+                              <button type="button" class="badge-pill badge-danger" data-toggle="tooltip" data-html="true" title=" Belum Melakukan Pembayaran" onclick="danger()">
+                                      !    </button><p class="font-weight text-red">Menunggu</p>
                           @endif
                         </td>
 
@@ -232,13 +231,13 @@ $(document).ready(function(){
                             @elseif(!empty($orders->path_file_trans == NULL) && ($orders->id_translator == NULL) && ($orders->transaksi))
                             Menunggu Translator
                               @else
-                              <button type="button" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" title=" Belum Melakukan Pembayaran" onclick="danger()">
+                              <button type="button" class="badge-pill badge-danger" data-toggle="tooltip" data-html="true" title=" Belum Melakukan Pembayaran" onclick="danger()">
                                       !    </button>
                             @endif
                         </td>
 
                         <td>
-                            <a type="button" class="view" title="View Details" data-toggle="modal" data-target="#detailModal{{$orders->id_order}}"><i class="material-icons">&#xE5C8;</i></a>
+                            <a type="button" class="view" title="View Details" data-toggle="modal" data-target="#detailModal{{$orders->id_order}}"><i class="fas fa-sign-in-alt material-icons"></i></a><p class="font-weight-bold text-blue">Detail</p>
                         </td>
                     </tr>
                 @endforeach
@@ -306,5 +305,20 @@ function warning() {
   function myFunction() {
     alert('Button was clicked!');
   }
+</script>
+@endpush
+
+@push('addon-script')
+<script>
+  $(document).ready(function() {
+            $('#pelaporan').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                  { "extend": 'excel', "text":'Export Excel',"className": 'btn btn-outline-success fas fa-file-excel' },
+                  { extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL', className:'btn btn-outline-primary fa fa-book', text:'Export PDF '},
+                  { "extend": 'print', "text":'Print',"className": 'btn btn-outline-danger fa fa-print' },
+                ]
+            });
+        } );
 </script>
 @endpush

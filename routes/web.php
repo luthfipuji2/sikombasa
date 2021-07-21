@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/klien', [App\Http\Controllers\Klien\BiodataKlienController::class, 'dashboard'])->name('klien');
 
         Route::resource('menu-order', 'App\Http\Controllers\Klien\OrderMenuController');
+        Route::get('/list-keranjang', 'App\Http\Controllers\Klien\OrderMenuController@listKeranjang')->name('list_keranjang');
 
          //order menu dokumen
          Route::get('/order-dokumen', [App\Http\Controllers\Klien\OrderDokumenController::class, 'menuOrder'])->name('menu-order');
@@ -251,16 +252,24 @@ Route::middleware(['auth'])->group(function () {
         Route::get('det-order-teks', 'App\Http\Controllers\Admin\DetailOrderController@detailTeks')->name('det-order-teks');
         
         Route::get('det-order-dokumen', 'App\Http\Controllers\Admin\DetailOrderController@detailDokumen')->name('det-order-dokumen');
-        Route::get('/detail-order-dokumen/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumen');
+        Route::get('/download-dok-klien/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenKlien');
+        Route::get('/download-dok-translator/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenTranslator');
+        Route::get('/download-dok-revisi/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenRevisi');
         
         Route::get('det-order-subtitle', 'App\Http\Controllers\Admin\DetailOrderController@detailSubtitle')->name('det-order-subtitle');
-        Route::get('/detail-order-subtitle/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadSubtitle');
+        Route::get('/download-sub-klien/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenKlien');
+        Route::get('/download-sub-translator/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenTranslator');
+        Route::get('/download-sub-revisi/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenRevisi');
         
         Route::get('det-order-dubbing', 'App\Http\Controllers\Admin\DetailOrderController@detailDubbing')->name('det-order-dubbing');
-        Route::get('/detail-order-dubbing/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDubbing');
+        Route::get('/download-dub-klien/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenKlien');
+        Route::get('/download-sub-translator/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenTranslator');
+        Route::get('/download-sub-revisi/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenRevisi');
         
         Route::get('det-order-transkrip', 'App\Http\Controllers\Admin\DetailOrderController@detailTranskrip')->name('det-order-transkrip');
-        Route::get('/detail-order-transkrip/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadTranskrip');
+        Route::get('/download-trans-klien/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadTranskripKlien');
+        Route::get('/download-trans-translator/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadTranskripTranslator');
+        Route::get('/download-trans-revisi/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadTranskripRevisi');
 
         Route::get('det-order-interpreter', 'App\Http\Controllers\Admin\DetailOrderController@detailInterpreter')->name('det-order-interpreter');
 
