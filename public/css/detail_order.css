@@ -207,3 +207,72 @@ table.table .avatar {
 	margin-top: 10px;
 	font-size: 13px;
 }    
+.blue-color {
+color:blue;
+}
+.fa_custom {
+	color: #0099CC
+	}
+
+table.table td a.detail {        
+		width: 45px;
+		height: 28px;
+		color: #38a5ff;
+		background: linear-gradient(50deg, #9dfdf0 0%,#ffffff 100%); /* W3C */
+		border: 3px solid;
+		border-radius: 10px;
+		text-align: center;
+	}
+table.table td a.detail i {
+		font-size: 16px;
+		color: #f6f7f8;
+		margin: 7px 0 0 7px;
+	} 
+
+table.table td a.revisi {        
+		width: 45px;
+		height: 28px;
+		color: #f1af21;
+		background: linear-gradient(50deg, #fdc39d 0%,#ffffff 100%); /* W3C */
+		border: 3px solid;
+		border-radius: 10px;
+		text-align: center;
+	}
+table.table td a.revisi i {
+		font-size: 16px;
+		margin: 7px 0 0 7px;
+	} 
+
+table.table td a.finish {        
+		width: 45px;
+		height: 28px;
+		color: #5dd617;
+		background: linear-gradient(50deg, #9dfdf0 0%,#ffffff 100%); /* W3C */
+		border: 3px solid;
+		border-radius: 10px;
+		text-align: center;
+	}
+table.table td a.finish i {
+		font-size: 16px;
+		margin: 7px 0 0 7px;
+	} 
+	
+	table.btn .fa.fa-sm {
+		font-size: 1rem;
+		margin-top: -5px;
+		}
+
+		table.table td a.transaksi {        
+			width: 150px;
+			height: 28px;
+			color: #38a5ff;
+			background: linear-gradient(50deg, #aedefd 0%,#ffffff 100%); /* W3C */
+			border: 3px solid;
+			border-radius: 10px;
+			text-align: center;
+		}
+	table.table td a.stransaksi i {
+			font-size: 16px;
+			color: #f6f7f8;
+			margin: 7px 0 0 7px;
+		} 

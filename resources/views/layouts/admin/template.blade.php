@@ -131,6 +131,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                   </li>
                   <li class="nav-item">
+                    <a href="/daftar-harga-tambahan" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Layanan Tambahan</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
                     <a href="/daftar-harga-transkrip" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Transkrip</p>
@@ -140,12 +146,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a href="/daftar-harga-offline" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Menu Offline</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/daftar-harga-tambahan" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Layanan Tambahan</p>
                     </a>
                   </li>
                </ul>
@@ -171,13 +171,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Daftar Translator</p>
                 </a>
               </li>
-       
+              
+              <li class="nav-item">
+                <a href="/daftar-transaksi" class="nav-link">
+                  <i class="nav-icon fas fa-wallet"></i>
+                  <p>
+                    Daftar Transaksi
+                  </p>
+                <a>
+              </li>
+
+              <li class="nav-item">
+                <a href="/distribusi-fee" class="nav-link">
+                  <i class="nav-icon fas fa-hand-holding-usd"></i>
+                  <p>
+                    Distribusi Fee
+                  </p>
+                <a>
+              </li>
+
               <li class="nav-item">
                 <a href="/daftar-order" class="nav-link">
-                  <i class="fa fa-shopping-cart"></i>
-                  <p>Daftar Order</p>
-                </a>
+                  <i class="nav-icon fas fa-shopping-cart"></i>
+                  <p>
+                    Daftar Order
+                  </p>
+                <a>
               </li>
+
+            </ul>
 
           <li class="nav-item menu-close has-treeview">
             <a href="#" class="nav-link">
@@ -225,7 +247,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </form>
             </a>
           </li>
-        </ul>
+        
       </nav>
       <!-- /.sidebar-menu -->
     </div>

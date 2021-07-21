@@ -32,22 +32,22 @@
             <div class="row">
             <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up">
                 <div class="icon-box icon-box-pink">
-                    <img src="./img/frontend/clock1.gif" style="width:55%; left: -25px;""></img>    
+                    <img src="./img/frontend/transkrip.gif" style="width:55%; left: -25px;""></img>    
                 <h4 class="title"><a href="">Transkrip (Audio)</a></h4>
-                <p class="description">1</p>
+                <p class="description"><h3>{{ $transkrip }}</h3></p>
                 <div class="row justify-content-right">
-                <button type="button" class="btn btn-outline-danger">Detail </button>
+                <a href="/det-order-transkrip" class="btn btn-outline-info">Detail</a>
                 </div>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                 <div class="icon-box icon-box-cyan">
-                <img  src="./img/frontend/diamond.gif" style="width:40%; left: -25px;""></img><br>
+                <img  src="./img/frontend/interpreter.gif" style="width:55%; left: -25px;""></img><br>
                 <h4 class="title"><a href="">Interpreter & Transkrip</a></h4>
-                <p class="description">2</p>
+                <p class="description"><h3>{{ $interpreter }}</h3></p>
                 <div class="row justify-content-right">
-                <a href="#" class="btn btn-outline-primary">Detail</a>
+                <a href="/det-order-interpreter" class="btn btn-outline-success">Detail </a>
                 
                 </div>
                 </div>
@@ -59,7 +59,7 @@
                 <h4 class="title"><a href="">Teks</a></h4>
                 <p class="description"><h3>{{ $teks }}</h3></p>
                 <div class="row justify-content-right">
-                <a href="/detail-order-teks" class="btn btn-outline-info">Detail</a>
+                <a href="/det-order-teks" class="btn btn-outline-info">Detail</a>
                 </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                 <h4 class="title"><a href="">Dokumen</a></h4>
                 <p class="description"><h3>{{ $dokumen }}</h3></p>
                 <div class="row justify-content-right">
-                <a href="/detail-order-dokumen" class="btn btn-outline-success">Detail </a>
+                <a href="/det-order-dokumen" class="btn btn-outline-success">Detail </a>
                 </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                 <h4 class="title"><a href="">Subtitle</a></h4>
                 <p class="description"><h3>{{ $subtitle }}</h3></p>
                 <div class="row justify-content-right">
-                <a href="/detail-order-subtitle" class="btn btn-outline-secondary">Detail </a>
+                <a href="/det-order-subtitle" class="btn btn-outline-secondary">Detail </a>
                 </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                 <h4 class="title"><a href="">Dubbing</a></h4>
                 <p class="description"><h3>{{ $dubbing }}</h3></p>
                 <div class="row justify-content-right">
-                <a href="/detail-order-dubbing" class="btn btn-outline-dark">Detail </a>
+                <a href="/det-order-dubbing" class="btn btn-outline-dark">Detail </a>
                 </div>
                 </div>
             </div>

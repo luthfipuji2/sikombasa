@@ -29,7 +29,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
                 
       <form action="" method="POST" class="d-inline">
-      <a href="{{ url ('/menu-order') }}" class="btn btn-success" class="text-right" style="float: right;"><i class="fa fa-shopping-cart" aria-hidden="true" ></i></a>
+      <a href="{{ url ('/list-keranjang') }}" class="btn btn-success" class="text-right" style="float: right;"><i class="fa fa-shopping-cart" aria-hidden="true" ></i>
+    </a>
       </form>
       &nbsp;
       <form action="" method="POST" class="d-inline">

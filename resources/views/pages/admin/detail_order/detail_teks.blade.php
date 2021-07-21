@@ -68,12 +68,6 @@ $(document).ready(function(){
           </div>
           <div class="col-md-6">
             <div class="form-group">
-                <label>Nama Translator</label>
-                <input type="text" value="{{$orders->translator->user->name}}" class="form-control" readonly>
-            </div>           
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
                 <label>Jenis Teks</label>
                 <input type="text" value="{{$orders->parameterjenisteks->p_jenis_teks}}" class="form-control" readonly>
             </div>           
@@ -86,8 +80,14 @@ $(document).ready(function(){
           </div>
           <div class="col-md-6">
             <div class="form-group">
-                <label>Text</label>
-                <input type="text" value="{{$orders->text}}" class="form-control" readonly>
+                <label>Jumlah Karakter</label>
+                <input type="text" value="{{$orders->jumlah_karakter}}" class="form-control" readonly>
+            </div>           
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>Durasi Pengerjaan</label>
+                <input type="text" value="{{$orders->durasi_pengerjaan}} Hari" class="form-control" readonly>
             </div>           
           </div>
           <div class="col-md-6">
@@ -98,10 +98,18 @@ $(document).ready(function(){
           </div>
           <div class="col-md-6">
             <div class="form-group">
-                <label>Jumlah Karakter</label>
-                <input type="text" value="{{$orders->jumlah_karakter}}" class="form-control" readonly>
+                <label>Text Dari Klien</label>
+                <input type="text" value="{{$orders->text}}" class="form-control" readonly>
             </div>           
           </div>
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>Text pengerjaan Translator</label>
+                <input type="text" value="{{$orders->text_trans}}" class="form-control" readonly>
+            </div>           
+          </div>
+
+
 
           <!--/.col (left) -->
         </div>
@@ -136,7 +144,7 @@ $(document).ready(function(){
                         <h2>Order <b>Details</b></h2>
                     </div>
                     <div class="col-sm-8">						
-                        <button type="submit" value="Refresh Page" onClick="document.location.reload(true)"  class="btn btn-primary"><i class="material-icons">&#xE863;</i> <span>Refresh List</span></button>
+                        <button type="submit" value="Refresh Page" onClick="document.location.reload(true)"  class="btn btn-primary"><span>Refresh List</span></button>
                     </div>
                 </div>
             </div>
@@ -170,6 +178,7 @@ $(document).ready(function(){
                 <thead>
                     <tr>
                         <th scope="row" class="text-center">#</th>
+                        <th scope="row" class="text-center">Nomor Pendaftaran</th>
                         <th scope="row" class="text-center">Nama Klien</th>
                         <th scope="row" class="text-center">Nama Translator</th>
                         <th scope="row" class="text-center">Status Transaksi</th>
@@ -181,19 +190,54 @@ $(document).ready(function(){
                 @foreach ($order as $orders)
                     <tr>
                         <td scope="row" class="text-center">{{$loop->iteration}}</td>
+                        <td scope="row" class="text-center">{{$orders->created_at->format('Y-m-d')}} - {{$orders->id_order}}</td>
                         <td scope="row" class="text-center">{{$orders->klien->user->name}}</td>
-                        <td scope="row" class="text-center">{{$orders->translator->user->name}}</td>
+
+                        <!-- kolom nama translator -->
                         <td scope="row" class="text-center">
-                        @if($orders->transaksi->status_transaksi == "Pending")
-                        <span class="status text-warning">&bull;</span>Pending
-                        @elseif($orders->transaksi->status_transaksi == "Gagal")
-                        <span class="status text-danger">&bull;</span>Gagal
-                        @else
-                        <span class="status text-success">&bull;</span>Berhasil
+                          @if(!empty($orders->id_translator))
+                            {{$orders->translator->nama}}
+                              @elseif(!empty($orders->id_translator == NULL) && ($orders->path_file_trans == NULL) && !empty($orders->transaksi->status_transaksi))
+                              <button type="button" class="badge-pill badge-warning" data-toggle="tooltip" data-html="true" title=" Menunggu" onclick="warning()">
+                                      !    </button><p class="font-weight text-orange">Menunggu</p>
+                              @elseif(empty($orders->transaksi))
+                              <button type="button" class="badge-pill badge-danger" data-toggle="tooltip" data-html="true" title=" Belum Melakukan Pembayaran" onclick="danger()">
+                                      !    </button><p class="font-weight text-red">Menunggu</p>
+                          @endif
+                        </td>
+
+                        <!-- kolom status transaksi -->
+                        <td scope="row" class="text-center">
+                        @if(!empty($orders->is_status == "belum dibayar") && ($orders->is_status == NULL) )
+                        <span class="status text-warning">&bull;</span>Belum Dibayar
+                          @elseif($orders->transaksi)
+                            @if($orders->transaksi->status_transaksi == "Berhasil")
+                              <span class="status text-success">&bull;</span>Transaksi Berhasil
+                                @else($orders->transaksi->status_transaksi == "Pending")
+                                <span class="status text-warning">&bull;</span>Menunggu
+                            @endif
+                          @else
+                            <span class="status text-danger">&bull;</span>Gagal
+                          
                         @endif
-                        <td scope="row" class="text-center"></td>
+                        </td>
+
+                        <!-- kolom status order -->
+                        <td scope="row" class="text-center">
+                        @if(!empty($orders->id_translator) && ($orders->transaksi->status_transaksi == "Berhasil") && !empty($orders->text_trans))
+                        Selesai
+                          @elseif(!empty($orders->id_translator) && ($orders->transaksi->status_transaksi == "Berhasil"))
+                          Sedang dikerjakan translator
+                            @elseif(!empty($orders->path_file_trans == NULL) && ($orders->id_translator == NULL) && ($orders->transaksi))
+                            Menunggu Translator
+                              @else
+                              <button type="button" class="badge-pill badge-danger" data-toggle="tooltip" data-html="true" title=" Belum Melakukan Pembayaran" onclick="danger()">
+                                      !    </button>
+                            @endif
+                        </td>
+
                         <td>
-                            <a type="button" class="view" title="View Details" data-toggle="modal" data-target="#detailModal{{$orders->id_order}}"><i class="material-icons">&#xE5C8;</i></a>
+                            <a type="button" class="view" title="View Details" data-toggle="modal" data-target="#detailModal{{$orders->id_order}}"><i class="fas fa-sign-in-alt material-icons"></i></a><p class="font-weight-bold text-blue">Detail</p>
                         </td>
                     </tr>
                 @endforeach
@@ -238,4 +282,43 @@ $(document).ready(function(){
             } );
         } );
     </script>
+@endpush
+
+@push('scripts')
+<script>
+function danger() {
+  alert("Transaksi gagal, silahkan selesaikan transaksi terlebih dahulu");
+}
+</script>
+@endpush
+
+@push('scripts')
+<script>
+function warning() {
+  alert("Transaksi gagal, silahkan selesaikan transaksi terlebih dahulu");
+}
+</script>
+@endpush
+
+@push('scripts')
+<script>
+  function myFunction() {
+    alert('Button was clicked!');
+  }
+</script>
+@endpush
+
+@push('addon-script')
+<script>
+  $(document).ready(function() {
+            $('#pelaporan').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                  { "extend": 'excel', "text":'Export Excel',"className": 'btn btn-outline-success fas fa-file-excel' },
+                  { extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL', className:'btn btn-outline-primary fa fa-book', text:'Export PDF '},
+                  { "extend": 'print', "text":'Print',"className": 'btn btn-outline-danger fa fa-print' },
+                ]
+            });
+        } );
+</script>
 @endpush

@@ -9,26 +9,26 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Parameter Jenis Teks</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Parameter Jenis Layanan</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
-      <form action="daftar-harga-tambahan.storeJenis" method="POST">
+      <form action="daftar-harga-tambahan" method="POST">
 
       {{ csrf_field() }}
         <div class="modal-body">
     
             <div class="form-group">
-                  <label>Jenis Teks</label>
-                  <select type="text" name="p_jenis_teks" class="form-control @error('p_jenis_teks') is-invalid @enderror"
-                  placeholder="" value="{{ old('p_jenis_teks') }}">
-                      <option value="{{ old('p_jenis_teks') }}" hidden selected>{{ old('p_jenis_teks') }}</option>
-                      <option value="Umum">Umum</option>
-                      <option value="Khusus">Khusus</option>
+                  <label>Jenis Layanan</label>
+                  <select type="text" name="p_jenis_layanan" class="form-control @error('p_jenis_layanan') is-invalid @enderror"
+                  placeholder="" value="{{ old('p_jenis_layanan') }}">
+                      <option value="{{ old('p_jenis_layanan') }}" hidden selected>{{ old('p_jenis_layanan') }}</option>
+                      <option value="Basic">Basic</option>
+                      <option value="Premium">Premium</option>
                   </select>
-                  @error ('p_jenis_teks')
+                  @error ('p_jenis_layanan')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                         {{$message}}
                     </div>
@@ -37,9 +37,9 @@
 
             <div class="form-group">
                 <label>Harga</label>
-                <input type="number" class="form-control @error('harga_jenis') is-invalid @enderror" 
-                name="harga_jenis" id="harga_jenis" value="{{ old('harga_jenis') }}" placeholder="Masukkan harga ex. 100000">
-                @error ('harga_jenis')
+                <input type="number" class="form-control @error('harga') is-invalid @enderror" 
+                name="harga" id="harga" value="{{ old('harga') }}" placeholder="Masukkan harga ex. 100000">
+                @error ('harga')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       {{$message}}
                   </div>

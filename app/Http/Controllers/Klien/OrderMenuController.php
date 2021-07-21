@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Klien;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\Admin\Transaksi;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
@@ -25,8 +26,11 @@ class OrderMenuController extends Controller
     
     public function index()
     {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $klien=User::where('id', $user->id)->with('klien')->first();
         $menu=Order::all();
-        return view('pages.klien.menu_order', compact('menu'));
+        return view('pages.klien.menu_order', compact('menu', 'klien'));
     }
 
     public function indexDokumen(){
@@ -134,7 +138,7 @@ class OrderMenuController extends Controller
         ]);
         return redirect(route('menu-order.index'))->with('success', 'Data berhasil ditambahkan');
     }
-    }
+    
 
     /**
      * Display the specified resource.
@@ -181,3 +185,13 @@ class OrderMenuController extends Controller
         //
     }
 
+    public function listKeranjang(){
+        $user=Auth::user();
+        $list_order=Order::with('transaksi')
+                    ->get();
+        // $trans=$status[2];
+        // return ($status);exit();
+        return view('pages.klien.list_keranjang', compact('list_order'));
+    }
+
+}

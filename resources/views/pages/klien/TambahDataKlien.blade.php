@@ -3,21 +3,116 @@
 @section('title', 'biodata')
 @section('content')
 
-    <!-- Modal Tambah -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+    <style>
+        .widget-user-header {
+            background-position: center center;
+            background-size: cover;
+            height: 200px !important;
+        }
+    </style>
 
-        <form action="{{route('profile-klien.store')}}" method="post">
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+            
+            <!-- /.col -->
+            <div class="col-md-12 mt-3">
 
-        @csrf
-            <div class="modal-body">
+
+                    <!-- Main content -->
+                    <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                        <div class="col-md-3">
+
+                        <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                <div class="card-body box-profile">
+                    <div class="text-center">
+                    <div class="widget-user-header text-white">
+                    @if (empty($klien->foto_ktp))
+                    <div class="widget-user-image">
+                        <img src="./img/profile.png" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
+                    </div>
+                    @else
+                    <div class="widget-user-image">
+                        <img src="{{asset('/img/biodata/'.$klien->foto_ktp)}}" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
+                    </div>
+                    @endif
+                    </div>
+
+
+                    <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                        <b>Status</b> <a class="float-right">Active</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Following</b> <a class="float-right">543</a>
+                    </li>
+                    </ul>
+
+                    <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                    </div>
+                    <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                        </div>
+                        
+                        <div class="col-md-9">
+                    <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                        <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#biodata" data-toggle="tab">Biodata</a></li>
+                    </ul>
+                </div><!-- /.card-header -->
+
+                <div class="card-body">
+                    <div class="tab-content">
+                    <div class="active tab-pane" id="profile">
+
+                    <form method="POST" action="/profile-klien/{{$users->id}}"  enctype="multipart/form-data">
+                        @method('patch')
+                        @csrf
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="name">Nama</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" 
+                                id="name" placeholder="Enter Name" name="name" value="{{ $users->name }}">
+                                @error ('name')
+                                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="text"class="form-control @error('email') is-invalid @enderror" 
+                                id="email" placeholder="Enter Email" name="email" value="{{ $users->email }}">
+                                @error ('email')
+                                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                            </div> 
+
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Ubah</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.tab-pane -->
+
+                <div class="tab-pane" id="biodata">
+                    <form method="POST" action="{{route('profile-klien.store')}}" enctype="multipart/form-data"> 
+                        
+                        @csrf
+                        <div class="modal-body">
                         <div class="form-group" hidden>
                                 <label for="name">ID</label>
                                 <input type="text" id="id" placeholder="Masukkan ID" name="id" value="{{ $users->id }}">
@@ -145,35 +240,6 @@
                 <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
         </form>
-        </div>
-    </div>
-    </div>
-
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-            
-            <!-- /.col -->
-            <div class="col-md-12 mt-3">
-                <div class="card">
-                <div class="card-header p-2">
-                    <ul class="nav nav-pills">
-                    <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#biodata" data-toggle="tab">Biodata</a></li>
-                    
-                    </ul>
-                </div><!-- /.card-header -->
-                <div class="card-body">
-                    <div class="tab-content">
-                    <p>Profil Anda belum lengkap, silahkan lengkapi terlebih dahulu!</p>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Lengkapi profile
-                    </button>
-                    </div>
-                    <!-- /.tab-content -->
-                </div><!-- /.card-body -->
                 </div>
                 <!-- /.card -->
             </div>

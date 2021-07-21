@@ -41,7 +41,7 @@
           <div class="info-box-content">
             <span class="info-box-text">Dubbing</span>
             <span class="info-box-number">
-            <a href="/career" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url ('/review-dubbing') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </span>
           </div>
           <!-- /.info-box-content -->
@@ -58,7 +58,7 @@
           <div class="info-box-content">
             <span class="info-box-text">Teks</span>
             <span class="info-box-number">
-            <a href="{{ url ('/menu-order') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url ('/review-teks') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </span>
           </div>
           <!-- /.info-box-content -->
@@ -73,7 +73,7 @@
           <div class="info-box-content">
             <span class="info-box-text">Dokumen</span>
             <span class="info-box-number">
-            <a href="scrollspyHeading5" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url ('/review-dokumen') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </span>
           </div>
           <!-- /.info-box-content -->
@@ -88,7 +88,7 @@
           <div class="info-box-content">
             <span class="info-box-text">Subtitle</span>
             <span class="info-box-number">
-            <a href="/career" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url ('/review-subtitle') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </span>
           </div>
           <!-- /.info-box-content -->

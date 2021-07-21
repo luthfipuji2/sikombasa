@@ -42,7 +42,7 @@
             </a>
             <div class="card-wrap">
                 <div class="card-header">
-                <div>
+                <div  id="basic">
                 <a onclick="layanan_basic()" class="btn btn-outline-info">
                     <label for="id_parameter_jenis_layanan">Layanan Basic</label>
                 </a>
@@ -71,7 +71,7 @@
             </a>
             <div class="card-wrap">
                 <div class="card-header">
-                <div>
+                <div  id="premium">
                 <a onclick="layanan_premium()" class="btn btn-outline-info">
                     <label for="id_parameter_jenis_layanan">Layanan Premium</label>
                 </a>

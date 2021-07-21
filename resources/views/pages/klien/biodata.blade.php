@@ -3,6 +3,8 @@
     @section('title', 'biodata')
     @section('content')
         <!-- Main content -->
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
         <style>
     .widget-user-header {
@@ -10,6 +12,11 @@
         background-size: cover;
         height: 200px !important;
     }
+    </style>
+    <style>
+        .checked {
+        color: orange;
+        }
     </style>
 
     <!-- Main content -->
@@ -32,32 +39,24 @@
                 <div class="card-body box-profile">
                     <div class="text-center">
                     <div class="widget-user-header text-white">
-                    @if (empty($users->profile_photo_path))
+                    @if (empty($klien->foto_ktp))
                     <div class="widget-user-image">
                         <img src="./img/profile.png" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
                     </div>
                     @else
                     <div class="widget-user-image">
-                        <img src="{{asset('images/'.$users->profile_photo_path)}}" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
+                        <img src="{{asset('/img/biodata/'.$klien->foto_ktp)}}" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
                     </div>
                     @endif
                     </div>
 
-                    <h3 class="profile-username text-center">{{$users->name}}</h3>
-
-                    <p class="text-muted text-center">{{$users->role}}</p>
+                    <h3 class="profile-username text-center">{{$klien->user->name}}</h3>
+                    <p class="text-muted text-center">{{$klien->user->role}}</p>
 
                     <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item">
-                        <b>Followers</b> <a class="float-right">1,322</a>
+                        <b>Status</b> <a class="float-right">Active</a>
                     </li>
-                    <li class="list-group-item">
-                        <b>Following</b> <a class="float-right">543</a>
-                    </li>
-                    <li class="list-group-item">
-                        <b>Friends</b> <a class="float-right">13,287</a>
-                    </li>
-                    </ul>
 
                     <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
                     </div>
@@ -66,8 +65,6 @@
                     <!-- /.card -->
                 </div>
                         </div>
-
-
 
                     <div class="col-md-9">
                     <div class="card">
@@ -106,23 +103,7 @@
                                         {{$message}}
                                     </div>
                                 @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" 
-                                id="password" placeholder="Password" name="password" >
-                                @error ('password')
-                                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                                        {{$message}}
-                                    </div>
-                                @enderror
                             </div>  
-
-                            <div class="form-group">
-                                <label for="profile_photo_path">Photo Profile</label>
-                                <input type="file" id="profile_photo_path"  name="profile_photo_path" class="form-control">
-                            </div> 
 
                             <div class="form-group row">
                                 <div class="col-sm-10">
@@ -134,20 +115,20 @@
                     <!-- /.tab-pane -->
 
                     <div class="tab-pane" id="biodata">
-                    <form method="POST" action="/biodata-klien/{{$users->id_klien}}" enctype="multipart/form-data"> 
+                    <form method="POST" action="/biodata-klien/{{$klien->id_klien}}" enctype="multipart/form-data"> 
                         @method('patch')
                         @csrf
                         <form role="form">
                         <div class="form-group" hidden>
                                 <label for="name">ID</label>
-                                <input type="text" id="id" placeholder="Masukkan Tanggal Lahir" name="id" value="{{ $users->id }}">
+                                <input type="text" id="id" placeholder="Masukkan Tanggal Lahir" name="id" value="{{ $klien->id }}">
                             </div>
                         <div class="form-group">
 
                         <div class="form-group">
                                 <label for="name">NIK</label>
                                 <input type="text" class="form-control @error('nik') is-invalid @enderror" 
-                                id="nik" placeholder="Masukkan NIK" name="nik" value="{{ $users->nik }}">
+                                id="nik" placeholder="Masukkan NIK" name="nik" value="{{ $klien->nik }}">
                                 @error ('nik')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
@@ -160,7 +141,7 @@
                                 <label for="jenis_kelamin">Jenis Kelamin</label>
                                     <select class="form-control @error('jenis_kelamin') is-invalid @enderror" 
                                     id="jenis_kelamin" placeholder="Pilih Jenis Kelamin" name="jenis_kelamin">
-                                        <option value="{{$users->jenis_kelamin}}" hidden selected>{{$users->jenis_kelamin}}</option>
+                                        <option value="{{$klien->jenis_kelamin}}" hidden selected>{{$klien->jenis_kelamin}}</option>
                                         <option value="Perempuan">Perempuan</option>
                                         <option value="Laki-laki">Laki-laki</option>
                                     </select>
@@ -174,7 +155,7 @@
                             <div class="form-group">
                                 <label for="name">Tanggal Lahir</label>
                                 <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror" 
-                                id="tgl_lahir" placeholder="Masukkan Tanggal Lahir" name="tgl_lahir" value="{{ $users->tgl_lahir }}">
+                                id="tgl_lahir" placeholder="Masukkan Tanggal Lahir" name="tgl_lahir" value="{{ $klien->tgl_lahir }}">
                                 @error ('tgl_lahir')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
@@ -185,7 +166,7 @@
                             <div class="form-group">
                                 <label for="name">Nomor HP</label>
                                 <input type="text" class="form-control @error('no_telp') is-invalid @enderror" 
-                                id="no_telp" placeholder="Masukkan Nomor Telepon" name="no_telp" value="{{ $users->no_telp }}">
+                                id="no_telp" placeholder="Masukkan Nomor Telepon" name="no_telp" value="{{ $klien->no_telp }}">
                                 @error ('no_telp')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
@@ -196,7 +177,7 @@
                             <div class="form-group">
                                 <label for="name">Alamat</label>
                                 <textarea class="form-control @error('alamat') is-invalid @enderror" 
-                                id="alamat" placeholder="Masukkan Alamat" name="alamat">{{$users->alamat}}</textarea>
+                                id="alamat" placeholder="Masukkan Alamat" name="alamat">{{$klien->alamat}}</textarea>
                                 @error ('alamat')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
@@ -207,7 +188,7 @@
                             <div class="form-group">
                                 <label for="name">Kecamatan</label>
                                 <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" 
-                                id="kecamatan" placeholder="Masukkan Kecamatan" name="kecamatan" value="{{ $users->kecamatan }}">
+                                id="kecamatan" placeholder="Masukkan Kecamatan" name="kecamatan" value="{{ $klien->kecamatan }}">
                                 @error ('kecamatan')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
@@ -218,7 +199,7 @@
                             <div class="form-group">
                                 <label for="name">Kabupaten</label>
                                 <input type="text" class="form-control @error('kabupaten') is-invalid @enderror" 
-                                id="kabupaten" placeholder="Masukkan Kabupaten" name="kabupaten" value="{{ $users->kabupaten }}">
+                                id="kabupaten" placeholder="Masukkan Kabupaten" name="kabupaten" value="{{ $klien->kabupaten }}">
                                 @error ('kabupaten')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
@@ -229,7 +210,7 @@
                             <div class="form-group">
                                 <label for="name">Provinsi</label>
                                 <input type="text" class="form-control @error('provinsi') is-invalid @enderror" 
-                                id="provinsi" placeholder="Masukkan Provinsi" name="provinsi" value="{{ $users->provinsi }}">
+                                id="provinsi" placeholder="Masukkan Provinsi" name="provinsi" value="{{ $klien->provinsi }}">
                                 @error ('provinsi')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
@@ -240,7 +221,7 @@
                             <div class="form-group">
                                 <label for="name">Kode Pos</label>
                                 <input type="text" class="form-control @error('kode_pos') is-invalid @enderror" 
-                                id="kode_pos" placeholder="Masukkan Kode Pos" name="kode_pos" value="{{ $users->kode_pos }}">
+                                id="kode_pos" placeholder="Masukkan Kode Pos" name="kode_pos" value="{{ $klien->kode_pos }}">
                                 @error ('kode_pos')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
@@ -251,11 +232,11 @@
                             <div class="form-group row">
                                 <label for="foto_ktp" class="col-sm-2 col-form-label">Foto KTP</label>
                                     <div class="col-sm-10">
-                                    <input type="file" name="foto_ktp" class="form-input" value="{{$users->foto_ktp}}">
+                                    <input type="file" name="foto_ktp" class="form-input" value="{{$klien->foto_ktp}}">
                                     </br>
                                     </br>
                                         <div>
-                                            <img src="{{asset('/img/biodata/'.$users->foto_ktp)}}" height="90" width="150" alt="" srcset="">
+                                            <img src="{{asset('/img/biodata/'.$klien->foto_ktp)}}" height="90" width="150" alt="" srcset="">
                                         </div>
                                     </div>
                             </div>
