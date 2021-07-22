@@ -59,30 +59,30 @@
                 <div class="row mt-4">
                    <div class="col-sm-4">
                     <div class="position-relative">
-                      <img src="./img/3.jpg" alt="Photo 2" class="img-fluid">
+                      <img src="./img/on-time.jpeg" alt="Photo 2" class="img-fluid">
                       <div class="ribbon-wrapper ribbon-xl">
                         <div class="ribbon bg-warning text-lg">
-                          Ribbon
+                          SIKOMBASA
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-sm-4">
                     <div class="position-relative">
-                      <img src="./img/3.jpg" alt="Photo 2" class="img-fluid">
+                      <img src="./img/service-details-3.jpg" alt="Photo 2" class="img-fluid">
                       <div class="ribbon-wrapper ribbon-xl">
                         <div class="ribbon bg-warning text-lg">
-                          Ribbon
+                          SIKOMBASA
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-sm-4">
                     <div class="position-relative" style="min-height: 180px;">
-                      <img src="./img/4.jpg" alt="Photo 3" class="img-fluid">
-                      <div class="ribbon-wrapper ribbon-lg">
-                        <div class="ribbon bg-danger text-lg">
-                          Ribbon
+                      <img src="./img/price.jpg" alt="Photo 3" class="img-fluid">
+                      <div class="ribbon-wrapper ribbon-xl">
+                        <div class="ribbon bg-warning text-lg">
+                          SIKOMBASA
                         </div>
                       </div>
                     </div>
@@ -92,9 +92,8 @@
 	<div class="col-sm-4">
 		<div class="card text-center">
 		  <div class="card-body">
-		    <h5 class="card-title">Text Align Left</h5>
-		    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-		    <a href="#" class="btn btn-primary">Go somewhere</a>
+		    <!-- <h5 class="card-title">On-Time</h5> -->
+		    <p class="card-text">Translator mengerjakan apa yang harus dikerjakannya dengan tepat pada waktu yang telah ditentukan sebelumnya</p>
 		  </div>
 		</div>
 	</div>
@@ -102,9 +101,8 @@
 	<div class="col-sm-4">
 		<div class="card text-center">
 		  <div class="card-body">
-		    <h5 class="card-title">Text Align Center</h5>
-		    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-		    <a href="#" class="btn btn-primary">Go somewhere</a>
+		    <!-- <h5 class="card-title">Profesional</h5> -->
+		    <p class="card-text">Translator menawarkan jasa atau layanan sesuai dengan protokol dan peraturan dalam bidang yang dijalaninya</p>
 		  </div>
 		</div>
 	</div>
@@ -112,9 +110,9 @@
 	<div class="col-sm-4">
 		<div class="card text-center">
 		  <div class="card-body">
-		    <h5 class="card-title">Text Align Right</h5>
-		    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-		    <a href="#" class="btn btn-primary">Go somewhere</a>
+		    <!-- <h5 class="card-title">Text Align Right</h5> -->
+		    <p class="card-text">Penawaran harga yang sangat baik sehingga dapat dijangkau oleh semua orang dari berbagai kalangan</p>
+		    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
 		  </div>
 		</div>
 	</div>

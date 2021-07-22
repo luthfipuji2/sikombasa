@@ -13,6 +13,7 @@ use App\Models\Admin\Seleksi;
 use App\Models\Klien\Order;
 use App\Models\Klien\Revisi;
 use App\Models\User;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 class ToDoController extends Controller
@@ -29,6 +30,7 @@ class ToDoController extends Controller
                 ->where('id_translator', $translator->id_translator)
                 ->whereNull('path_file_trans')
                 ->whereNull('text_trans')
+                ->orderBy('order.tgl_order', 'asc')
                 ->get();
 
         $revisi = DB::table('order')
@@ -42,14 +44,15 @@ class ToDoController extends Controller
             ->whereNotNull('revisi.pesan_revisi')
             ->whereNull('revisi.path_file_revisi')
             ->whereNull('revisi.text_revisi')
+            ->orderBy('revisi.tgl_pengajuan_revisi', 'asc')
             ->get();
 
-        $today = date("Y-m-d");
+        $current = Carbon::now();
         
         return view('pages.translator.todo', [
             'order'=>$order,
-            'today'=>$today,
-            'revisi'=>$revisi
+            'revisi'=>$revisi,
+            'current'=>$current
         ]);
     }
 

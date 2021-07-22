@@ -71,11 +71,7 @@ class Order extends Model
     }
 
     public function translator(){
-<<<<<<< HEAD
         return $this->belongsTo('App\Models\Translator', 'id_translator', 'id_translator');
-=======
-        return $this->belongsTo('App\Models\Traslator\Translator','id_translator','id_translator');
->>>>>>> 5117698714942e7d7f2a49135fd30a3993d6b360
     }
 
     public function parameter_order(){
