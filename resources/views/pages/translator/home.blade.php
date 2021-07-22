@@ -135,7 +135,7 @@
       <div class="container">
         <div class="section-title">
           <h2 class="text-center">About</h2>
-          <p class="text-center">Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <p class="text-center">Halo, Selamat datang para translator SIKOMBASA di dashboard khusus para translator kepercayaan kami.</p>
         </div>
 
         <div class="row" data-aos="fade-up"  >
@@ -143,15 +143,11 @@
             <img src="./img/features-1.svg" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-4">
-            <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
+            <h3>Latar Belakang terbentuknya SIKOMBASA</h3>
             <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
+              SIKOMBASA (Solusi Komunikasi dan Olah Bahasa) dibentuk untuk menyediakan moda terjemahan yang efektif, efisien, serta tepat sasaran dengan adanya enam pilihan menu
+              yang memungkinkan klien untuk dapat menemukan jenis jasa yang ia butuhkan dengan tingkat akurasi terjemahan yang dapat dipertanggungjawabkan juga harga yang tentunya terjangkau. 
             </p>
-            <ul>
-              <li><i class="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-            </ul>
           </div>
         </div>
 
@@ -160,15 +156,14 @@
             <img src="./img/details-2.png" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-5 order-2 order-md-1 ml-auto">
-            <h3>Corporis temporibus maiores provident</h3>
+            <h3>Mengenai SIKOMBASA</h3>
             <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
-            </p>
-            <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum
+            SIKOMBASA (Solusi Komunikasi dan Olah Bahasa) merupakan platform layanan terjemahan online untuk mempermudahkan interaksi antara klien dengan penyedia jasa penerjemah atau dalam hal ini adalah translator. 
+            Kegunaan lain dari adanya sistem ini adalah:
+            <ul>
+              <li><i class="bi bi-check"></i>Tempat bagi translator untuk membangun jaringan serta reputasi</li>
+              <li><i class="bi bi-check"></i> Wadah bagi translator untuk menawarkan jasanya secara lebih mudah</li>
+            </ul>
             </p>
           </div>
         </div>
@@ -178,31 +173,15 @@
             <img src="./img/details-3.png" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-5">
-            <h3>Sunt consequatur ad ut est nulla consectetur reiciendis animi voluptas</h3>
-            <p>Cupiditate placeat cupiditate placeat est ipsam culpa. Delectus quia minima quod. Sunt saepe odit aut quia voluptatem hic voluptas dolor doloremque.</p>
+            <h3>Menu Layanan SIKOMBASA</h3>
+            <p>SIKOMBASA menyediakan enam pilihan menu yang bervariasai, enam menu ini dibagi menjadi dua kategori yakni menu terjemahan online dan offline.
+              Diantara menu-menu berikut adalah
+            </p>
             <ul>
-              <li><i class="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-              <li><i class="bi bi-check"></i> Facilis ut et voluptatem aperiam. Autem soluta ad fugiat.</li>
+              <li><i class="bi bi-check"></i> Teks dan Dokumen</li>
+              <li><i class="bi bi-check"></i> Subtitle dan Dubbing</li>
+              <li><i class="bi bi-check"></i> Transkrip (Online dan Offline) dan Interpreter</li>
             </ul>
-          </div>
-        </div>
-
-        <div class="row" data-aos="fade-up">
-          <div class="col-md-2 order-1 order-md-2 ml-auto">
-            <img src="./img/details-4.png" class="img-fluid" alt="">
-          </div>
-          <div class="col-md-7 pt-5 order-2 order-md-1 ml-auto">
-            <h3>Quas et necessitatibus eaque impedit ipsum animi consequatur incidunt in</h3>
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
-            </p>
-            <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum
-            </p>
           </div>
         </div>
 

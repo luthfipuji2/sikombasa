@@ -225,6 +225,12 @@
                                           </div>
                                         </div>
                                         <div class="form-group row">
+                                          <label for="durasi_video" class="col-sm-3 col-form-label">Durasi Video</label>
+                                          <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="durasi_video" id="durasi_video" readonly value="{{$o->durasi_video}}">
+                                          </div>
+                                        </div>
+                                        <div class="form-group row">
                                           <label for="durasi_pengerjaan" class="col-sm-3 col-form-label">Durasi Pengerjaan</label>
                                           <div class="col-sm-9">
                                             <input type="text" class="form-control" name="durasi_pengerjaan" id="durasi_pengerjaan" readonly value="{{$o->durasi_pengerjaan}} hari">
@@ -625,6 +631,12 @@
                                           <label for="jumlah_dubber" class="col-sm-3 col-form-label">Jumlah Dubber</label>
                                           <div class="col-sm-9">
                                             <input type="text" class="form-control" name="jumlah_dubber" id="jumlah_dubber" readonly value="{{$r->jumlah_dubber}}">
+                                          </div>
+                                        </div>
+                                        <div class="form-group row">
+                                          <label for="durasi_video" class="col-sm-3 col-form-label">Durasi Video</label>
+                                          <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="durasi_video" id="durasi_video" readonly value="{{$r->durasi_video}}">
                                           </div>
                                         </div>
                                         <div class="form-group row">

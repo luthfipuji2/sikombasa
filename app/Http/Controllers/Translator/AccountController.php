@@ -30,8 +30,12 @@ class AccountController extends Controller
         ->join('users', 'klien.id', '=', 'users.id')
         ->leftJoin('revisi', 'order.id_order', '=', 'revisi.id_order')
         ->leftJoin('transaksi', 'order.id_order', '=', 'transaksi.id_order')
+        ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 'parameter_order.id_parameter_order')
+        ->leftJoin('parameter_jenis_layanan', 'order.id_parameter_jenis_layanan', '=', 'parameter_jenis_layanan.id_parameter_jenis_layanan')
+        ->leftJoin('parameter_jenis_teks', 'order.id_parameter_jenis_teks', '=', 'parameter_jenis_teks.id_parameter_jenis_teks')
         ->leftJoin('distribusi_fee', 'transaksi.id_transaksi', '=', 'distribusi_fee.id__transaksi')
         ->where('id_translator', $translator->id_translator)
+        ->orderBy('order.tgl_order', 'desc')
         ->get();
 
         return view('pages.translator.account', [

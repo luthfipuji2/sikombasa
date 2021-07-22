@@ -139,7 +139,7 @@ class ProfileController extends Controller
     }
     public function deleteCertificate($id_keahlian){
         DB::table('keahlian')->where('id_keahlian', $id_keahlian)->delete();
-        return redirect('/profile-translator')->with('info', 'Data Deleted Successfully!'); 
+        return redirect('/profile-translator')->with('success', 'Data sertifikat berhasil dihapus'); 
     }
 
 }

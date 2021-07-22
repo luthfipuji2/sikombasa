@@ -271,6 +271,6 @@ class PostController extends Controller
     }
     public function deleteCertificate($id_keahlian){
         DB::table('keahlian')->where('id_keahlian', $id_keahlian)->delete();
-        return redirect('/certificate-post')->with('info', 'Data Deleted Successfully!'); 
+        return redirect('/certificate-post')->with('success', 'Data sertifikat berhasil dihapus'); 
     }
 }
