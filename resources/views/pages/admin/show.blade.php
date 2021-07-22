@@ -95,49 +95,49 @@
             <div class="form-group row">
                 <label for="foto_ktpa" class="col-sm-3 col-form-label">Foto KTP</label>
                 <div class="col-sm-9">
-                    <img src="" height="90" width="150" alt="" srcset="">
+                    <img src="{{asset('/img/biodata/'.$translator->foto_ktp)}}" height="90" width="150" alt="" srcset="">
                     <br>
-                    <a href="" target="_blank" rel="noopener noreferrer">Lihat gambar</a>
+                    <a href="{{asset('/img/biodata/'.$translator->foto_ktp)}}" target="_blank" rel="noopener noreferrer">Lihat gambar</a>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="cv" class="col-sm-3 col-form-label">CV</label>
                 <div class="col-sm-9">
-                    <img src="" height="90" width="150" alt="" srcset="">
+                    <img src="{{asset('/img/dokumen/'.$dokumen->cv)}}" height="90" width="150" alt="" srcset="">
                     <br>
-                    <a href="" target="_blank" rel="noopener noreferrer">Lihat gambar</a>
+                    <a href="{{asset('/img/dokumen/'.$dokumen->cv)}}" target="_blank" rel="noopener noreferrer">Lihat gambar</a>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="ijazah_terakhir" class="col-sm-3 col-form-label">Ijazah Terakhir</label>
                 <div class="col-sm-9">
-                    <img src="" height="90" width="150" alt="" srcset="">
+                    <img src="{{asset('/img/dokumen/'.$dokumen->ijazah_terakhir)}}" height="90" width="150" alt="" srcset="">
                     <br>
-                    <a href="" target="_blank" rel="noopener noreferrer">Lihat gambar</a>
+                    <a href="{{asset('/img/dokumen/'.$dokumen->ijazah_terakhir)}}" target="_blank" rel="noopener noreferrer">Lihat gambar</a>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="portofolio" class="col-sm-3 col-form-label">Portofolio</label>
                 <div class="col-sm-9">
-                    <img src="" height="90" width="150" alt="" srcset="">
+                    <img src="{{asset('/img/dokumen/'.$dokumen->portofolio)}}" height="90" width="150" alt="" srcset="">
                     <br>
-                    <a href="" target="_blank" rel="noopener noreferrer">Lihat gambar</a>
+                    <a href="{{asset('/img/dokumen/'.$dokumen->portofolio)}}" target="_blank" rel="noopener noreferrer">Lihat gambar</a>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="sk_sehat" class="col-sm-3 col-form-label">Surat Keterangan Sehat</label>
                 <div class="col-sm-9">
-                    <img src="" height="90" width="150" alt="" srcset="">
+                    <img src="{{asset('/img/dokumen/'.$dokumen->sk_sehat)}}" height="90" width="150" alt="" srcset="">
                     <br>
-                    <a href="" target="_blank" rel="noopener noreferrer">Lihat gambar</a>
+                    <a href="{{asset('/img/dokumen/'.$dokumen->sk_sehat)}}" target="_blank" rel="noopener noreferrer">Lihat gambar</a>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="skck" class="col-sm-3 col-form-label">Surat Keterangan Berkelakuan Baik</label>
                 <div class="col-sm-9">
-                    <img src="" height="90" width="150" alt="" srcset="">
+                    <img src="{{asset('/img/dokumen/'.$dokumen->skck)}}" height="90" width="150" alt="" srcset="">
                     <br>
-                    <a href="" target="_blank" rel="noopener noreferrer">Lihat gambar</a>
+                    <a href="{{asset('/img/dokumen/'.$dokumen->skck)}}" target="_blank" rel="noopener noreferrer">Lihat gambar</a>
                 </div>
             </div>
             @foreach($skills as $s)

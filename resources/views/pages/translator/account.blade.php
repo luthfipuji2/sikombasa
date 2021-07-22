@@ -117,92 +117,352 @@
                               <td><p class="font-weight-bold text-left">IDR {{$o->nominal_transaksi}},-</p></td>
                             </tr>
                           </table>
+                          <p>
+                          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample-{{$o->id_order}}" aria-expanded="false" aria-controls="collapseExample">
+                            Detail Order
+                          </button>
+                          </p>
+                          <div class="collapse" id="collapseExample-{{$o->id_order}}">
+                            <div class="card card-body">
+                            @if($o->menu == "Text")
+                              <table class="table table-striped">
+                                <tbody>
+                                  <tr>
+                                    <td style="width: 200px"><b>Jenis Layanan</b></td>
+                                    <td>{{$o->p_jenis_layanan}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Jenis Teks</b></td>
+                                    <td>{{$o->p_jenis_teks}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Teks</b></td>
+                                    <td>{{$o->text}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Jumlah Kata</b></td>
+                                    <td>{{$o->jumlah_karakter}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Durasi Pengerjaan</b></td>
+                                    <td>{{$o->durasi_pengerjaan}} hari</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            @elseif($o->menu=='Transkrip' && $o->tipe_offline=='')
+                            <table class="table table-striped">
+                                <tbody>
+                                  <tr>
+                                    <td style="width: 200px"><b>Jenis Layanan</b></td>
+                                    <td>{{$o->jenis_layanan}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Nama Dokumen</b></td>
+                                    <td>{{$o->nama_dokumen}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Durasi Audio</b></td>
+                                    <td>{{$o->durasi_audio}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Durasi Pengerjaan</b></td>
+                                    <td>{{$o->durasi_pengerjaan}} hari</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            @elseif($o->menu=='Interpreter' && $o->tipe_offline=='Transkrip')
+                            <table class="table table-striped">
+                                <tbody>
+                                  <tr>
+                                    <td style="width: 200px"><b>Jenis Layanan</b></td>
+                                    <td>{{$o->jenis_layanan}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Durasi Pertemuan</b></td>
+                                    <td>{{$o->p_durasi_pertemuan}} hari</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Tanggal Pertemuan</b></td>
+                                    <td>{{$o->tanggal_pertemuan}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Waktu Pertemuan</b></td>
+                                    <td>{{$o->waktu_pertemuan}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Detail Lokasi</b></td>
+                                    <td>{{$o->lokasi}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            @elseif($o->menu=='Dubbing')
+                            <table class="table table-striped">
+                                <tbody>
+                                  <tr>
+                                    <td style="width: 200px"><b>Jenis Layanan</b></td>
+                                    <td>{{$o->p_jenis_layanan}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Nama Dokumen</b></td>
+                                    <td>{{$o->nama_dokumen}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Ekstensi File</b></td>
+                                    <td>{{$o->ekstensi}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Jumlah Dubber</b></td>
+                                    <td>{{$o->jumlah_dubber}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Durasi Video</b></td>
+                                    <td>{{$o->durasi_video}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Durasi Pengerjaan</b></td>
+                                    <td>{{$o->durasi_pengerjaan}} hari</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            @elseif($o->tipe_offline=='Interpreter' && $o->menu == "Interpreter")
+                            <table class="table table-striped">
+                                <tbody>
+                                  <tr>
+                                    <td style="width: 200px"><b>Jenis Layanan</b></td>
+                                    <td>{{$o->jenis_layanan}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Durasi Pertemuan</b></td>
+                                    <td>{{$o->p_durasi_pertemuan}} hari</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Tanggal Pertemuan</b></td>
+                                    <td>{{$o->tanggal_pertemuan}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Waktu Pertemuan</b></td>
+                                    <td>{{$o->waktu_pertemuan}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Detail Lokasi</b></td>
+                                    <td>{{$o->lokasi}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            @elseif($o->menu=='Dokumen')
+                            <table class="table table-striped">
+                                <tbody>
+                                  <tr>
+                                    <td style="width: 200px"><b>Jenis Layanan</b></td>
+                                    <td>{{$o->p_jenis_layanan}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Jenis Dokumen</b></td>
+                                    <td>{{$o->p_jenis_teks}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Nama Dokumen</b></td>
+                                    <td>{{$o->nama_dokumen}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Ekstensi File</b></td>
+                                    <td>{{$o->ekstensi}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Jumlah Halaman</b></td>
+                                    <td>{{$o->pages}} halaman</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Durasi Pengerjaan</b></td>
+                                    <td>{{$o->durasi_pengerjaan}} hari</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            @elseif($o->menu=='Subtitle')
+                            <table class="table table-striped">
+                                <tbody>
+                                  <tr>
+                                    <td style="width: 200px"><b>Jenis Layanan</b></td>
+                                    <td>{{$o->p_jenis_layanan}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Nama Dokumen</b></td>
+                                    <td>{{$o->nama_dokumen}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Ekstensi File</b></td>
+                                    <td>{{$o->ekstensi}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Durasi Video</b></td>
+                                    <td>{{$o->durasi_video}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width: 200px"><b>Durasi Pengerjaan</b></td>
+                                    <td>{{$o->durasi_pengerjaan}} hari</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            @endif
+                            </div>
+                          </div>
                         </div>
                         <div class="card-footer bg-info">
                           <div class="row">
                             <div class="col-sm-2">
-                              @if(!empty($o->id_translator) && empty($o->path_file_trans) && empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              @if(!empty($o->id_translator) && empty($o->path_file_trans) && empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='belum selesai')
+                              <!-- Translator menerima order -->
                               <span class="badge badge-pill badge-primary">1</span>
                               <span class="badge badge-pill badge-light">2</span>
                               <span class="badge badge-pill badge-light">3</span>
                               <span class="badge badge-pill badge-light">4</span>
                               <span class="badge badge-pill badge-light">5</span>
-                              @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-light">6</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='belum selesai')
+                              <!-- Menyelesaikan order file, status_at=='belum selesai', belum ada konfirmasi 'selesai' dari klien -->
                               <span class="badge badge-pill badge-primary">1</span>
                               <span class="badge badge-pill badge-primary">2</span>
                               <span class="badge badge-pill badge-light">3</span>
                               <span class="badge badge-pill badge-light">4</span>
                               <span class="badge badge-pill badge-light">5</span>
-                              @elseif(!empty($o->id_translator) && !empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-light">6</span>
+                              <span class="badge badge-pill badge-light">6</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='belum selesai')
+                              <!-- Menyelesaikan order text, status_at=='belum selesai', belum ada konfirmasi 'selesai' dari klien -->
                               <span class="badge badge-pill badge-primary">1</span>
                               <span class="badge badge-pill badge-primary">2</span>
                               <span class="badge badge-pill badge-light">3</span>
                               <span class="badge badge-pill badge-light">4</span>
                               <span class="badge badge-pill badge-light">5</span>
-                              @elseif(!empty($o->id_translator) && !empty($o->text_trans) && !empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-light">6</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='selesai')
+                              <!-- Menyelesaikan order file, status_at=='selesai', sudah ada konfirmasi 'selesai' dari klien -->
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-primary">2</span>
+                              <span class="badge badge-pill badge-primary">3</span>
+                              <span class="badge badge-pill badge-primary">4</span>
+                              <span class="badge badge-pill badge-primary">5</span>
+                              <span class="badge badge-pill badge-light">6</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='selesai')
+                              <!-- Menyelesaikan order text, status_at=='selesai', sudah ada konfirmasi 'selesai' dari klien -->
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-primary">2</span>
+                              <span class="badge badge-pill badge-primary">3</span>
+                              <span class="badge badge-pill badge-primary">4</span>
+                              <span class="badge badge-pill badge-primary">5</span>
+                              <span class="badge badge-pill badge-light">6</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->text_trans) && !empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='belum selesai')
+                              <!-- Menerima permintaan revisi text, belum ada konfirmasi 'selesai' dari klien -->
                               <span class="badge badge-pill badge-primary">1</span>
                               <span class="badge badge-pill badge-primary">2</span>
                               <span class="badge badge-pill badge-primary">3</span>
                               <span class="badge badge-pill badge-light">4</span>
                               <span class="badge badge-pill badge-light">5</span>
-                              @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && !empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-light">6</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && !empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='belum selesai')
+                              <!-- Menerima permintaan revisi file, belum ada konfirmasi 'selesai' dari klien  -->
                               <span class="badge badge-pill badge-primary">1</span>
                               <span class="badge badge-pill badge-primary">2</span>
                               <span class="badge badge-pill badge-primary">3</span>
                               <span class="badge badge-pill badge-light">4</span>
                               <span class="badge badge-pill badge-light">5</span>
-                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-light">6</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='belum selesai')
+                              <!-- Menyelesaikan permintaan revisi file, belum ada konfirmasi 'selesai' dari klien -->
                               <span class="badge badge-pill badge-primary">1</span>
                               <span class="badge badge-pill badge-primary">2</span>
                               <span class="badge badge-pill badge-primary">3</span>
                               <span class="badge badge-pill badge-primary">4</span>
                               <span class="badge badge-pill badge-light">5</span>
-                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-light">6</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='belum selesai')
+                              <!-- Menyelesaikan permintaan revisi teks, belum ada konfirmasi 'selesai' dari klien -->
                               <span class="badge badge-pill badge-primary">1</span>
                               <span class="badge badge-pill badge-primary">2</span>
                               <span class="badge badge-pill badge-primary">3</span>
                               <span class="badge badge-pill badge-primary">4</span>
                               <span class="badge badge-pill badge-light">5</span>
-                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && !empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-light">6</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='selesai')
+                              <!-- Menyelesaikan permintaan revisi file, sudah ada konfirmasi 'selesai' dari klien -->
                               <span class="badge badge-pill badge-primary">1</span>
                               <span class="badge badge-pill badge-primary">2</span>
                               <span class="badge badge-pill badge-primary">3</span>
                               <span class="badge badge-pill badge-primary">4</span>
                               <span class="badge badge-pill badge-primary">5</span>
-                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && !empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-light">6</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='selesai')
+                              <!-- Menyelesaikan permintaan revisi teks, sudah ada konfirmasi 'selesai' dari klien -->
                               <span class="badge badge-pill badge-primary">1</span>
                               <span class="badge badge-pill badge-primary">2</span>
                               <span class="badge badge-pill badge-primary">3</span>
                               <span class="badge badge-pill badge-primary">4</span>
                               <span class="badge badge-pill badge-primary">5</span>
-                              @elseif(!empty($o->id_translator) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($path_file_revisi) && !empty($o->bukti_fee_trans))
+                              <span class="badge badge-pill badge-light">6</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && !empty($o->bukti_fee_trans) && $o->status_at=='selesai')
+                              <!-- Menyelesaikan permintaan revisi teks, sudah ada konfirmasi 'selesai' dari klien, menerima fee -->
                               <span class="badge badge-pill badge-primary">1</span>
                               <span class="badge badge-pill badge-primary">2</span>
                               <span class="badge badge-pill badge-primary">3</span>
                               <span class="badge badge-pill badge-primary">4</span>
                               <span class="badge badge-pill badge-primary">5</span>
+                              <span class="badge badge-pill badge-primary">6</span>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && !empty($o->bukti_fee_trans) && $o->status_at=='selesai')
+                              <!-- Menyelesaikan permintaan revisi file, sudah ada konfirmasi 'selesai' dari klien, menerima fee -->
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-primary">2</span>
+                              <span class="badge badge-pill badge-primary">3</span>
+                              <span class="badge badge-pill badge-primary">4</span>
+                              <span class="badge badge-pill badge-primary">5</span>
+                              <span class="badge badge-pill badge-primary">6</span>
+                              @elseif(!empty($o->id_translator) && empty($o->pesan_revisi) && !empty($o->text_trans) && empty($o->text_revisi) && empty($path_file_revisi) && !empty($o->bukti_fee_trans) && $o->status_at=='selesai')
+                              <!-- Selesai order teks, tidak menerima permintaan revisi, sudah ada konfirmasi 'selesai' dari klien, menerima fee -->
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-primary">2</span>
+                              <span class="badge badge-pill badge-primary">3</span>
+                              <span class="badge badge-pill badge-primary">4</span>
+                              <span class="badge badge-pill badge-primary">5</span>
+                              <span class="badge badge-pill badge-primary">6</span>
+                              @elseif(!empty($o->id_translator) && empty($o->pesan_revisi) && !empty($o->path_file_trans) && empty($o->text_revisi) && empty($path_file_revisi) && !empty($o->bukti_fee_trans) && $o->status_at=='selesai')
+                               <!-- Selesai order file, tidak menerima permintaan revisi, sudah ada konfirmasi 'selesai' dari klien, menerima fee -->
+                              <span class="badge badge-pill badge-primary">1</span>
+                              <span class="badge badge-pill badge-primary">2</span>
+                              <span class="badge badge-pill badge-primary">3</span>
+                              <span class="badge badge-pill badge-primary">4</span>
+                              <span class="badge badge-pill badge-primary">5</span>
+                              <span class="badge badge-pill badge-primary">6</span>
                               @endif
                             </div>
                             <div class="col-sm-10">
-                              @if(!empty($o->id_translator) && empty($o->path_file_trans) && empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              @if(!empty($o->id_translator) && empty($o->path_file_trans) && empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='belum selesai')
                               <p class="text-right">Status: Menerima order</p>
-                              @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='belum selesai')
                               <p class="text-right">Status: Menyelesaikan order</p>
-                              @elseif(!empty($o->id_translator) && !empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              @elseif(!empty($o->id_translator) && !empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='belum selesai')
                               <p class="text-right">Status: Menyelesaikan order</p>
-                              @elseif(!empty($o->id_translator) && !empty($o->text_trans) && !empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='selesai')
+                              <p class="text-right">Status: Order Selesai</p>
+                              @elseif(!empty($o->id_translator) && !empty($o->text_trans) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='selesai')
+                              <p class="text-right">Status: Order Selesai</p>
+                              @elseif(!empty($o->id_translator) && !empty($o->text_trans) && !empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='belum selesai')
                               <p class="text-right">Status: Menerima permintaan revisi</p>
-                              @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && !empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              @elseif(!empty($o->id_translator) && !empty($o->path_file_trans) && !empty($o->pesan_revisi) && empty($o->text_revisi) && empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='belum selesai')
                               <p class="text-right">Status: Menerima permintaan revisi</p>
-                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && empty($o->bukti_fee_trans))
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='belum selesai')
                               <p class="text-right">Status: Menyelesaikan permintaan revisi</p>
-                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && empty($o->bukti_fee_trans))
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='belum selesai')
                               <p class="text-right">Status: Menyelesaikan permintaan revisi</p>
-                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && !empty($o->bukti_fee_trans))
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='selesai')
+                              <p class="text-right">Status: Selesai Revisi</p>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && empty($o->bukti_fee_trans) && $o->status_at=='selesai')
+                              <p class="text-right">Status: Selesai Revisi</p>
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->text_revisi) && !empty($o->bukti_fee_trans) && $o->status_at=='selesai')
                               <p class="text-right">Status: Menerima pembayaran. Download bukti pembayaran <a href="/activity-download/{{$o->id_fee}}">disini</a></p>
-                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && !empty($o->bukti_fee_trans))
+                              @elseif(!empty($o->id_translator) && !empty($o->pesan_revisi) && !empty($o->path_file_revisi) && !empty($o->bukti_fee_trans) && $o->status_at=='selesai')
                               <p class="text-right">Status: Menerima pembayaran. Download bukti pembayaran <a href="/activity-download/{{$o->id_fee}}">disini</a></p>
-                              @elseif(!empty($o->id_translator) && empty($o->pesan_revisi) && empty($o->text_revisi) && empty($path_file_revisi) && !empty($o->bukti_fee_trans))
+                              @elseif(!empty($o->id_translator) && empty($o->pesan_revisi) && !empty($o->text_trans) && empty($o->text_revisi) && empty($path_file_revisi) && !empty($o->bukti_fee_trans) && $o->status_at=='selesai')
+                              <p class="text-right">Status: Menerima pembayaran. Download bukti pembayaran <a href="/activity-download/{{$o->id_fee}}">disini</a></p>
+                              @elseif(!empty($o->id_translator) && empty($o->pesan_revisi) && !empty($o->path_file_trans) && empty($o->text_revisi) && empty($path_file_revisi) && !empty($o->bukti_fee_trans) && $o->status_at=='selesai')
                               <p class="text-right">Status: Menerima pembayaran. Download bukti pembayaran <a href="/activity-download/{{$o->id_fee}}">disini</a></p>
                               @endif
                             </div>
