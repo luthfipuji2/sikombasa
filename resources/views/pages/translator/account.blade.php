@@ -96,7 +96,7 @@
                         <div class="card-header">
                         <b>No. Order #{{$o->id_order}}</b>
                         <br>
-                        {{$o->created_at}}
+                        {{$o->tgl_order}}
                         </div>
                         <div class="card-body">
                           <table width="400px">

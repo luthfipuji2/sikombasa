@@ -25,7 +25,7 @@
                         <div class="card-header">
                           <b>No. Order #{{$o->id_order}}</b>
                           <br>
-                          {{$o->tgl_order}}
+                          Tgl. Order: {{$o->tgl_order}}
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -45,10 +45,10 @@
                             <tr>
                               @if(empty($o->tipe_offline)) 
                               <td><p class="text-left">Deadline</p><td> 
-                              <td><p class="font-weight-bold text-left">{{Carbon\Carbon::parse($o->tgl_order)->addDays($o->durasi_pengerjaan)}}</p></td>
+                              <td><p class="font-weight-bold text-left">{{Carbon\Carbon::parse($o->tgl_order)->addDays($o->durasi_pengerjaan)->isoFormat('dddd, D MMMM Y')}} - {{Carbon\Carbon::parse(Carbon\Carbon::parse($o->tgl_order)->addDays($o->durasi_pengerjaan))->diffForHumans()}}</p></td>
                               @else
                               <td><p class="text-left">Bertemu pada</p><td> 
-                              <td><p class="font-weight-bold text-left">{{$o->tanggal_pertemuan}} | {{$o->waktu_pertemuan}} </p></td>
+                              <td><p class="font-weight-bold text-left">{{Carbon\Carbon::parse($o->tanggal_pertemuan)->isoFormat('dddd, D MMMM Y')}} | {{$o->waktu_pertemuan}}</p></td>
                               @endif
                             </tr>
                           </table>
@@ -405,7 +405,7 @@
                         <div class="card-header">
                           <b>No. Order #{{$r->id_order}}</b>
                           <br>
-                          {{$r->tgl_pengajuan_revisi}}
+                          Tgl. Pengajuan Revisi: {{$r->tgl_pengajuan_revisi}}
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -425,7 +425,7 @@
                             <tr>
                               @if(empty($r->tipe_offline)) 
                               <td><p class="text-left">Deadline Revisi</p><td> 
-                              <td><p class="font-weight-bold text-left">{{Carbon\Carbon::parse($r->tgl_pengajuan_revisi)->addDays($r->durasi_pengerjaan_revisi)}}</p></td>
+                              <td><p class="font-weight-bold text-left">{{Carbon\Carbon::parse($r->tgl_pengajuan_revisi)->addDays($r->durasi_pengerjaan_revisi)->isoFormat('dddd, D MMMM Y')}} - {{Carbon\Carbon::parse(Carbon\Carbon::parse($r->tgl_pengajuan_revisi)->addDays($r->durasi_pengerjaan_revisi))->diffForHumans()}}</p></td>
                               @else
                               <td><p class="text-left">Bertemu pada</p><td> 
                               <td><p class="font-weight-bold text-left">{{$r->tanggal_pertemuan}} | {{$r->waktu_pertemuan}} </p></td>
@@ -434,7 +434,7 @@
                           </table>
                           <div class="tools">
                             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#updateOrder-{{$r->id_order}}">
-                              <i class="nav-icon fas fa-eye"></i> Detail Order
+                              <i class="nav-icon fas fa-eye"></i> Detail Revisi
                             </button>
                           </div>
                         </div>

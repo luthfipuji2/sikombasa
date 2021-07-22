@@ -7,7 +7,7 @@
   <div class="card-header">
     <b>No. Order #{{$o->id_order}}</b>
     <br>
-    {{$o->created_at}}
+    {{Carbon\Carbon::parse($o->created_at)->diffForHumans()}}
   </div>
   <div class="card-body">
   <tr>

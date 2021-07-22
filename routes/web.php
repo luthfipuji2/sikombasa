@@ -172,7 +172,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/tdl-upload-dokumenRevisi/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadDokumenRevisi']);
 
         //Review
-        Route::get('/review', [App\Http\Controllers\Translator\ReviewController::class, 'index']);
+        Route::get('/review-translator', [App\Http\Controllers\Translator\ReviewController::class, 'index']);
 
         //Profile Certificate
         Route::post('/certificate-create', [App\Http\Controllers\Translator\ProfileController::class, 'createCertificate']); 
