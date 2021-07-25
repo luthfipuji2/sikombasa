@@ -104,8 +104,8 @@
                             <td>{{$sertif->diterbitkan_oleh}}</td>
                             <td>{{$sertif->masa_berlaku}}</td>
                             <td>
-                              <a href="/certificate-post/{{$sertif->id_keahlian}}" class="btn btn-danger" >
-                              <i class="nav-icon fas fa-trash-alt"></i>
+                              <a href="#" class="btn btn-danger btn-sm delete" c-id="{{$sertif->id_keahlian}}">
+                                <i class="fas fa-trash-alt"></i>
                               </a>
 
                               <button class="btn btn-primary edit" type="button" data-toggle="modal" data-target="#updateCertificate-{{$sertif->id_keahlian}}">
@@ -215,6 +215,26 @@ $(document).ready(function() {
 $(document).ready(function(){
   var table = $('#datatable').DataTable();
 })
+</script>
+<script>
+    $('.delete').click(function(){
+
+        var c_id = $(this).attr('c-id')
+
+        Swal.fire({
+          title: "Apakah anda yakin?",
+          text: "Hapus data sertifikat ?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location = "/certificate-post/"+c_id;
+          }
+        })
+    });
 </script>
 @endpush
 
