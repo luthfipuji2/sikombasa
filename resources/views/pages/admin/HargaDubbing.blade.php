@@ -235,7 +235,7 @@
       </div>
 
       <form method="POST" action="/daftar-harga-dubbing/{{$edit->id_parameter_order_dubbing}}">
-      @method('patch')
+      @method('put')
       @csrf
 
         <div class="modal-body">

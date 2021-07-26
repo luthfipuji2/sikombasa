@@ -61,7 +61,8 @@
 </div>
 
 <!-- Modal Edit -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach ($bank as $b)
+<div class="modal fade" id="editModal{{$b->id_bank}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -71,7 +72,7 @@
         </button>
       </div>
 
-      <form action="/bank" method="POST" id="editForm">
+      <form action="/bank/{{$b->id_bank}}" method="POST">
 
       {{ csrf_field() }}
       {{ method_field('PUT') }}
@@ -79,18 +80,16 @@
         <div class="modal-body">
             <div class="form-group">
                 <label>Nama Bank</label>
-                <input type="text" name="nama_bank" id="nama_bank" class="form-control" placeholder="Masukkan Nama Bank">
+                <input type="text" name="nama_bank" value="{{$b->nama_bank}}" class="form-control" placeholder="Masukkan Nama Bank">
             </div>
             <div class="form-group">
                 <label>Nama Rekening</label>
-                <input type="text" name="nama_rekening" id="nama_rekening" class="form-control" placeholder="Masukkan Nama Rekening">
+                <input type="text" name="nama_rekening" value="{{$b->nama_rekening}}" class="form-control" placeholder="Masukkan Nama Rekening">
             </div>
             <div class="form-group">
                 <label>Nomor Rekening</label>
-                <input type="text" name="no_rekening" id="no_rekening" class="form-control" placeholder="Masukkan Nomor Rekening">
+                <input type="text" name="no_rekening" value="{{$b->no_rekening}}" class="form-control" placeholder="Masukkan Nomor Rekening">
             </div>
-            
-            
         </div>
       
 
@@ -102,6 +101,7 @@
     </div>
   </div>
 </div>
+@endforeach
 
 <!-- Main content -->
 <section class="content">
@@ -141,7 +141,7 @@
                     <td scope="row" class="text-center">{{$bank->nama_rekening}}</td>
                     <td scope="row" class="text-center">{{$bank->no_rekening}}</td>
                     <td scope="row" class="text-center">
-                      <button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#updateModal"><i class="fas fa-pencil-alt"></i></button>
+                      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal{{$bank->id_bank}}"><i class="fas fa-pencil-alt"></i></button>
                       <a href="#" class="btn btn-danger btn-sm delete" bank-id="{{$bank->id_bank}}" bank-num="{{$loop->iteration}}"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
@@ -221,25 +221,7 @@ $(document).ready(function () {
             }
     ]
   })
-     
-    table.on('click', '.edit', function(){
-
-    $tr = $(this).closest('tr');
-    if($($tr).hasClass('child')) {
-      $tr = $tr.prev('.parent');
-    }
-
-    var data = table.row($tr).data();
-    console.log(data);
-
-    $('#nama_bank').val(data[2]);
-    $('#nama_rekening').val(data[3]);
-    $('#no_rekening').val(data[4]); 
-
-    $('#editForm').attr('action', '/bank/'+data[1]);
-    $('#editModal').modal('show');
     
-  });
 });
 </script>
 @endpush

@@ -166,7 +166,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
               
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/daftar-translator" class="nav-link">
                   <i class="fas fa-user-tie nav-icon"></i>
                   <p>Daftar Translator</p>
                 </a>

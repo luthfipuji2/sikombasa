@@ -31,7 +31,7 @@ class BankController extends Controller
      */
     public function create()
     {
-        return view('pages/admin/createbank');
+        
     }
 
     /**
@@ -116,10 +116,5 @@ class BankController extends Controller
         Bank::destroy($bank->id_bank);
         return redirect('/bank')->with('success', 'Data Bank berhasil dihapus');
     }
-
-    // public function exportExcel() 
-    // {
-    //     return Excel::download(new BankExport, 'DaftarBank.xlsx');
-    // }
 
 }
