@@ -42,6 +42,8 @@ class StatusTranskripController extends Controller
             ->join('users', 'users.id', '=', 'klien.id')
             ->join('parameter_order', 'order.id_parameter_order', '=', 
                     'parameter_order.id_parameter_order')
+            ->where("users.id",$user->id)
+            ->orderBy('order.id_order')
             ->get();
 
         $status2 = Transaksi::where('status_transaksi', 'Berhasil')
@@ -53,6 +55,8 @@ class StatusTranskripController extends Controller
             ->join('users', 'users.id', '=', 'klien.id')
             ->join('parameter_order', 'order.id_parameter_order', '=', 
                     'parameter_order.id_parameter_order')
+            ->where("users.id",$user->id)
+            ->orderBy('order.id_order')
             ->get();
 
         $status3 = Transaksi::where('status_transaksi', 'Berhasil')
@@ -64,6 +68,8 @@ class StatusTranskripController extends Controller
             ->join('users', 'users.id', '=', 'klien.id')
             ->join('parameter_order', 'order.id_parameter_order', '=', 
                     'parameter_order.id_parameter_order')
+            ->where("users.id",$user->id)
+            ->orderBy('order.id_order')
             ->get();
 
         return view('pages.klien.order.order_transkrip.status', [
