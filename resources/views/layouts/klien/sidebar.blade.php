@@ -148,14 +148,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-                <a href="/klien-garansi" class="nav-link">
-                <i class="nav-icon fas fa-user-cog"></i>
-                <p>
-                Garansi
-                </p>
-                </a>
-            </li>
 
             <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"

@@ -1,9 +1,8 @@
-@extends('layouts.klien.sidebar')
+@extends('layouts.klien.sidebar_show')
 @section('content')
 
 
 <div class="container-fluid">
-<div class="row">
 <div class="container ">
 {{-- status --}}
 <div class="row">
@@ -246,8 +245,6 @@
 <!-- /.card -->
 </div>
 <!-- /.col -->
-</div>
-<!-- /.row -->
 </section>
 </div><!-- /.container-fluid -->
 @endsection
