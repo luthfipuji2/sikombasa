@@ -11,7 +11,7 @@
           <div class="info-box-content">
             <span class="info-box-text">Transkrip (Audio)</span>
             <span class="info-box-number">
-            <a href="{{ url ('order-transkrip/review') }}" class="small-box-footer">More info <i class="fas fa-microphone-alt"></i></a>
+            <a href="{{ url ('order-transkrip-review') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </span>
           </div>
           <!-- /.info-box-content -->
@@ -26,7 +26,7 @@
           <div class="info-box-content">
             <span class="info-box-text">Bertemu Langsung</span>
             <span class="info-box-number">
-            <a href="{{ url ('order-interpreter/review') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url ('order-interpreter-review') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </span>
           </div>
           <!-- /.info-box-content -->

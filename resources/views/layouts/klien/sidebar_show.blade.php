@@ -61,14 +61,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-
+      <a href="index3.html" class="brand-link">
+          <i class="fas fa-globe-asia fa-2x"></i>
+          <span class="brand-text font-weight-light">SIKOMBASA</span>
+        </a>
 
         <!-- Sidebar -->
         <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
-            <a href="#" class="d-block">
+            <a href="/klien" class="nav-link">
+            <i class="fas fa-user-clock fa-2x"></i>
                 {{ Auth::user()->name }}
             </a>
             </div>
@@ -81,7 +85,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 with font-awesome or any other icon font library -->
 
             <li class="nav-item">
-                <a href="/klien" class="nav-link">
+                <a href="{{ url ('/klien') }}" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt "></i>
                 <p>
                     Dashboard
@@ -90,7 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
 
                 <li class="nav-item has-treeview">
-                <a href="/profile-klien" class="nav-link">
+                <a href="{{ url ('profile-klien') }}" class="nav-link">
                 <i class="nav-icon fas fa-user "></i>
                 <p>
                     Profile
@@ -98,7 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
             </li>
 
-            <li class="nav-item has-treeview">
+            <li class="nav-item menu-open has-treeview">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-store"></i>
                     <p>
@@ -114,33 +118,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                     </li>
                     <li class="nav-item">
-                        <a href="menu-pembayaran" class="nav-link">
+                        <a href="{{ url ('/menu-pembayaran') }}" class="nav-link">
                         <i class="nav-icon fab fa-cc-visa"></i>
                         <p>Pembayaran</p>
                     </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/klien-status_order" class="nav-link">
+                        <a href="{{ url ('/status-order') }}" class="nav-link">
                         <i class="nav-icon fas fa-handshake"></i>
                         <p>Status Order</p>
                     </a>
                     </li>
                     </li>
                         <li class="nav-item">
-                            <a href="/klien-review" class="nav-link">
+                            <a href="{{ url ('/review-order') }}" class="nav-link">
                             <i class="nav-icon fas fa-star"></i>
                             <p>Review</p>
                         </a>
                         </li>
                 </ul>
-            </li>
-            <li class="nav-item">
-                <a href="/klien-garansi" class="nav-link">
-                <i class="nav-icon fas fa-user-cog"></i>
-                <p>
-                Garansi
-                </p>
-                </a>
             </li>
 
             <li class="nav-item">

@@ -74,8 +74,10 @@ class ReviewInterpreterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Review $review)
+    public function store(Request $request, Review $review_interpreter)
     {
+        $user = Auth::user();
+        $order=Order::whereNotNull('lokasi')->get();
         $this->validate($request,[
             'id_order' => 'required',
             'review_text' => 'required',
@@ -88,7 +90,7 @@ class ReviewInterpreterController extends Controller
             'rating'=>$request->rating
         ]);
 
-        return redirect('order-interpreter/review')->with('success', 'Review Telah Ditambahkan');
+        return redirect('/order-interpreter-review')->with('success', 'Review Telah Ditambahkan');
     }
 
     /**
@@ -103,7 +105,7 @@ class ReviewInterpreterController extends Controller
 
         $order = Order::find($id_order);
 
-        $review = Review:: //join table users and table user_details base from matched id;
+        $review = Review:: 
                 rightJoin('order', 'review.id_order', '=', 'order.id_order')
                 ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
                 ->join('users', 'klien.id', '=', 'users.id')

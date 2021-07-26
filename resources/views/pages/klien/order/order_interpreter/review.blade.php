@@ -1,4 +1,4 @@
-@extends('layouts.klien.sidebar')
+@extends('layouts.klien.sidebar_show')
 @section('title','Review Order Bertemu Langsung')
 @section('content')
 
@@ -15,8 +15,7 @@
         </button>
       </div>
 
-      <form action="" method="POST" enctype="multipart/form-data">
-
+      <form action="{{route('order-interpreter-review.store')}}" method="POST" enctype="multipart/form-data">
       {{ csrf_field() }}
         <div class="modal-body">
             <input type="text" name="id_order" value="{{$v->id_order}}" hidden>
@@ -75,16 +74,12 @@
                             <td><p class="font-weight">{{$d->p_jenis_layanan}}</p></td>
                           </tr>
                           <tr>
-                            <td><p class="font-weight-bold">Jarak</p><td>
-                            <td><p class="font-weight">{{$d->jarak}} Km</p></td>
-                          </tr>
-                          <tr>
                             <td><p class="font-weight-bold">Lokasi</p><td>
                             <td><p class="font-weight">{{$d->lokasi}}</p></td>
                           </tr>
                         </table>
                         <div class="float-right">
-                          <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambah{{$v->id_order}}"><i class="nav-icon fas fa-star text-yellow"></i>Tambah Review</button>
+                          <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambah{{$d->id_order}}"><i class="nav-icon fas fa-star text-yellow"></i>Tambah Review</button>
                         </div>
                       </div>
                     </div>
