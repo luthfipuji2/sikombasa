@@ -78,7 +78,7 @@
       </div>
 
       <form method="POST" action="/daftar-harga-teks/{{$h->id_parameter_order_teks}}">
-      @method('patch')
+      @method('put')
       @csrf
       
       <div class="modal-body">
@@ -86,7 +86,7 @@
           <div class="form-group">
                 <label>Jumlah Kata Min</label>
                 <input type="number" class="form-control @error('jumlah_karakter_min') is-invalid @enderror" 
-                name="jumlah_karakter_min" id="jumlah_karakter_min" value="{{$h->jumlah_karakter_min}}" placeholder="Masukkan Jumlah minimal kata">
+                name="jumlah_karakter_min" value="{{$h->jumlah_karakter_min}}" placeholder="Masukkan Jumlah minimal kata">
                 @error ('jumlah_karakter_min')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       {{$message}}
@@ -97,7 +97,7 @@
             <div class="form-group">
                 <label>Jumlah Kata Max</label>
                 <input type="number" class="form-control @error('jumlah_karakter_max') is-invalid @enderror" 
-                name="jumlah_karakter_max" id="jumlah_karakter_max" value="{{$h->jumlah_karakter_max}}" placeholder="Masukkan Jumlah maximal kata">
+                name="jumlah_karakter_max" value="{{$h->jumlah_karakter_max}}" placeholder="Masukkan Jumlah maximal kata">
                 @error ('jumlah_karakter_max')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       {{$message}}
@@ -108,7 +108,7 @@
           <div class="form-group">
               <label>Harga</label>
               <input type="number" class="form-control @error('harga') is-invalid @enderror" 
-              name="harga" id="harga" value="{{$h->harga}}" placeholder="Masukkan harga ex. 100000">
+              name="harga" value="{{$h->harga}}" placeholder="Masukkan harga ex. 100000">
               @error ('harga')
                 <div id="validationServerUsernameFeedback" class="invalid-feedback">
                     {{$message}}

@@ -23,7 +23,7 @@
                   <label>Jenis Layanan</label>
                   <select type="text" name="p_jenis_layanan" class="form-control @error('p_jenis_layanan') is-invalid @enderror"
                   placeholder="" value="{{ old('p_jenis_layanan') }}">
-                      <option value="{{old('p_jenis_layanan')}}" hidden selected>{{old('p_jenis_layanan')}}</option>
+                      <option>--Pilih Jenis Layanan--</option>
                       <option value="Basic">Basic</option>
                       <option value="Premium">Premium</option>
                   </select>
@@ -79,7 +79,7 @@
       </div>
 
       <form method="POST" action="/daftar-harga-transkrip/{{$edit->id_parameter_order}}">
-      @method('patch')
+      @method('put')
       @csrf
 
         <div class="modal-body">
@@ -248,26 +248,6 @@ $(document).ready(function () {
             }
     ]
   })
-     
-    table.on('click', '.edit', function(){
-
-    $tr = $(this).closest('tr');
-    if($($tr).hasClass('child')) {
-      $tr = $tr.prev('.parent');
-    }
-
-    var data = table.row($tr).data();
-    console.log(data);
-
-    $('#p_jenis_layanan').val(data[2]);
-    $('#p_tipe_transkrip').val(data[3]);
-    $('#p_durasi_pertemuan').val(data[4]);
-    $('#harga').val(data[5]); 
-
-    $('#editForm').attr('action', '/daftar-harga-transkrip/'+data[1]);
-    $('#editModal').modal('show');
-    
-  });
 });
 </script>
 @endpush
