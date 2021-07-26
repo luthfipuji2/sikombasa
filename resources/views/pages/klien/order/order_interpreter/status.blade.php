@@ -1,4 +1,4 @@
-@extends('layouts.klien.sidebar')
+@extends('layouts.klien.sidebar_show')
 @section('title','Status Order Bertemu Langsung')
 @section('content')
 
@@ -450,8 +450,12 @@
           <div class="card">
             <div class="card-header p-2">
               <ul class="nav nav-pills">
-                <li><a href="{{ url ('order-interpreter/status') }}" class="text-center btn btn-primary" type="submit" class="text-right" style="float: right;">Bertemu Langsung</a></li>&nbsp;&nbsp;
-                <li><a href="{{ url ('order-transkrip/status') }}" class="text-center btn btn-primary" type="submit" class="text-right" style="float: right;">Transkrip</a></li>&nbsp;&nbsp;
+                <li><a href="{{ url ('order-interpreter/status') }}" class=" text-center btn btn-primary">Bertemu Langsung</a></li>&nbsp;&nbsp;
+                <li><a href="{{ url ('order-transkrip/status') }}" class=" text-center btn btn-primary">Transkrip</a></li>&nbsp;&nbsp;
+                <li><a href="/status-order-teks" class=" text-center btn btn-primary">Teks</a></li>&nbsp;&nbsp;
+                <li><a href="/status-order-subtitle" class=" text-center btn btn-primary">Subtitle</a></li>&nbsp;&nbsp;
+                <li><a href="/status-order-dubbing" class=" text-center btn btn-primary">Dubbing</a></li>&nbsp;&nbsp;
+                <li><a href="/status-order-dokumen" class=" text-center btn btn-primary">Dokumen</a></li>&nbsp;&nbsp;
               </ul>
             </div><!-- /.card-header -->
             <div class="card-body">

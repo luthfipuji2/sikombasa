@@ -15,8 +15,7 @@
         </button>
       </div>
 
-      <form action="" method="POST" enctype="multipart/form-data">
-
+      <form action="{{route('order-transkrip-review.store')}}" method="POST" enctype="multipart/form-data">
       {{ csrf_field() }}
         <div class="modal-body">
             <input type="text" name="id_order" value="{{$w->id_order}}" hidden>
@@ -80,7 +79,7 @@
                           </tr>
                         </table>
                         <div class="float-right">
-                          <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambah{{$w->id_order}}"><i class="nav-icon fas fa-star text-yellow"></i>Tambah Review</button>
+                          <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambah{{$d->id_order}}"><i class="nav-icon fas fa-star text-yellow"></i>Tambah Review</button>
                         </div>
                       </div>
                     </div>

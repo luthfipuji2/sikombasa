@@ -93,34 +93,30 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/review-subtitle', 'App\Http\Controllers\Klien\OrderSubtitleController@review')->name('review_order_subtitle');
         Route::put('/review-subtitle/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@storeReview')->name('tambah_review_subtitle');
 
-        //Review Order
-        Route::resource('review-order', 'App\Http\Controllers\Klien\ReviewOrderController');
-        Route::resource('order-transkrip/review', 'App\Http\Controllers\Klien\ReviewTranskripController');
-        Route::resource('order-interpreter/review', 'App\Http\Controllers\Klien\ReviewInterpreterController');
 
         //Order Interpreter
+        Route::resource('order-interpreter-review', 'App\Http\Controllers\Klien\ReviewInterpreterController');
         Route::resource('order-interpreter/status', 'App\Http\Controllers\Klien\StatusInterpreterController');
         Route::get('/order-interpreter', [App\Http\Controllers\Klien\OrderInterpreterController::class, 'menuOrder'])->name('menu-order');
         Route::resource('order-interpreter', 'App\Http\Controllers\Klien\OrderInterpreterController');
         Route::put('/order-interpreter/{id_order}', 'App\Http\Controllers\Klien\OrderInterpreterController@update')->name('update_order_interpreter');
         
+
         //Order Transkrip 
+        Route::resource('order-transkrip-review', 'App\Http\Controllers\Klien\ReviewTranskripController');
         Route::resource('/order-transkrip/revisi', 'App\Http\Controllers\Klien\StatusTranskripController');
         Route::get('/order-transkrip/revisi', 'App\Http\Controllers\Klien\StatusTranskripController@store');
-        Route::get('/order-transkrip/detail/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@show')->name('detail-order');;
+        Route::get('/order-transkrip/detail/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@show')->name('detail-status-order');;
         Route::get('/order-transkrip/revisi-download/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@downloadrevisi');
         Route::resource('order-transkrip/status', 'App\Http\Controllers\Klien\StatusTranskripController');
-        Route::get('/order-transkrip', [App\Http\Controllers\Klien\OrderTranskripController::class, 'menuOrder'])->name('menu-order');
         Route::resource('order-transkrip', 'App\Http\Controllers\Klien\OrderTranskripController');
         Route::put('/order-transkrip/{id_order}', 'App\Http\Controllers\Klien\OrderTranskripController@update')->name('update_order_transkrip');
-        Route::delete('/order-transkrip/{id_order}', 'App\Http\Controllers\Klien\OrderTranskripController@destroy');
-        Route::post('/order-transkrip/create', [OrderTranskripController::class, 'store']);
         Route::get('/order-transkrip-download/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@downloadhasil');
+        Route::resource('status-order', 'App\Http\Controllers\Klien\StatusOrderController');
+        Route::resource('review-order', 'App\Http\Controllers\Klien\ReviewOrderController');
         
         //Route Transaksi
         Route::resource('menu-pembayaran', 'App\Http\Controllers\Klien\MenuPembayaranController');
-        Route::resource('status-order', 'App\Http\Controllers\Klien\StatusOrderController');
-        Route::resource('review-order', 'App\Http\Controllers\Klien\ReviewOrderController');
         Route::get('/bukti/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@download')->name('bukti.download');
         Route::get('/detail-order-{id_order}', 'App\Http\Controllers\Klien\MenuPembayaranController@show')->name('detail-order');
         Route::get('/invoice/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@invoice')->name('pdf.download');
@@ -300,15 +296,6 @@ Route::middleware(['auth'])->group(function () {
         redirect('/');
     });
 
-    Route::get('test', function() {
-        Storage::disk('google')->put('test.txt', 'Hello World');
-    dd('done');
-    });
+});
 
-    });
-
-
-
-
-
-// Addchat::routes();
+Addchat::routes();

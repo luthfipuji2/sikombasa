@@ -11,7 +11,7 @@
         <div class="col-md-12">
             <div class="card">
             <div class="card-header p-2 bg-green">
-                <h4><i class="fab fa-shopify"></i> Form Order Menu Offline</h4>
+                <h4><i class="fab fa-shopify"></i> Form Order Menu Bertemu Langsung</h4>
             </div><!-- /.card-header -->
             <div class="card-body">
             <div class="tab-content">
