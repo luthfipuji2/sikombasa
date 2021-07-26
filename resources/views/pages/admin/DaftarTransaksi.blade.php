@@ -5,7 +5,8 @@
 @section('container')
 
 <!-- Modal Edit -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach ($transaksi as $r)
+<div class="modal fade" id="editModal{{$r->id_transaksi}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -15,7 +16,7 @@
         </button>
       </div>
 
-      <form action="/daftar-transaksi" method="POST" id="editForm">
+      <form action="/daftar-transaksi/{{$r->id_transaksi}}" method="POST">
 
       {{ csrf_field() }}
       {{ method_field('PUT') }}
@@ -23,25 +24,24 @@
         <div class="modal-body">
             <div class="form-group">
                 <label>Tanggal Order</label>
-                <input type="text" name="tgl_order" id="tgl_order" class="form-control" readonly>
+                <input type="text" name="tgl_order" value="{{$r->tgl_order}}" class="form-control" readonly>
             </div>
             <div class="form-group">
                 <label>Tanggal Transaksi</label>
-                <input type="text" name="tgl_transaksi" id="tgl_transaksi" class="form-control" readonly>
+                <input type="text" name="tgl_transaksi" value="{{$r->tgl_transaksi}}" class="form-control" readonly>
             </div>
             <div class="form-group">
                 <label>Nominal Transaksi</label>
-                <input type="text" name="nominal_transaksi" id="nominal_transaksi" class="form-control" readonly>
+                <input type="text" name="nominal_transaksi" value="{{$r->nominal_transaksi}}" class="form-control" readonly>
             </div>
             <div class="form-group">
                 <label for="status_transaksi">Status Transaksi</label>
                     <select class="form-control @error('status_transaksi') is-invalid @enderror" 
-                     id="status_transaksi" name="status_transaksi">
-                    
+                     value="status_transaksi" name="status_transaksi">
+                      <option hidden>{{$r->status_transaksi}}</option>
                       <option value="Pending">Pending</option>
                       <option value="Berhasil">Berhasil</option>
                       <option value="Gagal">Gagal</option>
-                    
                     </select>
                     @error ('status_transaksi')
                         <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -62,7 +62,7 @@
     </div>
   </div>
 </div>
-
+@endforeach
 
 <!-- Main content -->
 <section class="content">
@@ -101,7 +101,7 @@
                     <td scope="row" class="text-center"><a href="{{route('bukti.download', $t->id_transaksi)}}">{{$t->bukti_transaksi}}</a></td>
                     <td scope="row" class="text-center">{{$t->status_transaksi}}</td>
                     <td scope="row" class="text-center">
-                      <button type="button" class="btn btn-success btn-sm edit" data-toggle="modal" data-target="#updateModal">Edit Status</button>
+                      <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editModal{{$t->id_transaksi}}">Edit Status</button>
                       <a href="{{route('detail-transaksi', $t->id_transaksi)}}" class="btn btn-sm btn-primary">Detail</i></a>
                     </td>
                   </tr>

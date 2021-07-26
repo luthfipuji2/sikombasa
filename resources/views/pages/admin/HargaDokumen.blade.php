@@ -77,7 +77,7 @@
       </div>
 
       <form method="POST" action="/daftar-harga-dokumen/{{$edit->id_parameter_order_dokumen}}">
-      @method('patch')
+      @method('put')
       @csrf
 
         <div class="modal-body">
