@@ -82,7 +82,7 @@ $(document).ready(function(){
           <div class="col-md-6">
             <div class="form-group">
                 <label>Durasi Audio</label>
-                <input type="text" value="{{$orders->durasi_audio}}" class="form-control" readonly>
+                <input type="text" value="{{(($orders->durasi_video/60)%60)}} Menit" class="form-control" readonly>
             </div>           
           </div>
 

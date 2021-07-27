@@ -239,11 +239,13 @@ class OrderSubtitleController extends Controller
 
     function statusOrder(){
         $user=Auth::user();
+        $klien=Klien::where('id', $user->id)->first();
 
         // $transaksi=Transaksi::where('status_transaksi', 'Berhasil')->orWhere('status_transaksi', 'Pending')->orWhere('status_transaksi', 'Gagal')
         //                     ->join('order', 'transaksi.id_order', '=', 'order.id_order')
         //                     ->get();
-        $status=Order::whereNotNull('id_parameter_order_subtitle')
+        $status=Order::where('id_klien', $klien->id_klien)
+                    ->whereNotNull('id_parameter_order_subtitle')
                     ->join('transaksi', 'order.id_order', '=', 'transaksi.id_order')
                     ->get();
         
@@ -254,7 +256,7 @@ class OrderSubtitleController extends Controller
             ]);
 
         // return ($status);exit();
-        return view ('pages.klien.order.order_subtitle.status_order', compact('user', 'status'));
+        return view ('pages.klien.order.order_subtitle.status_order', compact('user', 'status', 'klien'));
         
     }
 

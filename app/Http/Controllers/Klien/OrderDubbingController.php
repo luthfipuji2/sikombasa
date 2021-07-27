@@ -270,11 +270,12 @@ class OrderDubbingController extends Controller
 
     function statusOrder(){
         $user=Auth::user();
-
+        $klien=Klien::where('id', $user->id)->first();
         // $transaksi=Transaksi::where('status_transaksi', 'Berhasil')->orWhere('status_transaksi', 'Pending')->orWhere('status_transaksi', 'Gagal')
         //                     ->join('order', 'transaksi.id_order', '=', 'order.id_order')
         //                     ->get();
-        $status=Order::whereNotNull('id_parameter_order_dubbing')
+        $status=Order::where('id_klien', $klien->id_klien)
+                    ->whereNotNull('id_parameter_order_dubbing')
                     ->join('transaksi', 'order.id_order', '=', 'transaksi.id_order')
                     ->get();
         

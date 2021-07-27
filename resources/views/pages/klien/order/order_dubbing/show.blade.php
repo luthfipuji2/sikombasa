@@ -81,7 +81,7 @@
                                 </tr>
                                 <tr>
                                     <td>Durasi Video</td>
-                                    <td>{{$order->durasi_video}} Seconds</td>
+                                    <td>{{(($order->durasi_video/60)%60)}} Menit</td>
                                 </tr>
                                 <tr>
                                     <th scope="col">Total Harga</th>

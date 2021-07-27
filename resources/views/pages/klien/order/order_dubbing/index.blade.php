@@ -174,7 +174,7 @@ $(document).ready(function() {
 <script >		
     // membuat function tampilkan_nama
     function layanan_basic(){
-        document.getElementById("basic").innerHTML = " * Klien Dapat Memilih Penerjemah <br> * Tidak Terdapat Editor <br> * Tidak ada Garansi <hr>";
+        document.getElementById("basic").innerHTML = " * Translator Ditentukan <br> * Tidak Terdapat Editor <br> * Tidak Mendapat Revisi  <hr>";
     }
     
 </script>
@@ -184,7 +184,7 @@ $(document).ready(function() {
 <script >		
     // membuat function tampilkan_nama
     function layanan_premium(){
-        document.getElementById("premium").innerHTML = " * Translator Ditentukan <br> * Terdapat Proses Editing <br> *  Bergaransi <hr>";
+        document.getElementById("premium").innerHTML = " * Translator Ditentukan <br> * Terdapat Proses Editing <br> *  Mendapat Revisi 1 Kali <hr>";
     }
     
 </script>

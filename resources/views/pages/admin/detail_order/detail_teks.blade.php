@@ -13,9 +13,19 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+
 
 <!-- search -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -174,7 +184,7 @@ $(document).ready(function(){
                     </div>
                 </div>
             </div>
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover" id="example">
                 <thead>
                     <tr>
                         <th scope="row" class="text-center">#</th>
@@ -265,6 +275,24 @@ $(document).ready(function(){
 </div>     
 </body>
 @endsection
+
+@push('scripts')
+    <script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL'
+            }
+        ]
+    } );
+} );
+</script>
+@endpush
+
 @push('scripts')
     <script>
         function reloadpage()
@@ -305,20 +333,5 @@ function warning() {
   function myFunction() {
     alert('Button was clicked!');
   }
-</script>
-@endpush
-
-@push('addon-script')
-<script>
-  $(document).ready(function() {
-            $('#pelaporan').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                  { "extend": 'excel', "text":'Export Excel',"className": 'btn btn-outline-success fas fa-file-excel' },
-                  { extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL', className:'btn btn-outline-primary fa fa-book', text:'Export PDF '},
-                  { "extend": 'print', "text":'Print',"className": 'btn btn-outline-danger fa fa-print' },
-                ]
-            });
-        } );
 </script>
 @endpush
