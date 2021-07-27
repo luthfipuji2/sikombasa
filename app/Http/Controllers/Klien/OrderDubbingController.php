@@ -358,11 +358,11 @@ class OrderDubbingController extends Controller
                         ->where('status_at', 'selesai')
                         // ->with('review')
                         ->get();
-        $data=$review[0];
-        $riwayat=Review::where('id_order', $data->id_order)->get();
+        // $data=$review[0];
+        // $riwayat=Review::where('id_order', $data->id_order)->get();
         // return ($riwayat);exit();
 
-        return view ('pages.klien.order.order_dubbing.review', compact('user', 'review', 'riwayat'));
+        return view ('pages.klien.order.order_dubbing.review', compact('user', 'review'));
     }
 
     public function storeReview(Request $request, $id_order){
