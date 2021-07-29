@@ -103,6 +103,7 @@ class MenuPembayaranController extends Controller
         $this->validate($request,[
             'id_order' => 'required',
             'id_bank' => 'required',
+            'bukti_transaksi' => 'required|mimes:jpeg,jpg,png|max:2000'
         ]);
 
         $request->file('bukti_transaksi')->move('transaksi/',

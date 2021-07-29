@@ -29,9 +29,32 @@
                   </div>
                 @enderror
             </div>
+
+            <div class="form-group">
+                <label>Kode Bank</label>
+                <input type="text" class="form-control @error('kode_bank') is-invalid @enderror" 
+                name="kode_bank" class="form-control" placeholder="Masukkan Kode Bank">
+                @error ('kode_bank')
+                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                      {{$message}}
+                  </div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label>Kode Bank Internasional</label>
+                <input type="text" class="form-control @error('kode_bank_int') is-invalid @enderror" 
+                name="kode_bank_int" class="form-control" placeholder="Masukkan Kode Bank Internasional">
+                @error ('kode_bank_int')
+                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                      {{$message}}
+                  </div>
+                @enderror
+            </div>
+
             <div class="form-group">
                 <label>Nama Rekening</label>
-                <input type="text" class="form-control @error('nama_rekening') is-invalid @enderror"
+                <input type="text" class="form-control @error('nama_rekening') is-invalid @enderror" 
                 name="nama_rekening" class="form-control" placeholder="Masukkan Nama Rekening">
                 @error ('nama_rekening')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -39,11 +62,23 @@
                   </div>
                 @enderror
             </div>
+
             <div class="form-group">
                 <label>Nomor Rekening</label>
                 <input type="text" class="form-control @error('no_rekening') is-invalid @enderror"
                 name="no_rekening" class="form-control" placeholder="Masukkan Nomor Rekening">
                 @error ('no_rekening')
+                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                      {{$message}}
+                  </div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label>Lokasi Cabang</label>
+                <input type="text" class="form-control @error('lokasi_cabang') is-invalid @enderror" 
+                name="lokasi_cabang" class="form-control" placeholder="Masukkan Lokasi Cabang">
+                @error ('lokasi_cabang')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       {{$message}}
                   </div>
@@ -79,6 +114,14 @@
 
         <div class="modal-body">
             <div class="form-group">
+                <label>Kode Bank</label>
+                <input type="text" name="kode_bank" value="{{$b->kode_bank}}" class="form-control" placeholder="Masukkan Kode Bank">
+            </div>
+            <div class="form-group">
+                <label>Kode Bank Internasional</label>
+                <input type="text" name="kode_bank_int" value="{{$b->kode_bank_int}}" class="form-control" placeholder="Masukkan Kode Bank Internasional">
+            </div>
+            <div class="form-group">
                 <label>Nama Bank</label>
                 <input type="text" name="nama_bank" value="{{$b->nama_bank}}" class="form-control" placeholder="Masukkan Nama Bank">
             </div>
@@ -89,6 +132,10 @@
             <div class="form-group">
                 <label>Nomor Rekening</label>
                 <input type="text" name="no_rekening" value="{{$b->no_rekening}}" class="form-control" placeholder="Masukkan Nomor Rekening">
+            </div>
+            <div class="form-group">
+                <label>Lokasi Cabang</label>
+                <input type="text" name="lokasi_cabang" value="{{$b->lokasi_cabang}}" class="form-control" placeholder="Masukkan Lokasi Cabang">
             </div>
         </div>
       
@@ -126,10 +173,13 @@
                   <tr>
                     <th scope="row" class="text-center">No</th>
                     <th scope="row" class="text-center" hidden>ID Bank</th>
-                    <th scope="row" class="text-center">Nama Bank</th>
+                    <th scope="row" class="text-center">Kode Bank</th>
+                    <th scope="row" class="text-center" style="width: 100px">Kode Bank Internasional</th>
+                    <th scope="row" class="text-center" style="width: 50px">Nama Bank</th>
                     <th scope="row" class="text-center">Nama Rekening</th>
                     <th scope="row" class="text-center">No Rekening</th>
-                    <th scope="row" class="text-center">Action</th>
+                    <th scope="row" class="text-center" >Lokasi Cabang</th>
+                    <th scope="row" class="text-center" style="width: 100px">Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -137,9 +187,12 @@
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
                     <td scope="row" class="text-center" hidden>{{$bank->id_bank}}</td>
+                    <td scope="row" class="text-center">{{$bank->kode_bank}}</td>
+                    <td scope="row" class="text-center">{{$bank->kode_bank_int}}</td>
                     <td scope="row" class="text-center">{{$bank->nama_bank}}</td>
                     <td scope="row" class="text-center">{{$bank->nama_rekening}}</td>
                     <td scope="row" class="text-center">{{$bank->no_rekening}}</td>
+                    <td scope="row" class="text-center">{{$bank->lokasi_cabang}}</td>
                     <td scope="row" class="text-center">
                       <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal{{$bank->id_bank}}"><i class="fas fa-pencil-alt"></i></button>
                       <a href="#" class="btn btn-danger btn-sm delete" bank-id="{{$bank->id_bank}}" bank-num="{{$loop->iteration}}"><i class="fas fa-trash-alt"></i></a>

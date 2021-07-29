@@ -5,7 +5,7 @@
 <!-- Modal Unggah -->
 @foreach ($order_pembayaran as $p)
 <div class="modal fade" id="unggahModal{{$p->id_order}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Unggah Bukti Transaksi</h5>
@@ -26,8 +26,10 @@
                 id="id_bank" name="id_bank">
                   <option value="">--Pilih Bank--</option>
                 @foreach ($bank as $b)
-                  <option value="{{$b->id_bank}}">{{$b->nama_bank}}-{{$b->no_rekening}} 
-                  ({{$b->nama_rekening}})</option>
+                  <option value="{{$b->id_bank}}">{{$b->nama_bank}} - ({{$b->kode_bank}}) ({{$b->kode_bank_int}}) {{$b->no_rekening}} 
+                  ({{$b->nama_rekening}}) 
+                  <br>
+                  || {{$b->lokasi_cabang}}</option>
                 @endforeach
                 </select>
                 @error ('id_bank')
@@ -44,6 +46,7 @@
             <div class="form-group">
               <label for="profile_photo_path">Bukti Transaksi</label>
                 <input type="file" name="bukti_transaksi" class="form-control">
+                <p style="color:red;"><i>Format file yang diunggah harus dalam format JPG, JPEG, PNG dengan ukuran max 2 MB</i></p>
             </div> 
             
 

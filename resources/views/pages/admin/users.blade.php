@@ -47,6 +47,22 @@
                         </div>
                     @enderror
             </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                    <select class="form-control @error('status') is-invalid @enderror" 
+                     placeholder="Status" name="status">
+                        <option hidden selected>{{$u->status}}</option>
+                        <option value="Active">Active</option>
+                        <option value="Suspended">Suspended</option>
+                    </select>
+                    @error ('status')
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                    @enderror
+            </div>
+
         </div>
       
         <div class="modal-footer">
@@ -81,6 +97,7 @@
                     <th scope="row" class="text-center">Nama</th>
                     <th scope="row" class="text-center">Email</th>
                     <th scope="row" class="text-center">Role</th>
+                    <th scope="row" class="text-center">Status</th>
                     <th scope="row" class="text-center">Created At</th>
                     <th scope="row" class="text-center">Action</th>
                   </tr>
@@ -93,11 +110,10 @@
                     <td scope="row" class="text-center">{{$user->name}}</td>
                     <td scope="row" class="text-center">{{$user->email}}</td>
                     <td scope="row" class="text-center">{{$user->role}}</td>
+                    <td scope="row" class="text-center">{{$user->status}}</td>
                     <td scope="row" class="text-center">{{$user->created_at}}</td>
                     <td scope="row" class="text-center">
                       <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal{{$user->id}}"><i class="fas fa-pencil-alt"></i></button>
-                      <a href="#" class="btn btn-danger btn-sm delete" user-id="{{$user->id}}" user-num="{{$loop->iteration}}"><i class="fas fa-trash-alt"></i></a>
-                      
                     </td>
                   </tr>
                   @endforeach

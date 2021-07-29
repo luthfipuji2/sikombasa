@@ -22,7 +22,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin12345'),
             'role' => 'admin',
             'created_at' => \Carbon\Carbon::now(),
-            'email_verified_at' => \Carbon\Carbon::now()
+            'email_verified_at' => \Carbon\Carbon::now(),
+            'status' => 'Active'
         ]);
 
         DB::table('users')->insert([
@@ -31,7 +32,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('klien12345'),
             'role' => 'klien',
             'created_at' => \Carbon\Carbon::now(),
-            'email_verified_at' => \Carbon\Carbon::now()
+            'email_verified_at' => \Carbon\Carbon::now(),
+            'status' => 'Active'
         ]);
 
         DB::table('users')->insert([
@@ -40,7 +42,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('translator12345'),
             'role' => 'translator',
             'created_at' => \Carbon\Carbon::now(),
-            'email_verified_at' => \Carbon\Carbon::now()
+            'email_verified_at' => \Carbon\Carbon::now(),
+            'status' => 'Active'
         ]);
 
         DB::table('users')->insert([
@@ -49,7 +52,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('qonitha12345'),
             'role' => 'admin',
             'created_at' => \Carbon\Carbon::now(),
-            'email_verified_at' => \Carbon\Carbon::now()
+            'email_verified_at' => \Carbon\Carbon::now(),
+            'status' => 'Active'
         ]);
 
         DB::table('users')->insert([
@@ -58,7 +62,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('luthfi12345'),
             'role' => 'klien',
             'created_at' => \Carbon\Carbon::now(),
-            'email_verified_at' => \Carbon\Carbon::now()
+            'email_verified_at' => \Carbon\Carbon::now(),
+            'status' => 'Active'
         ]);
 
         DB::table('users')->insert([
@@ -67,7 +72,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('dyah12345'),
             'role' => 'translator',
             'created_at' => \Carbon\Carbon::now(),
-            'email_verified_at' => \Carbon\Carbon::now()
+            'email_verified_at' => \Carbon\Carbon::now(),
+            'status' => 'Active'
         ]);
 
         DB::table('users')->insert([
@@ -76,7 +82,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('nursiah12345'),
             'role' => 'admin',
             'created_at' => \Carbon\Carbon::now(),
-            'email_verified_at' => \Carbon\Carbon::now()
+            'email_verified_at' => \Carbon\Carbon::now(),
+            'status' => 'Active'
         ]);
 
         DB::table('users')->insert([
@@ -85,7 +92,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('lidya12345'),
             'role' => 'klien',
             'created_at' => \Carbon\Carbon::now(),
-            'email_verified_at' => \Carbon\Carbon::now()
+            'email_verified_at' => \Carbon\Carbon::now(),
+            'status' => 'Active'
         ]);
 
         DB::table('users')->insert([
@@ -94,7 +102,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('bagas12345'),
             'role' => 'translator',
             'created_at' => \Carbon\Carbon::now(),
-            'email_verified_at' => \Carbon\Carbon::now()
+            'email_verified_at' => \Carbon\Carbon::now(),
+            'status' => 'Active'
         ]);
     }
 }
