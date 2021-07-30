@@ -28,7 +28,7 @@ class CreateTableTranslator extends Migration
             $table->string('nama_rekening')->nullable();
             $table->string('rekening_bank')->nullable();
             $table->date('tgl_lahir')->nullable();
-            $table->string('jenis_kelamin')->nullable();
+            $table->string('jenis_kelamin', 20)->nullable();
             $table->string('no_telp')->nullable();
             $table->string('foto_ktp')->nullable();
             $table->timestamps();
