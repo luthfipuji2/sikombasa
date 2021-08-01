@@ -1,4 +1,4 @@
-@extends('layouts.klien.sidebar_show')
+@extends('layouts.klien.run')
 @section('content')
 
 
