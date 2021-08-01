@@ -13,7 +13,7 @@ use App\Models\Admin\Seleksi;
 use App\Models\Klien\Order;
 use App\Models\Klien\Revisi;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 use Illuminate\Http\Request;
 class ToDoController extends Controller
@@ -199,7 +199,7 @@ class ToDoController extends Controller
 
     public function uploadVideoRevisi(Request $request, $id_order)
     {
-        $revisi = Revisi::find($id_order);
+        // $revisi = Revisi::find($id_order);
 
         if($request->hasFile('path_file_revisi')){
 
@@ -210,7 +210,7 @@ class ToDoController extends Controller
             $path_template = Storage::putFileAs('public/data_video/file_video_trans', $request->file('path_file_revisi'), $file);
             
 
-            Revisi::where('id_order', $revisi->id_order)
+            Revisi::where('id_order', $id_order)
                         ->update([
                             'path_file_revisi'    => $path_template
                 ]);
@@ -233,7 +233,7 @@ class ToDoController extends Controller
             $path_template = Storage::putFileAs('public/order_transkrip(audio)/audio_transkrip_trans', $request->file('path_file_revisi'), $file);
             
 
-            Revisi::where('id_order', $revisi->id_order)
+            Revisi::where('id_order', $id_order)
                         ->update([
                             'path_file_revisi'    => $path_template
                 ]);
@@ -256,7 +256,7 @@ class ToDoController extends Controller
             $path_template = Storage::putFileAs('public/data_file/file_dokumen_trans', $request->file('path_file_revisi'), $file);
             
 
-            Revisi::where('id_order', $revisi->id_order)
+            Revisi::where('id_order', $id_order)
                         ->update([
                             'path_file_revisi'    => $path_template
                 ]);
