@@ -29,7 +29,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                          <table width="400px">
+                          <table width="800px">
                             <tr>
                               <td><p class="text-left">Nama Klien</p><td> 
                               <td><p class="font-weight-bold text-left"><a href="#">{{$o->name}}</a> {{$o->email}}</p></td>
@@ -45,7 +45,7 @@
                             <tr>
                               @if(empty($o->tipe_offline)) 
                               <td><p class="text-left">Deadline</p><td> 
-                              <td><p class="font-weight-bold text-left">{{Carbon\Carbon::parse($o->tgl_order)->addDays($o->durasi_pengerjaan)->isoFormat('dddd, D MMMM Y')}} - {{Carbon\Carbon::parse(Carbon\Carbon::parse($o->tgl_order)->addDays($o->durasi_pengerjaan))->diffForHumans()}}</p></td>
+                              <td><p class="font-weight-bold text-left">{{Carbon\Carbon::parse($o->tgl_order)->addDays($o->durasi_pengerjaan)->isoFormat('dddd, D MMMM Y HH:mm:ss')}} - {{Carbon\Carbon::parse(Carbon\Carbon::parse($o->tgl_order)->addDays($o->durasi_pengerjaan))->diffForHumans()}}</p></td>
                               @else
                               <td><p class="text-left">Bertemu pada</p><td> 
                               <td><p class="font-weight-bold text-left">{{Carbon\Carbon::parse($o->tanggal_pertemuan)->isoFormat('dddd, D MMMM Y')}} | {{$o->waktu_pertemuan}}</p></td>
@@ -415,7 +415,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                          <table width="400px">
+                          <table width="800px">
                             <tr>
                               <td><p class="text-left">Nama Klien</p><td> 
                               <td><p class="font-weight-bold text-left"><a href="#">{{$r->name}}</a> {{$r->email}}</p></td>
@@ -430,8 +430,8 @@
                             </tr>
                             <tr>
                               @if(empty($r->tipe_offline)) 
-                              <td><p class="text-left">Deadline Revisi</p><td> 
-                              <td><p class="font-weight-bold text-left">{{Carbon\Carbon::parse($r->tgl_pengajuan_revisi)->addDays($r->durasi_pengerjaan_revisi)->isoFormat('dddd, D MMMM Y')}} - {{Carbon\Carbon::parse(Carbon\Carbon::parse($r->tgl_pengajuan_revisi)->addDays($r->durasi_pengerjaan_revisi))->diffForHumans()}}</p></td>
+                              <td><p class="text-left">Deadline</p><td> 
+                              <td><p class="font-weight-bold text-left">{{Carbon\Carbon::parse($r->tgl_pengajuan_revisi)->addDays($r->durasi_pengerjaan_revisi)->isoFormat('dddd, D MMMM Y HH:mm:ss')}} - {{Carbon\Carbon::parse(Carbon\Carbon::parse($r->tgl_pengajuan_revisi)->addDays($r->durasi_pengerjaan_revisi))->diffForHumans()}}</p></td>
                               @else
                               <td><p class="text-left">Bertemu pada</p><td> 
                               <td><p class="font-weight-bold text-left">{{$r->tanggal_pertemuan}} | {{$r->waktu_pertemuan}} </p></td>
