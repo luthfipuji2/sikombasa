@@ -1,4 +1,4 @@
-@extends('layouts.klien.sidebar_show')
+@extends('layouts.klien.run')
 @section('content')
 
 <div class="container">
@@ -43,9 +43,8 @@
                       <th>Durasi Pertemuan</th>
                       <th>Tanggal Pertemuan</th>
                       <th>Waktu Pertemuan</th>
-                      <th>Catatan Lokasi</th>
-                      <th>Longitude</th>
-                      <th>Latitude</th>
+                      <th>Detail Lokasi</th>
+                      <th>Jarak Tempuh</th>
                       <th>Action</th>
                     </tr>
                     </thead>
@@ -57,8 +56,9 @@
                       <td>{{$order->tanggal_pertemuan}}</td>
                       <td>{{$order->waktu_pertemuan}}</td>
                       <td>{{$order->lokasi}}</td>
-                      <td>{{$order->longitude}}</td>
-                      <td>{{$order->latitude}}</td>
+                      <td>
+                          {{(sqrt(((($order->latitude)-(-7.5595028))*(($order->latitude)-(-7.5595028)))+((($order->longitude)-(110.8362403))*(($order->longitude)-(110.8362403))))*111.319%1000)}} Km
+                      </td>
                       <td>
                         <form action="/order-interpreter" method="POST" class="d-inline">
                         @method('Delete')

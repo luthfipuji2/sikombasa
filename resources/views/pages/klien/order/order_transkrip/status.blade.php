@@ -1,4 +1,4 @@
-@extends('layouts.klien.sidebar_show')
+@extends('layouts.klien.run')
 @section('title','Status Order Transkrip (Audio)')
 @section('content')
 
@@ -223,7 +223,7 @@
               <table id="mydatatable" class="table table-bordered">
                 <thead>   
                 <tr>
-                  <th scope="row" class="text-center" hidden>ID</th>
+                  <th scope="row" class="text-center">No. Order</th>
                   <th scope="row" class="text-center">Tanggal Order</th>
                   <th scope="row" class="text-center">Tanggal Transaksi</th>
                   <th scope="row" class="text-center">Status</th>
@@ -233,7 +233,7 @@
                 <tbody>
                 @foreach($status1 as $z)
                 <tr>
-                  <td scope="row" class="text-center" hidden>{{$z->id_order}}</td>
+                  <td scope="row" class="text-center">{{$z->id_order}}</td>
                   <td scope="row" class="text-center">{{$z->tgl_order}}</td>
                   <td scope="row" class="text-center">{{$z->tgl_transaksi}}</td>
                   <td scope="row" class="text-center">
@@ -247,7 +247,7 @@
                 @endforeach
                 @foreach($status2 as $y)
                 <tr>
-                  <td scope="row" class="text-center" hidden>{{$y->id_order}}</td>
+                  <td scope="row" class="text-center">{{$y->id_order}}</td>
                   <td scope="row" class="text-center">{{$y->tgl_order}}</td>
                   <td scope="row" class="text-center">{{$y->tgl_transaksi}}</td>
                   <td scope="row" class="text-center">
@@ -261,7 +261,7 @@
                 @endforeach
                 @foreach($status3 as $x)
                 <tr>
-                  <td scope="row" class="text-center" hidden>{{$x->id_order}}</td>
+                  <td scope="row" class="text-center">{{$x->id_order}}</td>
                   <td scope="row" class="text-center">{{$x->tgl_order}}</td>
                   <td scope="row" class="text-center">{{$x->tgl_transaksi}}</td>
                   <td scope="row" class="text-center">

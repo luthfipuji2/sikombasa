@@ -1,4 +1,4 @@
-@extends('layouts.klien.sidebar_show')
+@extends('layouts.klien.run')
 @section('title','Status Order Bertemu Langsung')
 @section('content')
 
@@ -462,7 +462,7 @@
               <table id="mydatatable" class="table table-bordered">
                   <thead>   
                   <tr>
-                    <th scope="row" class="text-center" hidden>ID</th>
+                    <th scope="row" class="text-center">No. Order</th>
                     <th scope="row" class="text-center">Tanggal Order</th>
                     <th scope="row" class="text-center">Tanggal Transaksi</th>
                     <th scope="row" class="text-center">Status</th>
@@ -472,7 +472,7 @@
                   <tbody>
                   @foreach($status1 as $s1)
                   <tr>
-                    <td scope="row" class="text-center" hidden>{{$s1->id_order}}</td>
+                    <td scope="row" class="text-center">{{$s1->id_order}}</td>
                     <td scope="row" class="text-center">{{$s1->tgl_order}}</td>
                     <td scope="row" class="text-center">{{$s1->tgl_transaksi}}</td>
                     <td scope="row" class="text-center">
@@ -486,7 +486,7 @@
                   @endforeach
                   @foreach($status2 as $s2)
                   <tr>
-                    <td scope="row" class="text-center" hidden>{{$s2->id_order}}</td>
+                    <td scope="row" class="text-center">{{$s2->id_order}}</td>
                     <td scope="row" class="text-center">{{$s2->tgl_order}}</td>
                     <td scope="row" class="text-center">{{$s2->tgl_transaksi}}</td>
                     <td scope="row" class="text-center">
@@ -500,7 +500,7 @@
                   @endforeach
                   @foreach($status3 as $s3)
                   <tr>
-                    <td scope="row" class="text-center" hidden>{{$s3->id_order}}</td>
+                    <td scope="row" class="text-center">{{$s3->id_order}}</td>
                     <td scope="row" class="text-center">{{$s3->tgl_order}}</td>
                     <td scope="row" class="text-center">{{$s3->tgl_transaksi}}</td>
                     <td scope="row" class="text-center">

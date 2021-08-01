@@ -1,4 +1,4 @@
-@extends('layouts.klien.sidebar')
+@extends('layouts.klien.run')
 @section('title','Review Order Transkrip (Audio)')
 @section('content')
 
