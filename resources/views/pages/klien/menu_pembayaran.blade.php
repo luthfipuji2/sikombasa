@@ -39,8 +39,32 @@
                 @enderror
             </div>
 
+            @if(!empty($p->parameter_layanan->harga)) 
+            <input type="text" name="harga_layanan" value="{{$p->parameter_layanan->harga}}" hidden>
+            @endif
+            @if(!empty($p->parameter_jenis_teks->harga)) 
+            <input type="text" name="harga_jenis_teks" value="{{$p->parameter_jenis_teks->harga}}" hidden>
+            @endif
+            @if(!empty($p->parameter_teks->harga)) 
+            <input type="text" name="harga_teks" value="{{$p->parameter_teks->harga}}" hidden>
+            @endif
+            @if(!empty($p->parameter_dokumen->harga)) 
+            <input type="text" name="harga_dokumen" value="{{$p->parameter_dokumen->harga}}" hidden>
+            @endif
+            @if(!empty($p->parameter_subtitle->harga)) 
+            <input type="text" name="harga_subtitle" value="{{$p->parameter_subtitle->harga}}" hidden>
+            @endif
+            @if(!empty($p->parameter_dubbing->harga)) 
+            <input type="text" name="harga_dubbing" value="{{$p->parameter_dubbing->harga}}" hidden>
+            @endif
+            @if(!empty($p->parameter_dubber->harga)) 
+            <input type="text" name="harga_dubber" value="{{$p->parameter_dubber->harga}}" hidden>
+            @endif
+            @if(!empty($p->parameter_order->p_harga)) 
+            <input type="text" name="harga_menu_lisan" value="{{$p->parameter_order->p_harga}}" hidden>
+            @endif
+ 
             <input type="text" name="nominal_transaksi" value="{{$p->p_harga}}" hidden>
-
             <input type="text" name="nominal_transaksi_total" value="{{$p->order->harga}}" hidden>
 
             <div class="form-group">
