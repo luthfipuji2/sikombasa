@@ -20,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
         $user = Auth::user(); //user yang login
-        $translator = Translator::where('id', $user->id)->first();
+        $translator = Translator::where('id', $user->id)->latest('updated_at')->first();
 
         return view('pages.klien.post-biodata', [
             'user'=>$user,
@@ -33,10 +33,18 @@ class PostController extends Controller
         $user = Auth::user(); //user yang login
         $id_user = $user->id; //id user yang login
 
-        $t = Translator::where('id', $user->id)->first();
+        $translator = Translator::where('id', $user->id)->latest('updated_at')->first();
+
+        Translator::create([
+            'id' => $id_user,
+            'foto_ktp'=>$translator->foto_ktp
+        ]);
+
+        $t = Translator::where('id', $user->id)->latest('updated_at')->first();
+
         // DB::table('seleksi')->where('id_translator', $t->id_translator)->delete();
 
-        Translator::where('id', $id_user)->update([
+        Translator::where('id_translator', $t->id_translator)->update([
             'nama' => $request->nama,
             'nik' => $request->nik,
             'keahlian' => $request->keahlian,
@@ -57,15 +65,15 @@ class PostController extends Controller
             $request->file('foto_ktp')->move(public_path().'/img/biodata/',
             $request->file('foto_ktp')->getClientOriginalName());
             
-            $translator = Translator::where('id', $id_user)->first();
-            $currentPhoto = $translator->foto_ktp;
+            $t = Translator::where('id', $user->id)->latest('updated_at')->first();
+            // $currentPhoto = $t->foto_ktp;
 
-            $userPhoto = public_path('/img/biodata/').$currentPhoto;
-            if(file_exists($userPhoto)){
-                @unlink($userPhoto);
-            }
+            // $userPhoto = public_path('/img/biodata/').$currentPhoto;
+            // if(file_exists($userPhoto)){
+            //     @unlink($userPhoto);
+            // }
 
-            Translator::where('id', $id_user)
+            Translator::where('id_translator', $t->id_translator)
                     ->update([
                         'foto_ktp'    => $request->file('foto_ktp')->getClientOriginalName()
             ]);
@@ -75,12 +83,48 @@ class PostController extends Controller
             'id_translator'=>$t->id_translator
         ]);
 
+        $dokumen = Document::where('id', $user->id)->latest('updated_at')->first();
+
+        Document::create([
+            'id_translator' => $t->id_translator,
+            'id' => $id_user,
+            'cv' => $dokumen->cv,
+            'ijazah_terakhir' => $dokumen->ijazah_terakhir,
+            'portofolio' => $dokumen->portofolio,
+            'sk_sehat' => $dokumen->sk_sehat,
+            'skck'=> $dokumen->skck
+        ]);
+
+        $certificate = DB::table('keahlian')
+            ->join('master_keahlian', 'keahlian.id_keahlian', '=', 'master_keahlian.id_keahlian')
+            ->where("master_keahlian.id_translator", $translator->id_translator)
+            ->get();
+
+        foreach($certificate as $sertifikat)
+        {
+            $data = Certificate::create([
+                        'no_sertifikat' => $sertifikat->no_sertifikat,
+                        'nama_sertifikat' => $sertifikat->nama_sertifikat,
+                        'bukti_dokumen' => $sertifikat->bukti_dokumen,
+                        'diterbitkan_oleh' => $sertifikat->diterbitkan_oleh,
+                        'masa_berlaku' => $sertifikat->masa_berlaku
+                    ]);
+    
+            $user = Auth::user();
+    
+            $t2 = Translator::where('id', $user->id)->latest('updated_at')->first();
+    
+            $id = Master_keahlian::create([
+                'id_keahlian'=>$data->id_keahlian,
+                'id_translator'=>$t2->id_translator
+            ]);
+        }
         return redirect('/document-post')->with('success', 'Data Updated Successfully!');       
     }
     public function indexDocument()
     {
         $user = Auth::user(); //user yang login
-        $dokumen = Document::where('id', $user->id)->first();
+        $dokumen = Document::where('id', $user->id)->latest('updated_at')->first();
 
         return view('pages.klien.post-dokumen', [
             'user'=>$user,
@@ -92,19 +136,19 @@ class PostController extends Controller
     {
         $user = Auth::user(); //user yang login
         $id_user = $user->id; //id user yang login
-        $translator = Translator::where('id', $user->id)->first();
+        $translator = Translator::where('id', $user->id)->latest('updated_at')->first();
 
         if($request->hasFile('cv')){
             $request->file('cv')->move(public_path().'/img/dokumen',
             $request->file('cv')->getClientOriginalName());
             
             $dokumen = Document::where('id_translator', $translator->id_translator)->first();
-            $currentPhoto = $dokumen->cv;
+            // $currentPhoto = $dokumen->cv;
 
-            $userPhoto = public_path('/img/dokumen/').$currentPhoto;
-            if(file_exists($userPhoto)){
-                @unlink($userPhoto);
-            }
+            // $userPhoto = public_path('/img/dokumen/').$currentPhoto;
+            // if(file_exists($userPhoto)){
+            //     @unlink($userPhoto);
+            // }
 
             Document::where('id_translator', $translator->id_translator)
                     ->update([
@@ -117,12 +161,12 @@ class PostController extends Controller
             $request->file('ijazah_terakhir')->getClientOriginalName());
             
             $dokumen = Document::where('id_translator', $translator->id_translator)->first();
-            $currentPhoto = $dokumen->ijazah_terakhir;
+            // $currentPhoto = $dokumen->ijazah_terakhir;
 
-            $userPhoto = public_path('/img/dokumen/').$currentPhoto;
-            if(file_exists($userPhoto)){
-                @unlink($userPhoto);
-            }
+            // $userPhoto = public_path('/img/dokumen/').$currentPhoto;
+            // if(file_exists($userPhoto)){
+            //     @unlink($userPhoto);
+            // }
 
             Document::where('id_translator', $translator->id_translator)
                     ->update([
@@ -135,12 +179,12 @@ class PostController extends Controller
             $request->file('portofolio')->getClientOriginalName());
             
             $dokumen = Document::where('id_translator', $translator->id_translator)->first();
-            $currentPhoto = $dokumen->portofolio;
+            // $currentPhoto = $dokumen->portofolio;
 
-            $userPhoto = public_path('/img/dokumen/').$currentPhoto;
-            if(file_exists($userPhoto)){
-                @unlink($userPhoto);
-            }
+            // $userPhoto = public_path('/img/dokumen/').$currentPhoto;
+            // if(file_exists($userPhoto)){
+            //     @unlink($userPhoto);
+            // }
 
             Document::where('id_translator', $translator->id_translator)
                     ->update([
@@ -153,12 +197,12 @@ class PostController extends Controller
             $request->file('sk_sehat')->getClientOriginalName());
             
             $dokumen = Document::where('id_translator', $translator->id_translator)->first();
-            $currentPhoto = $dokumen->sk_sehat;
+            // $currentPhoto = $dokumen->sk_sehat;
 
-            $userPhoto = public_path('/img/dokumen/').$currentPhoto;
-            if(file_exists($userPhoto)){
-                @unlink($userPhoto);
-            }
+            // $userPhoto = public_path('/img/dokumen/').$currentPhoto;
+            // if(file_exists($userPhoto)){
+            //     @unlink($userPhoto);
+            // }
 
             Document::where('id_translator', $translator->id_translator)
                     ->update([
@@ -171,12 +215,12 @@ class PostController extends Controller
             $request->file('skck')->getClientOriginalName());
             
             $dokumen = Document::where('id_translator', $translator->id_translator)->first();
-            $currentPhoto = $dokumen->skck;
+            // $currentPhoto = $dokumen->skck;
 
-            $userPhoto = public_path('/img/dokumen/').$currentPhoto;
-            if(file_exists($userPhoto)){
-                @unlink($userPhoto);
-            }
+            // $userPhoto = public_path('/img/dokumen/').$currentPhoto;
+            // if(file_exists($userPhoto)){
+            //     @unlink($userPhoto);
+            // }
 
             Document::where('id_translator', $translator->id_translator)
                     ->update([
@@ -191,7 +235,7 @@ class PostController extends Controller
         $user = Auth::user(); //user yang login
         $id_user = $user->id; //id user yang login
 
-        $translator = Translator::where('id', $id_user)->first();
+        $translator = Translator::where('id', $id_user)->latest('updated_at')->first();
         $certificate = DB::table('keahlian')
             ->join('master_keahlian', 'keahlian.id_keahlian', '=', 'master_keahlian.id_keahlian')
             ->where("master_keahlian.id_translator", $translator->id_translator)
@@ -224,7 +268,7 @@ class PostController extends Controller
 
         $user = Auth::user();
 
-        $translator = Translator::where('id', $user->id)->first();
+        $translator = Translator::where('id', $user->id)->latest('updated_at')->first();
 
         $id = Master_keahlian::create([
             'id_keahlian'=>$keahlian->id_keahlian,
@@ -253,12 +297,12 @@ class PostController extends Controller
                 $request->file('bukti_dokumen')->move(public_path().'/img/sertifikat',
                 $request->file('bukti_dokumen')->getClientOriginalName());
                 
-                $currentPhoto = $keahlian->bukti_dokumen;
+                // $currentPhoto = $keahlian->bukti_dokumen;
                 
-                $userPhoto = public_path('/img/sertifikat/').$currentPhoto;
-                if(file_exists($userPhoto)){
-                    @unlink($userPhoto);
-                }
+                // $userPhoto = public_path('/img/sertifikat/').$currentPhoto;
+                // if(file_exists($userPhoto)){
+                //     @unlink($userPhoto);
+                // }
                 
                 Certificate::where('id_keahlian', $keahlian->id_keahlian)
                         ->update([

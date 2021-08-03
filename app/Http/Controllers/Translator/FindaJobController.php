@@ -30,7 +30,7 @@ class FindaJobController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $translator = Translator::where('id', $user->id)->first();
+        $translator = Translator::where('id', $user->id)->latest('updated_at')->first();
 
         $detail = Transaksi::where('status_transaksi', 'Berhasil')
         ->rightJoin('order', 'transaksi.id_order', '=', 'order.id_order')
@@ -91,7 +91,7 @@ class FindaJobController extends Controller
     {
         
         $user = Auth::user();
-        $translator = Translator::where('id', $user->id)->first();
+        $translator = Translator::where('id', $user->id)->latest('updated_at')->first();
 
         $detail = Transaksi::where('status_transaksi', 'Berhasil')
         ->join('order', 'transaksi.id_order', '=', 'order.id_order')
@@ -140,7 +140,7 @@ class FindaJobController extends Controller
     public function update(Request $request, $id_order)
     { 
         $user = Auth::user();
-        $translator = Translator::where('id', $user->id)->first();
+        $translator = Translator::where('id', $user->id)->latest('updated_at')->first();
 
         $this->validate($request, [
                 'id_translator' => 'required'
