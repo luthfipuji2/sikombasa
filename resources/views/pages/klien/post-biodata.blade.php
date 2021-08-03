@@ -1,4 +1,4 @@
-@extends('layouts.translator.master')
+@extends('layouts.klien.sidebar')
 
 @section('title', 'Career')
 @section('content')
@@ -211,7 +211,7 @@
                       <div class="form-group row">
                           <label for="foto_ktp" class="col-sm-2 col-form-label">Foto KTP</label>
                             <div class="col-sm-10">
-                              <input type="file" name="foto_ktp" class="form-input" value="{{$translator->foto_ktp}}">
+                              <input type="file" name="foto_ktp" class="form-input" value="{{ old('foto_ktp') }}">
                               </br>
                               </br>
                                 <div>
