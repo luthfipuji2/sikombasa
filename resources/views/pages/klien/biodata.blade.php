@@ -39,13 +39,13 @@
                 <div class="card-body box-profile">
                     <div class="text-center">
                     <div class="widget-user-header text-white">
-                    @if (empty($klien->foto_ktp))
+                    @if (empty($klien->user->profile_photo_path))
                     <div class="widget-user-image">
                         <img src="./img/profile.png" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
                     </div>
                     @else
                     <div class="widget-user-image">
-                        <img src="{{asset('/img/biodata/'.$klien->foto_ktp)}}" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
+                        <img src="{{asset('/img/biodata/'.$klien->user->profile_photo_path)}}" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
                     </div>
                     @endif
                     </div>
@@ -127,7 +127,7 @@
 
                         <div class="form-group">
                                 <label for="name">NIK</label>
-                                <input type="text" class="form-control @error('nik') is-invalid @enderror" 
+                                <input type="number" class="form-control @error('nik') is-invalid @enderror" 
                                 id="nik" placeholder="Masukkan NIK" name="nik" value="{{ $klien->nik }}">
                                 @error ('nik')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -165,7 +165,7 @@
 
                             <div class="form-group">
                                 <label for="name">Nomor HP</label>
-                                <input type="text" class="form-control @error('no_telp') is-invalid @enderror" 
+                                <input type="number" class="form-control @error('no_telp') is-invalid @enderror" 
                                 id="no_telp" placeholder="Masukkan Nomor Telepon" name="no_telp" value="{{ $klien->no_telp }}">
                                 @error ('no_telp')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -220,7 +220,7 @@
 
                             <div class="form-group">
                                 <label for="name">Kode Pos</label>
-                                <input type="text" class="form-control @error('kode_pos') is-invalid @enderror" 
+                                <input type="number" class="form-control @error('kode_pos') is-invalid @enderror" 
                                 id="kode_pos" placeholder="Masukkan Kode Pos" name="kode_pos" value="{{ $klien->kode_pos }}">
                                 @error ('kode_pos')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">

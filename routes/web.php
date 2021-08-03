@@ -40,6 +40,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('profile-klien', 'App\Http\Controllers\Klien\BiodataKlienController');
         Route::patch('biodata-klien/{users}', 'App\Http\Controllers\Klien\BiodataKlienController@updateBioKlien');
         Route::get('/klien', [App\Http\Controllers\Klien\BiodataKlienController::class, 'dashboard'])->name('klien');
+        Route::post('/klien', [App\Http\Controllers\Klien\BiodataKlienController::class, 'index'])->name('dependent-dropdown.index');
+        Route::post('/klien', [App\Http\Controllers\Klien\BiodataKlienController::class, 'storeBio'])->name('dependent-dropdown.storeBio');
 
         Route::resource('menu-order', 'App\Http\Controllers\Klien\OrderMenuController');
         Route::get('/list-keranjang', 'App\Http\Controllers\Klien\OrderMenuController@listKeranjang')->name('list_keranjang');

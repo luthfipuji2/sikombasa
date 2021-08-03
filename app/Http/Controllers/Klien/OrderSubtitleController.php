@@ -7,6 +7,7 @@ use App\User;
 use App\Models\Admin\ParameterJenisLayanan;
 use App\Models\Admin\ParameterJenisTeks;
 use App\Models\Admin\ParameterOrderSubtitle;
+use App\Models\Admin\ParameterOrderDurasi;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use App\Models\Klien\Revisi;
@@ -36,7 +37,8 @@ class OrderSubtitleController extends Controller
     public function index(){
         $menu=Order::all();
         $jenis_layanan=ParameterJenisLayanan::all();
-        return view('pages.klien.order.order_subtitle.index', compact('menu', 'jenis_layanan'));
+        $durasi=ParameterOrderDurasi::all();
+        return view('pages.klien.order.order_subtitle.index', compact('menu', 'jenis_layanan', 'durasi'));
     }
     /**
      * Show the form for creating a new resource.
@@ -58,14 +60,30 @@ class OrderSubtitleController extends Controller
     {
         $jenis_layanan=ParameterJenisLayanan::all();
         $jenis_teks = ParameterJenisTeks::all();
+        $durasi=ParameterOrderDurasi::all();
         $tgl_order=Carbon::now();
         $user=Auth::user();
         $klien=Klien::where('id', $user->id)->first();
+
+        $durasi=$request->durasi_pengerjaan;
+        if($durasi == 1 )
+        {
+            $hasil_durasi = "1";
+        }elseif($durasi == 2){
+            $hasil_durasi = "2";
+        }elseif($durasi == 3){
+            $hasil_durasi = "3";
+        }elseif($durasi == 4){
+            $hasil_durasi = "4";
+        }elseif($durasi == 5){
+            $hasil_durasi = "5";
+        }elseif($durasi == 6){
+            $hasil_durasi = "6";
+        }elseif($durasi == 7){
+            $hasil_durasi = "7";
+        }
+
         $harga_video=$request->durasi_video;
-
-        // return ($harga_video);
-        // exit();
-
         if($harga_video >= 1 && $harga_video <= 100)
         {
             // $harga=ParameterOrderTeks::select('id_parameter_order_teks')->first();
@@ -117,6 +135,7 @@ class OrderSubtitleController extends Controller
                 'id_klien'=>$klien->id_klien,
                 'id_parameter_jenis_layanan'=>$id_parameter_jenis_layanan,
                 'id_parameter_order_subtitle'=>$hasil,
+                'id_parameter_order_durasi'=>$hasil_durasi,
                 'durasi_pengerjaan'=>$durasi,
                 'nama_dokumen'=>$nama_dokumen,
                 'path_file'=>$path_template,
@@ -146,11 +165,13 @@ class OrderSubtitleController extends Controller
         $user=Auth::user();
         $jenis_layanan=ParameterJenisLayanan::all();
         $klien=Klien::where('id', $user->id)->first();
+        $durasi=ParameterOrderDurasi::all();
        $order=Order::findOrFail($id_order); //dapat id order
         // return ($order);
         if($order != null){
             $j_layanan = ParameterJenisLayanan::where('id_parameter_jenis_layanan', $order->id_parameter_jenis_layanan)->first();
             $dr_video = ParameterOrderSubtitle::where('id_parameter_order_subtitle', $order->id_parameter_order_subtitle)->first();
+            $durasi_pengerjaan = ParameterOrderDurasi::where('id_parameter_order_durasi', $order->id_parameter_order_durasi)->first();
     
             if($j_layanan != null){
                 $result_layanan = [
@@ -163,14 +184,20 @@ class OrderSubtitleController extends Controller
                     'harga' => $dr_video->harga
                 ];
             }
+            if($durasi_pengerjaan != null){
+                $result_durasi = [
+                    'harga' => $durasi_pengerjaan->harga
+                ];
+            }
 
             $result[] = [
                 'j_layanan' => $result_layanan,
-                'dr_video'=>$result_video
+                'dr_video'=>$result_video,
+                'durasi_pengerjaan'=>$result_durasi,
             ];
         }
 
-        $harga = ($result_layanan['harga']) + ($result_video['harga']);
+        $harga = ($result_layanan['harga']) + ($result_video['harga']) + ($result_durasi['harga']);
         
         $save_harga = Order::where('id_order', $order->id_order)
                             ->update([

@@ -59,6 +59,11 @@
         </div>
     </div>
 
+    <div class="form-group row">
+	<label class="col-md-4 col-form-label text-md-right">Laravel Google Recaptcha</label>
+	<div class="col-md-6"> {!! htmlFormSnippet() !!} </div>
+</div>
+
     <div class='register'>
     <br><br>
     <input type="submit" value='Register' class="btn btn-primary"></input>

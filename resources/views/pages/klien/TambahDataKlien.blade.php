@@ -3,6 +3,8 @@
 @section('title', 'biodata')
 @section('content')
 
+<script src="{{ asset('js/app.js') }}" defer></script>
+
     <style>
         .widget-user-header {
             background-position: center center;
@@ -10,6 +12,7 @@
             height: 200px !important;
         }
     </style>
+    
 
     <!-- Main content -->
     <section class="content">
@@ -69,6 +72,7 @@
                     </ul>
                 </div><!-- /.card-header -->
 
+
                 <div class="card-body">
                     <div class="tab-content">
                     <div class="active tab-pane" id="profile">
@@ -120,7 +124,7 @@
 
                         <div class="form-group">
                                 <label for="nik">NIK</label>
-                                <input type="text" class="form-control @error('nik') is-invalid @enderror" 
+                                <input type="number" class="form-control @error('nik') is-invalid @enderror" 
                                 id="nik" placeholder="Masukkan NIK" name="nik" value="{{ old('nik') }}">
                                 @error ('nik')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -157,7 +161,7 @@
 
                             <div class="form-group">
                                 <label for="name">Nomor HP</label>
-                                <input type="text" class="form-control @error('no_telp') is-invalid @enderror" 
+                                <input type="number" class="form-control @error('no_telp') is-invalid @enderror" 
                                 id="no_telp" placeholder="Masukkan Nomor Telepon" name="no_telp" value="{{ old('no_telp') }}">
                                 @error ('no_telp')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -189,6 +193,17 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="name">Provinsi</label>
+                                <input type="text" class="form-control @error('provinsi') is-invalid @enderror" 
+                                id="provinsi" placeholder="Masukkan provinsi" name="provinsi" value="{{ old('provinsi') }}">
+                                @error ('provinsi')
+                                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
                                 <label for="name">Kabupaten</label>
                                 <input type="text" class="form-control @error('kabupaten') is-invalid @enderror" 
                                 id="kabupaten" placeholder="Masukkan Kabupaten" name="kabupaten" value="{{ old('kabupaten') }}">
@@ -199,20 +214,16 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
-                                <label for="name">Provinsi</label>
-                                <input type="text" class="form-control @error('provinsi') is-invalid @enderror" 
-                                id="provinsi" placeholder="Masukkan Provinsi" name="provinsi" value="{{ old('provinsi') }}">
-                                @error ('provinsi')
-                                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                                        {{$message}}
-                                    </div>
-                                @enderror
-                            </div>
+                            <!-- <div class="form-group">
+                                <label for="name">Kabupaten</label>
+                                <select name="city" id="city" class="form-control">
+                                    <option value="kabupaten">== Select Kabupaten ==</option>
+                                </select>
+                            </div> -->
 
                             <div class="form-group">
                                 <label for="name">Kode Pos</label>
-                                <input type="text" class="form-control @error('kode_pos') is-invalid @enderror" 
+                                <input type="number" class="form-control @error('kode_pos') is-invalid @enderror" 
                                 id="kode_pos" placeholder="Masukkan Kode Pos" name="kode_pos" value="{{ old('kode_pos') }}">
                                 @error ('kode_pos')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -250,3 +261,55 @@
         </section>
         <!-- /.content -->
     @endsection
+
+
+    <!-- alamat belum bisa  -->
+    @push('scripts')
+        <script>
+             $(function () {
+        $.ajaxSetup({
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+        });
+
+        $('#province').on('change', function () {
+            $.ajax({
+                url: '{{ route("dependent-dropdown.storeBio") }}',
+                method: 'POST',
+                data: {id: $(this).val()},
+                success: function (response) {
+                    $('#city').empty();
+
+                    $.each(response, function (id, name) {
+                        $('#city').append(new Option(name, id))
+                    })
+                }
+            })
+        });
+    });
+	</script>
+    @endpush
+
+
+
+    @push('scripts')
+    <script>
+            $(function () {
+            $('#province').on('change', function () {
+                aaxios.post('{{ route("dependent-dropdown.storeBio") }}', {id: $(this).val()})
+                    .then(function (response) {
+                        $('#city').empty();
+
+                        $.each(response.data, function (id, name) {
+                            $('#city').append(new Option(name, id))
+                        })
+                    });
+            });
+        });
+    </script>
+    @endpush
+
+    @push('scripts')
+    <script>
+       
+</script>
+@endpush

@@ -44,6 +44,7 @@
                 @enderror
         </div>
     </div>
+    
         <br>
         <br>
         <div class="form-group row">
@@ -56,6 +57,9 @@
                 </div>
             </div>
         </div>
+
+        <br>
+
 
         <br>
         <div class='login'>

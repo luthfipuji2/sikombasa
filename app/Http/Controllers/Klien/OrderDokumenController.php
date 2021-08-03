@@ -10,6 +10,7 @@ use App\Models\Admin\ParameterOrderDokumen;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use App\Models\Klien\Revisi;
+use App\Models\Admin\ParameterOrderDurasi;
 use App\Models\Klien\Review;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -37,7 +38,8 @@ class OrderDokumenController extends Controller
         $menu=Order::all();
         $jenis_layanan=ParameterJenisLayanan::all();
         $jenis_teks=ParameterJenisTeks::all();
-        return view('pages.klien.order.order_dokumen.index', compact('menu', 'jenis_layanan', 'jenis_teks'));
+        $durasi=ParameterOrderDurasi::all();
+        return view('pages.klien.order.order_dokumen.index', compact('menu', 'jenis_layanan', 'jenis_teks', 'durasi'));
     }
 
     /**
@@ -60,15 +62,30 @@ class OrderDokumenController extends Controller
     {
         $jenis_layanan=ParameterJenisLayanan::all();
         $jenis_teks = ParameterJenisTeks::all();
+        $durasi=ParameterOrderDurasi::all();
         $tgl_order=Carbon::now();
         $user=Auth::user();
         $klien=Klien::where('id', $user->id)->first();
+
+        $durasi=$request->durasi_pengerjaan;
+        if($durasi == 1 )
+        {
+            $hasil_durasi = "1";
+        }elseif($durasi == 2){
+            $hasil_durasi = "2";
+        }elseif($durasi == 3){
+            $hasil_durasi = "3";
+        }elseif($durasi == 4){
+            $hasil_durasi = "4";
+        }elseif($durasi == 5){
+            $hasil_durasi = "5";
+        }elseif($durasi == 6){
+            $hasil_durasi = "6";
+        }elseif($durasi == 7){
+            $hasil_durasi = "7";
+        }
+
         $harga_dokumen=$request->jumlah_halaman;
-
-        
-        // return ($harga_dokumen);
-        // exit();
-
         if($harga_dokumen >= 1 && $harga_dokumen <= 10)
         {
             // $harga=ParameterOrderTeks::select('id_parameter_order_teks')->first();
@@ -121,6 +138,7 @@ class OrderDokumenController extends Controller
                 'id_parameter_jenis_layanan'=>$id_parameter_jenis_layanan,
                 'id_parameter_jenis_teks'=>$id_parameter_jenis_teks,
                 'id_parameter_order_dokumen'=>$hasil,
+                'id_parameter_order_durasi'=>$hasil_durasi,
                 'durasi_pengerjaan'=>$durasi,
                 'nama_dokumen'=>$nama_dokumen,
                 'path_file'=>$path_template,
@@ -151,6 +169,7 @@ class OrderDokumenController extends Controller
         $klien=Klien::where('id', $user->id)->first();
         $jenis_layanan=ParameterJenisLayanan::all();
         $jenis_teks=ParameterJenisTeks::all();
+        $durasi=ParameterOrderDurasi::all();
         $order=Order::findOrFail($id_order);
 
         // return ($order);
@@ -158,6 +177,7 @@ class OrderDokumenController extends Controller
             $j_layanan = ParameterJenisLayanan::where('id_parameter_jenis_layanan', $order->id_parameter_jenis_layanan)->first();
             $j_teks = ParameterJenisTeks::where('id_parameter_jenis_teks', $order->id_parameter_jenis_teks)->first();
             $jml_halaman = ParameterOrderDokumen::where('id_parameter_order_dokumen', $order->id_parameter_order_dokumen)->first();
+            $durasi_pengerjaan = ParameterOrderDurasi::where('id_parameter_order_durasi', $order->id_parameter_order_durasi)->first();
     
             if($j_layanan != null){
                 $result_layanan = [
@@ -174,15 +194,21 @@ class OrderDokumenController extends Controller
                     'harga' => $jml_halaman->harga
                 ];
             }
+            if($durasi_pengerjaan != null){
+                $result_durasi = [
+                    'harga' => $durasi_pengerjaan->harga
+                ];
+            }
 
             $result[] = [
                 'j_layanan' => $result_layanan,
                 'j_teks'=>$result_teks,
-                'jml_halaman'=>$result_halaman
+                'jml_halaman'=>$result_halaman,
+                'durasi_pengerjaan'=>$result_durasi,
             ];
         }
 
-        $harga = ($result_layanan['harga']) + ($result_teks['harga']) + ($result_halaman['harga']);
+        $harga = ($result_layanan['harga']) + ($result_teks['harga']) + ($result_halaman['harga']) + ($result_durasi['harga']);
         
         $save_harga = Order::where('id_order', $order->id_order)
                             ->update([

@@ -32,6 +32,7 @@ class Order extends Model
         'id_parameter_order_dubbing',
         'id_parameter_order_subtitle',
         'id_parameter_order_teks', //buat hitung kata
+        'id_parameter_order_durasi',
         'jenis_layanan',
         'jenis_teks',
         'jumlah_halaman',
@@ -86,6 +87,10 @@ class Order extends Model
 
     public function parameterjenisteks(){
         return $this->belongsTo('App\Models\Admin\ParameterJenisTeks', 'id_parameter_jenis_teks', 'id_parameter_jenis_teks');
+    }
+
+    public function parameterorderdurasi(){
+        return $this->belongsTo('App\Models\Admin\ParameterOrderDurasi', 'id_parameter_order_durasi', 'id_parameter_order_durasi');
     }
 
     public function transaksi(){

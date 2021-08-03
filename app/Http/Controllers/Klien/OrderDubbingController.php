@@ -9,6 +9,7 @@ use App\Models\Admin\ParameterJenisLayanan;
 use App\Models\Admin\ParameterDubber;
 use App\Models\Admin\ParameterOrderSubtitle;
 use App\Models\Admin\Transaksi;
+use App\Models\Admin\ParameterOrderDurasi;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use App\Models\Klien\Revisi;
@@ -38,7 +39,8 @@ class OrderDubbingController extends Controller
         $menu=Order::all();
         $jenis_layanan=ParameterJenisLayanan::all();
         $jml_dubber=ParameterDubber::all();
-        return view('pages.klien.order.order_dubbing.index', compact('menu', 'jenis_layanan', 'jml_dubber'));
+        $durasi=ParameterOrderDurasi::all();
+        return view('pages.klien.order.order_dubbing.index', compact('menu', 'jenis_layanan', 'jml_dubber', 'durasi'));
     }
 
     /**
@@ -62,6 +64,7 @@ class OrderDubbingController extends Controller
 
         $jenis_layanan=ParameterJenisLayanan::all();
         $jml_dubber = ParameterDubber::all();
+        $durasi=ParameterOrderDurasi::all();
         $tgl_order=Carbon::now();
         $user=Auth::user();
         $klien=Klien::where('id', $user->id)->first();
@@ -70,20 +73,39 @@ class OrderDubbingController extends Controller
         // return ($harga_video);
         // exit();
 
-        if($jml_dubber = 1 )
+        if($jml_dubber == 1 )
         {
             // $harga=ParameterOrderTeks::select('id_parameter_order_teks')->first();
             $hasil_dubber = "1";
-        }elseif($jml_dubber = 2){
+        }elseif($jml_dubber == 2){
             $hasil_dubber = "2";
-        }elseif($jml_dubber = 3){
+        }elseif($jml_dubber == 3){
             $hasil_dubber = "3";
-        }elseif($jml_dubber = 4){
+        }elseif($jml_dubber == 4){
             $hasil_dubber = "4";
-        }elseif($jml_dubber = 5){
+        }elseif($jml_dubber == 5){
             $hasil_dubber = "5";
         }
 
+        $durasi=$request->durasi_pengerjaan;
+        if($durasi == 1 )
+        {
+            $hasil_durasi = "1";
+        }elseif($durasi == 2){
+            $hasil_durasi = "2";
+        }elseif($durasi == 3){
+            $hasil_durasi = "3";
+        }elseif($durasi == 4){
+            $hasil_durasi = "4";
+        }elseif($durasi == 5){
+            $hasil_durasi = "5";
+        }elseif($durasi == 6){
+            $hasil_durasi = "6";
+        }elseif($durasi == 7){
+            $hasil_durasi = "7";
+        }
+
+        // return ($hasil_dubber);exit()
 
         if($harga_video >= 1 && $harga_video <= 100)
         {
@@ -138,6 +160,7 @@ class OrderDubbingController extends Controller
                 'id_parameter_jenis_layanan'=>$id_parameter_jenis_layanan,
                 'id_parameter_dubber'=>$hasil_dubber,
                 'id_parameter_order_dubbing'=>$hasil,
+                'id_parameter_order_durasi'=>$hasil_durasi,
                 'durasi_pengerjaan'=>$durasi,
                 'jumlah_dubber'=>$jml_dubber,
                 'nama_dokumen'=>$nama_dokumen,
@@ -167,11 +190,13 @@ class OrderDubbingController extends Controller
         $user=Auth::user();
         $klien=Klien::where('id', $user->id)->first();
         $order=Order::findOrFail($id_order); //dapat id order
+        $durasi=ParameterOrderDurasi::all();
         // return ($order);
         if($order != null){
             $j_layanan = ParameterJenisLayanan::where('id_parameter_jenis_layanan', $order->id_parameter_jenis_layanan)->first();
             $dr_video = ParameterOrderSubtitle::where('id_parameter_order_subtitle', $order->id_parameter_order_dubbing)->first();
             $jml_dubber = ParameterDubber::where('id_parameter_dubber', $order->id_parameter_dubber)->first();
+            $durasi_pengerjaan = ParameterOrderDurasi::where('id_parameter_order_durasi', $order->id_parameter_order_durasi)->first();
     
             if($j_layanan != null){
                 $result_layanan = [
@@ -190,15 +215,21 @@ class OrderDubbingController extends Controller
                     'harga' => $jml_dubber->harga
                 ];
             }
+            if($durasi_pengerjaan != null){
+                $result_durasi = [
+                    'harga' => $durasi_pengerjaan->harga
+                ];
+            }
 
             $result[] = [
                 'j_layanan' => $result_layanan,
                 'dr_video'=>$result_video,
                 'jml_dubber'=>$result_dubber,
+                'durasi_pengerjaan'=>$result_durasi,
             ];
         }
 
-        $harga = ($result_layanan['harga']) + ($result_video['harga']) + ($result_dubber['harga']);
+        $harga = ($result_layanan['harga']) + ($result_video['harga']) + ($result_dubber['harga']) + ($result_durasi['harga']);
         
         $save_harga = Order::where('id_order', $order->id_order)
                             ->update([

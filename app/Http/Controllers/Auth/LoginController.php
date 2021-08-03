@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Request;
+use Maatwebsite\Excel\Validators\ValidationException;
 
 class LoginController extends Controller
 {
@@ -39,4 +41,5 @@ class LoginController extends Controller
     {
         $this->middleware(Auth::user())->except('logout');
     }
+
 }
