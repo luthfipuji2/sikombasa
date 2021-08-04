@@ -26,8 +26,8 @@ Route::get('/', function () {
 });
  
 
-Auth::routes();
-
+Auth::routes(['verify' => true]);
+// Route::get('/kirim-email', 'App\Http\Controllers\EmailController@index');
 
 
 Route::middleware(['auth'])->group(function () {

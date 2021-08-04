@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -14,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'verified']);
     }
 
     /**
@@ -24,13 +26,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $role=Auth::user()->role;
-        if ($role=="admin"){
-            return redirect('pages.admin.home')->to('admin');
-        }elseif($role=="user"){
-            return redirect('pages.admin.user')->to('user');
-        }else{
-            return redirect()->to('logout');
-        }
+        // $role=Auth::user()->role;
+        // if ($role=="admin"){
+        //     return redirect('pages.admin.home')->to('admin');
+        // }elseif($role=="user"){
+        //     return redirect('pages.admin.user')->to('user');
+        // }else{
+        //     return redirect()->to('logout');
+        // }
+        return view('home');
     }
 }
