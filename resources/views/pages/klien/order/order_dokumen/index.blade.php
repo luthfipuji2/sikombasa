@@ -229,16 +229,36 @@
                 @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="path_file" class="col-form-label">Upload Dokumen</label><br>
-                        <label for="path_file" class="col-form-label">Dokumen berupa : txt, pdf, pptx</label>
-                        <div class="modal-body">
+                
+            <div class="col-14 omega">
+                <div id="box-annual" data-plan="annual" class="box plans FR-PREMIUM-1 year">
+            <div class="card card-statistic-1">
+            </a>
+                <br>
+                <div class="form-group">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="Upload DOkumen" class="col-form-label">Upload Dokumen</label><br>
+                            <div class="font-weight text-red">
+                            &nbsp;&nbsp;&nbsp;* Pilih salah satu Opsi Unggah Dokumen<br><br>
+                            </div>
+                            &nbsp;&nbsp;&nbsp;<label for="Type Dokumen" class="col-form-label">Dokumen berupa : txt, pdf, pptx</label>
+                        
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <input type="file" name="path_file" required="required">
+                                &nbsp;&nbsp;&nbsp;<input type="file" name="path_file">
                                 </div>
-                            </div>
+
+                                &nbsp;&nbsp;&nbsp;<label for="text">Menggunakan Link</label>
+                                <input type="text" class="form-control" id="upload_dokumen" placeholder="Kosongi jika tidak menggunakan link Google Drive" name="upload_dokumen"></input>
                     </div>
+                </div>
+            </div>
+            </div>
+            </div>
+                
+        <!-- Selesai jenis layanan premium -->
+
+
+
                     <hr>
                     <div class="col-sm-2">
                     <button class="btn btn-primary" type="submit">Submit</button>
@@ -276,45 +296,5 @@ $(document).ready(function() {
         $(this).parents(".control-group").remove();
     });
     });
-</script>
-@endpush
-
-@push('scripts')
-<script >		
-    // membuat function tampilkan_nama
-    function layanan_basic(){
-        document.getElementById("basic").innerHTML = " * Translator Ditentukan <br> * Tidak Terdapat Editor <br> * Tidak Mendapat Revisi <hr>";
-    }
-    
-</script>
-@endpush
-
-@push('scripts')
-<script >		
-    // membuat function tampilkan_nama
-    function layanan_premium(){
-        document.getElementById("premium").innerHTML = " * Translator Ditentukan <br> * Terdapat Proses Editing <br> *  Terdapat Revisi 1 kali <hr>";
-    }
-    
-</script>
-@endpush
-
-@push('scripts')
-<script >		
-    // membuat function tampilkan_nama
-    function teks_umum(){
-        document.getElementById("umum").innerHTML = " * Dokumen Bebas/Bersifat Umum <br> <hr>";
-    }
-    
-</script>
-@endpush
-
-@push('scripts')
-<script >		
-    // membuat function tampilkan_nama
-    function teks_khusus(){
-        document.getElementById("khusus").innerHTML = " * Dokumen Resmi/Bersifat Rahasia <br><hr>";
-    }
-    
 </script>
 @endpush

@@ -39,6 +39,7 @@ class Order extends Model
         'text',
         'nama_file',
         'nama_dokumen',
+        'upload_dokumen',
         'path_file',
         'size',
         'ekstensi',

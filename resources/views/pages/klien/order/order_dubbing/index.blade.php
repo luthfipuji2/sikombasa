@@ -176,14 +176,27 @@
                     <div class="invalid-feedback">{{$message}}</div>
                 @enderror
                     </div>
+
+
+
+                <div class="col-14 omega">
+                <div id="box-annual" data-plan="annual" class="box plans FR-PREMIUM-1 year">
+            <div class="card card-statistic-1">
+            </a>
+                <br>
                     <div class="form-group">
                         <label for="path_file" class="col-form-label">Upload Video</label>
-                        <label for="path_file" class="col-form-label">Dokumen berupa : mp4, mpeg, avi</label>
+                        <div class="font-weight text-red">
+                            &nbsp;&nbsp;&nbsp;* Pilih salah satu Opsi Unggah Video<br><br>
+                            </div>
+                            &nbsp;&nbsp;&nbsp;<label for="path_file" class="col-form-label">Dokumen berupa : mp4, mpeg, avi</label>
                         <div class="modal-body">
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <input type="file" id="path_file" name="path_file" required="required">
+                                    <input type="file" id="path_file" name="path_file">
                                 </div>
+                                &nbsp;&nbsp;&nbsp;<label for="text">Menggunakan Link</label>
+                                <input type="text" class="form-control" id="upload_dokumen" placeholder="Kosongi jika tidak menggunakan link Google Drive" name="upload_dokumen"></input>
                             </div>
 
                     <div class="form-group">

@@ -76,16 +76,29 @@
                                     <td>{{$order->nama_dokumen}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Dokumen</td>
+                                    @if(!empty($order->path_file) && empty($order->upload_dokumen))
+                                    <td>Video</td>
                                     <td>{{$order->path_file}}</td>
+                                    @else()
+                                    @endif
                                 </tr>
                                 <tr>
+                                    @if(!empty($order->durasi_video))
                                     <td>Durasi Video</td>
                                     <td>{{(($order->durasi_video/60)%60)}} Menit</td>
+                                    @else
+                                    <td>Link Video Anda</td>
+                                    <td>{{($order->upload_dokumen)}}</td>
+                                    @endif
                                 </tr>
                                 <tr>
+                                    @if(!empty($order->durasi_video) && empty($order->upload_dokumen))
                                     <th scope="col">Total Harga</th>
                                     <th>{{$order->harga}}</th>
+                                    @elseif(empty($order->durasi_video) && !empty($order->upload_dokumen))
+                                    <th scope="col">Total Harga</th>
+                                    <th>Menunggu, Sedang di tentukan oleh admin</th>
+                                    @endif
                                 </tr>
                             </tbody>
                         </table>
@@ -165,20 +178,36 @@
             {{ csrf_field() }}
                     <div class="form-group">
                         <label for="nama_dokumen" class="col-form-label">Nama Video</label>
-                        <h6 for="durasi_pengerjaan"> * Video Anda = {{$order->path_file}}</h6>
+    
                     <br>
                         <input type="text" class="form-control" id="nama_dokumen" name="nama_dokumen" value="{{$order->nama_dokumen}}">
                     </div>
+
+                    <div class="col-14 omega">
+                <div id="box-annual" data-plan="annual" class="box plans FR-PREMIUM-1 year">
+            <div class="card card-statistic-1">
+            </a>
+                <br>
                     <div class="form-group">
                         <label for="path_file" class="col-form-label" value="{{$order->path_file}}">Upload Video</label>
-                        <label for="path_file" class="col-form-label">Dokumen berupa : mp4, mpeg, avi</label>
+                        <div class="font-weight text-red">
+                            &nbsp;&nbsp;&nbsp;* Pilih salah satu Opsi Unggah Video<br><br>
+                            </div>
+                            &nbsp;&nbsp;&nbsp;<label for="path_file" class="col-form-label">Dokumen berupa : mp4, mpeg, avi</label>
                         <div class="modal-body" value="{{$order->path_file}}">
                                 {{ csrf_field() }}
+                                @if(!empty($order->path_file) && empty($order->upload_dokumen))
                                 <div class="form-group">
-                                    <input type="file" id="path_file" name="path_file" required="required" value="{{$order->path_file}}">
-                                </div>
+                                <h6 for="path_file"> * Video Anda = {{$order->path_file}}</h6>
+                                @elseif(empty($order->path_file) && !empty($order->upload_dokumen))
+                                <div class="form-group">
+                                <h6 for="path_file"> * Link Anda = {{$order->upload_dokumen}}</h6>
+                                @endif
+                                &nbsp;&nbsp;&nbsp;<label for="text">Menggunakan Link</label>
+                                <input type="text" class="form-control" id="upload_dokumen" placeholder="Kosongi jika tidak menggunakan link Google Drive" name="upload_dokumen"></input>
                             </div>
-                    </div>
+
+                
                     <div class="form-group">
                     <label for="durasi_video" class="col-form-label" value="{{$order->durasi_video}}"></label>
                         <input type="hidden" name="durasi_video" id="durasi_video" oninput="updateInfos()" >

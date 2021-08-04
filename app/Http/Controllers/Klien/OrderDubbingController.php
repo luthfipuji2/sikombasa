@@ -7,6 +7,7 @@ use App\User;
 use App\Models\Klien\Review;
 use App\Models\Admin\ParameterJenisLayanan;
 use App\Models\Admin\ParameterDubber;
+use App\Models\Admin\ParameterOrderDubbing;
 use App\Models\Admin\ParameterOrderSubtitle;
 use App\Models\Admin\Transaksi;
 use App\Models\Admin\ParameterOrderDurasi;
@@ -61,7 +62,17 @@ class OrderDubbingController extends Controller
      */
     public function store(Request $request, Order $order_dubbing)
     {
+        $this->validate($request, [
+            'id_parameter_jenis_layanan' => 'required',
+            'durasi_pengerjaan' => 'required',
+            'jumlah_dubber' => 'required',
+            'nama_dokumen' => 'required',
+            'path_file' => 'mimetypes:video/avi,video/mpeg,video/mp4,video/quicktime|max:5000000',
+            'upload_dokumen'=>'',
+            'durasi_video' => '',
+        ]);
 
+        // return ($request);exit();
         $jenis_layanan=ParameterJenisLayanan::all();
         $jml_dubber = ParameterDubber::all();
         $durasi=ParameterOrderDurasi::all();
@@ -131,31 +142,30 @@ class OrderDubbingController extends Controller
             $hasil = "10";
         }
 
+        $messages = [
+            'required' => ':wajib diisi ! ',
+            'mimes'=>'upload dokumen dalam bentuk avi/mpeg/mp4'
+        ];
 
-        //return($request);
-        if($request->hasFile('path_file')){
+        //jika pake upload file
+        if ($request->hasFile('path_file')) {
             $validate_data = $request->validate([
-                'id_parameter_jenis_layanan'=>'required',
-                'durasi_pengerjaan'=>'required',
-                'jumlah_dubber'=>'required',
-                'nama_dokumen'=>'required',
-                'path_file'=>'required|mimetypes:video/avi,video/mpeg,video/mp4,video/quicktime|max:5000000',
-                'durasi_video'=>'required',
-            ]);
+                'path_file'=>'mimetypes:video/avi,video/mpeg,video/mp4,video/quicktime|max:5000000',
+            ], $messages);
 
-            $id_parameter_jenis_layanan = $validate_data['id_parameter_jenis_layanan'];
-            $durasi = $validate_data['durasi_pengerjaan'];
-            $jml_dubber = $validate_data['jumlah_dubber'];
-            $durasi_video = $validate_data['durasi_video'];
+            $id_parameter_jenis_layanan = $request['id_parameter_jenis_layanan'];
+            $durasi = $request['durasi_pengerjaan'];
+            $jml_dubber = $request['jumlah_dubber'];
+            $durasi_video = $request['durasi_video'];
             $ext_template = $validate_data['path_file']->extension();
             $size_template = $validate_data['path_file']->getSize();
             $user=Auth::user();
             $klien=Klien::where('id', $user->id)->first();
-            $nama_dokumen = $validate_data['nama_dokumen'] . "." . $ext_template;
+            $nama_dokumen = $request['nama_dokumen'] . "." . $ext_template;
 
             $path_template = Storage::putFileAs('public/data_video/file_order_video', $request->file('path_file'), $nama_dokumen);
 
-            $order_dubbing=Order::create([
+            $order_dubbing=Order::updateOrCreate([
                 'id_klien'=>$klien->id_klien,
                 'id_parameter_jenis_layanan'=>$id_parameter_jenis_layanan,
                 'id_parameter_dubber'=>$hasil_dubber,
@@ -168,6 +178,33 @@ class OrderDubbingController extends Controller
                 'path_file'=>$path_template,
                 'ekstensi'=>$ext_template,
                 'size'=>$size_template,
+                'tgl_order'=>Carbon::now()->timestamp,
+                'is_status'=>'belum dibayar',
+                'menu'=>'Dubbing',
+            ]);
+
+            $id_order=$order_dubbing->id_order;
+            return redirect(route('order-dubbing.show', $id_order))->with('success', 'Berhasil di upload!');
+        }else
+        {
+            $id_parameter_jenis_layanan = $request['id_parameter_jenis_layanan'];
+            $durasi = $request['durasi_pengerjaan'];
+            $jml_dubber = $request['jumlah_dubber'];
+            $nama_dokumen = $request['nama_dokumen'];
+            $link=$request['upload_dokumen'];
+            $user=Auth::user();
+            $klien=Klien::where('id', $user->id)->first();
+
+            $order_dubbing=Order::updateOrCreate([
+                'id_klien'=>$klien->id_klien,
+                'id_parameter_jenis_layanan'=>$id_parameter_jenis_layanan,
+                'id_parameter_dubber'=>$hasil_dubber,
+                // 'id_parameter_order_dubbing'=>$hasil,
+                'id_parameter_order_durasi'=>$hasil_durasi,
+                'durasi_pengerjaan'=>$durasi,
+                'jumlah_dubber'=>$jml_dubber,
+                'nama_dokumen'=>$nama_dokumen,
+                'upload_dokumen'=>$link,
                 'tgl_order'=>Carbon::now()->timestamp,
                 'is_status'=>'belum dibayar',
                 'menu'=>'Dubbing',
@@ -192,9 +229,9 @@ class OrderDubbingController extends Controller
         $order=Order::findOrFail($id_order); //dapat id order
         $durasi=ParameterOrderDurasi::all();
         // return ($order);
-        if($order != null){
+        if($order != null && !empty($order->durasi_video)){
             $j_layanan = ParameterJenisLayanan::where('id_parameter_jenis_layanan', $order->id_parameter_jenis_layanan)->first();
-            $dr_video = ParameterOrderSubtitle::where('id_parameter_order_subtitle', $order->id_parameter_order_dubbing)->first();
+            $dr_video = ParameterOrderDubbing::where('id_parameter_order_dubbing', $order->id_parameter_order_dubbing)->first();
             $jml_dubber = ParameterDubber::where('id_parameter_dubber', $order->id_parameter_dubber)->first();
             $durasi_pengerjaan = ParameterOrderDurasi::where('id_parameter_order_durasi', $order->id_parameter_order_durasi)->first();
     
@@ -227,17 +264,27 @@ class OrderDubbingController extends Controller
                 'jml_dubber'=>$result_dubber,
                 'durasi_pengerjaan'=>$result_durasi,
             ];
+
+            $harga = ($result_layanan['harga']) + ($result_video['harga']) + ($result_dubber['harga']) + ($result_durasi['harga']);
+        
+            $save_harga = Order::where('id_order', $order->id_order)
+                                ->update([
+                                    'harga'=>$harga
+                                ]);
+            // return ($save_harga);
+            return view('pages.klien.order.order_dubbing.show', compact('order', 'user', 'klien', 'save_harga'));
+
+        }elseif($order != null && empty($order->durasi_video)){
+            $j_layanan = ParameterJenisLayanan::where('id_parameter_jenis_layanan', $order->id_parameter_jenis_layanan)->first();
+            $jml_dubber = ParameterDubber::where('id_parameter_dubber', $order->id_parameter_dubber)->first();
+            $durasi_pengerjaan = ParameterOrderDurasi::where('id_parameter_order_durasi', $order->id_parameter_order_durasi)->first();
+
+            return view('pages.klien.order.order_dubbing.show', compact('order', 'user', 'klien'));
         }
 
-        $harga = ($result_layanan['harga']) + ($result_video['harga']) + ($result_dubber['harga']) + ($result_durasi['harga']);
-        
-        $save_harga = Order::where('id_order', $order->id_order)
-                            ->update([
-                                'harga'=>$harga
-                            ]);
-        // return ($save_harga);
 
-        return view('pages.klien.order.order_dubbing.show', compact('order', 'user', 'klien', 'save_harga'));
+
+        
     }
 
     

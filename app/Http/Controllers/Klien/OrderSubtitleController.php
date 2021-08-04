@@ -62,19 +62,10 @@ class OrderSubtitleController extends Controller
             'id_parameter_jenis_layanan' => 'required',
             'durasi_pengerjaan' => 'required',
             'nama_dokumen' => 'required',
-            'path_file' => 'required|max:500000',
-            'durasi_video' => 'required',
+            'path_file' => 'mimetypes:video/avi,video/mpeg,video/mp4,video/quicktime|max:5000000',
+            'upload_dokumen'=>'',
+            'durasi_video' => '',
         ]);
-
-                // // return($request);
-                // if($request->hasFile('path_file')){
-                //     $request = $request->validate([
-                //         'id_parameter_jenis_layanan'=>'required',
-                //         'durasi_pengerjaan'=>'required',
-                //         'nama_dokumen'=>'required',
-                //         'path_file'=>'required|max:500000',
-                //         'durasi_video'=>'required',
-                //     ]);
 
         $jenis_layanan=ParameterJenisLayanan::all();
         $jenis_teks = ParameterJenisTeks::all();
@@ -84,51 +75,56 @@ class OrderSubtitleController extends Controller
         $klien=Klien::where('id', $user->id)->first();
 
         $durasi=$request->durasi_pengerjaan;
-        if($durasi == 1 )
-        {
+        if ($durasi == 1) {
             $hasil_durasi = "1";
-        }elseif($durasi == 2){
+        } elseif ($durasi == 2) {
             $hasil_durasi = "2";
-        }elseif($durasi == 3){
+        } elseif ($durasi == 3) {
             $hasil_durasi = "3";
-        }elseif($durasi == 4){
+        } elseif ($durasi == 4) {
             $hasil_durasi = "4";
-        }elseif($durasi == 5){
+        } elseif ($durasi == 5) {
             $hasil_durasi = "5";
-        }elseif($durasi == 6){
+        } elseif ($durasi == 6) {
             $hasil_durasi = "6";
-        }elseif($durasi == 7){
+        } elseif ($durasi == 7) {
             $hasil_durasi = "7";
         }
 
         $harga_video=$request->durasi_video;
-        if($harga_video >= 1 && $harga_video <= 100)
-        {
+        if ($harga_video >= 1 && $harga_video <= 100) {
             // $harga=ParameterOrderTeks::select('id_parameter_order_teks')->first();
             $hasil = "1";
-        }elseif($harga_video >= 101 && $harga_video <= 200){
+        } elseif ($harga_video >= 101 && $harga_video <= 200) {
             $hasil = "2";
-        }elseif($harga_video >= 201 && $harga_video <= 300){
+        } elseif ($harga_video >= 201 && $harga_video <= 300) {
             $hasil = "3";
-        }elseif($harga_video >= 301 && $harga_video <= 400){
+        } elseif ($harga_video >= 301 && $harga_video <= 400) {
             $hasil = "4";
-        }elseif($harga_video >= 401 && $harga_video <= 500){
+        } elseif ($harga_video >= 401 && $harga_video <= 500) {
             $hasil = "5";
-        }elseif($harga_video >= 501 && $harga_video <= 600){
+        } elseif ($harga_video >= 501 && $harga_video <= 600) {
             $hasil = "6";
-        }elseif($harga_video >= 601 && $harga_video <= 700){
+        } elseif ($harga_video >= 601 && $harga_video <= 700) {
             $hasil = "7";
-        }elseif($harga_video >= 701 && $harga_video <= 800){
+        } elseif ($harga_video >= 701 && $harga_video <= 800) {
             $hasil = "8";
-        }elseif($harga_video >= 801 && $harga_video <= 900){
+        } elseif ($harga_video >= 801 && $harga_video <= 900) {
             $hasil = "9";
-        }elseif($harga_video >= 901 && $harga_video <= 1000){
+        } elseif ($harga_video >= 901 && $harga_video <= 1000) {
             $hasil = "10";
         }
 
-        //
+        $messages = [
+            'required' => ':wajib diisi ! ',
+            'mimes'=>'upload dokumen dalam bentuk avi/mpeg/mp4'
+        ];
 
-        
+        //jika pake upload file
+        if ($request->hasFile('path_file')) {
+            $validate_data = $request->validate([
+                'path_file'=>'mimetypes:video/avi,video/mpeg,video/mp4,video/quicktime|max:5000000',
+            ], $messages);
 
             $id_parameter_jenis_layanan = $request['id_parameter_jenis_layanan'];
             $durasi = $request['durasi_pengerjaan'];
@@ -141,7 +137,7 @@ class OrderSubtitleController extends Controller
 
             $path_template = Storage::putFileAs('public/data_video/file_order_video', $request->file('path_file'), $nama_dokumen);
 
-            $order_subtitle=Order::create([
+            $order_subtitle=Order::updateOrCreate([
                 'id_klien'=>$klien->id_klien,
                 'id_parameter_jenis_layanan'=>$id_parameter_jenis_layanan,
                 'id_parameter_order_subtitle'=>$hasil,
@@ -160,7 +156,30 @@ class OrderSubtitleController extends Controller
 
             $id_order=$order_subtitle->id_order;
             return redirect(route('order-subtitle.show', $id_order))->with('success', 'Berhasil di upload!');
+        }else{
+            $id_parameter_jenis_layanan = $request['id_parameter_jenis_layanan'];
+            $durasi = $request['durasi_pengerjaan'];
+            $nama_dokumen = $request['nama_dokumen'];
+            $link=$request['upload_dokumen'];
+            $user=Auth::user();
+            $klien=Klien::where('id', $user->id)->first();
+
+            $order_subtitle=Order::updateOrCreate([
+                'id_klien'=>$klien->id_klien,
+                'id_parameter_jenis_layanan'=>$id_parameter_jenis_layanan,
+                'id_parameter_order_durasi'=>$hasil_durasi,
+                'durasi_pengerjaan'=>$durasi,
+                'nama_dokumen'=>$nama_dokumen,
+                'upload_dokumen'=>$link,
+                'tgl_order'=>Carbon::now()->timestamp,
+                'is_status'=>'belum dibayar',
+                'menu'=>'Dubbing',
+            ]);
+
+            $id_order=$order_subtitle->id_order;
+            return redirect(route('order-dubbing.show', $id_order))->with('success', 'Berhasil di upload!');
         }
+    }
         
     
 
@@ -178,7 +197,7 @@ class OrderSubtitleController extends Controller
         $durasi=ParameterOrderDurasi::all();
        $order=Order::findOrFail($id_order); //dapat id order
         // return ($order);
-        if($order != null){
+        if($order != null && !empty($order->durasi_video)){
             $j_layanan = ParameterJenisLayanan::where('id_parameter_jenis_layanan', $order->id_parameter_jenis_layanan)->first();
             $dr_video = ParameterOrderSubtitle::where('id_parameter_order_subtitle', $order->id_parameter_order_subtitle)->first();
             $durasi_pengerjaan = ParameterOrderDurasi::where('id_parameter_order_durasi', $order->id_parameter_order_durasi)->first();
@@ -205,7 +224,6 @@ class OrderSubtitleController extends Controller
                 'dr_video'=>$result_video,
                 'durasi_pengerjaan'=>$result_durasi,
             ];
-        }
 
         $harga = ($result_layanan['harga']) + ($result_video['harga']) + ($result_durasi['harga']);
         
@@ -215,6 +233,12 @@ class OrderSubtitleController extends Controller
                             ]);
         // return ($save_harga);
         return view('pages.klien.order.order_subtitle.show', compact('order', 'user', 'klien', 'jenis_layanan', 'save_harga'));
+        }elseif($order != null && empty($order->durasi_video)){
+            $j_layanan = ParameterJenisLayanan::where('id_parameter_jenis_layanan', $order->id_parameter_jenis_layanan)->first();
+            $durasi_pengerjaan = ParameterOrderDurasi::where('id_parameter_order_durasi', $order->id_parameter_order_durasi)->first();
+            return view('pages.klien.order.order_subtitle.show', compact('order', 'user', 'klien'));
+        }
+
     }
 
     
