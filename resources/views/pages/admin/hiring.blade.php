@@ -54,14 +54,14 @@
                 </button>
               </div>
               <div class="modal-body">
+                <div class="form-group row">
+                  <label for="nilai_berkas" class="col-sm-5 col-form-label">Nilai</label>
+                  <div class="col-sm-12">
+                    <input type="text" class="form-control" name="nilai_berkas" id="nilai_berkas" readonly value="{{$d->nilai_berkas}}">
+                  </div>
+                </div>
               <form action="{{ url('/berkas/'.$d->id_seleksi_berkas) }}" method="POST" enctype="multipart/form-data" id="editForm">
                 @csrf
-                    <div class="form-group row">
-                      <label for="nilai_berkas" class="col-sm-5 col-form-label">Nilai</label>
-                      <div class="col-sm-12">
-                        <input type="text" class="form-control" name="nilai_berkas" id="nilai_berkas" placeholder="Nilai (Kisaran 1 s.d 10)" value="{{$d->nilai_berkas}}">
-                      </div>
-                    </div>
                     <div class="form-group">
                       <label for="hasil" class="col-sm-5 col-form-label">Pelamar dinyatakan</label>
                         @if(empty($d->hasil))

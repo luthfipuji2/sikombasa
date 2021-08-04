@@ -187,12 +187,25 @@ class CareerController extends Controller
     public function indexProgress(){
 
         $user = Auth::user();
+
         $translator = Translator::where('id', $user->id)->latest('updated_at')->first();
+
         $seleksi = Seleksi::where('id_translator', $translator->id_translator)->first();
+
+        $dokumen = DB::table('lamaran_kerja')
+                        ->where('id_translator', $translator->id_translator)
+                        ->first();
+
+        $skills = DB::table('keahlian')
+                        ->join('master_keahlian', 'keahlian.id_keahlian', '=', 'master_keahlian.id_keahlian')
+                        ->where('id_translator', $translator->id_translator)
+                        ->get();
         return view('pages.klien.progress', [
             'user'=>$user,
             'translator'=>$translator,
-            'seleksi'=>$seleksi
+            'seleksi'=>$seleksi,
+            'dokumen' => $dokumen,
+            'skills' => $skills
             ]);
     }
 }

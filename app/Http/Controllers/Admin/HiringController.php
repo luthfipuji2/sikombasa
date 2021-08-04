@@ -37,22 +37,68 @@ class HiringController extends Controller
                         ->first();
 
         $dokumen = DB::table('lamaran_kerja')
-        ->where('id_translator', $id_translator)
-        ->first();
+                        ->where('id_translator', $id_translator)
+                        ->first();
 
         $skills = DB::table('keahlian')
                         ->join('master_keahlian', 'keahlian.id_keahlian', '=', 'master_keahlian.id_keahlian')
                         ->where('id_translator', $id_translator)
                         ->get();
 
+        $seleksi = DB::table('seleksi')
+                        ->where('id_translator', $id_translator)
+                        ->first();
+
         return view('pages.admin.show', [
             'user'=>$user,
             'translator'=>$translator,
             'dokumen'=>$dokumen,
-            'skills'=>$skills
+            'skills'=>$skills,
+            'seleksi'=>$seleksi
             ]);
 
         // return $translator;
+    }
+
+    public function catatanBerkas(Request $request, $id_translator)
+    {
+        $user = Auth::user(); //user yang login
+        
+        if($request->isMethod('post')){
+            $data = $request->all();
+
+            Seleksi::where(['id_translator'=>$id_translator])->update([
+                'nilai_video' => $request->nilai_video,
+                'nilai_cv' => $request->nilai_cv,
+                'nilai_portofolio' => $request->nilai_portofolio,
+                'nilai_ijazah' => $request->nilai_ijazah,
+                'nilai_sk_sehat' => $request->nilai_sk_sehat,
+                'nilai_skck' => $request->nilai_skck,
+                'nilai_sertifikat' => $request->nilai_sertifikat,
+                'catatan_video' => $request->catatan_video,
+                'catatan_cv' => $request->catatan_cv,
+                'catatan_portofolio' => $request->catatan_portofolio,
+                'catatan_ijazah' => $request->catatan_ijazah,
+                'catatan_sk_sehat' => $request->catatan_sk_sehat,
+                'catatan_skck' => $request->catatan_skck,
+                'catatan_sertifikat' => $request->catatan_sertifikat
+            ]);
+        }
+
+        $seleksi = Seleksi::where('id_translator', $id_translator)->first();
+
+        $nilai = ($seleksi->nilai_video + $seleksi->nilai_cv + $seleksi->nilai_portofolio + $seleksi->nilai_ijazah + $seleksi->nilai_sk_sehat + $seleksi->nilai_skck + $seleksi->nilai_sertifikat)/7;
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+
+            Seleksi::where(['id_translator'=>$id_translator])->update([
+                'penyeleksi' => $user->name,
+                'nilai_berkas' => $nilai
+            ]);
+        }
+
+        return redirect('/hire')->with('success', 'Nilai dan Catatan Berkas Berhasil Ditambahkan');
     }
 
     public function berkas(Request $request, $id_seleksi_berkas)
@@ -63,8 +109,6 @@ class HiringController extends Controller
             $data = $request->all();
 
             Seleksi::where(['id_seleksi_berkas'=>$id_seleksi_berkas])->update([
-                'penyeleksi' => $user->name,
-                'nilai_berkas' => $request->nilai_berkas,
                 'hasil' => $request->hasil
             ]);
         }
