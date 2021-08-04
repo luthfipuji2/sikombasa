@@ -47,7 +47,7 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Video Editing</label>
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Video Editing*</label>
                         @if($translator->keahlian=='Bisa')
                         <div class="col-sm-10">
                           <div class="custom-control custom-radio">
@@ -226,6 +226,7 @@
                         </div>
                       </div>
                     </form>
+                    <p style="color:red;">*Keterangan: Penguasaan video editing diperlukan dalam menyelesaikan order pada menu dubbing dan subtitle</p>
                   </div>
 
                   <div class="disabled tab-pane" id="document">

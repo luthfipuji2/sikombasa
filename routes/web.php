@@ -282,6 +282,7 @@ Route::middleware(['auth'])->group(function () {
          Route::match(['get', 'post'],'/wawancara/{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'wawancara']);
          Route::match(['get', 'post'],'/berkas/{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'berkas']);
          Route::match(['get', 'post'], '/catatan-{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'catatan']);
+         Route::match(['get', 'post'], '/berkas-{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'catatanBerkas']);
          
         
 
