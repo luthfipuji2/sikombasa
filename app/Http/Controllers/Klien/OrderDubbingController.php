@@ -139,7 +139,7 @@ class OrderDubbingController extends Controller
                 'durasi_pengerjaan'=>'required',
                 'jumlah_dubber'=>'required',
                 'nama_dokumen'=>'required',
-                'path_file'=>'required|file|max:5000000',
+                'path_file'=>'required|mimetypes:video/avi,video/mpeg,video/mp4,video/quicktime|max:5000000',
                 'durasi_video'=>'required',
             ]);
 
@@ -266,7 +266,7 @@ class OrderDubbingController extends Controller
             'durasi_pengerjaan' => 'required',
             'jumlah_dubber' => 'required',
             'nama_dokumen' => 'required',
-            'path_file' => 'required',
+            'path_file' => 'required|mimetypes:video/avi,video/mpeg,video/mp4,video/quicktime|max:5000000',
             'durasi_video' => 'required',
         ]);
 

@@ -60,6 +60,15 @@ class OrderDokumenController extends Controller
      */
     public function store(Request $request, Order $order_dokumen)
     {
+        $this->validate($request, [
+            'id_parameter_jenis_layanan' => 'required',
+            'id_parameter_jenis_teks' => 'required',
+            'durasi_pengerjaan' => 'required',
+            'nama_dokumen' => 'required',
+            'path_file' => 'required|file:txt, pdf, pptx|max:500000',
+            'jumlah_halaman' => 'required',
+        ]);
+
         $jenis_layanan=ParameterJenisLayanan::all();
         $jenis_teks = ParameterJenisTeks::all();
         $durasi=ParameterOrderDurasi::all();
@@ -111,15 +120,20 @@ class OrderDokumenController extends Controller
         }
 
 
+        $messages = [
+            'required' => ':wajib diisi ! ',
+            'mimes'=>'upload dokumen dalam bentuk word/pdf/pptx'
+        ];
+
         if($request->hasFile('path_file')){
             $validate_data = $request->validate([
                 'id_parameter_jenis_layanan'=>'required',
                 'id_parameter_jenis_teks'=>'required',
                 'durasi_pengerjaan'=>'required',
                 'nama_dokumen'=>'required',
-                'path_file'=>'required|file|max:5000000',
+                'path_file'=>'required|mimes:txt, pdf, pptx|max:500000',
                 'jumlah_halaman'=>'required',
-            ]);
+            ], $messages);
 
             $id_parameter_jenis_layanan = $validate_data['id_parameter_jenis_layanan'];
             $id_parameter_jenis_teks = $validate_data['id_parameter_jenis_teks'];
@@ -244,7 +258,7 @@ class OrderDokumenController extends Controller
             'id_parameter_jenis_teks' => 'required',
             'durasi_pengerjaan' => 'required',
             'nama_dokumen' => 'required',
-            'path_file' => 'required',
+            'path_file' => 'required|mimes:txt, pdf, pptx|max:500000',
             'jumlah_halaman' => 'required',
         ]);
         

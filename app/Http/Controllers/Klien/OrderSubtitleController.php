@@ -58,6 +58,24 @@ class OrderSubtitleController extends Controller
      */
     public function store(Request $request, Order $order_subtitle)
     {
+        $this->validate($request, [
+            'id_parameter_jenis_layanan' => 'required',
+            'durasi_pengerjaan' => 'required',
+            'nama_dokumen' => 'required',
+            'path_file' => 'required|max:500000',
+            'durasi_video' => 'required',
+        ]);
+
+                // // return($request);
+                // if($request->hasFile('path_file')){
+                //     $request = $request->validate([
+                //         'id_parameter_jenis_layanan'=>'required',
+                //         'durasi_pengerjaan'=>'required',
+                //         'nama_dokumen'=>'required',
+                //         'path_file'=>'required|max:500000',
+                //         'durasi_video'=>'required',
+                //     ]);
+
         $jenis_layanan=ParameterJenisLayanan::all();
         $jenis_teks = ParameterJenisTeks::all();
         $durasi=ParameterOrderDurasi::all();
@@ -109,25 +127,17 @@ class OrderSubtitleController extends Controller
         }
 
         //
-        //return($request);
-        if($request->hasFile('path_file')){
-            $validate_data = $request->validate([
-                'id_parameter_jenis_layanan'=>'required',
-                'durasi_pengerjaan'=>'required',
-                'nama_dokumen'=>'required',
-                'path_file'=>'required|file|max:5000000',
-                'durasi_video'=>'required',
-            ]);
+
         
 
-            $id_parameter_jenis_layanan = $validate_data['id_parameter_jenis_layanan'];
-            $durasi = $validate_data['durasi_pengerjaan'];
-            $durasi_video = $validate_data['durasi_video'];
-            $ext_template = $validate_data['path_file']->extension();
-            $size_template = $validate_data['path_file']->getSize();
+            $id_parameter_jenis_layanan = $request['id_parameter_jenis_layanan'];
+            $durasi = $request['durasi_pengerjaan'];
+            $durasi_video = $request['durasi_video'];
+            $ext_template = $request['path_file']->extension();
+            $size_template = $request['path_file']->getSize();
             $user=Auth::user();
             $klien=Klien::where('id', $user->id)->first();
-            $nama_dokumen = $validate_data['nama_dokumen'] . "." . $ext_template;
+            $nama_dokumen = $request['nama_dokumen'] . "." . $ext_template;
 
             $path_template = Storage::putFileAs('public/data_video/file_order_video', $request->file('path_file'), $nama_dokumen);
 
@@ -151,7 +161,7 @@ class OrderSubtitleController extends Controller
             $id_order=$order_subtitle->id_order;
             return redirect(route('order-subtitle.show', $id_order))->with('success', 'Berhasil di upload!');
         }
-        } 
+        
     
 
     /**
@@ -232,7 +242,7 @@ class OrderSubtitleController extends Controller
             'id_parameter_jenis_layanan' => 'required',
             'durasi_pengerjaan' => 'required',
             'nama_dokumen' => 'required',
-            'path_file' => 'required',
+            'path_file' => 'required|mimetypes:video/avi,video/mpeg,video/mp4,video/quicktime|max:5000000',
             'durasi_video' => 'required',
         ]);
 

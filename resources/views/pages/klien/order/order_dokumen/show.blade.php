@@ -186,7 +186,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="path_file" class="col-form-label">Upload Dokumen</label>
+                        <label for="path_file" class="col-form-label">Upload Dokumen</label><br>
+                        <label for="path_file" class="col-form-label">Dokumen berupa : txt, pdf, pptx</label>
                         <div class="modal-body">
                                 {{ csrf_field() }}
                                 <div class="form-group">

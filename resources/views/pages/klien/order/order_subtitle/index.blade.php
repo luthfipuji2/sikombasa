@@ -33,6 +33,18 @@
                 <div class="active tab-pane" id="certificate">
                 <form action="{{route('order-subtitle.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
+
+                
+                {{-- menampilkan error validasi --}}
+                            @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
                 <div class="row">
             <div class="col-6">
                 <div class="table-container">
@@ -86,6 +98,9 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="radio" name="id_parameter_jenis_layanan"  id="id_parameter_jenis_layanan" value="1">
                 <label class="form-check-label" for="id_parameter_jenis_layanan"><h5>Jenis Layanan Basic</label>
                 <br><br>
+                @error('id_parameter_jenis_layanan')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
                 </div>
                 </div>
             </div>
@@ -109,6 +124,9 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="radio" name="id_parameter_jenis_layanan"  id="id_parameter_jenis_layanan" value="2">
                 <label class="form-check-label" for="id_parameter_jenis_layanan"><h5>Jenis Layanan Premium</label>
                 <br><br>
+                @error('id_parameter_jenis_layanan')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
                 </div>
                 </div>
             </div>
@@ -144,9 +162,13 @@
                     <div class="form-group">
                         <label for="nama_dokumen" class="col-form-label">Nama Video</label>
                         <input type="text" class="form-control" id="nama_dokumen" name="nama_dokumen">
+                        @error('nama_dokumen')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
                     </div>
                     <div class="form-group">
                         <label for="path_file" class="col-form-label">Upload Video</label>
+                        <label for="path_file" class="col-form-label">Dokumen berupa : mp4, mpeg, avi</label>
                         <div class="modal-body">
                                 {{ csrf_field() }}
                                 <div class="form-group">

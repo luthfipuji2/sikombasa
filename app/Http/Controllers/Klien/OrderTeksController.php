@@ -67,6 +67,14 @@ class OrderTeksController extends Controller
      */
     public function store(Request $request, Order $order_teks)
     {
+        $this->validate($request, [
+            'id_parameter_jenis_layanan' => 'required',
+            'id_parameter_jenis_teks' => 'required',
+            'durasi_pengerjaan' => 'required',
+            'text' => 'required',
+            'jumlah_karakter' => 'required',
+        ]);
+
         $jenis_layanan=ParameterJenisLayanan::all();
         $jenis_teks = ParameterJenisTeks::all();
         $durasi=ParameterOrderDurasi::all();

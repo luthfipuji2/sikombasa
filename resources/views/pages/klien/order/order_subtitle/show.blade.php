@@ -161,6 +161,7 @@
                     </div>
                     <div class="form-group">
                         <label for="path_file" class="col-form-label" value="{{$order->path_file}}">Upload Video</label>
+                        <label for="path_file" class="col-form-label">Dokumen berupa : mp4, mpeg, avi</label>
                         <div class="modal-body" value="{{$order->path_file}}">
                                 {{ csrf_field() }}
                                 <div class="form-group">
