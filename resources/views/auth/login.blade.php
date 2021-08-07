@@ -1,4 +1,4 @@
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+<link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('css/particle.css') }}">
 
     <!-- particles.js container --> 
@@ -44,8 +44,31 @@
                 @enderror
         </div>
     </div>
+    <br>
     
-        <br>
+
+    <!-- nampilin jika captcha belum di ctg -->
+    @if ($errors->has('g-recaptcha-response'))
+        <span class="help-block">
+            <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+        </span>
+    @endif
+
+    <div class="form-group row">
+        <div class="col-md-6">
+        <center>    
+        <span id="captcha" type="captcha" class="form-control @error('captcha') is-invalid @enderror" name="captcha">
+            {!! NoCaptcha::renderJs('eng', false, 'onloadCallback') !!}
+            {!! NoCaptcha::display() !!}
+            </span>
+            </center>
+        </div>
+    </div>
+    <br>
+
+    <!-- selesai captcha -->
+
+
         <br>
         <div class="form-group row">
             <div class="col-md-6 offset-md-4">
@@ -58,10 +81,6 @@
             </div>
         </div>
 
-        <br>
-
-
-        <br>
         <div class='login'>
         <br><br>
 
@@ -87,8 +106,13 @@
     <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> 
 
 
-    
+
 
     <script src="{{ asset('js/login.js') }}"></script>
     <script src="{{ asset('js/particle.js') }}"></script>
     
+    <script type="text/javascript">
+        var onloadCallback = function() {
+            alert("grecaptcha is ready!");
+        };
+    </script>

@@ -7,7 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Validators\ValidationException;
 
 class LoginController extends Controller
@@ -40,6 +40,22 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware(Auth::user())->except('logout');
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $custom = [
+            'g-recaptcha-response' => [
+                'required' => 'Please verify that you are not a robot.',
+                'captcha' => 'Captcha error! try again later or contact site admin.',
+            ],
+        ];
+
+        $request->validate([
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+            'g-recaptcha-response' => 'required|captcha'
+        ], $custom);
     }
 
 }
