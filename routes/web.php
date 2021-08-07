@@ -14,7 +14,9 @@ use App\Http\Controllers\Klien\OrderTeksController;
 use App\Http\Controllers\Klien\OrderDubbingController;
 use App\Http\Controllers\Klien\OrderSubtitleController;
 use App\Http\Controllers\Klien\StatusInterpreterController;
+use App\Http\Controllers\Klien\ReviewInterpreterController;
 use App\Http\Controllers\Klien\StatusTranskripController;
+use App\Http\Controllers\Klien\ReviewTranskripController;
 use App\Http\Controllers\Klien\StatusOrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -97,10 +99,11 @@ Route::middleware(['auth'])->group(function () {
         //Order Interpreter
         Route::resource('order-interpreter-review', 'App\Http\Controllers\Klien\ReviewInterpreterController');
         Route::resource('order-interpreter/status', 'App\Http\Controllers\Klien\StatusInterpreterController');
+        Route::get('/order-interpreter-download/{id_order}', 'App\Http\Controllers\Klien\StatusInterpreterController@downloadbukti');
+        Route::put('/order-interpreter-finish/{id_order}', 'App\Http\Controllers\Klien\StatusInterpreterController@selesai')->name('order-interpreter-selesai');
         Route::get('/order-interpreter', [App\Http\Controllers\Klien\OrderInterpreterController::class, 'menuOrder'])->name('menu-order');
         Route::resource('order-interpreter', 'App\Http\Controllers\Klien\OrderInterpreterController');
         Route::put('/order-interpreter/{id_order}', 'App\Http\Controllers\Klien\OrderInterpreterController@update')->name('update_order_interpreter');
-        
 
         //Order Transkrip 
         Route::resource('order-transkrip-review', 'App\Http\Controllers\Klien\ReviewTranskripController');
@@ -109,6 +112,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/order-transkrip/detail/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@show')->name('detail-status-order');;
         Route::get('/order-transkrip/revisi-download/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@downloadrevisi');
         Route::resource('order-transkrip/status', 'App\Http\Controllers\Klien\StatusTranskripController');
+        Route::put('/order-transkrip-finish/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@selesai_transkrip')->name('order-transkrip-selesai');
         Route::resource('order-transkrip', 'App\Http\Controllers\Klien\OrderTranskripController');
         Route::put('/order-transkrip/{id_order}', 'App\Http\Controllers\Klien\OrderTranskripController@update')->name('update_order_transkrip');
         Route::get('/order-transkrip-download/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@downloadhasil');
