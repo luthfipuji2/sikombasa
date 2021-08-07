@@ -52,7 +52,6 @@ class CreateOrder extends Migration
             $table->string('durasi_pertemuan')->nullable();   
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
-            $table->string('jarak')->nullable();
             $table->string('lokasi')->nullable();
             $table->dateTime('tgl_order')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->integer('durasi_pengerjaan')->nullable();

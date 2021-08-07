@@ -80,10 +80,8 @@ class OrderInterpreterController extends Controller
                 'lokasi'=>$request->lokasi,
                 'longitude'=>$request->longitude,
                 'latitude'=>$request->latitude,
-                'jarak'=>$request->jarak,
                 'tanggal_pertemuan'=> $request->tanggal_pertemuan,
                 'waktu_pertemuan'=> $request->waktu_pertemuan,
-                'is_status'=>$request->status_transaksi,
                 'tgl_order'=>$tgl_order,
                 'menu'=>'Interpreter'
             ]);
@@ -115,7 +113,6 @@ class OrderInterpreterController extends Controller
                 'lokasi'=>$request->lokasi,
                 'longitude'=>$request->longitude,
                 'latitude'=>$request->latitude,
-                'jarak'=>$request->jarak,
                 'tanggal_pertemuan'=> $request->tanggal_pertemuan,
                 'waktu_pertemuan'=> $request->waktu_pertemuan,
                 'tgl_order'=>$tgl_order,
@@ -169,7 +166,6 @@ class OrderInterpreterController extends Controller
                     'lokasi'=>$request->lokasi,
                     'longitude'=>$request->longitude,
                     'latitude'=>$request->latitude,
-                    'jarak'=>$request->jarak,
                     'tanggal_pertemuan'=>$request->tanggal_pertemuan,
                     'waktu_pertemuan'=>$request->waktu_pertemuan,
                 ]);
@@ -186,7 +182,6 @@ class OrderInterpreterController extends Controller
                     'lokasi'=>$request->lokasi,
                     'longitude'=>$request->longitude,
                     'latitude'=>$request->latitude,
-                    'jarak'=>$request->jarak,
                     'tanggal_pertemuan'=>$request->tanggal_pertemuan,
                     'waktu_pertemuan'=>$request->waktu_pertemuan,
                 ]);

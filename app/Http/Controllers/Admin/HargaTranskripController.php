@@ -44,6 +44,7 @@ class HargaTranskripController extends Controller
         $this->validate($request,[
             'p_durasi_audio' => 'required',
             'p_jenis_layanan'=>'required',
+            'p_durasi_pengerjaan'=>'required',
             'p_harga' => 'required'
         ]);
         
@@ -52,6 +53,7 @@ class HargaTranskripController extends Controller
             ParameterOrder::create([
                 'p_durasi_audio' => $request->p_durasi_audio,
                 'p_jenis_layanan' => $request->p_jenis_layanan,
+                'p_durasi_pengerjaan' => $request->p_durasi_pengerjaan,
                 'p_harga' => $request->p_harga
             ]);
             return redirect('/daftar-harga-transkrip')->with('success', 'Parameter harga transkrip berhasil diubah');
@@ -96,6 +98,7 @@ class HargaTranskripController extends Controller
         $this->validate($request,[
             'p_durasi_audio' => 'required',
             'p_jenis_layanan'=>'required',
+            'p_durasi_pengerjaan'=>'required',
             'p_harga' => 'required'
         ]);
 
@@ -107,6 +110,7 @@ class HargaTranskripController extends Controller
                     ->update([
                         'p_durasi_audio' => $request->p_durasi_audio,
                         'p_jenis_layanan' => $request->p_jenis_layanan,
+                        'p_durasi_pengerjaan' => $request->p_durasi_pengerjaan,
                         'p_harga' => $request->p_harga
                     ]);
             return redirect('/daftar-harga-transkrip')->with('success', 'Parameter harga transkrip berhasil diubah');

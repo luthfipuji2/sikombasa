@@ -45,6 +45,22 @@
               </div>
 
               <div class="form-group">
+                <label for="p_jenis_layanan">Durasi Pengerjaan</label>
+                <select class="form-control @error('p_durasi_pengerjaan') is-invalid @enderror" 
+                  id="p_durasi_pengerjaan" value="{{ old('p_durasi_pengerjaan') }}" placeholder="Durasi Pengerjaan" name="p_durasi_pengerjaan">
+                  <option value="">--Pilih Durasi Pengerjaan--</option>
+                  <option value="1">1 Hari</option>
+                  <option value="2">2 Hari</option>
+                  <option value="3">3 Hari</option>
+                </select>
+                @error ('p_durasi_pengerjaan')
+                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                {{$message}}
+                </div>
+                @enderror
+              </div>
+
+              <div class="form-group">
                   <label>Harga</label>
                   <input type="number" class="form-control @error('p_harga') is-invalid @enderror" 
                   name="p_harga" id="p_harga" value="{{ old('p_harga') }}" placeholder="Masukkan harga ex. 100000">
@@ -55,7 +71,6 @@
                   @enderror
               </div> 
         </div>
-      
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -108,6 +123,21 @@
               </div>
 
               <div class="form-group">
+                <label for="p_jenis_layanan">Durasi Pengerjaan</label>
+                <select class="form-control @error('p_durasi_pengerjaan') is-invalid @enderror" 
+                  id="p_durasi_pengerjaan" placeholder="Durasi Pengerjaan" name="p_durasi_pengerjaan">
+                  <option value="1">1 Hari</option>
+                  <option value="2">2 Hari</option>
+                  <option value="3">3 Hari</option>
+                </select>
+                @error ('p_durasi_pengerjaan')
+                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                {{$message}}
+                </div>
+                @enderror
+              </div>
+
+              <div class="form-group">
                   <label>Harga</label>
                   <input type="number" class="form-control @error('p_harga') is-invalid @enderror" 
                   name="p_harga" id="p_harga" value="{{$edit->p_harga}}" placeholder="Masukkan harga ex. 100000">
@@ -155,6 +185,7 @@
                     <th scope="row" class="text-center" hidden>ID</th>
                     <th scope="row" class="text-center">Jenis Layanan</th>
                     <th scope="row" class="text-center">Durasi Audio (detik)</th>
+                    <th scope="row" class="text-center">Durasi Pengerjaan</th>
                     <th scope="row" class="text-center">Harga</th>
                     <th scope="row" class="text-center" style="width: 100px">Action</th>
                   </tr>
@@ -166,6 +197,7 @@
                     <td scope="row" class="text-center" hidden>{{$harga->id_parameter_order}}</td>
                     <td scope="row" class="text-center">{{$harga->p_jenis_layanan}}</td>
                     <td scope="row" class="text-center">{{$harga->p_durasi_audio}}</td>
+                    <td scope="row" class="text-center">{{$harga->p_durasi_pengerjaan}} Hari</td>
                     <td scope="row" class="text-center">{{$harga->p_harga}}</td>
                     <td scope="row" class="text-center">
                       <button type="button" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#updateModal{{$harga->id_parameter_order}}"><i class="fas fa-pencil-alt"></i></button>
