@@ -19,7 +19,7 @@ class CreateParameterOrderTable extends Migration
             $table->string('p_jenis_layanan')->nullable();
             $table->string('p_durasi_audio')->nullable();
             $table->string('p_durasi_pengerjaan')->nullable();
-            $table->string('p_harga')->nullable();
+            $table->integer('p_harga')->nullable();
             $table->timestamps();   
         });
     }

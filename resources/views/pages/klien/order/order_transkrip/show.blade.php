@@ -91,7 +91,7 @@
                             <tbody>
                                 <tr>
                                     <th style="width:50%">Total Biaya :</th>
-                                    <td> Rp. {{$order->parameter_order->p_harga}}</td>
+                                    <td> Rp. {{($order->parameter_order->p_harga)/1000}}.000</td>
                                 </tr>
                             </tbody>
                         </table>
