@@ -186,7 +186,12 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['admin'])->group(function () {
 
         Route::get('/admin', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('admin');
+        
+        //management
         Route::resource('users', 'App\Http\Controllers\Admin\UsersController');
+        //suspend/update status
+        Route::get('/users/status/{user_id}/{status_code}', 'App\Http\Controllers\Admin\UsersController@updateStatus')->name('users.status.update');
+
         Route::get('/users/{user}/delete', 'App\Http\Controllers\Admin\UsersController@destroy');
         Route::get('/users/download/{id}', 'App\Http\Controllers\Admin\UsersController@download')->name('users.download');
 

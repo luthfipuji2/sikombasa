@@ -18,6 +18,9 @@
     <h1 class="text" id="welcome">Welcome. <span>please login.</span></h1>
     <br><br>
     
+    @if (session('error'))
+        <span class="text-danger"> {{ session('error') }} </span>
+    @endif
     <form method='post' id="theForm" action="{{ route('login') }}">
     @csrf
 

@@ -93,6 +93,12 @@
                     <td scope="row" class="text-center">{{$user->created_at}}</td>
                     <td scope="row" class="text-center">
                       <button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#updateModal"><i class="fas fa-pencil-alt"></i></button>
+
+                      @if($user->status == 1)
+                      <a href="{{route ('users.status.update', ['user_id' => $user->id, 'status_code' => 0]) }}" class="btn btn-danger m-2" ><i class="fas fa-ban"></i></a>
+                      @else
+                      <a href="{{route ('users.status.update', ['user_id' => $user->id, 'status_code' => 1]) }}" class="btn btn-success m-2" ><i class="fas fa-check"></i></a>
+                      @endif
                       <a href="#" class="btn btn-danger btn-sm delete" user-id="{{$user->id}}" user-num="{{$loop->iteration}}"><i class="fas fa-trash-alt"></i></a>
                       
                     </td>
