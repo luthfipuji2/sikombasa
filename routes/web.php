@@ -243,6 +243,7 @@ Route::middleware(['auth'])->group(function () {
 
         //Route Daftar Transaksi
         Route::resource('daftar-transaksi', 'App\Http\Controllers\Admin\DaftarTransaksiController');
+        Route::patch('daftar-transaksi.return/{n}', 'App\Http\Controllers\Admin\DaftarTransaksiController@return');
         Route::get('/detail-transaksi-{id_transaksi}', 'App\Http\Controllers\Admin\DaftarTransaksiController@show')->name('detail-transaksi');
         Route::get('/bukti/download/{id_transaksi}', 'App\Http\Controllers\Admin\DaftarTransaksiController@download')->name('bukti.download');
 

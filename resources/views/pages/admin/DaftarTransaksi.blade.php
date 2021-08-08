@@ -42,6 +42,7 @@
                       <option value="Pending">Pending</option>
                       <option value="Berhasil">Berhasil</option>
                       <option value="Gagal">Gagal</option>
+                      <option value="Return">Return</option>
                     </select>
                     @error ('status_transaksi')
                         <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -54,6 +55,71 @@
         </div>
       
 
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+@endforeach
+
+<!-- Modal Return -->
+@foreach ($transaksi as $n)
+<div class="modal fade" id="returnModal{{$n->id_transaksi}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Return Dana</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form action="/daftar-transaksi.return/{{$n->id_transaksi}}" method="POST" enctype="multipart/form-data">
+
+      {{ csrf_field() }}
+      {{ method_field('patch') }}
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Tanggal Order</label>
+                <input type="text" name="tgl_order" value="{{$n->tgl_order}}" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label>Tanggal Transaksi</label>
+                <input type="text" name="tgl_transaksi" value="{{$n->tgl_transaksi}}" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label>Nominal Transaksi</label>
+                <input type="text" name="nominal_transaksi" value="{{$n->nominal_transaksi}}" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label>Nomor Rekening</label>
+                <input type="text" name="no_rek_return"  class="form-control">
+                @error ('no_rek_return')
+                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                      {{$message}}
+                  </div>
+                @enderror
+            </div> 
+            <div class="form-group">
+                <label>Nominal Return</label>
+                <input type="text" name="nominal_return"  class="form-control">
+                @error ('nominal_return')
+                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                      {{$message}}
+                  </div>
+                @enderror
+            </div>   
+            <div class="form-group">
+              <label for="bukti_return">Bukti Return Dana</label>
+                <input type="file" name="bukti_return" class="form-control">
+                <p style="color:red;"><i>Format file yang diunggah harus dalam format JPG, JPEG, PNG dengan ukuran max 2 MB</i></p>
+            </div> 
+        </div>
+      
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
             <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
@@ -101,8 +167,16 @@
                     <td scope="row" class="text-center"><a href="{{route('bukti.download', $t->id_transaksi)}}">{{$t->bukti_transaksi}}</a></td>
                     <td scope="row" class="text-center">{{$t->status_transaksi}}</td>
                     <td scope="row" class="text-center">
+                      @if ($t->status_transaksi === 'Return' && !empty($t->nominal_return))
+                      <a href="{{route('detail-transaksi', $t->id_transaksi)}}" class="btn btn-sm btn-primary">Detail</i></a>
+                      @elseif (($t->status_transaksi === 'Return'))
+                      <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editModal{{$t->id_transaksi}}">Edit Status</button>
+                      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#returnModal{{$t->id_transaksi}}">Return Dana</button>
+                      <a href="{{route('detail-transaksi', $t->id_transaksi)}}" class="btn btn-sm btn-primary">Detail</i></a>
+                      @else
                       <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editModal{{$t->id_transaksi}}">Edit Status</button>
                       <a href="{{route('detail-transaksi', $t->id_transaksi)}}" class="btn btn-sm btn-primary">Detail</i></a>
+                      @endif
                     </td>
                   </tr>
                   @endforeach

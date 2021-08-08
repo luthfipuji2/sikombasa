@@ -24,7 +24,10 @@ class Transaksi extends Model
         'harga_subtitle',
         'harga_dubbing',
         'harga_dubber',
-        'harga_menu_lisan'
+        'harga_menu_lisan',
+        'no_rek_return',
+        'nominal_return',
+        'bukti_return',
     ];
 
     public function order(){
