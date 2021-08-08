@@ -126,7 +126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <a href="/review" class="nav-link">
+            <a href="/review-translator" class="nav-link">
               <i class="nav-icon fas fa-star"></i>
               <p>
                 Ulasan

@@ -93,8 +93,7 @@
                             <h4 class="card-title-center">Dubbing</h4>
                             <hr>
                             <!-- Text -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                            content.</p>
+                            <p class="card-text">Order dengan menggunggah video dan jumlah dubber sebagai pengisi suara. Hasil akhir order dubbing berupa video yang sudah di terjemahkan oleh translator. Terdapat jenis layanan yang bisa Anda pilih</p>
                             @if(empty($klien->klien->id_klien))
                                     <a href="#myModal" class=" text-center btn btn-primary" data-toggle="modal">Order Here</a>
                                 @else
@@ -123,8 +122,7 @@
                             <h4 class="card-title-center">Teks</h4>
                             <hr>
                             <!-- Text -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                            content.</p>
+                            <p class="card-text">Order dengan mengisi teks. Hasil akhir order teks akan diterjemahkan translator sesuai teks yang Anda tulis. Terdapat jenis layanan yang bisa Anda pilih</p>
                             @if(empty($klien->klien->id_klien))
                                     <a href="#myModal" class=" text-center btn btn-primary" data-toggle="modal">Order Here</a>
                                 @else
@@ -152,8 +150,7 @@
                             <h4 class="card-title-center">Dokumen</h4>
                             <hr>
                             <!-- Text -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                            content.</p>
+                            <p class="card-text">Order dengan mengunggah dokumen bisa berupa Word atau PDF. Hasil akhir dari order dokumen berupa terjemahan dokumen dari translator. Terdapat jenis layanan yang bisa Anda pilih</p>
                             @if(empty($klien->klien->id_klien))
                                     <a href="#myModal" class=" text-center btn btn-primary" data-toggle="modal">Order Here</a>
                                 @else
@@ -180,8 +177,7 @@
                             <h4 class="card-title-center">Subtitle</h4>
                             <hr>
                             <!-- Text -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                            content.</p>
+                            <p class="card-text">Order dengan menggunggah video. Hasil akhir order subtitle berupa video yang sudah di terjemahkan oleh translator. Terdapat jenis layanan yang bisa Anda pilih</p>
                             @if(empty($klien->klien->id_klien))
                                     <a href="#myModal" class=" text-center btn btn-primary" data-toggle="modal">Order Here</a>
                                 @else

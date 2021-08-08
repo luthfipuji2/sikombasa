@@ -158,4 +158,7 @@
                     @else
                     @endif
                   </div>
+                  <td>
+                    <a href="review-order" type="button" class="btn btn-outline-primary">Kembali</a>
+                  </td> 
               @endsection

@@ -14,15 +14,16 @@ class ProfileController extends Controller
     {
         $user = Auth::user(); //user yang login
         $id_user = $user->id; //id user yang login
-        $data = DB::table('users') //join tabel users dan translator di mana antara id users dan translator adalah sama
-            ->join('translator', 'users.id', '=', 'translator.id')//translator.id adalah foreign key dari tabel users (atribut yg sama dari kedua tabel)
-            ->where("users.id",$id_user)
-            ->first();//load data
+        $data = Translator::where('id', $user->id)->latest('updated_at')->first();
 
-        $translator = Translator::where('id', $user->id)->first();
+        // $data = DB::table('translator') //join tabel users dan translator di mana antara id users dan translator adalah sama
+        //     ->join('users', 'translator.id', '=', 'users.id')//translator.id adalah foreign key dari tabel users (atribut yg sama dari kedua tabel)
+        //     ->where("translator.id", $translator)
+        //     ->first();//load data
+
         $certificate = DB::table('keahlian')
             ->join('master_keahlian', 'keahlian.id_keahlian', '=', 'master_keahlian.id_keahlian')
-            ->where("master_keahlian.id_translator", $translator->id_translator)
+            ->where("master_keahlian.id_translator", $data->id_translator)
             ->get();
         
         return view('pages.translator.profile', [
@@ -37,7 +38,9 @@ class ProfileController extends Controller
         $user = Auth::user(); //user yang login
         $id_user = $user->id; //id user yang login
 
-        Translator::where('id', $id_user)->update([
+        $translator = Translator::where('id', $user->id)->latest('updated_at')->first();
+
+        Translator::where('id_translator', $translator->id_translator)->update([
             'nama' => $request->nama,
             'nik' => $request->nik,
             'keahlian' => $request->keahlian,
@@ -58,15 +61,15 @@ class ProfileController extends Controller
             $request->file('foto_ktp')->move(public_path().'/img/biodata',
             $request->file('foto_ktp')->getClientOriginalName());
             
-            $translator = Translator::where('id', $id_user)->first();
-            $currentPhoto = $translator->foto_ktp;
+            // $translator = Translator::where('id', $id_user)->latest('updated_at')->first();
+            // $currentPhoto = $translator->foto_ktp;
 
-            $userPhoto = public_path('/img/biodata/').$currentPhoto;
-            if(file_exists($userPhoto)){
-                @unlink($userPhoto);
-            }
+            // $userPhoto = public_path('/img/biodata/').$currentPhoto;
+            // if(file_exists($userPhoto)){
+            //     @unlink($userPhoto);
+            // }
 
-            Translator::where('id', $id_user)
+            Translator::where('id_translator', $translator->id_translator)
                     ->update([
                         'foto_ktp'    => $request->file('foto_ktp')->getClientOriginalName()
             ]);
@@ -97,7 +100,7 @@ class ProfileController extends Controller
 
         $user = Auth::user();
 
-        $translator = Translator::where('id', $user->id)->first();
+        $translator = Translator::where('id', $user->id)->latest('updated_at')->first();
 
         $id = Master_keahlian::create([
             'id_keahlian'=>$keahlian->id_keahlian,
@@ -121,12 +124,12 @@ class ProfileController extends Controller
             $request->file('bukti_dokumen')->move(public_path().'/img/sertifikat/',
             $request->file('bukti_dokumen')->getClientOriginalName());
             
-            $currentPhoto = $keahlian->bukti_dokumen;
+            // $currentPhoto = $keahlian->bukti_dokumen;
             
-            $userPhoto = public_path('/img/sertifikat/').$currentPhoto;
-            if(file_exists($userPhoto)){
-                @unlink($userPhoto);
-            }
+            // $userPhoto = public_path('/img/sertifikat/').$currentPhoto;
+            // if(file_exists($userPhoto)){
+            //     @unlink($userPhoto);
+            // }
             
             Certificate::where('id_keahlian', $keahlian->id_keahlian)
                     ->update([
@@ -139,7 +142,7 @@ class ProfileController extends Controller
     }
     public function deleteCertificate($id_keahlian){
         DB::table('keahlian')->where('id_keahlian', $id_keahlian)->delete();
-        return redirect('/profile-translator')->with('info', 'Data Deleted Successfully!'); 
+        return redirect('/profile-translator')->with('success', 'Data sertifikat berhasil dihapus'); 
     }
 
 }

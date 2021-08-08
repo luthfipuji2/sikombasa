@@ -103,12 +103,15 @@ $(document).ready(function(){
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                      @if(!empty($stat->revisi->path_file_revisi))
+                      @if(!empty($stat->revisi->path_file_revisi) && !empty($stat->path_file_trans))
                       <label>Dokumen Hasil Revisi Dari Translator</label>
                       <a href="/download-dokumen-revisi/{{$stat->id_order}}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download Dokumen</a>
-                      @else (empty($stat->revisi->path_file_revisi))
+                      @elseif (empty($stat->revisi->path_file_revisi) && !empty($stat->path_file_trans))
                       <label>Dokumen Pengerjaan Dari Translator</label>
                       <a href="/download-dokumen-translator/{{$stat->id_order}}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download Dokumen</a>
+                      @elseif (empty($stat->revisi->path_file_revisi) && empty($stat->path_file_trans))
+                      <label>Dokumen Pengerjaan Dari Translator</label>
+                      <input type="text" value="Menunggu" class="form-control" readonly>
                       @endif
                   </div>           
                 </div>
@@ -346,11 +349,11 @@ $(document).ready(function(){
                         <!-- kolom status transaksi -->
                         <td scope="row" class="text-center">
                         @if(!empty($stat->status_transaksi == "Berhasil"))
-                        <button type="button" class="badge badge-pill badge-success">Berhasil</button>
+                        <button type="button" class="badge-pill badge-success">Berhasil</button>
                             @elseif ($stat->status_transaksi == "Pending")
-                            <button type="button" class="badge badge-pill badge-warning">Menunggu</button>
+                            <button type="button" class="badge-pill badge-warning">Menunggu</button>
                                 @elseif ($stat->status_transaksi == "Gagal")
-                                <button type="button" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" onclick="myFunction()">
+                                <button type="button" class="badge-pill badge-danger" data-toggle="tooltip" data-html="true" onclick="myFunction()">
                                 !    </button>
                         @endif
                         </td>
@@ -358,15 +361,15 @@ $(document).ready(function(){
                         <!-- kolom status order -->
                         <td scope="row" class="text-center">
                         @if(!empty($stat->id_translator) && ($stat->status_transaksi == "Berhasil") && !empty($stat->path_file_trans) && empty($stat->revisi->id_revisi) || !empty($stat->revisi->path_file_revisi))
-                        <button type="button" class="badge badge-pill badge-success">Sudah dikerjakan translator</button>
+                        <button type="button" class="badge-pill badge-success">Sudah dikerjakan translator</button>
                           @elseif(!empty($stat->id_translator) && ($stat->status_transaksi == "Berhasil") && !empty($stat->revisi->id_revisi))
-                          <button type="button" class="badge badge-pill badge-dark">Sedang Proses Revisi</button>
+                          <button type="button" class="badge-pill badge-dark">Sedang Proses Revisi</button>
                               @elseif(!empty($stat->id_translator) && ($stat->status_transaksi == "Berhasil"))
-                              <button type="button" class="badge badge-pill badge-primary">Sedang dikerjakan translator</button>
+                              <button type="button" class="badge-pill badge-primary">Sedang dikerjakan translator</button>
                                   @elseif(!empty($stat->id_translator == NULL) && ($stat->path_file_trans == NULL) && !empty($stat->status_transaksi == "Pending") || !empty($stat->status_transaksi == "Berhasil"))
-                                  <button type="button" class="badge badge-pill badge-warning">Sedang Menunggu Translator</button>
+                                  <button type="button" class="badge-pill badge-warning">Sedang Menunggu Translator</button>
                                       @elseif ($stat->status_transaksi == "Gagal")
-                                      <button type="button" class="badge badge-pill badge-danger" data-toggle="tooltip" data-html="true" onclick="myFunction()">
+                                      <button type="button" class="badge-pill badge-danger" data-toggle="tooltip" data-html="true" onclick="myFunction()">
                                       !    </button>
                         @endif
                         </td>

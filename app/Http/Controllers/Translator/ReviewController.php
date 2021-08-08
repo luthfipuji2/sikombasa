@@ -15,7 +15,7 @@ class ReviewController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $translator = Translator::where('id', $user->id)->first();
+        $translator = Translator::where('id', $user->id)->latest('updated_at')->first();
         $order = DB::table('order')
         ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
         ->join('users', 'klien.id', '=', 'users.id')
