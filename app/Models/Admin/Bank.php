@@ -14,6 +14,9 @@ class Bank extends Model
         'nama_bank',
         'nama_rekening',
         'no_rekening',
+        'kode_bank',
+        'kode_bank_int',
+        'lokasi_cabang'
     ];
 }
 

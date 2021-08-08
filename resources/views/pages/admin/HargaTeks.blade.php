@@ -82,7 +82,9 @@
       @csrf
       
       <div class="modal-body">
-    
+
+          <input type="text" name="id_teks" hidden value="{{$h->id_parameter_order_teks}}">
+
           <div class="form-group">
                 <label>Jumlah Kata Min</label>
                 <input type="number" class="form-control @error('jumlah_karakter_min') is-invalid @enderror" 
@@ -116,7 +118,16 @@
               @enderror
           </div> 
 
-          
+          <div class="form-group">
+              <label>Deskripsi Perubahan</label>
+              <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
+              name="deskripsi" placeholder="Masukkan deskripsi perubahan"></textarea>
+              @error ('deskripsi')
+                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    {{$message}}
+                </div>
+              @enderror
+          </div>
       </div>
         
         <div class="modal-footer">
@@ -129,7 +140,7 @@
 </div>
 @endforeach
 
-<!-- Parameter Jumlah Kata -->
+<!--Parameter Jumlah Kata -->
 <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -186,6 +197,56 @@
 </section>
 <!-- /.content -->
 
+<!-- Riwayat Parameter Jumlah Kata -->
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 mt-3">
+            <div class="card">
+              <div class="card-header">
+              <h5>Riwayat Perubahan Harga</h5>
+                <div class="card-tools">
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="datatable2" class="table table-bordered">
+                  <thead>   
+                  <tr>
+                    <th scope="row" class="text-center" style="width: 100px">No</th>
+                    <th scope="row" class="text-center" style="width: 100px">ID Parameter Teks</th>
+                    <th scope="row" class="text-center">Tanggal Perubahan</th>
+                    <th scope="row" class="text-center">Jumlah Kata</th>
+                    <th scope="row" class="text-center">Riwayat Harga</th>
+                    <th scope="row" class="text-center">Deskripsi</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($teks as $teks)
+                  <tr>
+                    <th scope="row" class="text-center">{{$loop->iteration}}</th>
+                    <td scope="row" class="text-center">{{$teks->id_parameter_order_teks}}</td>
+                    <td scope="row" class="text-center">{{$teks->tgl_perubahan}}</td>
+                    <td scope="row" class="text-center">{{$teks->parameter_teks->jumlah_karakter_min}} - {{$teks->parameter_teks->jumlah_karakter_max}}</td>
+                    <td scope="row" class="text-center">{{$teks->harga_perubahan}}</td>
+                    <td scope="row" class="text-center">{{$teks->deskripsi}}</td>
+                  </tr>
+                  @endforeach
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
 @endsection
 
 @push('addon-script')
@@ -223,6 +284,39 @@
 $(document).ready(function () {
 
   var table = $('#datatable').DataTable({
+     dom: 'Bfrtip',
+    "responsive": true, "lengthChange": false, "autoWidth": false,
+    "buttons": [
+      {
+                extend:    'copyHtml5',
+                text:      '<i class="far fa-copy"></i>',
+                titleAttr: 'Copy'
+            },
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="far fa-file-excel"></i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fas fa-file-csv"></i>',
+                titleAttr: 'CSV'
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="far fa-file-pdf"></i>',
+                titleAttr: 'PDF'
+            }
+    ]
+  })   
+});
+</script>
+
+<!-- Data table -->
+<script>
+$(document).ready(function () {
+
+  var table = $('#datatable2').DataTable({
      dom: 'Bfrtip',
     "responsive": true, "lengthChange": false, "autoWidth": false,
     "buttons": [

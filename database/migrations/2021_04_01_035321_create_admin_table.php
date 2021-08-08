@@ -23,7 +23,7 @@ class CreateAdminTable extends Migration
             $table->string('kecamatan')->nullable();
             $table->integer('kode_pos')->nullable();
             $table->date('tgl_lahir')->nullable();
-            $table->string('jenis_kelamin')->nullable();
+            $table->string('jenis_kelamin', 20)->nullable();
             $table->string('no_telp')->nullable();
             $table->timestamps();
         });

@@ -1,15 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Models\User;
+
 use App\Http\Controllers\Controller;
-//use App\Http\Controllers\Admin\AdminController;
-use Illuminate\Support\Facades\Auth;
-
+use App\Models\Admin\HistoryHarga;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
-class UsersController extends Controller
+class RiwayatHargaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +16,12 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('pages.admin.users', ['users' => $users]);
+        $layanan = HistoryHarga::where('jenis_parameter', 'Jenis Layanan')->get();
+        $jenis_teks = HistoryHarga::where('jenis_parameter', 'Jenis Teks')->get();
+        $teks = HistoryHarga::where('jenis_parameter', 'Teks')->get();
+        $dokumen = HistoryHarga::where('jenis_parameter', 'Dokumen')->get();
 
+        return view('pages.admin.RiwayatHarga', compact('layanan', 'jenis_teks', 'teks', 'dokumen'));
     }
 
     /**
@@ -52,7 +53,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        
+        //
     }
 
     /**
@@ -75,19 +76,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'role' => 'required',
-            'status' => 'required'
-        ]);
-
-        $users = User::find($id);
-        
-        User::where('id', $users->id)
-                    ->update([
-                        'role'    => $request->role,
-                        'status'  => $request->status
-                    ]);
-        return redirect('/users')->with('success', 'Role user berhasil diubah');
+        //
     }
 
     /**
@@ -96,20 +85,8 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        User::destroy($user->id);
-        return redirect('/users')->with('success', 'Data user berhasil dihapus');
-    }
-
-    public function download($id)
-    {
-        $dl = User::find($id);
-
-        $currentPhoto = $dl->profile_photo_path;
-
-        $pathToFile = public_path('images/').$currentPhoto;
-        
-        return  response()->download($pathToFile);
+        //
     }
 }

@@ -5,31 +5,25 @@ namespace App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaksi extends Model
+class HistoryHarga extends Model
 {
     use HasFactory;
-    protected $table = 'transaksi';
-    protected $primaryKey = 'id_transaksi';
+    protected $table = 'history_harga';
+    protected $primaryKey = 'id';
     protected $fillable = [
-        'id_order',
-        'id_bank',
-        'tgl_transaksi',
-        'nominal_transaksi',
-        'bukti_transaksi',
-        'status_transaksi',
-        'harga_layanan',
-        'harga_jenis_teks',
-        'harga_teks',
-        'harga_dokumen',
-        'harga_subtitle',
-        'harga_dubbing',
-        'harga_dubber',
-        'harga_menu_lisan'
+        'jenis_parameter',
+        'tgl_perubahan',
+        'harga_perubahan',
+        'deskripsi',
+        'id_parameter_order',
+        'id_parameter_dubber',
+        'id_parameter_jenis_layanan',
+        'id_parameter_jenis_teks',
+        'id_parameter_order_dokumen',
+        'id_parameter_order_dubbing',
+        'id_parameter_order_subtitle',
+        'id_parameter_order_teks',
     ];
-
-    public function order(){
-        return $this->belongsTo('App\Models\Klien\Order','id_order','id_order');
-    }
 
     public function parameter_order(){
         return $this->belongsTo('App\Models\Klien\ParameterOrder','id_parameter_order','id_parameter_order');
@@ -62,10 +56,4 @@ class Transaksi extends Model
     public function parameter_dubber(){
         return $this->belongsTo('App\Models\Admin\ParameterDubber','id_parameter_dubber','id_parameter_dubber');
     }
-    
-    public function dist_fee(){
-        return $this->belongsTo('App\Models\Admin\DistribusiFee','id__transaksi','id__transaksi');
-    }
-
-
 }

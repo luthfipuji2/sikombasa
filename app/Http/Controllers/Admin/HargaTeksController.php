@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Harga;
+use App\Models\Admin\HistoryHarga;
 use App\Models\Admin\ParameterJenisLayanan;
 use App\Models\Admin\ParameterJenisTeks;
 use App\Models\Admin\ParameterOrderTeks;
@@ -27,7 +28,9 @@ class HargaTeksController extends Controller
         $jenis = DB::table('parameter_jenis_teks')
         ->get();
 
-        return view('pages.admin.HargaTeks', compact('harga', 'jenis'));
+        $teks = HistoryHarga::where('jenis_parameter', 'Teks')->get();
+
+        return view('pages.admin.HargaTeks', compact('harga', 'jenis', 'teks'));
     }
 
     /**
@@ -60,12 +63,20 @@ class HargaTeksController extends Controller
                 'jumlah_karakter_max' => $request->jumlah_karakter_max,
                 'harga' => $request->harga
             ]);
+
+            $id = DB::getPdo()->lastInsertId();;
+
+            HistoryHarga::create([
+                'id_parameter_order_teks' => $id,
+                'jenis_parameter' => 'Teks',
+                'harga_perubahan' => $request->harga,
+                'deskripsi' => 'Harga awal'
+            ]);
             return redirect('/daftar-harga-teks')->with('success', 'Parameter jumlah kata berhasil ditambahkan');
         }
         else {
             return redirect('/daftar-harga-teks')->with('failed', 'Parameter jumlah kata gagal ditambahkan');
-        }
-            
+        }            
     }
 
 
@@ -109,11 +120,18 @@ class HargaTeksController extends Controller
         $harga = ParameterOrderTeks::find($id_parameter_order_teks);
 
         if($request->jumlah_karakter_min < $request->jumlah_karakter_max){
-            ParameterOrderTeks::where('id_parameter_order_teks', $harga->id_parameter_order_teks)
+                    ParameterOrderTeks::where('id_parameter_order_teks', $harga->id_parameter_order_teks)
                     ->update([
                         'jumlah_karakter_min' => $request->jumlah_karakter_min,
                         'jumlah_karakter_max' => $request->jumlah_karakter_max,
                         'harga' => $request->harga
+                    ]);
+
+                    HistoryHarga::create([
+                        'id_parameter_order_teks' => $request->id_teks,
+                        'jenis_parameter' => 'Teks',
+                        'harga_perubahan' => $request->harga,
+                        'deskripsi' => $request->deskripsi
                     ]);
             return redirect('/daftar-harga-teks')->with('success', 'Parameter jumlah kata berhasil diubah');
         }

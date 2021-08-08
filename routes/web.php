@@ -228,7 +228,8 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('daftar-harga-tambahan.updateJenis/{j}', 'App\Http\Controllers\Admin\HargaTambahanController@updateJenis')->name('update.jenis');
         Route::get('/daftar-harga-tambahan.destroyJenis/{jenis}/deleteJenis', 'App\Http\Controllers\Admin\HargaTambahanController@destroyJenis');
 
-        
+        Route::resource('riwayat-perubahan-harga', 'App\Http\Controllers\Admin\RiwayatHargaController');
+
         //Route Daftar Admin, Klien, Translator
         Route::resource('daftar-admin', 'App\Http\Controllers\Admin\AdminController');
         Route::resource('daftar-klien', 'App\Http\Controllers\Admin\DaftarKlienController');
