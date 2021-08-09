@@ -9,14 +9,15 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Provinsi extends Model
+class Cities extends Model
 {
 
     use HasFactory;
-    protected $table = 'indonesia_provinces';
+    protected $table = 'indonesia_cities';
     protected $primaryKey = 'id';
 
     protected $fillable = [
+        'province_id',
         'name',
         'meta'
     ];

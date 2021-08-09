@@ -5,13 +5,19 @@ use App\Models\User;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use App\Http\Controllers\Controller;
+use App\Models\Klien\Provinsi;
+use App\Models\Klien\Cities;
+use App\Models\Klien\Districts;
+use App\Models\Klien\Villages;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
+
 use Illuminate\Http\Request;
+use Symfony\Component\Console\Input\Input;
 
 class BiodataKlienController extends Controller
 {
@@ -29,11 +35,29 @@ class BiodataKlienController extends Controller
     public function index(){
         $users = Auth::user();
         $klien=Klien::where('id', $users->id)->first();
-        // return ($klien); exit();
+        $provinces=Provinsi::all();
+
         if(empty($klien))
-        return view('pages.klien.TambahDataKlien', compact('users', 'klien')); 
+        return view('pages.klien.TambahDataKlien', compact('users', 'klien', 'provinces')); 
         else
-        return view('pages.klien.biodata', compact('users', 'klien'));
+        return view('pages.klien.biodata', compact('users', 'klien', 'provinces'));
+    }
+
+    public function cities(){
+        $provinces_id = $_GET['province_id'];
+        $cities = Cities::where('province_id', '=', $provinces_id)->get();
+        return response()->json($cities);
+    }
+    public function districts(){
+        //regencies_id = city_id
+        $cities_id = $_GET['city_id'];
+        $districts = Districts::where('city_id', '=', $cities_id)->get();
+        return response()->json($districts);
+    }
+    public function villages(){
+        $districts_id = $_GET['district_id'];
+        $villages = Villages::where('district_id', '=', $districts_id)->get();
+        return response()->json($villages);
     }
 
     public function show(Klien $klien){
@@ -41,6 +65,7 @@ class BiodataKlienController extends Controller
 
     public function store(Request $request)
     {
+        
         // $messages = [
         //     'required' => ':wajib diisi !!!',
         //     'numeric'=>'inputan harus angka',
@@ -66,16 +91,17 @@ class BiodataKlienController extends Controller
         $profile = new Klien;
         $profile->id = $id;
         $profile->nik = $request->nik;
-        $profile->alamat = $request->alamat;
-        $profile->provinsi = $request->provinsi;
-        $profile->kabupaten = $request->kabupaten;
-        $profile->kecamatan = $request->kecamatan;
+        $profile->villages_id = $request->villages;
+        $profile->provinces_id = $request->provinces;
+        $profile->cities_id = $request->cities;
+        $profile->districts_id = $request->districts;
         $profile->kode_pos = $request->kode_pos;
         $profile->tgl_lahir = $request->tgl_lahir;
         $profile->jenis_kelamin = $request->jenis_kelamin;
         $profile->no_telp = $request->no_telp;
         //$profile->foto_ktp = $request->foto_ktp;
         $profile->save();
+        // return ($profile);exit();
 
         return redirect()->route('profile-klien.index')->with('success', 'Profile anda berhasil ditambahkan'); 
         //return redirect('/profile-klien')->with('success', 'Profile anda berhasil ditambahkan');
@@ -85,6 +111,7 @@ class BiodataKlienController extends Controller
     public function update(Request $request, $id){
         $user = Auth::user();
         $id_user = $user->id;
+
 
         $this->validate($request,[
             'name' => 'required|string|max:191',
@@ -155,15 +182,18 @@ class BiodataKlienController extends Controller
         $id_user = $user->id;
       
         $klien= Klien::find($id_klien);
+        $provinces=Provinsi::all();
+        // $prov=Provinsi::where('provinces_id', $klien)->first();
+        // return ($prov);exit();
         //$path_template = Storage::putFileAs('public/img/biodata', $request->file('foto_ktp'));
         
         Klien::where('id_klien', $klien->id_klien)->update([
             'id' => $request->id,
             'nik'=>$request->nik,
-            'alamat' => $request->alamat,
-            'provinsi' => $request->provinsi,
-            'kabupaten' => $request->kabupaten,
-            'kecamatan' => $request->kecamatan,
+            'villages_id' => $request->villages,
+            'provinces_id' => $request->provinces,
+            'cities_id' => $request->cities,
+            'districts_id' => $request->districts,
             'kode_pos' => $request->kode_pos,
             'tgl_lahir' => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -191,4 +221,6 @@ class BiodataKlienController extends Controller
 
         return redirect('/profile-klien')->with('success', 'Profile anda berhasil diubah');
     }
+
+
 }

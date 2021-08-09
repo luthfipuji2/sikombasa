@@ -39,6 +39,12 @@ Route::middleware(['auth'])->group(function () {
         //biodata
         Route::resource('profile-klien', 'App\Http\Controllers\Klien\BiodataKlienController');
         Route::patch('biodata-klien/{users}', 'App\Http\Controllers\Klien\BiodataKlienController@updateBioKlien');
+        //alamat
+        // Route::get('/indonesia', 'App\Http\Controllers\Klien\BiodataKlienController@provinces');
+        Route::get('/json-cities', 'App\Http\Controllers\Klien\BiodataKlienController@cities');
+        Route::get('/json-districts', 'App\Http\Controllers\Klien\BiodataKlienController@districts');
+        Route::get('/json-village', 'App\Http\Controllers\Klien\BiodataKlienController@villages');
+
         Route::get('/klien', [App\Http\Controllers\Klien\BiodataKlienController::class, 'dashboard'])->name('klien');
         Route::post('/klien', [App\Http\Controllers\Klien\BiodataKlienController::class, 'index'])->name('dependent-dropdown.index');
         Route::post('/klien', [App\Http\Controllers\Klien\BiodataKlienController::class, 'storeBio'])->name('dependent-dropdown.storeBio');

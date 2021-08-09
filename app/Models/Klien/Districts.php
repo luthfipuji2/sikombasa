@@ -9,16 +9,20 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class City extends Model
+class Districts extends Model
 {
 
     use HasFactory;
-    protected $table = 'indonesia_cities';
+    protected $table = 'indonesia_districts';
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'province_id',
+        'city_id',
         'name',
         'meta'
     ];
+
+    public function klien(){
+        return $this->hasMany('App\Models\Klien\Klien');
+    }
 }
