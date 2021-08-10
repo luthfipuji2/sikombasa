@@ -47,7 +47,7 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="keahlian" class="col-sm-2 col-form-label">Video Editing *</label>
+                        <label for="keahlian" class="col-sm-2 col-form-label">Video Editing <span style="color:red;">*</span></label>
                         <div class="col-sm-10">
                             <div class="custom-control custom-radio">
                               <input type="radio" id="customRadio3" name="keahlian" value="Bisa" class="custom-control-input">

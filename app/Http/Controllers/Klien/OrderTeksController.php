@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Klien;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\ParameterJenisLayanan;
 use App\Models\Admin\ParameterJenisTeks;
-use App\User;
+use App\Models\User;
 use App\Models\Klien\Review;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
@@ -23,6 +23,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
 use Mockery\Generator\Parameter;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailTranslator;
 
 class OrderTeksController extends Controller
 {
@@ -269,6 +271,20 @@ class OrderTeksController extends Controller
             'tgl_pengajuan_revisi'=>Carbon::now(),
             'durasi_pengerjaan_revisi'=>$request->durasi_pengerjaan_revisi,
         ]);
+
+        //Notifikasi Email
+        $o = Order::where('id_order', $id_order)->first();
+        $translator = Translator::where('id_translator', $o->id_translator)->first();
+        $user = User::where('id', $translator->id)->first();
+
+        $email = $user->email;
+        $data = [
+            'title' => 'Ada Permintaan Revisi!',
+            'url' => 'http://127.0.0.1:8000/login',
+        ];
+
+        Mail::to($email)->send(new SendMailTranslator($data));
+
         // return ($revisi);exit();
         return redirect(route('status-order-teks', $id_order))->with('success','Order teks berhasil di revisi');
     }

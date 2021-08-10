@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Transaksi;
 use App\Models\Klien\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailOrder;
 
 class DaftarTransaksiController extends Controller
 {
@@ -114,6 +117,21 @@ class DaftarTransaksiController extends Controller
                     ->update([
                         'status_transaksi'    => $request->status_transaksi,
                     ]);
+
+        //Notifikasi Email Broadcast Pesanan Baru
+        if($request->status_transaksi == 'Berhasil')
+        {
+            $user = User::where('role', 'translator')->get();
+            foreach($user as $u)
+            {
+                $email = $u->email;
+                $data = [
+                    'title' => 'Ada Pesanan Baru!',
+                    'url' => 'http://127.0.0.1:8000/login',
+                ];
+                Mail::to($email)->send(new SendMailOrder($data));
+            }
+        }
         return redirect('/daftar-transaksi')->with('success', 'Status transaksi berhasil diubah');
     }
 

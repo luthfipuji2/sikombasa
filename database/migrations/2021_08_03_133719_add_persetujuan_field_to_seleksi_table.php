@@ -26,7 +26,7 @@ class AddPersetujuanFieldToSeleksiTable extends Migration
             $table->text('catatan_ijazah')->nullable();
             $table->text('catatan_sk_sehat')->nullable();
             $table->text('catatan_skck')->nullable();
-            $table->string('persetujuan')->nullable();
+            $table->string('persetujuan')->default('Setuju');
         });
     }
 

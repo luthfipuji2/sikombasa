@@ -8,6 +8,10 @@ use App\Models\Admin\Transaksi;
 use App\Models\Klien\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\Translator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailFee;
 
 class DistribusiFeeController extends Controller
 {
@@ -61,13 +65,30 @@ class DistribusiFeeController extends Controller
             $nm_bukti = $bukti_fee_trans->getClientOriginalName();
             $bukti = $bukti_fee_trans->move(public_path().'/fee', $nm_bukti);
 
-
             DistribusiFee::create([
-                'id__transaksi'     => $request->id_transaksi,
-                'fee_translator'    => $request->fee_translator,
-                'fee_sistem'        => $request->fee_sistem,
-                'bukti_fee_trans'   => $nm_bukti
+                        'id__transaksi'     => $request->id_transaksi,
+                        'fee_translator'    => $request->fee_translator,
+                        'fee_sistem'        => $request->fee_sistem,
+                        'bukti_fee_trans'   => $nm_bukti
             ]);
+
+            //Notifikasi Email
+            if(!empty($request->bukti_fee_trans))
+            {
+                $transaksi = Transaksi::where('id_transaksi', $request->id_transaksi)->first();
+                $order = Order::where('id_order', $transaksi->id_order)->first();
+                $translator = Translator::where('id_translator', $order->id_translator)->first();
+                $user = User::where('id', $translator->id)->first();
+
+                $email = $user->email;
+                $data = [
+                    'title' => 'Menerima Fee!',
+                    'url' => 'http://127.0.0.1:8000/login',
+                ];
+
+                Mail::to($email)->send(new SendMailFee($data));
+
+            }
 
             return redirect('/distribusi-fee')->with('success', 'Nominal fee berhasil ditambahkan');
         }
@@ -124,7 +145,8 @@ class DistribusiFeeController extends Controller
     {
         $this->validate($request,[
             'fee_translator' => 'required|integer',
-            'fee_sistem' => 'required|integer'
+            'fee_sistem' => 'required|integer',
+            'bukti_fee_trans' => 'mimes:jpeg,jpg,png|max:2000'
         ]);
 
         $t = DistribusiFee::find($id_fee);
@@ -138,10 +160,28 @@ class DistribusiFeeController extends Controller
             $nm_bukti = $bukti_fee_trans->getClientOriginalName();
             $bukti = $bukti_fee_trans->move(public_path().'/fee', $nm_bukti);
 
-            DistribusiFee::where('id_fee', $t->id_fee)
-            ->update([
-                'bukti_fee_trans'   => $nm_bukti
-            ]);
+            $distribusiFee = DistribusiFee::where('id_fee', $t->id_fee)
+                            ->update([
+                                'bukti_fee_trans'   => $nm_bukti
+                            ]);
+
+            //Notifikasi Email
+            if(!empty($request->bukti_fee_trans))
+            {
+                $transaksi = Transaksi::where('id_transaksi', $t->id__transaksi)->first();
+                $order = Order::where('id_order', $transaksi->id_order)->first();
+                $translator = Translator::where('id_translator', $order->id_translator)->first();
+                $user = User::where('id', $translator->id)->first();
+                
+                $email = $user->email;
+                $data = [
+                    'title' => 'Menerima Fee!',
+                    'url' => 'http://127.0.0.1:8000/login',
+                ];
+                
+                Mail::to($email)->send(new SendMailFee($data));
+            }
+                
         }
 
         if ($request->fee_translator + $request->fee_sistem == $request->nominal_transaksi){
