@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Harga;
+use App\Models\Admin\HistoryHarga;
 use App\Models\Admin\ParameterOrderDokumen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,10 @@ class HargaDokumenController extends Controller
     {
         $dokumen = DB::table('parameter_order_dokumen')
         ->get();
-        return view('pages.admin.HargaDokumen', compact('dokumen'));
+
+        $riwayat = HistoryHarga::where('jenis_parameter', 'Dokumen')->get();
+
+        return view('pages.admin.HargaDokumen', compact('dokumen', 'riwayat'));
     }
 
     /**
@@ -52,6 +56,15 @@ class HargaDokumenController extends Controller
                 'jumlah_halaman_min' => $request->jumlah_halaman_min,
                 'jumlah_halaman_max' => $request->jumlah_halaman_max,
                 'harga' => $request->harga
+            ]);
+
+            $id = DB::getPdo()->lastInsertId();;
+
+            HistoryHarga::create([
+                'id_parameter_order_dokumen' => $id,
+                'jenis_parameter' => 'Dokumen',
+                'harga_perubahan' => $request->harga,
+                'deskripsi' => 'Harga awal'
             ]);
             return redirect('/daftar-harga-dokumen')->with('success', 'Parameter harga dokumen berhasil ditambahkan');
         }
@@ -95,7 +108,8 @@ class HargaDokumenController extends Controller
         $this->validate($request,[
             'jumlah_halaman_min' => 'required|integer',
             'jumlah_halaman_max' => 'required|integer',
-            'harga' => 'required|integer'
+            'harga' => 'required|integer',
+            'deskripsi' => 'required'
         ]);
 
         $dokumen = ParameterOrderDokumen::find($id_parameter_order_dokumen);
@@ -107,6 +121,13 @@ class HargaDokumenController extends Controller
                         'jumlah_halaman_min' => $request->jumlah_halaman_min,
                         'jumlah_halaman_max' => $request->jumlah_halaman_max,
                         'harga' => $request->harga
+                    ]);
+
+                    HistoryHarga::create([
+                        'id_parameter_order_dokumen' => $request->id_dokumen,
+                        'jenis_parameter' => 'Dokumen',
+                        'harga_perubahan' => $request->harga,
+                        'deskripsi' => $request->deskripsi
                     ]);
             return redirect('/daftar-harga-dokumen')->with('success', 'Parameter harga dokumen berhasil diubah');
         }

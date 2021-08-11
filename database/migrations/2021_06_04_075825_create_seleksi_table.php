@@ -21,7 +21,7 @@ class CreateSeleksiTable extends Migration
             $table->float('nilai_berkas')->nullable();
             $table->string('hasil')->nullable();
             $table->string('pewawancara')->nullable();
-            $table->string('catatan')->nullable();
+            $table->text('catatan')->nullable();
             $table->float('nilai_wawancara')->nullable();
             $table->string('hasil_wawancara')->nullable();
             $table->timestamps();

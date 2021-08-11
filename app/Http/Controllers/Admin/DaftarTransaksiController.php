@@ -23,6 +23,7 @@ class DaftarTransaksiController extends Controller
             ->join('users', 'users.id', '=', 'klien.id')
             ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
                     'parameter_order.id_parameter_order')
+            ->orderBy('id_transaksi', 'desc')
             ->get();
         return view('pages.admin.DaftarTransaksi',  ['transaksi' => $transaksi]);
     }
@@ -113,6 +114,35 @@ class DaftarTransaksiController extends Controller
         Transaksi::where('id_transaksi', $t->id_transaksi)
                     ->update([
                         'status_transaksi'    => $request->status_transaksi,
+                    ]);
+        return redirect('/daftar-transaksi')->with('success', 'Status transaksi berhasil diubah');
+    }
+
+    public function return(Request $request, Transaksi $transaksi, $id_transaksi)
+    {
+        $this->validate($request,[
+            'no_rek_return' => 'required',
+            'nominal_return' => 'required',
+            'bukti_return' => 'required|mimes:jpeg,jpg,png|max:2000'
+        ]);
+
+        $request->file('bukti_return')->move('return/',
+        $request->file('bukti_return')->getClientOriginalName()); //Memindahkan request photo ke folder image
+
+        $bukti = $transaksi->bukti_return;
+
+        $bukti_return = public_path('return/').$bukti;
+        if(file_exists($bukti_return)){
+            @unlink($bukti_return);
+    }
+
+        $t = Transaksi::find($id_transaksi);
+
+        $hasil = Transaksi::where('id_transaksi', $t->id_transaksi)
+                    ->update([
+                        'no_rek_return'    => $request->no_rek_return,
+                        'nominal_return'   => $request->nominal_return,
+                        'bukti_return'     => $request->file('bukti_return')->getClientOriginalName()
                     ]);
         return redirect('/daftar-transaksi')->with('success', 'Status transaksi berhasil diubah');
     }

@@ -57,7 +57,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="invoice-title">
-						<h2>Invoice</h2><h3 class="pull-right">Order #{{$invoice->id_order}}</h3>
+						<h2>Invoice #{{$invoice->id_transaksi}}</h2><h3 class="pull-right">Order #{{$invoice->id_order}}</h3>
 					</div>
 					<hr>
 					<div class="row">

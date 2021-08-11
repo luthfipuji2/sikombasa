@@ -45,7 +45,7 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                      <label for="inputEmail" class="col-sm-2 col-form-label">Video Editing</label>
+                      <label for="inputEmail" class="col-sm-2 col-form-label">Video Editing*</label>
                         @if($data->keahlian=='Bisa')
                         <div class="col-sm-10">
                           <div class="custom-control custom-radio">
@@ -224,6 +224,7 @@
                         </div>
                       </div>
                     </form>
+                    <p style="color:red;">*Keterangan: Penguasaan video editing diperlukan dalam menyelesaikan order pada menu dubbing dan subtitle</p>
                   </div>
 
                   <div class="tab-pane" id="certificate">
@@ -302,8 +303,8 @@
                             <td>{{$sertif->diterbitkan_oleh}}</td>
                             <td>{{$sertif->masa_berlaku}}</td>
                             <td>
-                              <a href="/certificate/{{$sertif->id_keahlian}}" class="btn btn-danger" >
-                              <i class="nav-icon fas fa-trash-alt"></i>
+                              <a href="#" class="btn btn-danger btn-sm delete" c-id="{{$sertif->id_keahlian}}">
+                                <i class="fas fa-trash-alt"></i>
                               </a>
 
                               <button class="btn btn-primary edit" type="button" data-toggle="modal" data-target="#updateCertificate">
@@ -395,6 +396,26 @@ $(document).ready(function(){
     $('#updateCertificate').modal('show');
   })
 })
+</script>
+<script>
+    $('.delete').click(function(){
+
+        var c_id = $(this).attr('c-id')
+
+        Swal.fire({
+          title: "Apakah anda yakin?",
+          text: "Hapus data sertifikat ?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location = "/certificate/"+c_id;
+          }
+        })
+    });
 </script>
 <script>
     $(function(){

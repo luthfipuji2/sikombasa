@@ -14,7 +14,9 @@ use App\Http\Controllers\Klien\OrderTeksController;
 use App\Http\Controllers\Klien\OrderDubbingController;
 use App\Http\Controllers\Klien\OrderSubtitleController;
 use App\Http\Controllers\Klien\StatusInterpreterController;
+use App\Http\Controllers\Klien\ReviewInterpreterController;
 use App\Http\Controllers\Klien\StatusTranskripController;
+use App\Http\Controllers\Klien\ReviewTranskripController;
 use App\Http\Controllers\Klien\StatusOrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -93,34 +95,32 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/review-subtitle', 'App\Http\Controllers\Klien\OrderSubtitleController@review')->name('review_order_subtitle');
         Route::put('/review-subtitle/{id_order}', 'App\Http\Controllers\Klien\OrderSubtitleController@storeReview')->name('tambah_review_subtitle');
 
-        //Review Order
-        Route::resource('review-order', 'App\Http\Controllers\Klien\ReviewOrderController');
-        Route::resource('order-transkrip/review', 'App\Http\Controllers\Klien\ReviewTranskripController');
-        Route::resource('order-interpreter/review', 'App\Http\Controllers\Klien\ReviewInterpreterController');
 
         //Order Interpreter
+        Route::resource('order-interpreter-review', 'App\Http\Controllers\Klien\ReviewInterpreterController');
         Route::resource('order-interpreter/status', 'App\Http\Controllers\Klien\StatusInterpreterController');
+        Route::get('/order-interpreter-download/{id_order}', 'App\Http\Controllers\Klien\StatusInterpreterController@downloadbukti');
+        Route::put('/order-interpreter-finish/{id_order}', 'App\Http\Controllers\Klien\StatusInterpreterController@selesai')->name('order-interpreter-selesai');
         Route::get('/order-interpreter', [App\Http\Controllers\Klien\OrderInterpreterController::class, 'menuOrder'])->name('menu-order');
         Route::resource('order-interpreter', 'App\Http\Controllers\Klien\OrderInterpreterController');
         Route::put('/order-interpreter/{id_order}', 'App\Http\Controllers\Klien\OrderInterpreterController@update')->name('update_order_interpreter');
-        
+
         //Order Transkrip 
+        Route::resource('order-transkrip-review', 'App\Http\Controllers\Klien\ReviewTranskripController');
         Route::resource('/order-transkrip/revisi', 'App\Http\Controllers\Klien\StatusTranskripController');
         Route::get('/order-transkrip/revisi', 'App\Http\Controllers\Klien\StatusTranskripController@store');
-        Route::get('/order-transkrip/detail/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@show')->name('detail-order');;
+        Route::get('/order-transkrip/detail/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@show')->name('detail-status-order');;
         Route::get('/order-transkrip/revisi-download/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@downloadrevisi');
         Route::resource('order-transkrip/status', 'App\Http\Controllers\Klien\StatusTranskripController');
-        Route::get('/order-transkrip', [App\Http\Controllers\Klien\OrderTranskripController::class, 'menuOrder'])->name('menu-order');
+        Route::put('/order-transkrip-finish/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@selesai_transkrip')->name('order-transkrip-selesai');
         Route::resource('order-transkrip', 'App\Http\Controllers\Klien\OrderTranskripController');
         Route::put('/order-transkrip/{id_order}', 'App\Http\Controllers\Klien\OrderTranskripController@update')->name('update_order_transkrip');
-        Route::delete('/order-transkrip/{id_order}', 'App\Http\Controllers\Klien\OrderTranskripController@destroy');
-        Route::post('/order-transkrip/create', [OrderTranskripController::class, 'store']);
         Route::get('/order-transkrip-download/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@downloadhasil');
+        Route::resource('status-order', 'App\Http\Controllers\Klien\StatusOrderController');
+        Route::resource('review-order', 'App\Http\Controllers\Klien\ReviewOrderController');
         
         //Route Transaksi
         Route::resource('menu-pembayaran', 'App\Http\Controllers\Klien\MenuPembayaranController');
-        Route::resource('status-order', 'App\Http\Controllers\Klien\StatusOrderController');
-        Route::resource('review-order', 'App\Http\Controllers\Klien\ReviewOrderController');
         Route::get('/bukti/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@download')->name('bukti.download');
         Route::get('/detail-order-{id_order}', 'App\Http\Controllers\Klien\MenuPembayaranController@show')->name('detail-order');
         Route::get('/invoice/download/{id_transaksi}', 'App\Http\Controllers\Klien\MenuPembayaranController@invoice')->name('pdf.download');
@@ -146,8 +146,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['translator'])->group(function () {
        //Dashboard
-         Route::get('/translator', [App\Http\Controllers\Translator\TranslatorController::class, 'index']);
+        Route::get('/translator', [App\Http\Controllers\Translator\TranslatorController::class, 'index']);
 
+        //Profile
+        Route::get('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'index']);
         Route::patch('/profile-translator', [App\Http\Controllers\Translator\ProfileController::class, 'update']);
         Route::get('/account-translator', [App\Http\Controllers\Translator\AccountController::class, 'index']);
         Route::patch('/account-translator/{id}', [App\Http\Controllers\Translator\AccountController::class, 'update']);
@@ -172,7 +174,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/tdl-upload-dokumenRevisi/{id_order}', [App\Http\Controllers\Translator\ToDoController::class, 'uploadDokumenRevisi']);
 
         //Review
-        Route::get('/review', [App\Http\Controllers\Translator\ReviewController::class, 'index']);
+        Route::get('/review-translator', [App\Http\Controllers\Translator\ReviewController::class, 'index']);
 
         //Profile Certificate
         Route::post('/certificate-create', [App\Http\Controllers\Translator\ProfileController::class, 'createCertificate']); 
@@ -226,7 +228,8 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('daftar-harga-tambahan.updateJenis/{j}', 'App\Http\Controllers\Admin\HargaTambahanController@updateJenis')->name('update.jenis');
         Route::get('/daftar-harga-tambahan.destroyJenis/{jenis}/deleteJenis', 'App\Http\Controllers\Admin\HargaTambahanController@destroyJenis');
 
-        
+        Route::resource('riwayat-perubahan-harga', 'App\Http\Controllers\Admin\RiwayatHargaController');
+
         //Route Daftar Admin, Klien, Translator
         Route::resource('daftar-admin', 'App\Http\Controllers\Admin\AdminController');
         Route::resource('daftar-klien', 'App\Http\Controllers\Admin\DaftarKlienController');
@@ -240,6 +243,7 @@ Route::middleware(['auth'])->group(function () {
 
         //Route Daftar Transaksi
         Route::resource('daftar-transaksi', 'App\Http\Controllers\Admin\DaftarTransaksiController');
+        Route::patch('daftar-transaksi.return/{n}', 'App\Http\Controllers\Admin\DaftarTransaksiController@return');
         Route::get('/detail-transaksi-{id_transaksi}', 'App\Http\Controllers\Admin\DaftarTransaksiController@show')->name('detail-transaksi');
         Route::get('/bukti/download/{id_transaksi}', 'App\Http\Controllers\Admin\DaftarTransaksiController@download')->name('bukti.download');
 
@@ -284,6 +288,7 @@ Route::middleware(['auth'])->group(function () {
          Route::match(['get', 'post'],'/wawancara/{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'wawancara']);
          Route::match(['get', 'post'],'/berkas/{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'berkas']);
          Route::match(['get', 'post'], '/catatan-{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'catatan']);
+         Route::match(['get', 'post'], '/berkas-{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'catatanBerkas']);
          
         
 
@@ -298,15 +303,6 @@ Route::middleware(['auth'])->group(function () {
         redirect('/');
     });
 
-    Route::get('test', function() {
-        Storage::disk('google')->put('test.txt', 'Hello World');
-    dd('done');
-    });
+});
 
-    });
-
-
-
-
-
-// Addchat::routes();
+Addchat::routes();

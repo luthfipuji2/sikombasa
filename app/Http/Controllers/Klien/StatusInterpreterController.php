@@ -32,108 +32,83 @@ class StatusInterpreterController extends Controller
     
     public function index()
     {
-        $status1 = Transaksi::where('status_transaksi', 'Berhasil')
-            ->join('order', 'transaksi.id_order', '=', 'order.id_order')
-            ->whereNull('id_translator')
-            ->whereNotNull('lokasi')
-            ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
-            ->join('users', 'users.id', '=', 'klien.id')
-            ->join('parameter_order', 'order.id_parameter_order', '=', 
-                    'parameter_order.id_parameter_order')
-            ->get();
+        $user = Auth::user();
+        // $status1 = Transaksi::
+        //     join('order', 'transaksi.id_order', '=', 'order.id_order')
+        //     // ->whereNull('id_translator')
+        //     ->whereNotNull('lokasi')
+        //     ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
+        //     ->join('users', 'users.id', '=', 'klien.id')
+        //     ->join('parameter_order', 'order.id_parameter_order', '=', 
+        //             'parameter_order.id_parameter_order')
+        //     ->where("users.id",$user->id)
+        //     ->orderBy('order.id_order')
+        //     ->get();
 
-        $status2 = Transaksi::where('status_transaksi', 'Berhasil')
-            ->join('order', 'transaksi.id_order', '=', 'order.id_order')
-            ->whereNotNull('id_translator')
-            ->whereNull('path_file_trans')
-            ->whereNotNull('lokasi')
-            ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
-            ->join('users', 'users.id', '=', 'klien.id')
-            ->join('parameter_order', 'order.id_parameter_order', '=', 
-                    'parameter_order.id_parameter_order')
-            ->get();
+        $status1=Order::
+        join('transaksi', 'transaksi.id_order', '=', 'order.id_order')
+        ->whereNotNull('lokasi')
+        ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
+        ->join('users', 'users.id', '=', 'klien.id')
+        ->join('parameter_order', 'order.id_parameter_order', '=', 
+                'parameter_order.id_parameter_order')
+        ->where("users.id",$user->id)
+        ->orderBy('order.id_order')
+        ->get();
 
-        $status3 = Transaksi::where('status_transaksi', 'Berhasil')
-            ->join('order', 'transaksi.id_order', '=', 'order.id_order')
-            ->whereNotNull('id_translator')
-            ->whereNotNull('path_file_trans')
-            ->whereNotNull('lokasi')
-            ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
-            ->join('users', 'users.id', '=', 'klien.id')
-            ->join('parameter_order', 'order.id_parameter_order', '=', 
-                    'parameter_order.id_parameter_order')
-            ->get();
+        // $status2 = Transaksi::where('status_transaksi', 'Berhasil')
+        //     ->join('order', 'transaksi.id_order', '=', 'order.id_order')
+        //     ->whereNotNull('id_translator')
+        //     ->whereNull('path_file_trans')
+        //     ->whereNotNull('lokasi')
+        //     ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
+        //     ->join('users', 'users.id', '=', 'klien.id')
+        //     ->join('parameter_order', 'order.id_parameter_order', '=', 
+        //             'parameter_order.id_parameter_order')
+        //     ->where("users.id",$user->id)
+        //     ->orderBy('order.id_order')
+        //     ->get();
+
+        // $status3 = Transaksi::where('status_transaksi', 'Berhasil')
+        //     ->join('order', 'transaksi.id_order', '=', 'order.id_order')
+        //     ->whereNotNull('id_translator')
+        //     ->whereNotNull('path_file_trans')
+        //     ->whereNotNull('lokasi')
+        //     ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
+        //     ->join('users', 'users.id', '=', 'klien.id')
+        //     ->join('parameter_order', 'order.id_parameter_order', '=', 
+        //             'parameter_order.id_parameter_order')
+        //     ->where("users.id",$user->id)
+        //     ->orderBy('order.id_order')
+        //     ->get();
 
         return view('pages.klien.order.order_interpreter.status', [
             'status1'=>$status1,
-            'status2'=>$status2,
-            'status3'=>$status3
+            // 'status2'=>$status2,
+            // 'status3'=>$status3
             ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function selesai (Request $request, $id_order){
+        $user=Auth::user();
+        $order=Order::whereNotNull('lokasi')->get();
+        $order=Order::findOrFail($id_order)->select('id_order')->first();
+        
+        Order::where('id_order', $id_order)
+        ->update([
+            'status_at' => 'selesai',
+            'is_status' => 'sudah bayar',
+        ]);
+
+        return redirect('/order-interpreter/status')->with('success', 'Terima Kasih Order Selesai');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function downloadbukti($id_order)
     {
-        //
-    }
+        $bukti = Order::find($id_order);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $path_file_trans = $bukti->path_file_trans;
+        
+        return Storage::download($path_file_trans);
     }
 }

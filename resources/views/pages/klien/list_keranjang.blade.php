@@ -47,7 +47,11 @@
                             </tr>
                             <tr>
                                 <td><p class="font-weight-bold">Harga</p><td>
+                                @if(!empty($orders->harga))
                                 <td><p class="font-weight">{{$orders->harga}}</p></td>
+                                @else(empty($orders->harga))
+                                <td><p class="font-weight">{{$orders->parameter_order->p_harga}}</p></td>
+                                @endif
                             </tr>
                             </table>
                             <td>
