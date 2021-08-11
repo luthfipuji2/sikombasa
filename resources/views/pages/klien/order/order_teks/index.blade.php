@@ -62,18 +62,19 @@
                 <tbody>
                     <tr>
                         <td>Klien dapat menentukan waktu pengerjaan</td>
-                        <td><img src="https://fpprofile.cdnpk.net/img/icon-tick.svg" width="24" height="24"></td>
-                        <td><img src="https://fpprofile.cdnpk.net/img/icon-tick.svg" width="24" height="24"></td>
+                        <td><a class="btn btn-success m-2" ><i class="fas fa-check"></i></a></td>
+                        <td><a class="btn btn-success m-2" ><i class="fas fa-check"></i></a></td>
+                        
                     </tr>
                     <tr>
                         <td><strong>Melalui proses editing dari translator</strong></td>
-                        <td><img src="https://fpprofile.cdnpk.net/img/icon-cross.svg" width="24" height="24"></td>
-                        <td><img src="https://fpprofile.cdnpk.net/img/icon-tick.svg" width="24" height="24"></td>
+                        <td><a class="btn btn-danger m-2" ><i class="fas fa-times"></i></a></td>
+                        <td><a class="btn btn-success m-2" ><i class="fas fa-check"></i></a></td>
                     </tr>
                     <tr>
                         <td><strong>Mendapatkan revisi 1 kali</strong></td>
-                        <td><img src="https://fpprofile.cdnpk.net/img/icon-cross.svg" width="24" height="24"></td>
-                        <td><img src="https://fpprofile.cdnpk.net/img/icon-tick.svg" width="24" height="24"></td>
+                        <td><a class="btn btn-danger m-2" ><i class="fas fa-times"></i></a></td>
+                        <td><a class="btn btn-success m-2" ><i class="fas fa-check"></i></a></td>
                     </tr>
                 </tbody>
             </table>

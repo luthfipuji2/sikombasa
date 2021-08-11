@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
 use Illuminate\View\View;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use SoftDeletes;
     use HasApiTokens;

@@ -20,14 +20,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
- 
+
 Route::get('/', function () {
     return view('welcome');
 });
- 
+  
 
-Auth::routes(['verify' => true]);
-// Route::get('/kirim-email', 'App\Http\Controllers\EmailController@index');
+Auth::routes();
 
 
 Route::middleware(['auth'])->group(function () {
