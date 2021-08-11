@@ -100,7 +100,7 @@
                     <table class="table">
                       <tbody><tr>
                         <th style="width:50%">Harga (Sudah Termasuk Biaya Akomodasi Translator) :</th>
-                        <td> Rp. {{$order->parameter_order->p_harga}}</td>
+                        <td> Rp. {{($order->parameter_order->p_harga)/1000}}.000</td>
                       </tr>
                         </tbody>
                     </table>
