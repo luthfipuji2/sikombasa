@@ -15,14 +15,14 @@ class UpdateKlienTable extends Migration
     {
         Schema::table('klien', function (Blueprint $table) {
 
-            $table->renameColumn('provinsi', 'provinces_id');  
+            $table->renameColumn('provinsi', 'provinces_id');
             $table->renameColumn('kabupaten', 'cities_id');
-            $table->renameColumn('kecamatan', 'districts_id');          
+            $table->renameColumn('kecamatan', 'districts_id');     
             $table->renameColumn('alamat', 'villages_id');
-            $table->foreign('provinces_id')->references('id')->on('indonesia_provinces')->onDelete('cascade');
-            $table->foreign('cities_id')->references('id')->on('indonesia_cities')->onDelete('cascade');
-            $table->foreign('districts_id')->references('id')->on('indonesia_districts')->onDelete('cascade');
-            $table->foreign('villages_id')->references('id')->on('indonesia_villages')->onDelete('cascade');
+            $table->foreign('provinces_id')->references('id')->on('indonesia_provinces')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('cities_id')->references('id')->on('indonesia_cities')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('districts_id')->references('id')->on('indonesia_districts')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('villages_id')->references('id')->on('indonesia_villages')->onUpdate('cascade')->onDelete('cascade');
             });
     }
 

@@ -114,10 +114,22 @@
                     </div>
                     <!-- /.tab-pane -->
 
+<!-- ------------------------------------------------------------------------------------------------------------------------------ -->
                 <div class="tab-pane" id="biodata">
                     <form method="POST" action="{{route('profile-klien.store')}}" enctype="multipart/form-data"> 
                         
                         @csrf
+                        {{-- menampilkan error validasi --}}
+                            @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+                            
                         <div class="modal-body">
                         <div class="form-group" hidden>
                                 <label for="name">ID</label>
@@ -172,8 +184,6 @@
                                 @enderror
                             </div>
 
-<!-- ------------------------------------------------------------------------------------------------------------------------------ -->
-
                             
                             <div class="form-group">
                                 <label for="">Provinsi</label>
@@ -183,6 +193,11 @@
                                     <option value="{{$value->id}}">{{ $value->name }}</option>
                                     @endforeach
                                 </select>
+                                @error ('provinces')
+                                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -190,6 +205,11 @@
                                 <select class="form-control" name="cities" id="cities">
                                 <option value="0" disable="true" selected="true">=== Pilih Kabupaten ===</option>
                                 </select>
+                                @error ('cities')
+                                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -197,6 +217,11 @@
                                 <select class="form-control" name="districts" id="districts">
                                 <option value="0" disable="true" selected="true">=== Pilih Kecamatan ===</option>
                                 </select>
+                                @error ('districts')
+                                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -204,15 +229,12 @@
                                 <select class="form-control" name="villages" id="villages">
                                 <option value="0" disable="true" selected="true">=== Pilih Desa ===</option>
                                 </select>
+                                @error ('villages')
+                                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
-                            
-                            </div>
-                         </div>
-
-                            
-<!-- ------------------------------------------------------------------------------------------------------------------------------ -->
-
-
 
                             <div class="form-group">
                                 <label for="name">Kode Pos</label>
@@ -235,15 +257,20 @@
                                 @enderror
                             </div>
 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
                             
-                
-            </div>
-        
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
+                            </div>
+                         </div>
+                         </div>
         </form>
+
+                            
+<!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+                
+
                 </div>
                 <!-- /.card -->
             </div>

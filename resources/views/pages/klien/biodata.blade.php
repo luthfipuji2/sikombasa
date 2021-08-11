@@ -115,11 +115,22 @@
                         </form>
                     </div>
                     <!-- /.tab-pane -->
-
+<!-- ------------------------------------------------------------------------------------------------------------------------- -->
                     <div class="tab-pane" id="biodata">
                     <form method="POST" action="/biodata-klien/{{$klien->id_klien}}" enctype="multipart/form-data"> 
                         @method('patch')
                         @csrf
+                        {{-- menampilkan error validasi --}}
+                            @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+
                         <form role="form">
                         <div class="form-group" hidden>
                                 <label for="name">ID</label>
@@ -143,7 +154,7 @@
                                 <label for="jenis_kelamin">Jenis Kelamin</label>
                                     <select class="form-control @error('jenis_kelamin') is-invalid @enderror" 
                                     id="jenis_kelamin" placeholder="Pilih Jenis Kelamin" name="jenis_kelamin">
-                                        <option value="{{$klien->jenis_kelamin}}" hidden selected>{{$klien->jenis_kelamin}}</option>
+                                    <option value="{{$klien->jenis_kelamin}}" disable="true" selected="true" hidden selected>{{$klien->jenis_kelamin}}</option>
                                         <option value="Perempuan">Perempuan</option>
                                         <option value="Laki-laki">Laki-laki</option>
                                     </select>
@@ -179,12 +190,12 @@
                             <div class="form-group">
                                 <label for="">Provinsi</label>
                                 <select class="form-control" name="provinces" id="provinces">
-                                <option value="0" disable="true" selected="true">{{ $klien->provinsi->name }}</option>
+                                <option value="{{$klien->provinces_id}}" disable="true" selected="true">{{ $klien->provinsi->name }}</option>
                                     @foreach ($provinces as $key => $value)
                                     <option value="{{$value->id}}">{{ $value->name }}</option>
                                     @endforeach
                                 </select>
-                                @error ('provinces_id')
+                                @error ('provinces')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
                                     </div>
@@ -194,9 +205,9 @@
                             <div class="form-group">
                                 <label for="">Kabupaten</label>
                                 <select class="form-control" name="cities" id="cities">
-                                <option value="0" disable="true" selected="true">{{ $klien->kabupaten->name }}</option>
+                                <option value="{{$klien->cities_id}}" disable="true" selected="true">{{ $klien->kabupaten->name }}</option>
                                 </select>
-                                @error ('cities_id')
+                                @error ('cities')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
                                     </div>
@@ -206,9 +217,9 @@
                             <div class="form-group">
                                 <label for="">Kecamatan</label>
                                 <select class="form-control" name="districts" id="districts">
-                                <option value="0" disable="true" selected="true">{{ $klien->kecamatan->name }}</option>
+                                <option value="{{$klien->districts_id}}" disable="true" selected="true">{{ $klien->kecamatan->name }}</option>
                                 </select>
-                                @error ('districts_id')
+                                @error ('districts')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
                                     </div>
@@ -218,19 +229,14 @@
                             <div class="form-group">
                                 <label for="">Desa</label>
                                 <select class="form-control" name="villages" id="villages">
-                                <option value="0" disable="true" selected="true">{{ $klien->desa->name }}</option>
+                                <option value="{{$klien->villages_id}}" disable="true" selected="true">{{ $klien->desa->name }}</option>
                                 </select>
-                                @error ('villages_id')
+                                @error ('villages')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
                                     </div>
                                 @enderror
                             </div>
-                            
-                            </div>
-                         </div>
-
-
                             <div class="form-group">
                                 <label for="name">Kode Pos</label>
                                 <input type="number" class="form-control @error('kode_pos') is-invalid @enderror" 
@@ -263,6 +269,11 @@
                             </div>
 
 
+                            </div>
+                         </div>
+
+
+                            
                         </form>
                         
                     </div>

@@ -73,16 +73,18 @@ class BiodataKlienController extends Controller
         // //return($request);
         // $this->validate($request,[
         //     'nik'=>'required|numeric',
-        //     'alamat' => 'required',
-        //     'provinsi' => 'required',
-        //     'kabupaten' => 'required',
-        //     'kecamatan' => 'required',
+        //     'villages' => 'required',
+        //     'provinces' => 'required',
+        //     'cities' => 'required',
+        //     'districts' => 'required',
         //     'kode_pos' => 'required|numeric',
         //     'tgl_lahir' => 'required',
         //     'jenis_kelamin' => 'required',
         //     'no_telp' => 'required|numeric',
         //     'foto_ktp'=>'required|file|max:10000',
         // ], $messages);
+
+        // return ($request);exit();
 
         $user = Auth::user();
         $id = $user->id;
@@ -158,25 +160,6 @@ class BiodataKlienController extends Controller
     }
     
     public function updateBioKlien(Request $request, $id_klien){
-
-        // $messages = [
-        //     'required' => ':wajib diisi !!!',
-        //     'numeric'=>'inputan harus angka',
-        // ];
-
-        // $this->validate($request,[
-        //     'id' => 'required',
-        //     'nik'=>'required|numeric',
-        //     'alamat' => 'required',
-        //     'provinsi' => 'required',
-        //     'kabupaten' => 'required',
-        //     'kecamatan' => 'required',
-        //     'kode_pos' => 'required|numeric',
-        //     'tgl_lahir' => 'required',
-        //     'jenis_kelamin' => 'required',
-        //     'no_telp' => 'required|numeric',
-        //     //'foto_ktp'=>'required|file|max:10000',
-        // ], $messages);
 
         $user = Auth::user();
         $id_user = $user->id;
