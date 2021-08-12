@@ -236,7 +236,7 @@ class OrderTeksController extends Controller
         $order=Order::findOrFail($id_order);
         // return ($order);exit();
 
-        Order::where('id_order', $id_order)
+        $a=Order::where('id_order', $id_order)
             ->update([
                 'id_parameter_jenis_layanan'=>$request->id_parameter_jenis_layanan,
                 'id_parameter_jenis_teks'=>$request->id_parameter_jenis_teks,
@@ -244,8 +244,8 @@ class OrderTeksController extends Controller
                 'text'=>$request->text,
                 'jumlah_karakter'=>$request->jumlah_karakter,
             ]);
-        //return($order);
-        //dd($order);
+        // return($a);exit();
+        // dd($a);
 
         return redirect(route('order-teks.show', $id_order))->with('success', 'Berhasil di update!');
     }

@@ -14,6 +14,8 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\UpdateBiodataMail;
+use Illuminate\Support\Facades\Mail;
 
 
 use Illuminate\Http\Request;
@@ -155,6 +157,10 @@ class BiodataKlienController extends Controller
                         'name'    => $request->name,
                         'email'     => $request->email,
                     ]);
+
+        $name = $request->name;
+        $email = $request->email;
+        $kirim = Mail::to($email)->send(new UpdateBiodataMail($name));
 
         return redirect('/profile-klien')->with('success', 'Profile anda berhasil diubah');
     }

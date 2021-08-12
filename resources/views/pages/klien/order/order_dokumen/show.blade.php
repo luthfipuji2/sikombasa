@@ -89,16 +89,17 @@
                                     @endif
                                 </tr>
                                 <tr>
-                                    @if(!empty($order->durasi_video) && empty($order->upload_dokumen))
+                                    @if(!empty($order->path_file) && empty($order->upload_dokumen))
                                     <th scope="col">Total Harga</th>
                                     <th>{{$order->harga}}</th>
-                                    @elseif(empty($order->durasi_video) && !empty($order->upload_dokumen))
+                                    @elseif(empty($order->path_file) && !empty($order->upload_dokumen))
                                     <th scope="col">Total Harga</th>
                                     <th>Menunggu, Sedang di tentukan oleh admin</th>
                                     @endif
                                 </tr>
                             </tbody>
                         </table>
+                        <br><br>
                         <a href="{{ url ('/menu-pembayaran') }}" class="btn btn-success mx-1 btn-icon" class="text-right" style="float: right;">Transaksi    <i class="fas fa-sign-in-alt"></i></a>
                     </div>
                 </div>

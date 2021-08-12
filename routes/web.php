@@ -26,18 +26,21 @@ Route::get('/', function () {
 });
   
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 
 Route::middleware(['auth'])->group(function () {
- 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
 
     Route::middleware(['klien'])->group(function () {
         
         //biodata
+        
         Route::resource('profile-klien', 'App\Http\Controllers\Klien\BiodataKlienController');
+        // Route::get('/profile-klien', 'App\Http\Controllers\UpdateBiodataEmailController@index');
         Route::patch('biodata-klien/{users}', 'App\Http\Controllers\Klien\BiodataKlienController@updateBioKlien');
+        
         //alamat
         // Route::get('/indonesia', 'App\Http\Controllers\Klien\BiodataKlienController@provinces');
         Route::get('/json-cities', 'App\Http\Controllers\Klien\BiodataKlienController@cities');
@@ -322,3 +325,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 // Addchat::routes();
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

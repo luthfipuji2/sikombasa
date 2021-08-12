@@ -218,9 +218,9 @@
                         <label for="nama_dokumen" class="col-form-label">Nama Dokumen</label>
                         <input type="text" class="form-control" id="nama_dokumen" name="nama_dokumen">
                         @error('nama_dokumen')
-                            <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
-                            </div>
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
+                    </div>
 
                     <div class="form-group">
                         <label for="jumlah_halaman" class="col-form-label">Jumlah Halaman Dokumen</label>

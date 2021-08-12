@@ -65,7 +65,7 @@ class OrderDokumenController extends Controller
             'id_parameter_jenis_teks' => 'required',
             'durasi_pengerjaan' => 'required',
             'nama_dokumen' => 'required',
-            'path_file' => 'file:txt, pdf, pptx|max:500000',
+            'path_file' => 'file:txt, pdf, pptx, docx|max:500000',
             'upload_dokumen'=>'',
             'jumlah_halaman' => 'required',
         ]);
@@ -131,7 +131,7 @@ class OrderDokumenController extends Controller
         //jika pake upload file
         if ($request->hasFile('path_file')) {
             $validate_data = $request->validate([
-                'path_file'=>'file:txt, pdf, pptx|max:500000',
+                'path_file'=>'file:txt, pdf, pptx, docx|max:500000',
             ], $messages);
 
             $id_parameter_jenis_layanan = $request['id_parameter_jenis_layanan'];
@@ -147,7 +147,7 @@ class OrderDokumenController extends Controller
 
             $path_template = Storage::putFileAs('public/data_file/file_order_dokumen', $request->file('path_file'), $nama_dokumen);
 
-            $order_dokumen=Order::updateOrCreate([
+            $order_dokumen=Order::create([
                 'id_klien'=>$klien->id_klien,
                 'id_parameter_jenis_layanan'=>$id_parameter_jenis_layanan,
                 'id_parameter_jenis_teks'=>$id_parameter_jenis_teks,
@@ -178,7 +178,7 @@ class OrderDokumenController extends Controller
             $user=Auth::user();
             $klien=Klien::where('id', $user->id)->first();
 
-            $order_dokumen=Order::updateOrCreate([
+            $order_dokumen=Order::create([
                 'id_klien'=>$klien->id_klien,
                 'id_parameter_jenis_layanan'=>$id_parameter_jenis_layanan,
                 'id_parameter_jenis_teks'=>$id_parameter_jenis_teks,
@@ -285,7 +285,7 @@ class OrderDokumenController extends Controller
             'id_parameter_jenis_teks' => 'required',
             'durasi_pengerjaan' => 'required',
             'nama_dokumen' => 'required',
-            'path_file' => 'file:txt, pdf, pptx|max:500000',
+            'path_file' => 'mimetypes:txt, pdf, pptx, docx|max:500000',
             'upload_dokumen'=>'',
             'jumlah_halaman' => 'required',
         ]);

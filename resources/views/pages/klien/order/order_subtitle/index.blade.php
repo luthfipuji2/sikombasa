@@ -60,6 +60,13 @@
                 </thead>
                 <tbody>
                 <tr>
+                        <th></th>
+                        <th class="font-weight-bold text-blue">Basic</th>
+                        <th class="font-weight-bold text-blue">Premium</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
                         <td>Klien dapat menentukan waktu pengerjaan</td>
                         <td><a class="btn btn-success m-2" ><i class="fas fa-check"></i></a></td>
                         <td><a class="btn btn-success m-2" ><i class="fas fa-check"></i></a></td>

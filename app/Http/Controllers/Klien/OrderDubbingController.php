@@ -227,6 +227,7 @@ class OrderDubbingController extends Controller
         $user=Auth::user();
         $klien=Klien::where('id', $user->id)->first();
         $order=Order::findOrFail($id_order); //dapat id order
+        $jenis_layanan=ParameterJenisLayanan::all();
         $durasi=ParameterOrderDurasi::all();
         // return ($order);
         if($order != null && !empty($order->durasi_video)){
@@ -308,6 +309,7 @@ class OrderDubbingController extends Controller
      */
     public function update(Request $request, $id_order)
     {
+        
         $this->validate($request, [
             'id_parameter_jenis_layanan' => 'required',
             'durasi_pengerjaan' => 'required',
@@ -319,7 +321,7 @@ class OrderDubbingController extends Controller
 
         $order=Order::findOrFail($id_order);
 
-        Order::where('id_order', $id_order)
+        $a=Order::where('id_order', $id_order)
             ->update([
                 'id_parameter_jenis_layanan'=>$request->id_parameter_jenis_layanan,
                 'durasi_pengerjaan'=>$request->durasi_pengerjaan,
@@ -328,6 +330,7 @@ class OrderDubbingController extends Controller
                 'path_file'=>$request->path_file,
                 'durasi_video'=>$request->durasi_video,
             ]);
+        return ($a);exit();
         //return($order);
         //dd($order);
 

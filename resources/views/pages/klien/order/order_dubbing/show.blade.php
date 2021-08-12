@@ -143,7 +143,7 @@
             
         <div class="modal-body">
         <form action="{{route('update_order_dubbing', $order->id_order)}}" method="post">
-            @csrf
+        {{ csrf_field() }}
             @method('PUT')
             <input type="text" name="idLampiran" value="{{ old('id_order') }}" hidden></td>
             <div class="form-group">
@@ -167,7 +167,7 @@
             
             <div class="form-group">
                 <label for="durasi_pengerjaan">Durasi Pengerjaan</label>
-                <input type="number" class="form-control" placeholder="Masukkan Durasi Pengerjaan" name="durasi_pengerjaan" id="durasi_pengerjaan" value="{{$order->durasi_pengerjaan}}">
+                <input type="number" class="form-control" placeholder="Masukkan durasi pengerjaan" name="durasi_pengerjaan" id="durasi_pengerjaan" value="{{$order->durasi_pengerjaan}}">
             </div>
             <br>
             <div class="form-group">
@@ -195,6 +195,9 @@
                             </div>
                             &nbsp;&nbsp;&nbsp;<label for="path_file" class="col-form-label">Dokumen berupa : mp4, mpeg, avi</label>
                         <div class="modal-body" value="{{$order->path_file}}">
+                                <div class="form-group">
+                                    <input type="file" id="path_file" name="path_file">
+                                </div>
                                 {{ csrf_field() }}
                                 @if(!empty($order->path_file) && empty($order->upload_dokumen))
                                 <div class="form-group">
