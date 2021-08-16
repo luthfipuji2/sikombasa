@@ -16,11 +16,9 @@
         </button>
       </div>
 
-      <form  method="POST" id="detailForm">
+      <form>
 
-      {{ csrf_field() }}
-      {{ method_field('PUT') }}
-
+     
         <div class="modal-body">
 
 
@@ -163,7 +161,7 @@
                     <td scope="row" class="text-center" hidden>{{$klien->provinsi}}</td>
                     <td scope="row" class="text-center" hidden>{{$klien->kode_pos}}</td> 
                     <td scope="row" class="text-center">
-                      <button type="button" class="btn btn-sm btn-primary detail" data-toggle="modal" data-target="#detailModal{{$klien->id_klien}}"><i class="fas fa-info"></i></button>
+                      <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailModal{{$klien->id_klien}}"><i class="fas fa-info"></i></button>
                     </td>
                   </tr>
                   @endforeach
@@ -217,35 +215,6 @@ $(document).ready(function () {
             }
     ]
   })
-     
-    table.on('click', '.detail', function(){
-
-    $tr = $(this).closest('tr');
-    if($($tr).hasClass('child')) {
-      $tr = $tr.prev('.parent');
-    }
-
-    var data = table.row($tr).data();
-    console.log(data);
-
-    $('#name').val(data[2]);
-    $('#email').val(data[3]);
-    $('#role').val(data[4]); 
-    $('#jenis_kelamin').val(data[5]); 
-    $('#tgl_lahir').val(data[6]); 
-    $('#nik').val(data[7]);
-    $('#foto_ktp').val(data[8]);
-    $('#no_telp').val(data[9]); 
-    $('#alamat').val(data[10]); 
-    $('#kecamatan').val(data[11]); 
-    $('#kabupaten').val(data[12]); 
-    $('#provinsi').val(data[13]); 
-    $('#kode_pos').val(data[14]); 
-
-    $('#detailForm').attr('action', '/daftar-klien/'+data[1]);
-    $('#detailModal').modal('show');
-    
-  });
 });
 </script>
 @endpush

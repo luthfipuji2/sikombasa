@@ -9,26 +9,26 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Parameter Jenis Layanan</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Parameter Jenis Teks</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
-      <form action="daftar-harga-tambahan" method="POST">
+      <form action="daftar-harga-tambahan.storeJenis" method="POST">
 
       {{ csrf_field() }}
         <div class="modal-body">
     
             <div class="form-group">
-                  <label>Jenis Layanan</label>
-                  <select type="text" name="p_jenis_layanan" class="form-control @error('p_jenis_layanan') is-invalid @enderror"
-                  placeholder="" value="{{ old('p_jenis_layanan') }}">
-                      <option value="{{ old('p_jenis_layanan') }}" hidden selected>{{ old('p_jenis_layanan') }}</option>
-                      <option value="Basic">Basic</option>
-                      <option value="Premium">Premium</option>
+                  <label>Jenis Teks</label>
+                  <select type="text" name="p_jenis_teks" class="form-control @error('p_jenis_teks') is-invalid @enderror"
+                  placeholder="" value="{{ old('p_jenis_teks') }}">
+                      <option>--Pilih Jenis Layanan--</option>
+                      <option value="Umum">Umum</option>
+                      <option value="Khusus">Khusus</option>
                   </select>
-                  @error ('p_jenis_layanan')
+                  @error ('p_jenis_teks')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                         {{$message}}
                     </div>
@@ -37,9 +37,9 @@
 
             <div class="form-group">
                 <label>Harga</label>
-                <input type="number" class="form-control @error('harga') is-invalid @enderror" 
-                name="harga" id="harga" value="{{ old('harga') }}" placeholder="Masukkan harga ex. 100000">
-                @error ('harga')
+                <input type="number" class="form-control @error('harga_jenis') is-invalid @enderror" 
+                name="harga_jenis" id="harga_jenis" value="{{ old('harga_jenis') }}" placeholder="Masukkan harga ex. 100000">
+                @error ('harga_jenis')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       {{$message}}
                   </div>
@@ -74,6 +74,8 @@
       @csrf
       
       <div class="modal-body">
+
+            <input type="text" name="id_jenis_teks" hidden value="{{$j->id_parameter_jenis_teks}}">
     
             <div class="form-group">
                   <label>Jenis Teks</label>
@@ -101,7 +103,17 @@
                 @enderror
             </div> 
 
-          
+            <div class="form-group">
+                  <label>Deskripsi Perubahan</label>
+                  <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
+                  name="deskripsi" placeholder="Masukkan deskripsi perubahan"></textarea>
+                  @error ('deskripsi')
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                  @enderror
+            </div>
+
       </div>
         
         <div class="modal-footer">
@@ -171,6 +183,56 @@
 </section>
 <!-- /.content -->
 
+<!-- Riwayat Parameter Jenis Teks -->
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 mt-3">
+            <div class="card">
+              <div class="card-header">
+              <h5>Riwayat Perubahan Harga</h5>
+                <div class="card-tools">
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="datatable3" class="table table-bordered">
+                  <thead>   
+                  <tr>
+                    <th scope="row" class="text-center" style="width: 100px">No</th>
+                    <th scope="row" class="text-center" style="width: 100px">ID Parameter Jenis Teks</th>
+                    <th scope="row" class="text-center">Tanggal Perubahan</th>
+                    <th scope="row" class="text-center">Jenis Teks</th>
+                    <th scope="row" class="text-center">Riwayat Harga</th>
+                    <th scope="row" class="text-center">Deskripsi</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($riwayat_jenis as $d)
+                  <tr>
+                    <th scope="row" class="text-center">{{$loop->iteration}}</th>
+                    <td scope="row" class="text-center">{{$d->id_parameter_jenis_teks}}</td>
+                    <td scope="row" class="text-center">{{$d->tgl_perubahan}}</td>
+                    <td scope="row" class="text-center">{{$d->parameter_jenis_teks->p_jenis_teks}}</td>
+                    <td scope="row" class="text-center">{{$d->harga_perubahan}}</td>
+                    <td scope="row" class="text-center">{{$d->deskripsi}}</td>
+                  </tr>
+                  @endforeach
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
 <!-- Modal Tambah Layanan-->
 <div class="modal fade" id="addLayananModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -182,7 +244,7 @@
         </button>
       </div>
 
-      <form action="daftar-harga-tambahan.store" method="POST">
+      <form action="{{route('daftar-harga-tambahan.store')}}" method="POST">
 
       {{ csrf_field() }}
         <div class="modal-body">
@@ -191,7 +253,7 @@
                   <label>Jenis Layanan</label>
                   <select type="text" name="p_jenis_layanan" class="form-control @error('p_jenis_layanan') is-invalid @enderror"
                   placeholder="" value="{{ old('p_jenis_layanan') }}">
-                      <option value="{{ old('p_jenis_layanan') }}" hidden selected>{{ old('p_jenis_layanan') }}</option>
+                      <option>--Pilih Jenis Layanan--</option>
                       <option value="Basic">Basic</option>
                       <option value="Premium">Premium</option>
                   </select>
@@ -205,7 +267,7 @@
             <div class="form-group">
                 <label>Harga</label>
                 <input type="number" class="form-control @error('harga') is-invalid @enderror" 
-                name="harga" id="harga_jenis" value="{{ old('harga') }}" placeholder="Masukkan harga ex. 100000">
+                name="harga" value="{{ old('harga') }}" placeholder="Masukkan harga ex. 100000">
                 @error ('harga')
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       {{$message}}
@@ -241,7 +303,8 @@
       @csrf
       
       <div class="modal-body">
-    
+            <input type="text" name="id_layanan" hidden value="{{$l->id_parameter_jenis_layanan}}">
+            
             <div class="form-group">
                   <label>Jenis Layanan</label>
                   <select type="text" name="p_jenis_layanan" class="form-control @error('p_jenis_layanan') is-invalid @enderror"
@@ -268,7 +331,16 @@
                 @enderror
             </div> 
 
-          
+            <div class="form-group">
+                  <label>Deskripsi Perubahan</label>
+                  <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
+                  name="deskripsi" placeholder="Masukkan deskripsi perubahan"></textarea>
+                  @error ('deskripsi')
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                  @enderror
+            </div>
       </div>
         
         <div class="modal-footer">
@@ -281,7 +353,7 @@
 </div>
 @endforeach
 
-<!-- Parameter Jenis Teks -->
+<!-- Parameter Jenis Layanan -->
 <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -292,7 +364,7 @@
 
                  
                   <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addJenisModal">
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addLayananModal">
                   <i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Parameter Jenis Layanan
                   </button>
                  
@@ -321,6 +393,56 @@
                       <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#updateLayananModal{{$harga->id_parameter_jenis_layanan}}"><i class="fas fa-pencil-alt"></i></button>
                       <a href="#" class="btn btn-sm btn-danger deleteLayanan" harga-num="{{$loop->iteration}}" harga-id="{{$harga->id_parameter_jenis_layanan}}"><i class="fas fa-trash-alt"></i></a>
                     </td>
+                  </tr>
+                  @endforeach
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<!-- Riwayat Parameter Jenis Layanan -->
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 mt-3">
+            <div class="card">
+              <div class="card-header">
+              <h5>Riwayat Perubahan Harga</h5>
+                <div class="card-tools">
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="datatable4" class="table table-bordered">
+                  <thead>   
+                  <tr>
+                    <th scope="row" class="text-center" style="width: 100px">No</th>
+                    <th scope="row" class="text-center" style="width: 100px">ID Parameter Jenis Layanan</th>
+                    <th scope="row" class="text-center">Tanggal Perubahan</th>
+                    <th scope="row" class="text-center">Jenis Layanan</th>
+                    <th scope="row" class="text-center">Riwayat Harga</th>
+                    <th scope="row" class="text-center">Deskripsi</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($riwayat_layanan as $dl)
+                  <tr>
+                    <th scope="row" class="text-center">{{$loop->iteration}}</th>
+                    <td scope="row" class="text-center">{{$dl->id_parameter_jenis_layanan}}</td>
+                    <td scope="row" class="text-center">{{$dl->tgl_perubahan}}</td>
+                    <td scope="row" class="text-center">{{$dl->parameter_layanan->p_jenis_layanan}}</td>
+                    <td scope="row" class="text-center">{{$dl->harga_perubahan}}</td>
+                    <td scope="row" class="text-center">{{$dl->deskripsi}}</td>
                   </tr>
                   @endforeach
                   </tfoot>
@@ -436,6 +558,72 @@ $(document).ready(function () {
 $(document).ready(function () {
 
   var table = $('#datatable2').DataTable({
+     dom: 'Bfrtip',
+    "responsive": true, "lengthChange": false, "autoWidth": false,
+    "buttons": [
+      {
+                extend:    'copyHtml5',
+                text:      '<i class="far fa-copy"></i>',
+                titleAttr: 'Copy'
+            },
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="far fa-file-excel"></i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fas fa-file-csv"></i>',
+                titleAttr: 'CSV'
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="far fa-file-pdf"></i>',
+                titleAttr: 'PDF'
+            }
+    ]
+  })   
+});
+</script>
+
+<!-- Data table -->
+<script>
+$(document).ready(function () {
+
+  var table = $('#datatable3').DataTable({
+     dom: 'Bfrtip',
+    "responsive": true, "lengthChange": false, "autoWidth": false,
+    "buttons": [
+      {
+                extend:    'copyHtml5',
+                text:      '<i class="far fa-copy"></i>',
+                titleAttr: 'Copy'
+            },
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="far fa-file-excel"></i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fas fa-file-csv"></i>',
+                titleAttr: 'CSV'
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="far fa-file-pdf"></i>',
+                titleAttr: 'PDF'
+            }
+    ]
+  })   
+});
+</script>
+
+<!-- Data table -->
+<script>
+$(document).ready(function () {
+
+  var table = $('#datatable4').DataTable({
      dom: 'Bfrtip',
     "responsive": true, "lengthChange": false, "autoWidth": false,
     "buttons": [

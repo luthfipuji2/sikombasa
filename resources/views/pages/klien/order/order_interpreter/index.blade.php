@@ -1,4 +1,4 @@
-@extends('layouts.klien.sidebar')
+@extends('layouts.klien.run')
 @section('content')
 
 <div class="container">
@@ -11,7 +11,7 @@
         <div class="col-md-12">
             <div class="card">
             <div class="card-header p-2 bg-green">
-                <h4><i class="fab fa-shopify"></i> Form Order Menu Offline</h4>
+                <h4><i class="fab fa-shopify"></i> Form Order Menu Bertemu Langsung</h4>
             </div><!-- /.card-header -->
             <div class="card-body">
             <div class="tab-content">
@@ -30,7 +30,7 @@
                     <input type="text" class="form-control"  id="latitude" name="latitude">
                 <label for="text">Latitude</label>
                     <input type="text" class="form-control" id="longitude" name="longitude">
-                <label for="lokasi" class="col-form-label">Tuliskan Catatan Lokasi</label>
+                <label for="lokasi" class="col-form-label">Tuliskan Detail Lokasi</label>
                     <input type="text" class="form-control" id="lokasi" name="lokasi">
             </div>
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -122,8 +122,8 @@
                 integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
                 crossorigin=""></script>
 
-                <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-                <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+                <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+                <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script> -->
 
                 <style>#mapid { height:200px; }</style>
                         
@@ -149,23 +149,6 @@
                         theMarker = L.marker([e.latlng.lat,e.latlng.lng]).addTo(map);
                     });
                 </script>
-
-                <script>
-                    //Pusat
-                    var posisi_1 = new google.maps.LatLng(-7.2888878, 112.7581761);
-
-                    //lokasi klien
-                    var posisi_2 = new google.maps.LatLng( 'latitude', 'longitude');
-
-                    document.write(hitungJarak(posisi_1, posisi_2));
-
-
-                    function hitungJarak(posisi_1, posisi_2) {
-                        return (google.maps.geometry.spherical.computeDistanceBetween(posisi_1, posisi_2) / 1000).toFixed(5);
-                    }
-
-                </script>
-                
             </div>
             <br>    
             <div class="col-sm-2">
@@ -203,25 +186,4 @@
     });
 </script>
 @endpush
-
-<!-- @push('script')
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
-
-<script>
-//lokasi pertama
-var posisi_1 = new google.maps.LatLng(-7.559813, 110.8386761);
-
-//lokasi kedua
-var posisi_2 = new google.maps.LatLng(-7.2921667, 112.7598175);
-
-document.write(jarak(posisi_1, posisi_2));
-
-
-function jarak(posisi_1, posisi_2) {
-  return (google.maps.geometry.spherical.computeDistanceBetween(posisi_1, posisi_2) / 1000).toFixed(5);
-}
-
-</script>
-@endpush -->
-
 

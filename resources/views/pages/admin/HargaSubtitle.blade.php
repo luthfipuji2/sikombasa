@@ -77,10 +77,11 @@
       </div>
 
       <form method="POST" action="/daftar-harga-subtitle/{{$edit->id_parameter_order_subtitle}}">
-      @method('patch')
+      @method('put')
       @csrf
 
         <div class="modal-body">
+              <input type="text" name="id_subtitle" hidden value="{{$edit->id_parameter_order_subtitle}}">
 
               <div class="form-group">
                   <label>Durasi Video Min (detik)</label>
@@ -115,6 +116,16 @@
                   @enderror
               </div> 
 
+              <div class="form-group">
+                  <label>Deskripsi Perubahan</label>
+                  <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
+                  name="deskripsi" placeholder="Masukkan deskripsi perubahan"></textarea>
+                  @error ('deskripsi')
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                  @enderror
+              </div> 
         </div>
 
         <div class="modal-footer">
@@ -183,6 +194,56 @@
 </section>
 <!-- /.content -->
 
+<!-- Riwayat Parameter Subtitle -->
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 mt-3">
+            <div class="card">
+              <div class="card-header">
+              <h5>Riwayat Perubahan Harga</h5>
+                <div class="card-tools">
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="datatable2" class="table table-bordered">
+                  <thead>   
+                  <tr>
+                    <th scope="row" class="text-center" style="width: 100px">No</th>
+                    <th scope="row" class="text-center" style="width: 100px">ID Parameter Subtitle</th>
+                    <th scope="row" class="text-center">Tanggal Perubahan</th>
+                    <th scope="row" class="text-center">Durasi Video (detik)</th>
+                    <th scope="row" class="text-center">Riwayat Harga</th>
+                    <th scope="row" class="text-center">Deskripsi</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($riwayat as $d)
+                  <tr>
+                    <th scope="row" class="text-center">{{$loop->iteration}}</th>
+                    <td scope="row" class="text-center">{{$d->id_parameter_order_subtitle}}</td>
+                    <td scope="row" class="text-center">{{$d->tgl_perubahan}}</td>
+                    <td scope="row" class="text-center">{{$d->parameter_subtitle->durasi_video_min}} - {{$d->parameter_subtitle->durasi_video_max}}</td>
+                    <td scope="row" class="text-center">{{$d->harga_perubahan}}</td>
+                    <td scope="row" class="text-center">{{$d->deskripsi}}</td>
+                  </tr>
+                  @endforeach
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
 @endsection
 
 @push('addon-script')
@@ -218,6 +279,39 @@
 $(document).ready(function () {
 
   var table = $('#datatable').DataTable({
+     dom: 'Bfrtip',
+    "responsive": true, "lengthChange": false, "autoWidth": false,
+    "buttons": [
+      {
+                extend:    'copyHtml5',
+                text:      '<i class="far fa-copy"></i>',
+                titleAttr: 'Copy'
+            },
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="far fa-file-excel"></i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fas fa-file-csv"></i>',
+                titleAttr: 'CSV'
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="far fa-file-pdf"></i>',
+                titleAttr: 'PDF'
+            }
+    ]
+  })
+    
+});
+</script>
+
+<script>
+$(document).ready(function () {
+
+  var table = $('#datatable2').DataTable({
      dom: 'Bfrtip',
     "responsive": true, "lengthChange": false, "autoWidth": false,
     "buttons": [

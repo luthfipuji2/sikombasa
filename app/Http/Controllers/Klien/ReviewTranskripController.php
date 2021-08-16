@@ -88,7 +88,7 @@ class ReviewTranskripController extends Controller
             'rating'=>$request->rating
         ]);
 
-        return redirect('order-transkrip/review')->with('success', 'Review Telah Ditambahkan');
+        return redirect('order-transkrip-review')->with('success', 'Review Telah Ditambahkan');
     }
 
     /**

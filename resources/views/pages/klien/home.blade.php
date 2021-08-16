@@ -9,9 +9,6 @@
 
   <title>Dashboard Klien</title>
 
-  <!-- 1. Addchat css -->
-  <link href="{{asset('assets/addchat/css/addchat.min.css') }}" rel="stylesheet">
-
   <!-- Vendor CSS Files-->
   <link rel="stylesheet" href="{{ asset('vendor/aos/aos.css') }}">
 
@@ -21,7 +18,6 @@
 </head>
 
 <body>
-
     <!-- /.col -->
     @if(empty($klien->klien->id_klien))
     <div class="row justify-content-right" float= "right">
@@ -43,14 +39,6 @@
         <strong>Info!</strong> Profil Sudah Lengkap
       </div>
     @endif
-
-
-  <!-- 2. AddChat widget -->
-  <div id="addchat_app" 
-        data-baseurl="{{ url('') }}"
-        data-csrfname="{{'X-CSRF-Token'}}"
-        data-csrftoken="{{ csrf_token() }}"
-    ></div>
 
     <div class="container-fluid" >
     <!-- Info boxes -->
@@ -144,22 +132,22 @@
             <img src="./img/myicon/undraw_Internet_on_the_go_re_vben.svg" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-5" style="text-align:justify;">
-            <i class="bi bi-check text-blue"><h3><b>Visi Sikombasa</b></h3></i>
+            <i class="text-blue"><h3><b>Visi Sikombasa</b></h3></i>
             <p>Sikombasa hadir untuk membawa dampak positif untuk memenuhi kebutuhan pengguna dalam meningkatkan laju pertumbuhan ekonomi 
             Indonesia,dengan memanfaatkan teknologi digital.</p>
           </div>
         </div>
-
+ 
         <div class="row" data-aos="fade-up">
           <div class="col-md-2 order-1 order-md-2 ml-auto">
             <img src="./img/myicon/illustration-6.svg" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-5 order-2 order-md-1 ml-auto">
-          <i class="bi bi-check text-blue"><h3><b>Misi Sikombasa.</b></h3></i>
+            <i class="text-blue"><h3><b>Misi Sikombasa.</b></h3></i>
             <ul>
-              <li><i class="bi bi-check"></i>Memberikan kesempatan kepada setiap individu untuk mengasah kemampuan dengan menjadi freelance.</li>
-              <li><i class="bi bi-check"></i> Selalu memberikan pelayanan terbaik kepada setiap pengguna.</li>
-              <li><i class="bi bi-check"></i> Keamanan selalu menjadi prioritas.</li>
+              <li><i class="far fa-gem"></i> Memberikan kesempatan kepada pengguna menjadi translator.
+              <li><i class="far fa-gem"></i> Selalu memberikan pelayanan terbaik kepada setiap pengguna.</li>
+              <li><i class="far fa-gem"></i> Keamanan selalu menjadi prioritas.</li>
             </ul>
           </div>
         </div>
@@ -186,7 +174,7 @@
               <h4 class="text-success"><sup>Rp</sup>0<span> / month</span></h4>
               <ul>
               <li><p class="description text-left">Tidak ada layanan revisi untuk order teks, dokumen, subtitle, audio, video</p></li>
-              <li><p class="description text-left">Tidak mendapat gift kenang-kenangan dan mendapat penginapan standar untuk menu order bertemu langsung</p></li>
+              <li><p class="description text-left">Tidak mendapat gift dan mendapat penginapan standar untuk menu order bertemu langsung</p></li>
               </ul>
             </div>
           </div>
@@ -198,7 +186,7 @@
               <h4 class="text-blue"><sup>Rp</sup>100.000<span> / month</span></h4>
               <ul>
               <li><p class="description text-left">Mendapat layanan permintaan revisi 1x order teks, dokumen, subtitle, audio, video</p></li>
-              <li><p class="description text-left">Mendapat gift kenang-kenangan dan mendapat penginapan fasilitas hotel bintang 5 untuk menu order bertemu langsung</p></li>
+              <li><p class="description text-left">Mendapat gift dan mendapat penginapan fasilitas min hotel bintang 3 untuk menu order bertemu langsung</p></li>
               </ul>
             </div>
             </div>
@@ -208,8 +196,6 @@
       </div>
       </section><!-- End Services Section -->
     </div>
-  </div>
-</div>
 
   <!-- Vendor JS Files-->
   <script src="{{ asset('vendor/aos/aos.js') }}"></script>
@@ -222,14 +208,6 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('js/main.js') }}"></script>
-
-
-<!-- 3. AddChat JS -->
-  <!-- Modern browsers -->
-  <script type="module" src="{{ asset('assets/addchat/js/addchat.min.js')  }}"></script>
-  <!-- Fallback support for Older browsers -->
-  <script nomodule src="{{ asset('assets/addchat/js/addchat-legacy.min.js')  }}"></script>
-
 
 </body>
 

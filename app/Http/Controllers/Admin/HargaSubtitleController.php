@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Harga;
+use App\Models\Admin\HistoryHarga;
 use App\Models\Admin\ParameterOrderSubtitle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,10 @@ class HargaSubtitleController extends Controller
     {
         $subtitle = DB::table('parameter_order_subtitle')
         ->get();
-        return view('pages.admin.HargaSubtitle', compact('subtitle'));
+
+        $riwayat = HistoryHarga::where('jenis_parameter', 'Subtitle')->get();
+
+        return view('pages.admin.HargaSubtitle', compact('subtitle', 'riwayat'));
     }
 
     /**
@@ -52,6 +56,15 @@ class HargaSubtitleController extends Controller
                 'durasi_video_min' => $request->durasi_video_min,
                 'durasi_video_max' => $request->durasi_video_max,
                 'harga' => $request->harga
+            ]);
+
+            $id = DB::getPdo()->lastInsertId();;
+
+            HistoryHarga::create([
+                'id_parameter_order_subtitle' => $id,
+                'jenis_parameter' => 'Subtitle',
+                'harga_perubahan' => $request->harga,
+                'deskripsi' => 'Harga awal'
             ]);
             return redirect('/daftar-harga-subtitle')->with('success', 'Parameter harga subtitle berhasil diubah');
         }
@@ -95,7 +108,8 @@ class HargaSubtitleController extends Controller
         $this->validate($request,[
             'durasi_video_min' => 'required|integer',
             'durasi_video_max' => 'required|integer',
-            'harga' => 'required|integer'
+            'harga' => 'required|integer',
+            'deskripsi' => 'required'
         ]);
 
         $subtitle = ParameterOrderSubtitle::find($id_parameter_order_subtitle);
@@ -108,6 +122,14 @@ class HargaSubtitleController extends Controller
                         'durasi_video_max' => $request->durasi_video_max,
                         'harga' => $request->harga
                     ]);
+
+                    HistoryHarga::create([
+                        'id_parameter_order_subtitle' => $request->id_subtitle,
+                        'jenis_parameter' => 'Subtitle',
+                        'harga_perubahan' => $request->harga,
+                        'deskripsi' => $request->deskripsi
+                    ]);
+
             return redirect('/daftar-harga-subtitle')->with('success', 'Parameter harga subtitle berhasil diubah');
         }
         else

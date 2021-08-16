@@ -20,6 +20,7 @@ class UsersController extends Controller
     {
         $users = User::all();
         return view('pages.admin.users', ['users' => $users]);
+
     }
 
     /**
@@ -76,6 +77,7 @@ class UsersController extends Controller
     {
         $this->validate($request,[
             'role' => 'required',
+            'status' => 'required'
         ]);
 
         $users = User::find($id);
@@ -83,6 +85,7 @@ class UsersController extends Controller
         User::where('id', $users->id)
                     ->update([
                         'role'    => $request->role,
+                        'status'  => $request->status
                     ]);
         return redirect('/users')->with('success', 'Role user berhasil diubah');
     }

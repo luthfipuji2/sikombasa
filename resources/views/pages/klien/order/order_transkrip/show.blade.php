@@ -1,9 +1,8 @@
-@extends('layouts.klien.sidebar')
+@extends('layouts.klien.run')
 @section('content')
 
 
 <div class="container-fluid">
-<div class="row">
 <div class="container ">
 {{-- status --}}
 <div class="row">
@@ -39,20 +38,20 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Jenis Layanan</th>
-                                <th>Durasi Pengerjaan</th>
-                                <th>Nama Dokumen</th>
-                                <th>Durasi Audio</th>
-                                <th>Action</th>
+                                <th class="text-center">Jenis Layanan</th>
+                                <th class="text-center">Durasi Pengerjaan</th>
+                                <th class="text-center">Nama Dokumen</th>
+                                <th class="text-center">Durasi Audio</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{{$order->parameter_order->p_jenis_layanan}}</td>
-                                <td>{{$order->durasi_pengerjaan}} Hari</td>
-                                <td>{{$order->nama_dokumen}}</td>
-                                <td>{{(($order->durasi_audio/60)%60)}} Menit</td>
-                                <td>
+                                <td class="text-center">{{$order->parameter_order->p_jenis_layanan}}</td>
+                                <td class="text-center">{{$order->durasi_pengerjaan}} Hari</td>
+                                <td class="text-center">{{$order->nama_dokumen}}</td>
+                                <td class="text-center">{{(($order->durasi_audio/60)%60)}} Menit</td>
+                                <td scope="row" class="text-center">
                                     <form action="" method="POST" class="d-inline">
                                         @method('Delete')
                                         @csrf
@@ -92,7 +91,7 @@
                             <tbody>
                                 <tr>
                                     <th style="width:50%">Total Biaya :</th>
-                                    <td> Rp. {{$order->parameter_order->p_harga}}</td>
+                                    <td> Rp. {{($order->parameter_order->p_harga)/1000}}.000</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -246,8 +245,6 @@
 <!-- /.card -->
 </div>
 <!-- /.col -->
-</div>
-<!-- /.row -->
 </section>
 </div><!-- /.container-fluid -->
 @endsection

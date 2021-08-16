@@ -31,7 +31,7 @@ class BankController extends Controller
      */
     public function create()
     {
-        return view('pages/admin/createbank');
+        
     }
 
     /**
@@ -45,13 +45,19 @@ class BankController extends Controller
         $this->validate($request,[
             'nama_bank' => 'required',
             'nama_rekening' => 'required',
-            'no_rekening' => 'required|integer',
+            'no_rekening' => 'required',
+            'kode_bank' => 'required',
+            'kode_bank_int' => 'required',
+            'lokasi_cabang' => 'required',
         ]);
 
         Bank::create([
             'nama_bank' => $request->nama_bank,
             'nama_rekening' => $request->nama_rekening,
             'no_rekening' => $request->no_rekening,
+            'kode_bank' => $request->kode_bank,
+            'kode_bank_int' => $request->kode_bank_int,
+            'lokasi_cabang' => $request->lokasi_cabang
         ]);
 
         return redirect('/bank')->with('success', 'Data Bank berhasil ditambahkan');
@@ -91,7 +97,10 @@ class BankController extends Controller
         $this->validate($request,[
             'nama_bank' => 'required',
             'nama_rekening' => 'required',
-            'no_rekening' => 'required|integer',
+            'no_rekening' => 'required',
+            'kode_bank' => 'required',
+            'kode_bank_int' => 'required',
+            'lokasi_cabang' => 'required',
         ]);
 
         $bank = Bank::find($id_bank);
@@ -101,6 +110,9 @@ class BankController extends Controller
                         'nama_bank'    => $request->nama_bank,
                         'nama_rekening'     => $request->nama_rekening,
                         'no_rekening'   => $request->no_rekening,
+                        'kode_bank' => $request->kode_bank,
+                        'kode_bank_int' => $request->kode_bank_int,
+                        'lokasi_cabang' => $request->lokasi_cabang
                     ]);
         return redirect('/bank')->with('success', 'Data Bank berhasil diubah');
     }
@@ -116,10 +128,5 @@ class BankController extends Controller
         Bank::destroy($bank->id_bank);
         return redirect('/bank')->with('success', 'Data Bank berhasil dihapus');
     }
-
-    // public function exportExcel() 
-    // {
-    //     return Excel::download(new BankExport, 'DaftarBank.xlsx');
-    // }
 
 }

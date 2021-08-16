@@ -1,6 +1,6 @@
         @extends('layouts/admin/template')
 
-        @section('title', 'Dashboard')
+        @section('title', 'Daftar Order')
 
         @section('container')
         <!-- Vendor CSS Files -->

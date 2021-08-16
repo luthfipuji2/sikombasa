@@ -14,12 +14,12 @@ class CreateTableKeahlian extends Migration
     public function up()
     {
         Schema::create('keahlian', function (Blueprint $table) {
-            $table->bigIncrements('id_keahlian');
-            $table->string('nama_sertifikat');
-            $table->string('no_sertifikat');
-            $table->string('bukti_dokumen');
-            $table->string('diterbitkan_oleh');
-            $table->date('masa_berlaku');
+            $table->bigIncrements('id_keahlian')->nullable();
+            $table->string('nama_sertifikat')->nullable();
+            $table->string('no_sertifikat')->nullable();
+            $table->string('bukti_dokumen')->nullable();
+            $table->string('diterbitkan_oleh')->nullable();
+            $table->date('masa_berlaku')->nullable();
             $table->string('status_verifikasi')->nullable();
             $table->timestamps();
         });

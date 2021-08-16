@@ -1,4 +1,4 @@
-@extends('layouts.klien.sidebar')
+@extends('layouts.klien.run')
 @section('content')
 <div class="container-fluid">
         <div class="row">

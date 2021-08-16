@@ -1,4 +1,4 @@
-@extends('layouts.klien.sidebar')
+@extends('layouts.klien.run')
 @section('content')
 
 <div class="container">
@@ -15,7 +15,7 @@
               <div class="row">
                 <div class="col-12">
                   <h4 class="text-olive">
-                  <i class="fab fa-shopify"></i>  Detail Order Menu Offline
+                  <i class="fab fa-shopify"></i>  Detail Order Menu Bertemu Langsung
                   </h4>
                 </div>
                 <!-- /.col -->
@@ -38,34 +38,35 @@
                   <table class="table table-striped">
                     <thead>
                     <tr>
-                      <th>Jenis Layanan</th>
-                      <th>Jenis Menu Offline</th>
-                      <th>Durasi Pertemuan</th>
-                      <th>Tanggal Pertemuan</th>
-                      <th>Waktu Pertemuan</th>
-                      <th>Catatan Lokasi</th>
-                      <th>Longitude</th>
-                      <th>Latitude</th>
-                      <th>Action</th>
+                      <th class="text-center">Jenis Layanan</th>
+                      <th class="text-center">Jenis Menu Offline</th>
+                      <th class="text-center">Durasi Pertemuan</th>
+                      <th class="text-center">Tanggal Pertemuan</th>
+                      <th class="text-center">Waktu Pertemuan</th>
+                      <th class="text-center">Detail Lokasi</th>
+                      <th class="text-center">Jarak Tempuh</th>
+                      <th class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
+                       
                     <tr>
-                      <td>{{$order->parameter_order->p_jenis_layanan}}</td>
-                      <td>{{$order->tipe_offline}}</td>
-                      <td>{{$order->parameter_order->p_durasi_pertemuan}} Hari</td>
-                      <td>{{$order->tanggal_pertemuan}}</td>
-                      <td>{{$order->waktu_pertemuan}}</td>
-                      <td>{{$order->lokasi}}</td>
-                      <td>{{$order->longitude}}</td>
-                      <td>{{$order->latitude}}</td>
-                      <td>
+                      <td class="text-center">{{$order->parameter_order->p_jenis_layanan}}</td>
+                      <td class="text-center">{{$order->tipe_offline}}</td>
+                      <td class="text-center">{{$order->parameter_order->p_durasi_pertemuan}} Hari</td>
+                      <td class="text-center">{{$order->tanggal_pertemuan}}</td>
+                      <td class="text-center">{{date('H:i', strtotime($order->waktu_pertemuan))}}</td>
+                      <td class="text-center">{{$order->lokasi}}</td>
+                      <td class="text-center">
+                          {{(sqrt(((($order->latitude)-(-7.5595028))*(($order->latitude)-(-7.5595028)))+((($order->longitude)-(110.8362403))*(($order->longitude)-(110.8362403))))*111.319%1000)}} Km
+                      </td>
+                      <td scope="row" class="text-center">
                         <form action="/order-interpreter" method="POST" class="d-inline">
                         @method('Delete')
                         @csrf
-                        <button class="btn btn-sm bg-red" data-toggle="modal" data-target="#delete"  type="button" class="text-right" style="float: right;"><i class="fas fa-trash-alt"></i></button>
-                        <hr>
-                        <button type="button" class="btn btn-sm bg-cyan" data-toggle="modal" data-target="#exampleModal{{$order->id_order}}" class="text-right" style="float: right;"><i class="fas fa-pencil-alt"></i></button>
+                        <button type="button" class="btn btn-sm bg-red hapus" data-toggle="modal" data-target="#delete"><i class="fas fa-trash"></i></button>
+                        
+                        <button type="button" class="btn btn-sm bg-cyan" data-toggle="modal" data-target="#exampleModal{{$order->id_order}}" class="text-right"><i class="fas fa-pencil-alt"></i></button>
                         </form>
                       </td>
                     </tr>
@@ -78,7 +79,7 @@
 
               <div class="row">
                 <!-- accepted payments column -->
-                <div class="col-7">
+                <div class="col-6">
                   <p class="lead">Payment Methods:</p>
                   <i class="fab fa-cc-visa" alt="Visa"></i>
                   <i class="fab fa-cc-mastercard" alt="Mastercard"></i>
@@ -94,12 +95,12 @@
                   </p></div>
                 </div>
                 <!-- /.col -->
-                <div class="col-5"><br>
+                <div class="col-6"><br>
                   <div class="table-responsive">
                     <table class="table">
                       <tbody><tr>
-                        <th style="width:50%">Harga (Sudah Termasuk Biaya Transportasi Translator)      :</th>
-                        <td> Rp. {{$order->parameter_order->p_harga}}</td>
+                        <th style="width:50%">Harga (Sudah Termasuk Biaya Akomodasi Translator) :</th>
+                        <td> Rp. {{($order->parameter_order->p_harga)/1000}}.000</td>
                       </tr>
                         </tbody>
                     </table>
@@ -142,7 +143,7 @@
             <div class="modal-dialog modal-lg"  role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Change Your Order</h5>
+                    <h5 class="modal-title font-weight-bold text-blue" id="exampleModalLabel"><i class="fab fa-setting"></i>Change Your Order</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -282,8 +283,6 @@
 <!-- /.card -->
 </div>
 <!-- /.col -->
-</div>
-<!-- /.row -->
 </section>
 </div><!-- /.container-fluid -->
 @endsection

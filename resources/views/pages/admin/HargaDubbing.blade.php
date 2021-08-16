@@ -71,7 +71,8 @@
       @csrf
 
         <div class="modal-body">
-
+              <input type="text" name="id_dubber" hidden value="{{$e->id_parameter_dubber}}">
+              
               <div class="form-group">
                   <label>Jumlah Dubber</label>
                   <input type="number" class="form-control @error('p_jumlah_dubber') is-invalid @enderror" 
@@ -94,6 +95,16 @@
                   @enderror
               </div> 
 
+              <div class="form-group">
+                  <label>Deskripsi Perubahan</label>
+                  <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
+                  name="deskripsi" placeholder="Masukkan deskripsi perubahan"></textarea>
+                  @error ('deskripsi')
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                  @enderror
+              </div>
         </div>
 
         <div class="modal-footer">
@@ -145,6 +156,56 @@
                       <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#updateDubberModal{{$d->id_parameter_dubber}}"><i class="fas fa-pencil-alt"></i></button>
                       <a href="#" class="btn btn-sm btn-danger deleteDubber" harga-num="{{$loop->iteration}}" harga-id="{{$d->id_parameter_dubber}}"><i class="fas fa-trash-alt"></i></a>
                     </td>
+                  </tr>
+                  @endforeach
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<!-- Riwayat Parameter Dubber -->
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 mt-3">
+            <div class="card">
+              <div class="card-header">
+              <h5>Riwayat Perubahan Harga Dubber</h5>
+                <div class="card-tools">
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="datatable4" class="table table-bordered">
+                  <thead>   
+                  <tr>
+                    <th scope="row" class="text-center" style="width: 100px">No</th>
+                    <th scope="row" class="text-center" style="width: 100px">ID Parameter Dubber</th>
+                    <th scope="row" class="text-center">Tanggal Perubahan</th>
+                    <th scope="row" class="text-center">Jumlah Dubber</th>
+                    <th scope="row" class="text-center">Riwayat Harga</th>
+                    <th scope="row" class="text-center">Deskripsi</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($riwayat_dubber as $d)
+                  <tr>
+                    <th scope="row" class="text-center">{{$loop->iteration}}</th>
+                    <td scope="row" class="text-center">{{$d->id_parameter_dubber}}</td>
+                    <td scope="row" class="text-center">{{$d->tgl_perubahan}}</td>
+                    <td scope="row" class="text-center">{{$d->parameter_dubber->p_jumlah_dubber}}</td>
+                    <td scope="row" class="text-center">{{$d->harga_perubahan}}</td>
+                    <td scope="row" class="text-center">{{$d->deskripsi}}</td>
                   </tr>
                   @endforeach
                   </tfoot>
@@ -235,10 +296,12 @@
       </div>
 
       <form method="POST" action="/daftar-harga-dubbing/{{$edit->id_parameter_order_dubbing}}">
-      @method('patch')
+      @method('put')
       @csrf
 
         <div class="modal-body">
+
+              <input type="text" name="id_dubbing" hidden value="{{$edit->id_parameter_order_dubbing}}">
 
               <div class="form-group">
                   <label>Durasi Video Min (detik)</label>
@@ -272,6 +335,17 @@
                     </div>
                   @enderror
               </div> 
+
+              <div class="form-group">
+                  <label>Deskripsi Perubahan</label>
+                  <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
+                  name="deskripsi" placeholder="Masukkan deskripsi perubahan"></textarea>
+                  @error ('deskripsi')
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                  @enderror
+              </div>
 
         </div>
 
@@ -324,6 +398,56 @@
                       <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#updateDubbingModal{{$harga->id_parameter_order_dubbing}}"><i class="fas fa-pencil-alt"></i></button>
                       <a href="#" class="btn btn-sm btn-danger delete" harga-num="{{$loop->iteration}}" harga-id="{{$harga->id_parameter_order_dubbing}}"><i class="fas fa-trash-alt"></i></a>
                     </td>
+                  </tr>
+                  @endforeach
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<!-- Riwayat Parameter Dubbing -->
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 mt-3">
+            <div class="card">
+              <div class="card-header">
+              <h5>Riwayat Perubahan Harga Dubbing</h5>
+                <div class="card-tools">
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="datatable3" class="table table-bordered">
+                  <thead>   
+                  <tr>
+                    <th scope="row" class="text-center" style="width: 100px">No</th>
+                    <th scope="row" class="text-center" style="width: 100px">ID Parameter Dubbing</th>
+                    <th scope="row" class="text-center">Tanggal Perubahan</th>
+                    <th scope="row" class="text-center">Durasi Video (detik)</th>
+                    <th scope="row" class="text-center">Riwayat Harga</th>
+                    <th scope="row" class="text-center">Deskripsi</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($riwayat_dubbing as $db)
+                  <tr>
+                    <th scope="row" class="text-center">{{$loop->iteration}}</th>
+                    <td scope="row" class="text-center">{{$db->id_parameter_order_dubbing}}</td>
+                    <td scope="row" class="text-center">{{$db->tgl_perubahan}}</td>
+                    <td scope="row" class="text-center">{{$db->parameter_dubbing->durasi_video_min}} - {{$db->parameter_dubbing->durasi_video_max}}</td>
+                    <td scope="row" class="text-center">{{$db->harga_perubahan}}</td>
+                    <td scope="row" class="text-center">{{$db->deskripsi}}</td>
                   </tr>
                   @endforeach
                   </tfoot>
@@ -436,6 +560,68 @@ $(document).ready(function () {
 $(document).ready(function () {
 
 var table = $('#datatable2').DataTable({
+   dom: 'Bfrtip',
+  "responsive": true, "lengthChange": false, "autoWidth": false,
+  "buttons": [
+    {
+              extend:    'copyHtml5',
+              text:      '<i class="far fa-copy"></i>',
+              titleAttr: 'Copy'
+          },
+          {
+              extend:    'excelHtml5',
+              text:      '<i class="far fa-file-excel"></i>',
+              titleAttr: 'Excel'
+          },
+          {
+              extend:    'csvHtml5',
+              text:      '<i class="fas fa-file-csv"></i>',
+              titleAttr: 'CSV'
+          },
+          {
+              extend:    'pdfHtml5',
+              text:      '<i class="far fa-file-pdf"></i>',
+              titleAttr: 'PDF'
+          }
+  ]
+})
+   
+});
+
+$(document).ready(function () {
+
+var table = $('#datatable3').DataTable({
+   dom: 'Bfrtip',
+  "responsive": true, "lengthChange": false, "autoWidth": false,
+  "buttons": [
+    {
+              extend:    'copyHtml5',
+              text:      '<i class="far fa-copy"></i>',
+              titleAttr: 'Copy'
+          },
+          {
+              extend:    'excelHtml5',
+              text:      '<i class="far fa-file-excel"></i>',
+              titleAttr: 'Excel'
+          },
+          {
+              extend:    'csvHtml5',
+              text:      '<i class="fas fa-file-csv"></i>',
+              titleAttr: 'CSV'
+          },
+          {
+              extend:    'pdfHtml5',
+              text:      '<i class="far fa-file-pdf"></i>',
+              titleAttr: 'PDF'
+          }
+  ]
+})
+   
+});
+
+$(document).ready(function () {
+
+var table = $('#datatable4').DataTable({
    dom: 'Bfrtip',
   "responsive": true, "lengthChange": false, "autoWidth": false,
   "buttons": [

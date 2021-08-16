@@ -123,7 +123,7 @@ class ProfileController extends Controller
         $this->validate($request,[
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
-            
+            'profile_photo_path' => 'required|mimes:jpeg,jpg,png|max:2000'
         ]);
 
         if(!empty($request->password)){

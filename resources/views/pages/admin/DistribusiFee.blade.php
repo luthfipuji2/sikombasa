@@ -58,6 +58,7 @@
                       {{$message}}
                   </div>
                 @enderror
+                <p style="color:red;"><i>Format file yang diunggah harus dalam format JPG, JPEG, PNG dengan ukuran max 2 MB</i></p>
             </div>
         </div>
         <div class="modal-footer">
@@ -127,6 +128,7 @@
                       {{$message}}
                   </div>
                 @enderror
+                <p style="color:red;"><i>Format file yang diunggah harus dalam format JPG, JPEG, PNG dengan ukuran max 2 MB</i></p>
             </div>
         </div>
         <div class="modal-footer">

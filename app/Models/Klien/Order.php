@@ -24,7 +24,6 @@ class Order extends Model
         'id_klien',
         'id_translator',
         'id_parameter_order',
-        'id_parameter_order_audio',
         'id_parameter_dubber',
         'id_parameter_jenis_layanan',
         'id_parameter_jenis_teks',
@@ -60,7 +59,6 @@ class Order extends Model
         'status_by',
         'tipe_offline',
         'harga',
-        'jarak',
         'menu',
     ];
 
