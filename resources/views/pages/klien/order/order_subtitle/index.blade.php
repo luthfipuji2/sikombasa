@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="active tab-pane" id="certificate">
-                <form action="{{route('order-subtitle.store')}}" method="POST" enctype="multipart/form-data">
+                <form action="/order-subtitle" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 
@@ -45,6 +45,8 @@
                                 </ul>
                             </div>
                             @endif
+
+
                 <div class="row">
             <div class="col-6">
                 <div class="table-container">
@@ -53,13 +55,6 @@
             <table>
                 <thead>
                     <tr>
-                        <th></th>
-                        <th class="font-weight-bold text-blue">Basic</th>
-                        <th class="font-weight-bold text-blue">Premium</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <tr>
                         <th></th>
                         <th class="font-weight-bold text-blue">Basic</th>
                         <th class="font-weight-bold text-blue">Premium</th>
@@ -144,6 +139,7 @@
 
             <br><hr color="grey">
 
+
         <br>
 
         <div class="form-group">
@@ -175,7 +171,9 @@
                 @enderror
                     </div>
 
-                    <div class="col-14 omega">
+
+
+                <div class="col-14 omega">
                 <div id="box-annual" data-plan="annual" class="box plans FR-PREMIUM-1 year">
             <div class="card card-statistic-1">
             </a>
@@ -195,13 +193,12 @@
                                 <input type="text" class="form-control" id="upload_dokumen" placeholder="Kosongi jika tidak menggunakan link Google Drive" name="upload_dokumen"></input>
                             </div>
 
-                            
                     <div class="form-group">
                         <input type="hidden" name="durasi_video" id="durasi_video" oninput="updateInfos()">
                         <span type="text"  id="dr_video" name="dr_video">
                     </div>
                     <hr>
-                    
+                    </div>
                     <div class="col-sm-2">
                     <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
@@ -239,24 +236,7 @@ $(document).ready(function() {
 </script>
 @endpush
 
-@push('scripts')
-<script >		
-    // membuat function tampilkan_nama
-    function layanan_basic(){
-        document.getElementById("basic").innerHTML = " * Translator Ditentukan <br> * Tidak Terdapat Editor <br> * Tidak Mendapat Revisi  <hr>";
-    }
-    
-</script>
-@endpush
 
-@push('scripts')
-<script >		
-    // membuat function tampilkan_nama
-    function layanan_premium(){
-        document.getElementById("premium").innerHTML = " * Translator Ditentukan <br> * Terdapat Proses Editing <br> *  Mendapat Revisi 1 Kali <hr>";
-    }
-</script>
-@endpush
 
 @push('scripts')
     <script>

@@ -359,12 +359,6 @@ class OrderDubbingController extends Controller
                     ->whereNotNull('id_parameter_order_dubbing')
                     ->join('transaksi', 'order.id_order', '=', 'transaksi.id_order')
                     ->get();
-        
-        // return ($status);exit();
-        Order::where('id_order', $status)
-            ->update([
-                'status_at'=> 'selesai'
-            ]);
 
         // return ($status);exit();
         return view ('pages.klien.order.order_dubbing.status_order', compact('user', 'status'));

@@ -18,6 +18,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Models\Admin\Transaksi;
 
 class OrderSubtitleController extends Controller
 {
@@ -309,12 +310,6 @@ class OrderSubtitleController extends Controller
                     ->whereNotNull('id_parameter_order_subtitle')
                     ->join('transaksi', 'order.id_order', '=', 'transaksi.id_order')
                     ->get();
-        
-        // return ($status);exit();
-        Order::where('id_order', $status)
-            ->update([
-                'status_at'=> 'selesai'
-            ]);
 
         // return ($status);exit();
         return view ('pages.klien.order.order_subtitle.status_order', compact('user', 'status', 'klien'));

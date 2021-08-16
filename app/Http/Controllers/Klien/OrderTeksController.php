@@ -271,12 +271,6 @@ class OrderTeksController extends Controller
                     ->whereNotNull('id_parameter_order_teks')
                     ->join('transaksi', 'order.id_order', '=', 'transaksi.id_order')
                     ->get();
-        
-        // return ($status);exit();
-        Order::where('id_order', $status)
-            ->update([
-                'status_at'=> 'selesai'
-            ]);
 
         return view ('pages.klien.order.order_teks.status_order', compact('user', 'status'));
         

@@ -325,14 +325,9 @@ class OrderDokumenController extends Controller
         $klien=Klien::where('id', $user->id)->first();
         $status=Order::where('id_klien', $klien->id_klien)
                     ->whereNotNull('id_parameter_order_dokumen')
+                    ->whereNotNull('path_file_trans')
                     ->join('transaksi', 'order.id_order', '=', 'transaksi.id_order')
                     ->get();
-        
-        // return ($status);exit();
-        Order::where('id_order', $status)
-            ->update([
-                'status_at'=> 'selesai'
-            ]);
 
         // return ($status);exit();
         return view ('pages.klien.order.order_dokumen.status_order', compact('user', 'status', 'klien'));
