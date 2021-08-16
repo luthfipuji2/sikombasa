@@ -112,4 +112,20 @@ class UsersController extends Controller
         
         return  response()->download($pathToFile);
     }
+
+    public function updateStatus($user_id, $status_code){
+        try {
+            $update_user = User::whereId($user_id)->update([
+                'status'=>$status_code
+            ]);
+
+            if($update_user){
+                return redirect()->route('users.index')->with('success', 'User Status Updated Successfully. ');
+            }
+            return redirect()->route('users.index')->with('error', 'Fail to update user status. ');
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
 }

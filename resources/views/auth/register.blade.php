@@ -59,6 +59,8 @@
         </div>
     </div>
 
+
+
     <div class='register'>
     <br><br>
     <input type="submit" value='Register' class="btn btn-primary"></input>
