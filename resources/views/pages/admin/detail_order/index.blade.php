@@ -44,7 +44,7 @@
             <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                 <div class="icon-box icon-box-cyan">
                 <img  src="./img/frontend/interpreter.gif" style="width:55%; left: -25px;""></img><br>
-                <h4 class="title"><a href="">Interpreter & Transkrip</a></h4>
+                <h4 class="title"><a href="">Bertemu Langsung</a></h4>
                 <p class="description"><h3>{{ $interpreter }}</h3></p>
                 <div class="row justify-content-right">
                 <a href="/det-order-interpreter" class="btn btn-outline-success">Detail </a>

@@ -20,11 +20,6 @@ use Illuminate\Validation\Validator;
 
 class StatusTranskripController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function dashboard()
     {
         $user = Auth::user();
@@ -35,7 +30,7 @@ class StatusTranskripController extends Controller
     {
         $user = Auth::user();
 
-            $status_transkrip=Order::
+        $status_transkrip=Order::
             join('transaksi', 'transaksi.id_order', '=', 'order.id_order')
             ->whereNotNull('durasi_audio')
             ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
@@ -49,7 +44,7 @@ class StatusTranskripController extends Controller
         return view('pages.klien.order.order_transkrip.status', [
             'user'=>$user,
             'status_transkrip'=>$status_transkrip
-            ]);
+        ]);
     }
 
     public function store(Request $request, Revisi $id_revisi)
@@ -77,6 +72,7 @@ class StatusTranskripController extends Controller
         
         return Storage::download($path_file_trans);
     }
+
     public function downloadrevisi($id_order)
     {
         $user = Auth::user();
@@ -96,7 +92,8 @@ class StatusTranskripController extends Controller
         return Storage::download($path_file_revisi);
     }
     
-    public function selesai_transkrip (Request $request, $id_order){
+    public function selesai_transkrip (Request $request, $id_order)
+    {
         $user=Auth::user();
         $order=Order::whereNotNull('durasi_audio')->get();
         $order=Order::findOrFail($id_order)->select('id_order')->first();
@@ -106,7 +103,6 @@ class StatusTranskripController extends Controller
             'status_at' => 'selesai',
             'is_status' => 'sudah bayar',
         ]);
-
         return redirect('/order-transkrip/status')->with('success', 'Terima Kasih Order Selesai');
     }
 }
