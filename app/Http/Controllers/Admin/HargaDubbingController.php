@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Harga;
+use App\Models\Admin\HistoryHarga;
 use App\Models\Admin\ParameterDubber;
 use App\Models\Admin\ParameterOrderDubbing;
 use Illuminate\Http\Request;
@@ -25,7 +26,11 @@ class HargaDubbingController extends Controller
         $dubber = DB::table('parameter_dubber')
         ->get();
 
-        return view('pages.admin.HargaDubbing', compact('dubbing', 'dubber'));
+        $riwayat_dubbing = HistoryHarga::where('jenis_parameter', 'Dubbing')->get();
+
+        $riwayat_dubber = HistoryHarga::where('jenis_parameter', 'Dubber')->get();
+
+        return view('pages.admin.HargaDubbing', compact('dubbing', 'dubber', 'riwayat_dubbing', 'riwayat_dubber'));
     }
 
     /**
@@ -59,6 +64,15 @@ class HargaDubbingController extends Controller
                 'durasi_video_max' => $request->durasi_video_max,
                 'harga' => $request->harga
             ]);
+
+            $id = DB::getPdo()->lastInsertId();;
+
+            HistoryHarga::create([
+                'id_parameter_order_dubbing' => $id,
+                'jenis_parameter' => 'Dubbing',
+                'harga_perubahan' => $request->harga,
+                'deskripsi' => 'Harga awal'
+            ]);
             return redirect('/daftar-harga-dubbing')->with('success', 'Parameter harga dubbing berhasil diubah');
         }
         else
@@ -81,6 +95,15 @@ class HargaDubbingController extends Controller
                         'p_jumlah_dubber' => $request->p_jumlah_dubber,
                         'harga' => $request->harga_dubber
                     ]);
+
+            $id = DB::getPdo()->lastInsertId();;
+
+            HistoryHarga::create([
+                'id_parameter_dubber' => $id,
+                'jenis_parameter' => 'Dubber',
+                'harga_perubahan' => $request->harga_dubber,
+                'deskripsi' => 'Harga awal'
+            ]);
         return redirect('/daftar-harga-dubbing')->with('success', 'Parameter dubber berhasil diubah');
     }
 
@@ -118,7 +141,8 @@ class HargaDubbingController extends Controller
         $this->validate($request,[
             'durasi_video_min' => 'required|integer',
             'durasi_video_max' => 'required|integer',
-            'harga' => 'required|integer'
+            'harga' => 'required|integer',
+            'deskripsi' => 'required'
         ]);
 
         $dubbing = ParameterOrderDubbing::find($id_parameter_order_dubbing);
@@ -130,6 +154,13 @@ class HargaDubbingController extends Controller
                         'durasi_video_min' => $request->durasi_video_min,
                         'durasi_video_max' => $request->durasi_video_max,
                         'harga' => $request->harga
+                    ]);
+
+                    HistoryHarga::create([
+                        'id_parameter_order_dubbing' => $request->id_dubbing,
+                        'jenis_parameter' => 'Dubbing',
+                        'harga_perubahan' => $request->harga,
+                        'deskripsi' => $request->deskripsi
                     ]);
             return redirect('/daftar-harga-dubbing')->with('success', 'Parameter harga dubbing berhasil diubah');
         }
@@ -143,15 +174,23 @@ class HargaDubbingController extends Controller
     {
         $this->validate($request,[
             'p_jumlah_dubber' => 'required',
-            'harga_dubber' => 'required|integer'
+            'harga_dubber' => 'required|integer',
+            'deskripsi' => 'required'
         ]);
 
         $jenis = ParameterDubber::find($id_parameter_dubber);
         
-        ParameterDubber::where('id_parameter_dubber', $jenis->id_parameter_dubber)
+                ParameterDubber::where('id_parameter_dubber', $jenis->id_parameter_dubber)
                     ->update([
                         'p_jumlah_dubber' => $request->p_jumlah_dubber,
                         'harga' => $request->harga_dubber
+                    ]);
+
+                    HistoryHarga::create([
+                        'id_parameter_dubber' => $request->id_dubber,
+                        'jenis_parameter' => 'Dubber',
+                        'harga_perubahan' => $request->harga_dubber,
+                        'deskripsi' => $request->deskripsi
                     ]);
         return redirect('/daftar-harga-dubbing')->with('success', 'Parameter dubber berhasil diubah');
     }

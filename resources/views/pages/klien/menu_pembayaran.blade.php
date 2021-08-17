@@ -5,7 +5,7 @@
 <!-- Modal Unggah -->
 @foreach ($order_pembayaran as $p)
 <div class="modal fade" id="unggahModal{{$p->id_order}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Unggah Bukti Transaksi</h5>
@@ -26,8 +26,10 @@
                 id="id_bank" name="id_bank">
                   <option value="">--Pilih Bank--</option>
                 @foreach ($bank as $b)
-                  <option value="{{$b->id_bank}}">{{$b->nama_bank}}-{{$b->no_rekening}} 
-                  ({{$b->nama_rekening}})</option>
+                  <option value="{{$b->id_bank}}">{{$b->nama_bank}} - ({{$b->kode_bank}}) ({{$b->kode_bank_int}}) {{$b->no_rekening}} 
+                  ({{$b->nama_rekening}}) 
+                  <br>
+                  || {{$b->lokasi_cabang}}</option>
                 @endforeach
                 </select>
                 @error ('id_bank')
@@ -37,13 +39,38 @@
                 @enderror
             </div>
 
+            @if(!empty($p->parameter_layanan->harga)) 
+            <input type="text" name="harga_layanan" value="{{$p->parameter_layanan->harga}}" hidden>
+            @endif
+            @if(!empty($p->parameter_jenis_teks->harga)) 
+            <input type="text" name="harga_jenis_teks" value="{{$p->parameter_jenis_teks->harga}}" hidden>
+            @endif
+            @if(!empty($p->parameter_teks->harga)) 
+            <input type="text" name="harga_teks" value="{{$p->parameter_teks->harga}}" hidden>
+            @endif
+            @if(!empty($p->parameter_dokumen->harga)) 
+            <input type="text" name="harga_dokumen" value="{{$p->parameter_dokumen->harga}}" hidden>
+            @endif
+            @if(!empty($p->parameter_subtitle->harga)) 
+            <input type="text" name="harga_subtitle" value="{{$p->parameter_subtitle->harga}}" hidden>
+            @endif
+            @if(!empty($p->parameter_dubbing->harga)) 
+            <input type="text" name="harga_dubbing" value="{{$p->parameter_dubbing->harga}}" hidden>
+            @endif
+            @if(!empty($p->parameter_dubber->harga)) 
+            <input type="text" name="harga_dubber" value="{{$p->parameter_dubber->harga}}" hidden>
+            @endif
+            @if(!empty($p->parameter_order->p_harga)) 
+            <input type="text" name="harga_menu_lisan" value="{{$p->parameter_order->p_harga}}" hidden>
+            @endif
+ 
             <input type="text" name="nominal_transaksi" value="{{$p->p_harga}}" hidden>
-
             <input type="text" name="nominal_transaksi_total" value="{{$p->order->harga}}" hidden>
 
             <div class="form-group">
               <label for="profile_photo_path">Bukti Transaksi</label>
                 <input type="file" name="bukti_transaksi" class="form-control">
+                <p style="color:red;"><i>Format file yang diunggah harus dalam format JPG, JPEG, PNG dengan ukuran max 2 MB</i></p>
             </div> 
             
 

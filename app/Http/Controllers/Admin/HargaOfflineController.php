@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Harga;
+use App\Models\Admin\HistoryHarga;
 use App\Models\Klien\ParameterOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +21,10 @@ class HargaOfflineController extends Controller
         $offline = DB::table('parameter_order')
         ->whereNotNull('p_durasi_pertemuan')
         ->get();
-        return view('pages.admin.HargaOffline', compact('offline'));
+
+        $riwayat = HistoryHarga::where('jenis_parameter', 'Menu Offline')->get();
+
+        return view('pages.admin.HargaOffline', compact('offline', 'riwayat'));
     }
 
     /**
@@ -52,6 +56,15 @@ class HargaOfflineController extends Controller
             'p_durasi_pertemuan' => $request->p_durasi_pertemuan,
             'p_harga' => $request->p_harga
         ]);
+
+        $id = DB::getPdo()->lastInsertId();;
+
+            HistoryHarga::create([
+                'id_parameter_order' => $id,
+                'jenis_parameter' => 'Menu Offline',
+                'harga_perubahan' => $request->p_harga,
+                'deskripsi' => 'Harga awal'
+            ]);
 
         return redirect('/daftar-harga-offline')->with('success', 'Parameter menu offline berhasil ditambahkan');
     }
@@ -90,7 +103,8 @@ class HargaOfflineController extends Controller
         $this->validate($request,[
             'p_jenis_layanan' => 'required',
             'p_durasi_pertemuan' => 'required',
-            'p_harga' => 'required'
+            'p_harga' => 'required',
+            'deskripsi' => 'required'
         ]);
 
         $harga = ParameterOrder::find($id_parameter_order);
@@ -100,6 +114,13 @@ class HargaOfflineController extends Controller
                         'p_jenis_layanan' => $request->p_jenis_layanan,
                         'p_durasi_pertemuan' => $request->p_durasi_pertemuan,
                         'p_harga' => $request->p_harga
+                    ]);
+
+                    HistoryHarga::create([
+                        'id_parameter_order' => $request->id_offline,
+                        'jenis_parameter' => 'Menu Offline',
+                        'harga_perubahan' => $request->p_harga,
+                        'deskripsi' => $request->deskripsi
                     ]);
         return redirect('/daftar-harga-offline')->with('success', 'Parameter menu offline berhasil diubah');
     }

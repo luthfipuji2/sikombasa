@@ -81,7 +81,7 @@
                   <thead>   
                   <tr>
                     <th scope="row" class="text-center">No</th>
-                    <th scope="row" class="text-center" hidden>ID Transaksi</th>
+                    <th scope="row" class="text-center">ID Transaksi</th>
                     <th scope="row" class="text-center">Tanggal Order</th>
                     <th scope="row" class="text-center">Tanggal Transaksi</th>
                     <th scope="row" class="text-center">Nominal Transaksi</th>
@@ -94,7 +94,7 @@
                   @foreach($transaksi as $t)
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
-                    <td scope="row" class="text-center" hidden>{{$t->id_transaksi}}</td>
+                    <td scope="row" class="text-center">{{$t->id_transaksi}}</td>
                     <td scope="row" class="text-center">{{$t->tgl_order}}</td>
                     <td scope="row" class="text-center">{{$t->tgl_transaksi}}</td>
                     <td scope="row" class="text-center">{{$t->nominal_transaksi}}</td>

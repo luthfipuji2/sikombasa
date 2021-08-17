@@ -26,7 +26,18 @@ class AdminController extends Controller
         $translator = Translator::count();
         $klien = Klien::count();
         $order = Order::count();
-        return view('pages.admin.home', compact('user', 'translator', 'klien', 'order'));
+
+        $transaksi = DB::table('transaksi')
+            ->join('order', 'transaksi.id_order', '=', 'order.id_order')
+            ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
+            ->join('users', 'users.id', '=', 'klien.id')
+            ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
+                    'parameter_order.id_parameter_order')
+            ->orderBy('id_transaksi', 'desc')
+            ->get();
+            
+
+        return view('pages.admin.home', compact('user', 'translator', 'klien', 'order', 'transaksi'));
     }
 
     public function index()

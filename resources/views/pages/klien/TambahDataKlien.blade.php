@@ -3,6 +3,10 @@
 @section('title', 'biodata')
 @section('content')
 
+<script src="{{ asset('js/app.js') }}" defer></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
     <style>
         .widget-user-header {
             background-position: center center;
@@ -10,6 +14,7 @@
             height: 200px !important;
         }
     </style>
+    
 
     <!-- Main content -->
     <section class="content">
@@ -69,6 +74,7 @@
                     </ul>
                 </div><!-- /.card-header -->
 
+
                 <div class="card-body">
                     <div class="tab-content">
                     <div class="active tab-pane" id="profile">
@@ -98,6 +104,16 @@
                                     </div>
                                 @enderror
                             </div> 
+                            <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                            id="password" placeholder="Password (kosongkan jika tidak ingin mengganti password Anda)" name="password" >
+                            @error ('password')
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                            @enderror
+                        </div>  
 
                             <div class="form-group row">
                                 <div class="col-sm-10">
@@ -108,10 +124,22 @@
                     </div>
                     <!-- /.tab-pane -->
 
+<!-- ------------------------------------------------------------------------------------------------------------------------------ -->
                 <div class="tab-pane" id="biodata">
                     <form method="POST" action="{{route('profile-klien.store')}}" enctype="multipart/form-data"> 
                         
                         @csrf
+                        {{-- menampilkan error validasi --}}
+                            @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+                            
                         <div class="modal-body">
                         <div class="form-group" hidden>
                                 <label for="name">ID</label>
@@ -120,7 +148,7 @@
 
                         <div class="form-group">
                                 <label for="nik">NIK</label>
-                                <input type="text" class="form-control @error('nik') is-invalid @enderror" 
+                                <input type="number" class="form-control @error('nik') is-invalid @enderror" 
                                 id="nik" placeholder="Masukkan NIK" name="nik" value="{{ old('nik') }}">
                                 @error ('nik')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -157,7 +185,7 @@
 
                             <div class="form-group">
                                 <label for="name">Nomor HP</label>
-                                <input type="text" class="form-control @error('no_telp') is-invalid @enderror" 
+                                <input type="number" class="form-control @error('no_telp') is-invalid @enderror" 
                                 id="no_telp" placeholder="Masukkan Nomor Telepon" name="no_telp" value="{{ old('no_telp') }}">
                                 @error ('no_telp')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -166,11 +194,16 @@
                                 @enderror
                             </div>
 
+                            
                             <div class="form-group">
-                                <label for="name">Alamat</label>
-                                <textarea class="form-control @error('alamat') is-invalid @enderror" 
-                                id="alamat" placeholder="Masukkan Alamat" name="alamat">{{ old('alamat') }}</textarea>
-                                @error ('alamat')
+                                <label for="">Provinsi</label>
+                                <select class="form-control" name="provinces" id="provinces">
+                                <option value="0" disable="true" selected="true">=== Pilih Provinsi ===</option>
+                                    @foreach ($provinces as $key => $value)
+                                    <option value="{{$value->id}}">{{ $value->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error ('provinces')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
                                     </div>
@@ -178,10 +211,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="name">Kecamatan</label>
-                                <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" 
-                                id="kecamatan" placeholder="Masukkan Kecamatan" name="kecamatan" value="{{ old('kecamatan') }}">
-                                @error ('kecamatan')
+                                <label for="">Kabupaten</label>
+                                <select class="form-control" name="cities" id="cities">
+                                <option value="0" disable="true" selected="true">=== Pilih Kabupaten ===</option>
+                                </select>
+                                @error ('cities')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
                                     </div>
@@ -189,10 +223,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="name">Kabupaten</label>
-                                <input type="text" class="form-control @error('kabupaten') is-invalid @enderror" 
-                                id="kabupaten" placeholder="Masukkan Kabupaten" name="kabupaten" value="{{ old('kabupaten') }}">
-                                @error ('kabupaten')
+                                <label for="">Kecamatan</label>
+                                <select class="form-control" name="districts" id="districts">
+                                <option value="0" disable="true" selected="true">=== Pilih Kecamatan ===</option>
+                                </select>
+                                @error ('districts')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
                                     </div>
@@ -200,10 +235,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="name">Provinsi</label>
-                                <input type="text" class="form-control @error('provinsi') is-invalid @enderror" 
-                                id="provinsi" placeholder="Masukkan Provinsi" name="provinsi" value="{{ old('provinsi') }}">
-                                @error ('provinsi')
+                                <label for="">Desa</label>
+                                <select class="form-control" name="villages" id="villages">
+                                <option value="0" disable="true" selected="true">=== Pilih Desa ===</option>
+                                </select>
+                                @error ('villages')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
                                     </div>
@@ -212,7 +248,7 @@
 
                             <div class="form-group">
                                 <label for="name">Kode Pos</label>
-                                <input type="text" class="form-control @error('kode_pos') is-invalid @enderror" 
+                                <input type="number" class="form-control @error('kode_pos') is-invalid @enderror" 
                                 id="kode_pos" placeholder="Masukkan Kode Pos" name="kode_pos" value="{{ old('kode_pos') }}">
                                 @error ('kode_pos')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -231,15 +267,20 @@
                                 @enderror
                             </div>
 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
                             
-                
-            </div>
-        
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
+                            </div>
+                         </div>
+                         </div>
         </form>
+
+                            
+<!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+                
+
                 </div>
                 <!-- /.card -->
             </div>
@@ -249,4 +290,64 @@
         </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
+
+
     @endsection
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+    @push('scripts')
+    <script type="text/javascript">
+        $('#provinces').on('change', function(e){
+            console.log(e);
+            var province_id = e.target.value;
+            $.get('/json-cities?province_id=' + province_id,function(data) {
+            console.log(data);
+            $('#cities').empty();
+            $('#cities').append('<option value="0" disable="true" selected="true">=== Pilih Kabupaten ===</option>');
+
+            $('#districts').empty();
+            $('#districts').append('<option value="0" disable="true" selected="true">=== Pilih Kecamatan ===</option>');
+
+            $('#villages').empty();
+            $('#villages').append('<option value="0" disable="true" selected="true">=== Pilih Desa ===</option>');
+
+            $.each(data, function(index, citiesObj){
+                $('#cities').append('<option value="'+ citiesObj.id +'">'+ citiesObj.name +'</option>');
+            })
+            });
+        });
+
+        $('#cities').on('change', function(e){
+            console.log(e);
+            var city_id = e.target.value;
+            $.get('/json-districts?city_id=' + city_id,function(data) {
+            console.log(data);
+            $('#districts').empty();
+            $('#districts').append('<option value="0" disable="true" selected="true">=== Pilih Kecamatan ===</option>');
+
+            $.each(data, function(index, districtsObj){
+                $('#districts').append('<option value="'+ districtsObj.id +'">'+ districtsObj.name +'</option>');
+            })
+            });
+        });
+
+        $('#districts').on('change', function(e){
+            console.log(e);
+            var district_id = e.target.value;
+            $.get('/json-village?district_id=' + district_id,function(data) {
+            console.log(data);
+            $('#villages').empty();
+            $('#villages').append('<option value="0" disable="true" selected="true">=== Pilih Desa ===</option>');
+
+            $.each(data, function(index, villagesObj){
+                $('#villages').append('<option value="'+ villagesObj.id +'">'+ villagesObj.name +'</option>');
+            })
+            });
+        });
+
+    </script>
+    @endpush
