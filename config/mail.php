@@ -87,7 +87,6 @@ return [
         'address' => env('MAIL_FROM_ADDRESS', 'sikombasaSVUNS@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'SIKOMBASA'),
     ],
-    
 
     'stream' => [
         'ssl' => [

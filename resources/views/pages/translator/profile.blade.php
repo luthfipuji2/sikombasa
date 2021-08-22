@@ -45,7 +45,7 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                      <label for="inputEmail" class="col-sm-2 col-form-label">Video Editing*</label>
+                      <label for="inputEmail" class="col-sm-2 col-form-label">Video Editing<span style="color:red;">*</span></label>
                         @if($data->keahlian=='Bisa')
                         <div class="col-sm-10">
                           <div class="custom-control custom-radio">

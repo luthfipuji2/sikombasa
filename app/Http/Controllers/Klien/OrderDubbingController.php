@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Klien;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
+use App\Models\Translator;
 use App\Models\Klien\Review;
 use App\Models\Admin\ParameterJenisLayanan;
 use App\Models\Admin\ParameterDubber;
@@ -20,6 +21,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailTranslator;
 
 class OrderDubbingController extends Controller
 {
@@ -375,6 +378,19 @@ class OrderDubbingController extends Controller
             'tgl_pengajuan_revisi'=>Carbon::now(),
             'durasi_pengerjaan_revisi'=>$request->durasi_pengerjaan_revisi,
         ]);
+
+        //Notifikasi Email
+        $o = Order::where('id_order', $id_order)->first();
+        $translator = Translator::where('id_translator', $o->id_translator)->first();
+        $user = User::where('id', $translator->id)->first();
+
+        $email = $user->email;
+        $data = [
+            'title' => 'Ada Permintaan Revisi!',
+            'url' => 'http://127.0.0.1:8000/login',
+        ];
+
+        Mail::to($email)->send(new SendMailTranslator($data));
         // return ($revisi);exit();
         return redirect(route('status-order-dubbing', $id_order))->with('success','Order dubbing berhasil di revisi');
     }

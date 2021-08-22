@@ -152,6 +152,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/certificate-post-create', [App\Http\Controllers\Klien\PostController::class, 'createCertificate']); 
         Route::match(['get', 'post'], '/certificate-post-update/{id_keahlian}', [App\Http\Controllers\Klien\PostController::class, 'updateCertificate']);
         Route::get('/certificate-post/{id_keahlian}', [App\Http\Controllers\Klien\PostController::class, 'deleteCertificate']); 
+        Route::patch('/progress', [App\Http\Controllers\Klien\CareerController::class, 'persetujuan']);
     });
 
     Route::middleware(['translator'])->group(function () {
@@ -300,21 +301,24 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/det-order-transkrip/{id_order}/delete', 'App\Http\Controllers\Admin\DetailOrderController@deleteTranskrip');
 
         Route::get('det-order-interpreter', 'App\Http\Controllers\Admin\DetailOrderController@detailInterpreter')->name('det-order-interpreter');
+
+        //Hiring
+        Route::get('/hire', [App\Http\Controllers\Admin\HiringController::class, 'index']);
+        Route::get('/index-wawancara', [App\Http\Controllers\Admin\HiringController::class, 'indexWawancara']);
+        Route::match(['get', 'post'], '/berkas-{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'catatanBerkas']);
+        Route::get('/wawancara-{id_translator}-{id_seleksi_berkas}', 'App\Http\Controllers\Admin\HiringController@showWawancara')->name('wawancara.show');
+        Route::match(['get', 'post'],'/wawancara/{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'wawancara']);
+        Route::match(['get', 'post'],'/berkas/{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'berkas']);
+        Route::match(['get', 'post'], '/catatan-{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'catatan']);
+        Route::get('/persetujuan', [App\Http\Controllers\Admin\HiringController::class, 'indexPersetujuan']);
+        Route::get('/{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'show'])->name('hire.show');
         Route::put('/det-order-interpreter/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@updateInterpreter')->name('edit-order-interpreter');
         Route::get('/det-order-interpreter-download/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadBuktiBertemu');
         Route::get('/det-order-interpreter/{id_order}/delete', 'App\Http\Controllers\Admin\DetailOrderController@deleteInterpreter');
 
 
         
-         //Hiring
-         Route::get('/hire', [App\Http\Controllers\Admin\HiringController::class, 'index']);
-         Route::get('/index-wawancara', [App\Http\Controllers\Admin\HiringController::class, 'indexWawancara']);
-         Route::get('/wawancara-{id_translator}-{id_seleksi_berkas}', 'App\Http\Controllers\Admin\HiringController@showWawancara')->name('wawancara.show');
-         Route::get('/{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'show'])->name('hire.show');
-         Route::match(['get', 'post'],'/wawancara/{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'wawancara']);
-         Route::match(['get', 'post'],'/berkas/{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'berkas']);
-         Route::match(['get', 'post'], '/catatan-{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'catatan']);
-         Route::match(['get', 'post'], '/berkas-{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'catatanBerkas']);
+         
          
         
 

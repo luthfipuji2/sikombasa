@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Klien;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
+use App\Models\Translator;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use App\Models\Klien\ParameterOrder;
@@ -17,6 +18,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailTranslator;
 
 class StatusTranskripController extends Controller
 {
@@ -60,6 +63,20 @@ class StatusTranskripController extends Controller
             'pesan_revisi' => $request->pesan_revisi,
             'durasi_pengerjaan_revisi'=>$request->durasi_pengerjaan_revisi
         ]);
+
+        //Notifikasi Email
+        // $revisi = Revisi::where('id_revisi', $id_revisi)->first();
+        $o = Order::where('id_order', $request->id_order)->first();
+        $translator = Translator::where('id_translator', $o->id_translator)->first();
+        $user = User::where('id', $translator->id)->first();
+
+        $email = $user->email;
+        $data = [
+            'title' => 'Ada Permintaan Revisi!',
+            'url' => 'http://127.0.0.1:8000/login',
+        ];
+
+        Mail::to($email)->send(new SendMailTranslator($data));
 
         return redirect('/order-transkrip/status')->with('success', 'Pengajuan Revisi Anda berhasil diunggah');
     }
