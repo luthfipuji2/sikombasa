@@ -26,7 +26,7 @@ class DistribusiFeeController extends Controller
         ->leftJoin('distribusi_fee', 'transaksi.id_transaksi', '=', 'distribusi_fee.id__transaksi')
         ->join('order', 'order.id_order', '=', 'transaksi.id_order')
         ->leftJoin('revisi', 'order.id_order', '=', 'revisi.id_order')  
-        ->orderBy('id_transaksi')
+        ->orderBy('id_transaksi', 'desc')
         ->get();
         
         return view('pages.admin.DistribusiFee',  compact('fee'));
@@ -53,7 +53,8 @@ class DistribusiFeeController extends Controller
     {
         $this->validate($request,[
             'fee_translator' => 'required|integer',
-            'fee_sistem' => 'required|integer'
+            'fee_sistem' => 'required|integer',
+            'bukti_fee_trans' => 'mimes:jpeg,jpg,png|max:2000'
         ]);
 
         if($request->hasFile('bukti_fee_trans') && $request->fee_translator + $request->fee_sistem == $request->nominal_transaksi){

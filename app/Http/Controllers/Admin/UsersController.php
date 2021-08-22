@@ -20,6 +20,7 @@ class UsersController extends Controller
     {
         $users = User::all();
         return view('pages.admin.users', ['users' => $users]);
+
     }
 
     /**
@@ -76,6 +77,7 @@ class UsersController extends Controller
     {
         $this->validate($request,[
             'role' => 'required',
+            'status' => 'required'
         ]);
 
         $users = User::find($id);
@@ -83,6 +85,7 @@ class UsersController extends Controller
         User::where('id', $users->id)
                     ->update([
                         'role'    => $request->role,
+                        'status'  => $request->status
                     ]);
         return redirect('/users')->with('success', 'Role user berhasil diubah');
     }
@@ -108,5 +111,21 @@ class UsersController extends Controller
         $pathToFile = public_path('images/').$currentPhoto;
         
         return  response()->download($pathToFile);
+    }
+
+    public function updateStatus($user_id, $status_code){
+        try {
+            $update_user = User::whereId($user_id)->update([
+                'status'=>$status_code
+            ]);
+
+            if($update_user){
+                return redirect()->route('users.index')->with('success', 'User Status Updated Successfully. ');
+            }
+            return redirect()->route('users.index')->with('error', 'Fail to update user status. ');
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 }

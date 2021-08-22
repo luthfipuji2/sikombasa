@@ -41,7 +41,7 @@ class CreateOrder extends Migration
             $table->string('jumlah_halaman')->nullable();
             $table->text('text')->nullable();
             $table->string('nama_dokumen')->nullable();
-            $table->string('upload_dokumen')->nullable();
+            $table->text('upload_dokumen')->nullable();
             $table->string('path_file')->nullable();
             $table->string('size')->nullable();
             $table->string('ekstensi')->nullable();
@@ -52,7 +52,6 @@ class CreateOrder extends Migration
             $table->string('durasi_pertemuan')->nullable();   
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
-            $table->string('jarak')->nullable();
             $table->string('lokasi')->nullable();
             $table->dateTime('tgl_order')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->integer('durasi_pengerjaan')->nullable();

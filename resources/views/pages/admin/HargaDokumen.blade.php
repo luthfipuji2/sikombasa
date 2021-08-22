@@ -82,6 +82,8 @@
 
         <div class="modal-body">
 
+              <input type="text" name="id_dokumen" hidden value="{{$edit->id_parameter_order_dokumen}}">
+
               <div class="form-group">
                   <label>Jumlah Halaman Min</label>
                   <input type="number" class="form-control @error('jumlah_halaman_min') is-invalid @enderror" 
@@ -109,6 +111,17 @@
                   <input type="number" class="form-control @error('harga') is-invalid @enderror" 
                   name="harga" id="harga" value="{{$edit->harga}}" placeholder="Masukkan harga ex. 100000">
                   @error ('harga')
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                  @enderror
+              </div> 
+
+              <div class="form-group">
+                  <label>Deskripsi Perubahan</label>
+                  <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
+                  name="deskripsi" placeholder="Masukkan deskripsi perubahan"></textarea>
+                  @error ('deskripsi')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                         {{$message}}
                     </div>
@@ -183,6 +196,56 @@
 </section>
 <!-- /.content -->
 
+<!-- Riwayat Parameter Dokumen -->
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 mt-3">
+            <div class="card">
+              <div class="card-header">
+              <h5>Riwayat Perubahan Harga</h5>
+                <div class="card-tools">
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="datatable2" class="table table-bordered">
+                  <thead>   
+                  <tr>
+                    <th scope="row" class="text-center" style="width: 100px">No</th>
+                    <th scope="row" class="text-center" style="width: 100px">ID Parameter Dokumen</th>
+                    <th scope="row" class="text-center">Tanggal Perubahan</th>
+                    <th scope="row" class="text-center">Jumlah Halaman</th>
+                    <th scope="row" class="text-center">Riwayat Harga</th>
+                    <th scope="row" class="text-center">Deskripsi</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($riwayat as $d)
+                  <tr>
+                    <th scope="row" class="text-center">{{$loop->iteration}}</th>
+                    <td scope="row" class="text-center">{{$d->id_parameter_order_dokumen}}</td>
+                    <td scope="row" class="text-center">{{$d->tgl_perubahan}}
+                    <td scope="row" class="text-center">{{$d->parameter_dokumen->jumlah_halaman_min}} - {{$d->parameter_dokumen->jumlah_halaman_max}}</td>
+                    <td scope="row" class="text-center">{{$d->harga_perubahan}}</td>
+                    <td scope="row" class="text-center">{{$d->deskripsi}}</td>
+                  </tr>
+                  @endforeach
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
 @endsection
 
 @push('addon-script')
@@ -218,6 +281,57 @@
 $(document).ready(function () {
 
   var table = $('#datatable').DataTable({
+     dom: 'Bfrtip',
+    "responsive": true, "lengthChange": false, "autoWidth": false,
+    "buttons": [
+      {
+                extend:    'copyHtml5',
+                text:      '<i class="far fa-copy"></i>',
+                titleAttr: 'Copy'
+            },
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="far fa-file-excel"></i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fas fa-file-csv"></i>',
+                titleAttr: 'CSV'
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="far fa-file-pdf"></i>',
+                titleAttr: 'PDF'
+            }
+    ]
+  })
+     
+    table.on('click', '.edit', function(){
+
+    $tr = $(this).closest('tr');
+    if($($tr).hasClass('child')) {
+      $tr = $tr.prev('.parent');
+    }
+
+    var data = table.row($tr).data();
+    console.log(data);
+
+    $('#p_jenis_layanan').val(data[2]);
+    $('#p_jumlah_halaman').val(data[3]);
+    $('#harga').val(data[4]); 
+
+    $('#editForm').attr('action', '/daftar-harga-dokumen/'+data[1]);
+    $('#editModal').modal('show');
+    
+  });
+});
+</script>
+
+<script>
+$(document).ready(function () {
+
+  var table = $('#datatable2').DataTable({
      dom: 'Bfrtip',
     "responsive": true, "lengthChange": false, "autoWidth": false,
     "buttons": [

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Harga;
+use App\Models\Admin\HistoryHarga;
 use App\Models\Admin\ParameterJenisLayanan;
 use App\Models\Admin\ParameterJenisTeks;
 use App\Models\Admin\ParameterOrderTeks;
@@ -26,7 +27,11 @@ class HargaTambahanController extends Controller
         $jenis = DB::table('parameter_jenis_teks')
         ->get();
 
-        return view('pages.admin.HargaTambahan', compact('layanan', 'jenis'));
+        $riwayat_layanan = HistoryHarga::where('jenis_parameter', 'Jenis Layanan')->get();
+
+        $riwayat_jenis = HistoryHarga::where('jenis_parameter', 'Jenis Teks')->get();
+
+        return view('pages.admin.HargaTambahan', compact('layanan', 'jenis', 'riwayat_layanan', 'riwayat_jenis'));
     }
 
     /**
@@ -57,6 +62,16 @@ class HargaTambahanController extends Controller
                     'p_jenis_layanan' => $request->p_jenis_layanan,
                     'harga' => $request->harga
                 ]);
+
+                $id = DB::getPdo()->lastInsertId();;
+
+                HistoryHarga::create([
+                    'id_parameter_jenis_layanan' => $id,
+                    'jenis_parameter' => 'Jenis Layanan',
+                    'harga_perubahan' => $request->harga,
+                    'deskripsi' => 'Harga awal'
+                ]);
+
                 return redirect('/daftar-harga-tambahan')->with('success', 'Parameter jenis layanan berhasil ditambahkan');
             
     }
@@ -75,6 +90,15 @@ class HargaTambahanController extends Controller
             ParameterJenisTeks::create([
                 'p_jenis_teks' => $request->p_jenis_teks,
                 'harga' => $request->harga_jenis
+            ]);
+
+            $id = DB::getPdo()->lastInsertId();;
+
+            HistoryHarga::create([
+                'id_parameter_jenis_teks' => $id,
+                'jenis_parameter' => 'Jenis Teks',
+                'harga_perubahan' => $request->harga_jenis,
+                'deskripsi' => 'Harga awal'
             ]);
             return redirect('/daftar-harga-tambahan')->with('success', 'Parameter jenis teks berhasil ditambahkan');
         }
@@ -114,7 +138,8 @@ class HargaTambahanController extends Controller
     {
         $this->validate($request,[
             'p_jenis_layanan' => 'required',
-            'harga' => 'required|integer'
+            'harga' => 'required|integer',
+            'deskripsi' => 'required'
         ]);
 
         $harga = ParameterJenisLayanan::find($id_parameter_jenis_layanan);
@@ -124,14 +149,23 @@ class HargaTambahanController extends Controller
                         'p_jenis_layanan' => $request->p_jenis_layanan,
                         'harga' => $request->harga
                     ]);
-                    return redirect('/daftar-harga-tambahan')->with('success', 'Parameter jenis layanan berhasil diubah');
+
+                    HistoryHarga::create([
+                        'id_parameter_jenis_layanan' => $request->id_layanan,
+                        'jenis_parameter' => 'Jenis Layanan',
+                        'harga_perubahan' => $request->harga,
+                        'deskripsi' => $request->deskripsi
+                    ]);
+
+        return redirect('/daftar-harga-tambahan')->with('success', 'Parameter jenis layanan berhasil diubah');
     }
 
     public function updateJenis(Request $request, $id_parameter_jenis_teks)
     {
         $this->validate($request,[
             'p_jenis_teks' => 'required',
-            'harga_jenis' => 'required|integer'
+            'harga_jenis' => 'required|integer',
+            'deskripsi' => 'required'
         ]);
 
         $jenis = ParameterJenisTeks::find($id_parameter_jenis_teks);
@@ -141,7 +175,15 @@ class HargaTambahanController extends Controller
                         'p_jenis_teks' => $request->p_jenis_teks,
                         'harga' => $request->harga_jenis
                     ]);
-                    return redirect('/daftar-harga-tambahan')->with('success', 'Parameter jenis teks berhasil diubah');
+
+                    HistoryHarga::create([
+                        'id_parameter_jenis_teks' => $request->id_jenis_teks,
+                        'jenis_parameter' => 'Jenis Teks',
+                        'harga_perubahan' => $request->harga_jenis,
+                        'deskripsi' => $request->deskripsi
+                    ]);
+
+        return redirect('/daftar-harga-tambahan')->with('success', 'Parameter jenis teks berhasil diubah');
        
     }
 

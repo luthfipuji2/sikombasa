@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\ParameterJenisLayanan;
 use App\Models\Admin\ParameterJenisTeks;
 use App\Models\User;
+use App\Models\Admin\ParameterOrderDurasi;
 use App\Models\Klien\Review;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use App\Models\Admin\ParameterOrderHarga;
 use App\Models\Admin\ParameterOrderTeks;
 use App\Models\Admin\Transaksi;
+use App\Models\Klien\ParameterOrder;
 use App\Models\Translator;
 use App\Models\Klien\Revisi;
 use Illuminate\Support\Facades\Storage;
@@ -45,7 +47,8 @@ class OrderTeksController extends Controller
         $menu=Order::all();
         $jenis_layanan=ParameterJenisLayanan::all();
         $jenis_teks=ParameterJenisTeks::all();
-        return view('pages.klien.order.order_teks.index', compact('menu', 'jenis_layanan', 'jenis_teks'));
+        $durasi=ParameterOrderDurasi::all();
+        return view('pages.klien.order.order_teks.index', compact('menu', 'jenis_layanan', 'jenis_teks', 'durasi'));
     }
 
     /**
@@ -66,17 +69,41 @@ class OrderTeksController extends Controller
      */
     public function store(Request $request, Order $order_teks)
     {
+        $this->validate($request, [
+            'id_parameter_jenis_layanan' => 'required',
+            'id_parameter_jenis_teks' => 'required',
+            'durasi_pengerjaan' => 'required',
+            'text' => 'required',
+            'jumlah_karakter' => 'required',
+        ]);
+
         $jenis_layanan=ParameterJenisLayanan::all();
         $jenis_teks = ParameterJenisTeks::all();
+        $durasi=ParameterOrderDurasi::all();
         $tgl_order=Carbon::now();
         $user=Auth::user();
         $klien=Klien::where('id', $user->id)->first();
-        $harga_teks=$request->jumlah_karakter;
-        // return ($harga_teks);
-        // exit();
+        
+        $durasi=$request->durasi_pengerjaan;
+        if($durasi == 1 )
+        {
+            $hasil_durasi = "1";
+        }elseif($durasi == 2){
+            $hasil_durasi = "2";
+        }elseif($durasi == 3){
+            $hasil_durasi = "3";
+        }elseif($durasi == 4){
+            $hasil_durasi = "4";
+        }elseif($durasi == 5){
+            $hasil_durasi = "5";
+        }elseif($durasi == 6){
+            $hasil_durasi = "6";
+        }elseif($durasi == 7){
+            $hasil_durasi = "7";
+        }
+        // return ($hasil_durasi);exit();
 
-        //kondisi if cek
-        // $result = [];
+        $harga_teks=$request->jumlah_karakter;
         if($harga_teks >= 1 && $harga_teks <= 100)
         {
             // $harga=ParameterOrderTeks::select('id_parameter_order_teks')->first();
@@ -100,15 +127,13 @@ class OrderTeksController extends Controller
         }elseif($harga_teks >= 901 && $harga_teks <= 1000){
             $hasil = "10";
         }
-
-        // return ($hasil);
-        // exit();
-    
+        
         $order_teks=Order::create([
             'id_klien'=>$klien->id_klien,
             'id_parameter_jenis_layanan'=>$request->id_parameter_jenis_layanan, 
             'id_parameter_jenis_teks'=>$request->id_parameter_jenis_teks,
             'id_parameter_order_teks'=>$hasil,
+            'id_parameter_order_durasi'=>$hasil_durasi,
             'text'=>$request->text,
             'jumlah_karakter'=>$request->jumlah_karakter,
             'durasi_pengerjaan'=>$request->durasi_pengerjaan,
@@ -136,12 +161,14 @@ class OrderTeksController extends Controller
         $klien=Klien::where('id', $user->id)->first();
         $jenis_layanan=ParameterJenisLayanan::all();
         $jenis_teks=ParameterJenisTeks::all();
+        $durasi=ParameterOrderDurasi::all();
         $order=Order::findOrFail($id_order);
 
         if($order != null){
             $j_layanan = ParameterJenisLayanan::where('id_parameter_jenis_layanan', $order->id_parameter_jenis_layanan)->first();
             $j_teks = ParameterJenisTeks::where('id_parameter_jenis_teks', $order->id_parameter_jenis_teks)->first();
             $jml_karakter = ParameterOrderTeks::where('id_parameter_order_teks', $order->id_parameter_order_teks)->first();
+            $durasi_pengerjaan = ParameterOrderDurasi::where('id_parameter_order_durasi', $order->id_parameter_order_durasi)->first();
     
             if($j_layanan != null){
                 $result_layanan = [
@@ -158,15 +185,21 @@ class OrderTeksController extends Controller
                     'harga' => $jml_karakter->harga
                 ];
             }
+            if($durasi_pengerjaan != null){
+                $result_durasi = [
+                    'harga' => $durasi_pengerjaan->harga
+                ];
+            }
 
             $result[] = [
                 'j_layanan' => $result_layanan,
                 'j_teks'=>$result_teks,
-                'jml_karakter'=>$result_karakter
+                'jml_karakter'=>$result_karakter,
+                'durasi_pengerjaan'=>$result_durasi,
             ];
         }
 
-        $harga = ($result_layanan['harga']) + ($result_teks['harga']) + ($result_karakter['harga']);
+        $harga = ($result_layanan['harga']) + ($result_teks['harga']) + ($result_karakter['harga']) + ($result_durasi['harga']);
         
         $save_harga = Order::where('id_order', $order->id_order)
                             ->update([
@@ -205,7 +238,7 @@ class OrderTeksController extends Controller
         $order=Order::findOrFail($id_order);
         // return ($order);exit();
 
-        Order::where('id_order', $id_order)
+        $a=Order::where('id_order', $id_order)
             ->update([
                 'id_parameter_jenis_layanan'=>$request->id_parameter_jenis_layanan,
                 'id_parameter_jenis_teks'=>$request->id_parameter_jenis_teks,
@@ -213,8 +246,8 @@ class OrderTeksController extends Controller
                 'text'=>$request->text,
                 'jumlah_karakter'=>$request->jumlah_karakter,
             ]);
-        //return($order);
-        //dd($order);
+        // return($a);exit();
+        // dd($a);
 
         return redirect(route('order-teks.show', $id_order))->with('success', 'Berhasil di update!');
     }
@@ -234,29 +267,13 @@ class OrderTeksController extends Controller
 
     function statusOrder(){
         $user=Auth::user();
+        $klien=Klien::where('id', $user->id)->first();
 
-        // $transaksi=Transaksi::where('status_transaksi', 'Berhasil')->orWhere('status_transaksi', 'Pending')->orWhere('status_transaksi', 'Gagal')
-        //                     ->join('order', 'transaksi.id_order', '=', 'order.id_order')
-        //                     ->get();
-
-        $status=Order::whereNotNull('id_parameter_order_teks')
+        $status=Order::where('id_klien', $klien->id_klien)
+                    ->whereNotNull('id_parameter_order_teks')
                     ->join('transaksi', 'order.id_order', '=', 'transaksi.id_order')
                     ->get();
-        
-        // return ($status);exit();
-        Order::where('id_order', $status)
-            ->update([
-                'status_at'=> 'selesai'
-            ]);
-            // $revisi=Order::whereNotNull('id_parameter_order_teks')->get();
 
-        // $status=Transaksi::where('status_transaksi', 'Berhasil')
-        //                     ->orWhere('status_transaksi', 'Pending')
-        //                     ->orWhere('status_transaksi', 'Gagal')
-        //                     ->with('order')
-        //                     ->get();
-        
-        // return $transaksi;
         return view ('pages.klien.order.order_teks.status_order', compact('user', 'status'));
         
     }
@@ -317,11 +334,12 @@ class OrderTeksController extends Controller
                         ->where('status_at', 'selesai')
                         // ->with('review')
                         ->get();
-        $data=$review[0];
-        $riwayat=Review::where('id_order', $data->id_order)->get();
+                        // return ($review);exit();
+        // $data=$review[0];
+        // $riwayat=Review::where('id_order', $data->id_order)->get();
         // return ($riwayat);exit();
 
-        return view ('pages.klien.order.order_teks.review', compact('user', 'review', 'riwayat'));
+        return view ('pages.klien.order.order_teks.review', compact('user', 'review'));
     }
 
     public function storeReview(Request $request, $id_order){

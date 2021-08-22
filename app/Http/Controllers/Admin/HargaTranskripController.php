@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Harga;
+use App\Models\Admin\HistoryHarga;
 use App\Models\Klien\ParameterOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +21,10 @@ class HargaTranskripController extends Controller
         $transkrip = DB::table('parameter_order')
         ->whereNull('p_durasi_pertemuan')
         ->get();
-        return view('pages.admin.HargaTranskrip', ['transkrip' => $transkrip]);
+
+        $riwayat = HistoryHarga::where('jenis_parameter', 'Transkrip')->get();
+
+        return view('pages.admin.HargaTranskrip', compact('transkrip', 'riwayat'));
     }
 
     /**
@@ -44,6 +48,7 @@ class HargaTranskripController extends Controller
         $this->validate($request,[
             'p_durasi_audio' => 'required',
             'p_jenis_layanan'=>'required',
+            'p_durasi_pengerjaan'=>'required',
             'p_harga' => 'required'
         ]);
         
@@ -52,8 +57,19 @@ class HargaTranskripController extends Controller
             ParameterOrder::create([
                 'p_durasi_audio' => $request->p_durasi_audio,
                 'p_jenis_layanan' => $request->p_jenis_layanan,
+                'p_durasi_pengerjaan' => $request->p_durasi_pengerjaan,
                 'p_harga' => $request->p_harga
             ]);
+
+            $id = DB::getPdo()->lastInsertId();;
+
+            HistoryHarga::create([
+                'id_parameter_order' => $id,
+                'jenis_parameter' => 'Transkrip',
+                'harga_perubahan' => $request->p_harga,
+                'deskripsi' => 'Harga awal'
+            ]);
+
             return redirect('/daftar-harga-transkrip')->with('success', 'Parameter harga transkrip berhasil diubah');
         // }
         // else
@@ -96,7 +112,13 @@ class HargaTranskripController extends Controller
         $this->validate($request,[
             'p_durasi_audio' => 'required',
             'p_jenis_layanan'=>'required',
+
+            'p_harga' => 'required',
+            'deskripsi' => 'required'
+
+            'p_durasi_pengerjaan'=>'required',
             'p_harga' => 'required'
+
         ]);
 
         $transkrip = ParameterOrder::find($id_parameter_order);
@@ -107,7 +129,15 @@ class HargaTranskripController extends Controller
                     ->update([
                         'p_durasi_audio' => $request->p_durasi_audio,
                         'p_jenis_layanan' => $request->p_jenis_layanan,
+                        'p_durasi_pengerjaan' => $request->p_durasi_pengerjaan,
                         'p_harga' => $request->p_harga
+                    ]);
+
+                    HistoryHarga::create([
+                        'id_parameter_order' => $request->id_transkrip,
+                        'jenis_parameter' => 'Transkrip',
+                        'harga_perubahan' => $request->p_harga,
+                        'deskripsi' => $request->deskripsi
                     ]);
             return redirect('/daftar-harga-transkrip')->with('success', 'Parameter harga transkrip berhasil diubah');
         // }

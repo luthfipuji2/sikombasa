@@ -89,6 +89,7 @@
                         <div class="form-group">
                             <label for="profile_photo_path">Photo Profile</label>
                             <input type="file" id="profile_photo_path"  name="profile_photo_path" class="form-control">
+                            <p style="color:red;"><i>Format file yang diunggah harus dalam format JPG, JPEG, PNG dengan ukuran max 2 MB</i></p>
                         </div> 
 
                         <div class="float-right">

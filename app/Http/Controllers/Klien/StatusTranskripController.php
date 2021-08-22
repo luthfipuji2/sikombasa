@@ -23,11 +23,6 @@ use App\Mail\SendMailTranslator;
 
 class StatusTranskripController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function dashboard()
     {
         $user = Auth::user();
@@ -37,9 +32,9 @@ class StatusTranskripController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $status1 = Transaksi::where('status_transaksi', 'Berhasil')
-            ->join('order', 'transaksi.id_order', '=', 'order.id_order')
-            ->whereNull('id_translator')
+
+        $status_transkrip=Order::
+            join('transaksi', 'transaksi.id_order', '=', 'order.id_order')
             ->whereNotNull('durasi_audio')
             ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
             ->join('users', 'users.id', '=', 'klien.id')
@@ -48,57 +43,13 @@ class StatusTranskripController extends Controller
             ->where("users.id",$user->id)
             ->orderBy('order.id_order')
             ->get();
-
-        $status2 = Transaksi::where('status_transaksi', 'Berhasil')
-            ->join('order', 'transaksi.id_order', '=', 'order.id_order')
-            ->whereNotNull('id_translator')
-            ->whereNull('path_file_trans')
-            ->whereNotNull('durasi_audio')
-            ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
-            ->join('users', 'users.id', '=', 'klien.id')
-            ->join('parameter_order', 'order.id_parameter_order', '=', 
-                    'parameter_order.id_parameter_order')
-            ->where("users.id",$user->id)
-            ->orderBy('order.id_order')
-            ->get();
-
-        $status3 = Transaksi::where('status_transaksi', 'Berhasil')
-            ->join('order', 'transaksi.id_order', '=', 'order.id_order')
-            ->whereNotNull('id_translator')
-            ->whereNotNull('path_file_trans')
-            ->whereNotNull('durasi_audio')
-            ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
-            ->join('users', 'users.id', '=', 'klien.id')
-            ->join('parameter_order', 'order.id_parameter_order', '=', 
-                    'parameter_order.id_parameter_order')
-            ->where("users.id",$user->id)
-            ->orderBy('order.id_order')
-            ->get();
-
+   
         return view('pages.klien.order.order_transkrip.status', [
             'user'=>$user,
-            'status1'=>$status1,
-            'status2'=>$status2,
-            'status3'=>$status3
-            ]);
+            'status_transkrip'=>$status_transkrip
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, Revisi $id_revisi)
     {
         $this->validate($request,[
@@ -130,63 +81,6 @@ class StatusTranskripController extends Controller
         return redirect('/order-transkrip/status')->with('success', 'Pengajuan Revisi Anda berhasil diunggah');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id_order)
-    {
-        $user = Auth::user();
-        $order=Order::findOrFail($id_order);
-
-        $revisi = Revisi:: //join table users and table user_details base from matched id;
-                rightJoin('order', 'revisi.id_order', '=', 'order.id_order')
-                ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
-                ->join('users', 'klien.id', '=', 'users.id')
-                ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
-                        'parameter_order.id_parameter_order')
-                ->where("users.id",$user->id)
-                ->where("order.id_order",$order->id_order)
-                ->first();
-
-        return view('pages.klien.order.order_transkrip.detail', compact('user','order','revisi'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
     public function downloadhasil($id_order)
     {
         $hasil = Order::find($id_order);
@@ -195,11 +89,12 @@ class StatusTranskripController extends Controller
         
         return Storage::download($path_file_trans);
     }
+
     public function downloadrevisi($id_order)
     {
         $user = Auth::user();
         $order=Order::findOrFail($id_order);
-        $file = Revisi:: //join table users and table user_details base from matched id;
+        $file = Revisi::
         rightJoin('order', 'revisi.id_order', '=', 'order.id_order')
         ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
         ->join('users', 'klien.id', '=', 'users.id')
@@ -214,4 +109,17 @@ class StatusTranskripController extends Controller
         return Storage::download($path_file_revisi);
     }
     
+    public function selesai_transkrip (Request $request, $id_order)
+    {
+        $user=Auth::user();
+        $order=Order::whereNotNull('durasi_audio')->get();
+        $order=Order::findOrFail($id_order)->select('id_order')->first();
+        
+        Order::where('id_order', $id_order)
+        ->update([
+            'status_at' => 'selesai',
+            'is_status' => 'sudah bayar',
+        ]);
+        return redirect('/order-transkrip/status')->with('success', 'Terima Kasih Order Selesai');
+    }
 }

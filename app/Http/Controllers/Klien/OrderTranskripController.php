@@ -20,26 +20,25 @@ class OrderTranskripController extends Controller
      public function dashboard()
     {
         $user = Auth::user();
+
         return view('pages.klien.home', compact('user'));
     }
     
     public function menuOrder()
     {
         $menu=Order::all();
+
         return view('pages.klien.menu_order', compact('menu'));
     }
 
-    public function index(){
+    public function index()
+    {
         $menu=Order::with('parameter_order');
+
         $durasi_audio=ParameterOrder::all();
+
         return view('pages.klien.order.order_transkrip.index',compact('menu','durasi_audio')); 
     }
-    
-    public function create()
-    {
-        //
-    }
-
    
     public function store(Request $request, Order $order_transkrip)
     {
@@ -47,36 +46,97 @@ class OrderTranskripController extends Controller
         $klien=Klien::where('id', $user->id)->first();
         $durasi_audio=$request->durasi_audio;
         $jenis_layanan=$request->jenis_layanan;
+        $durasi_pengerjaan=$request->durasi_pengerjaan;
         
-        if($durasi_audio <= 300 && $jenis_layanan=="Basic"){
+        if($durasi_audio <= 300 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="1"){
             $biaya="1";
         }
-        elseif($durasi_audio <= 900 && $jenis_layanan=="Basic"){
+        elseif($durasi_audio <= 300 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="2"){
             $biaya="2";
         }
-        elseif($durasi_audio <= 1800 && $jenis_layanan=="Basic"){
-            $biaya='3';
+        elseif($durasi_audio <= 300 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="3"){
+            $biaya="3";
         }
-        elseif($durasi_audio <= 3600 && $jenis_layanan=="Basic"){
-            $biaya='4';
+        elseif($durasi_audio <= 900 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="1"){
+            $biaya="4";
         }
-        elseif($durasi_audio <= 10800 && $jenis_layanan=="Basic"){
-            $biaya='5';
+        elseif($durasi_audio <= 900 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="2"){
+            $biaya="5";
         }
-        elseif($durasi_audio <= 300 && $jenis_layanan=="Premium"){
-            $biaya='6';
+        elseif($durasi_audio <= 900 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="3"){
+            $biaya="6";
         }
-        elseif($durasi_audio <= 900 && $jenis_layanan=="Premium"){
+        elseif($durasi_audio <= 1800 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="1"){
             $biaya='7';
         }
-        elseif($durasi_audio <= 1800 && $jenis_layanan=="Premium"){
+        elseif($durasi_audio <= 1800 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="2"){
             $biaya='8';
         }
-        elseif($durasi_audio <= 3600 && $jenis_layanan=="Premium"){
+        elseif($durasi_audio <= 1800 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="3"){
             $biaya='9';
         }
-        elseif($durasi_audio <= 10800 && $jenis_layanan=="Premium"){
+        elseif($durasi_audio <= 3600 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="1"){
             $biaya='10';
+        }
+        elseif($durasi_audio <= 3600 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="2"){
+            $biaya='11';
+        }
+        elseif($durasi_audio <= 3600 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="3"){
+            $biaya='12';
+        }
+        elseif($durasi_audio <= 10800 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="1"){
+            $biaya='13';
+        }
+        elseif($durasi_audio <= 10800 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="2"){
+            $biaya='14';
+        }
+        elseif($durasi_audio <= 10800 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="3"){
+            $biaya='15';
+        }
+        elseif($durasi_audio <= 300 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="1"){
+            $biaya='16';
+        }
+        elseif($durasi_audio <= 300 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="2"){
+            $biaya='17';
+        }
+        elseif($durasi_audio <= 300 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="3"){
+            $biaya='18';
+        }
+        elseif($durasi_audio <= 900 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="1"){
+            $biaya='19';
+        }
+        elseif($durasi_audio <= 900 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="2"){
+            $biaya='20';
+        }
+        elseif($durasi_audio <= 900 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="3"){
+            $biaya='21';
+        }
+        elseif($durasi_audio <= 1800 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="1"){
+            $biaya='22';
+        }
+        elseif($durasi_audio <= 1800 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="2"){
+            $biaya='23';
+        }
+        elseif($durasi_audio <= 1800 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="3"){
+            $biaya='24';
+        }
+        elseif($durasi_audio <= 3600 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="1"){
+            $biaya='25';
+        }
+        elseif($durasi_audio <= 3600 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="2"){
+            $biaya='26';
+        }
+        elseif($durasi_audio <= 3600 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="3"){
+            $biaya='27';
+        }
+        elseif($durasi_audio <= 10800 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="1"){
+            $biaya='28';
+        }
+        elseif($durasi_audio <= 10800 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="2"){
+            $biaya='29';
+        }
+        elseif($durasi_audio <= 10800 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="3"){
+            $biaya='30';
         }
             if($request->hasFile('path_file')){
                 $validate_data = $request->validate([
@@ -112,13 +172,11 @@ class OrderTranskripController extends Controller
                     'menu'=>'Transkrip'
                 ]);
 
-                
             };
-                $id_order=$order_transkrip->id_order;
-                return redirect(route('order-transkrip.show', $id_order))->with('success', 'Data Order Anda Berhasil Tersimpan');
+        $id_order=$order_transkrip->id_order;
+        return redirect(route('order-transkrip.show', $id_order))->with('success', 'Data Order Anda Berhasil Tersimpan');
     } 
     
-
     public function show($id_order)
     {
         $user=Auth::user();
@@ -129,47 +187,103 @@ class OrderTranskripController extends Controller
         return view('pages.klien.order.order_transkrip.show', compact('order', 'user', 'klien','durasi_audio'));
     }
 
-    function edit($id)
-    {
-        //
-    }
-
     public function update(Request $request, $id_order)
     {
 
         $order=Order::findOrFail($id_order);
         $durasi_audio=$request->durasi_audio;
         $jenis_layanan=$request->jenis_layanan;
-        
-        if($durasi_audio <= 300 && $jenis_layanan=="Basic"){
+        $durasi_pengerjaan=$request->durasi_pengerjaan;
+
+        if($durasi_audio <= 300 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="1"){
             $biaya="1";
         }
-        elseif($durasi_audio <= 900 && $jenis_layanan=="Basic"){
+        elseif($durasi_audio <= 300 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="2"){
             $biaya="2";
         }
-        elseif($durasi_audio <= 1800 && $jenis_layanan=="Basic"){
-            $biaya='3';
+        elseif($durasi_audio <= 300 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="3"){
+            $biaya="3";
         }
-        elseif($durasi_audio <= 3600 && $jenis_layanan=="Basic"){
-            $biaya='4';
+        elseif($durasi_audio <= 900 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="1"){
+            $biaya="4";
         }
-        elseif($durasi_audio <= 10800 && $jenis_layanan=="Basic"){
-            $biaya='5';
+        elseif($durasi_audio <= 900 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="2"){
+            $biaya="5";
         }
-        elseif($durasi_audio <= 300 && $jenis_layanan=="Premium"){
-            $biaya='6';
+        elseif($durasi_audio <= 900 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="3"){
+            $biaya="6";
         }
-        elseif($durasi_audio <= 900 && $jenis_layanan=="Premium"){
+        elseif($durasi_audio <= 1800 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="1"){
             $biaya='7';
         }
-        elseif($durasi_audio <= 1800 && $jenis_layanan=="Premium"){
+        elseif($durasi_audio <= 1800 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="2"){
             $biaya='8';
         }
-        elseif($durasi_audio <= 3600 && $jenis_layanan=="Premium"){
+        elseif($durasi_audio <= 1800 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="3"){
             $biaya='9';
         }
-        elseif($durasi_audio <= 10800 && $jenis_layanan=="Premium"){
+        elseif($durasi_audio <= 3600 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="1"){
             $biaya='10';
+        }
+        elseif($durasi_audio <= 3600 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="2"){
+            $biaya='11';
+        }
+        elseif($durasi_audio <= 3600 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="3"){
+            $biaya='12';
+        }
+        elseif($durasi_audio <= 10800 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="1"){
+            $biaya='13';
+        }
+        elseif($durasi_audio <= 10800 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="2"){
+            $biaya='14';
+        }
+        elseif($durasi_audio <= 10800 && $jenis_layanan=="Basic" && $durasi_pengerjaan=="3"){
+            $biaya='15';
+        }
+        elseif($durasi_audio <= 300 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="1"){
+            $biaya='16';
+        }
+        elseif($durasi_audio <= 300 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="2"){
+            $biaya='17';
+        }
+        elseif($durasi_audio <= 300 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="3"){
+            $biaya='18';
+        }
+        elseif($durasi_audio <= 900 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="1"){
+            $biaya='19';
+        }
+        elseif($durasi_audio <= 900 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="2"){
+            $biaya='20';
+        }
+        elseif($durasi_audio <= 900 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="3"){
+            $biaya='21';
+        }
+        elseif($durasi_audio <= 1800 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="1"){
+            $biaya='22';
+        }
+        elseif($durasi_audio <= 1800 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="2"){
+            $biaya='23';
+        }
+        elseif($durasi_audio <= 1800 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="3"){
+            $biaya='24';
+        }
+        elseif($durasi_audio <= 3600 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="1"){
+            $biaya='25';
+        }
+        elseif($durasi_audio <= 3600 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="2"){
+            $biaya='26';
+        }
+        elseif($durasi_audio <= 3600 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="3"){
+            $biaya='27';
+        }
+        elseif($durasi_audio <= 10800 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="1"){
+            $biaya='28';
+        }
+        elseif($durasi_audio <= 10800 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="2"){
+            $biaya='29';
+        }
+        elseif($durasi_audio <= 10800 && $jenis_layanan=="Premium" && $durasi_pengerjaan=="3"){
+            $biaya='30';
         }
 
         Order::where('id_order', $id_order)
@@ -186,9 +300,10 @@ class OrderTranskripController extends Controller
     }
 
     
-    function destroy($id_order)
+    public function destroy($id_order)
     {
         Order::destroy($id_order);
+
         return redirect(route('order-transkrip.index'))->with('success','Data Order Anda Berhasil Terhapus');
     }
 }

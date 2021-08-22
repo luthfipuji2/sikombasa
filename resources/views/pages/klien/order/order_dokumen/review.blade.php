@@ -34,7 +34,7 @@
         </div>
         </div>
 
-            <div class="form-group">
+        <div class="form-group">
         <div class="form-group">
         <label for="review_text">Komentar</label>
         <textarea type="text" class="form-control @error('review_text') is-invalid @enderror" id="review_text"  placeholder="Tulis Komentar Anda Disini" rows="5" name="review_text" required></textarea>
@@ -43,18 +43,8 @@
                 @enderror
         </div>
         </div>
-
-            <!-- <label for="rating">Rating</label> -->
-            <!-- <br><br><br><br><br><br><br><br><br> -->
             <div class="form-group">
             <br><br><br>
-              <!-- <div class="rating">
-                <input type="radio" name="rating" value="5" id="star1"><label for="star1"></label>
-                <input type="radio" name="rating" value="4" id="star2"><label for="star2"></label>
-                <input type="radio" name="rating" value="3" id="star3"><label for="star3"></label>
-                <input type="radio" name="rating" value="2" id="star4"><label for="star4"></label>
-                <input type="radio" name="rating" value="1" id="star5"><label for="star5"></label>
-            </div> -->
             </div> 
         </div>
 

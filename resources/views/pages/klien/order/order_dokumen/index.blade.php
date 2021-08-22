@@ -33,119 +33,164 @@
                 <div class="active tab-pane" id="certificate">
                 <form action="/order-dokumen" method="POST" enctype="multipart/form-data">
                 @csrf
-                <!-- layanan basic -->
+
+                        {{-- menampilkan error validasi --}}
+                            @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
                 
-        <div class="card card-statistic-1">
-                <div class="card-icon bg-primary">
-                <i class="nav-icon fas fa-star"></i>
+        <div class="row">
+            <div class="col-6">
+                <div class="table-container">
+    <div class="table-content">
+        <div class="box table">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="font-weight-bold text-blue">Basic</th>
+                        <th class="font-weight-bold text-blue">Premium</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                        <td>Klien dapat menentukan waktu pengerjaan</td>
+                        <td><a class="btn btn-success m-2" ><i class="fas fa-check"></i></a></td>
+                        <td><a class="btn btn-success m-2" ><i class="fas fa-check"></i></a></td>
+                        
+                    </tr>
+                    <tr>
+                        <td><strong>Melalui proses editing dari translator</strong></td>
+                        <td><a class="btn btn-danger m-2" ><i class="fas fa-times"></i></a></td>
+                        <td><a class="btn btn-success m-2" ><i class="fas fa-check"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mendapatkan revisi 1 kali</strong></td>
+                        <td><a class="btn btn-danger m-2" ><i class="fas fa-times"></i></a></td>
+                        <td><a class="btn btn-success m-2" ><i class="fas fa-check"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
+            <!--mulai jenis layanan basic -->
+            <div class="col-3 omega">
+                <div id="box-annual" data-plan="annual" class="box plans FR-PREMIUM-1 year">
+            <div class="card card-statistic-1">
+                <div class="card-icon bg-info">
+                &nbsp&nbsp<i class="nav-icon fas fa-file"></i>&nbsp&nbsp Layanan Basic
                 </div>
             </a>
-            <div class="card-wrap">
                 <div class="card-header">
-                <div  id="basic">
-                <a onclick="layanan_basic()" class="btn btn-outline-info">
-                    <label for="id_parameter_jenis_layanan">Layanan Basic</label>
-                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="./img/star.gif" style="width:35%; right: 10px;""></img>  
                 </div>
-                <div class="card-body">
-                </div>
-                <div id="id_parameter_jenis_layanan"></div>
+                <br>
                 <div class="form-check">
-                
-                <input class="form-check-input" type="checkbox" name="id_parameter_jenis_layanan" id="id_parameter_jenis_layanan" value="1">
-                
-                <label class="form-check-label" for="id_parameter_jenis_layanan"><h5>Pilih Layanan Basic</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="radio" name="id_parameter_jenis_layanan"  id="id_parameter_jenis_layanan" value="1">
+                <label class="form-check-label" for="id_parameter_jenis_layanan"><h5>Jenis Layanan Basic</label>
+                <br><br>
+                @error('id_parameter_jenis_layanan')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
                 </div>
                 </div>
             </div>
             </div>
-        </div>
-        <!--selesai layanan baisc -->
+        <!-- Selesai jenis layanan babsic -->
 
-            <!-- layanan premium -->
+        <!--mulai jenis layanan premium -->
+            <div class="col-3 omega">
+                <div id="box-annual" data-plan="annual" class="box plans FR-PREMIUM-1 year">
             <div class="card card-statistic-1">
                 <div class="card-icon bg-primary">
-                <i class="nav-icon fas fa-star"></i>
-                <i class="nav-icon fas fa-star"></i>
+                &nbsp&nbsp<i class="nav-icon fas fa-file"></i>&nbsp&nbsp Layanan Premium
                 </div>
             </a>
-            <div class="card-wrap">
                 <div class="card-header">
-                <div  id="premium">
-                <a onclick="layanan_premium()" class="btn btn-outline-info">
-                    <label for="id_parameter_jenis_layanan">Layanan Premium</label>
-                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="./img/tiara.gif" style="width:35%; right: 10px;""></img>  
                 </div>
-                <div class="card-body">
-                </div>
-                <div id="id_parameter_jenis_layanan"></div>
+                <br>
                 <div class="form-check">
-                
-                <input class="form-check-input" type="checkbox" name="id_parameter_jenis_layanan" id="id_parameter_jenis_layanan" value="2">
-                
-                <label class="form-check-label" for="id_parameter_jenis_layanan"><h5>Pilih Layanan Premium</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="radio" name="id_parameter_jenis_layanan"  id="id_parameter_jenis_layanan" value="2">
+                <label class="form-check-label" for="id_parameter_jenis_layanan"><h5>Jenis Layanan Premium</label>
+                <br><br>
+                @error('id_parameter_jenis_layanan')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
                 </div>
                 </div>
             </div>
             </div>
+            </div>
+        <!-- Selesai jenis layanan premium -->
+
             <br><hr color="grey">
-        <!-- Selesai layanan premium -->
 
-        <!-- jenis teks umum -->
+            <div class="row">
+
+
+             <!--mulai jenis layanan basic -->
+             <div class="col-6 omega">
+                <div id="box-annual" data-plan="annual" class="box plans FR-PREMIUM-1 year">
             <div class="card card-statistic-1">
                 <div class="card-icon bg-secondary">
-                &nbsp&nbsp<i class="nav-icon fas fa-file"></i>&nbsp&nbsp Teks Umum
+                &nbsp&nbsp<i class="nav-icon fas fa-file"></i>&nbsp&nbsp Dokumen Umum
                 </div>
             </a>
-            <div class="card-wrap">
                 <div class="card-header">
-                <div  id="umum">
-                <a onclick="teks_umum()" class="btn btn-outline-dark">
-                    <label for="id_parameter_jenis_teks">Jenis Teks Umum</label>
-                </a>
+                * Dokumen Bebas/Bersifat Umum <br><br>
                 </div>
-                <div class="card-body">
-                </div>
-                <div id="id_parameter_jenis_teks"></div>
+                <br>
                 <div class="form-check">
-               
-                <input class="form-check-input" type="checkbox" name="id_parameter_jenis_teks"  id="id_parameter_jenis_teks" value="1">
-                
-                <label class="form-check-label" for="id_parameter_jenis_teks"><h5>Pilih Jenis Teks Umum</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="radio" name="id_parameter_jenis_teks"  id="id_parameter_jenis_teks" value="1">
+                <label class="form-check-label" for="id_parameter_jenis_teks"><h5>Jenis Dokumen Umum</label>
+                <br><br>
+                @error('id_parameter_jenis_teks')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
                 </div>
                 </div>
             </div>
             </div>
-        </div>
-        <!--selesai jenis teks umum -->
+        <!-- Selesai jenis layanan babsic -->
 
-            <!-- jenis teks khusus -->
+        <!--mulai jenis layanan premium -->
+            <div class="col-6 omega">
+                <div id="box-annual" data-plan="annual" class="box plans FR-PREMIUM-1 year">
             <div class="card card-statistic-1">
                 <div class="card-icon bg-secondary">
-                &nbsp&nbsp<i class="nav-icon fas fa-file"></i>&nbsp&nbsp Teks Resmi
+                &nbsp&nbsp<i class="nav-icon fas fa-file"></i>&nbsp&nbsp Dokumen Khusus
                 </div>
             </a>
-            <div class="card-wrap">
                 <div class="card-header">
-                <div  id="khusus">
-                <a onclick="teks_khusus()" class="btn btn-outline-dark">
-                    <label for="id_parameter_jenis_teks">Jenis Teks Khusus</label>
-                </a>
+                * Dokumen Resmi/Bersifat Rahasia <br><br>
                 </div>
-                <div class="card-body">
-                </div>
-                <div id="id_parameter_jenis_teks"></div>
+                <br>
                 <div class="form-check">
-                
-                <input class="form-check-input" type="checkbox" name="id_parameter_jenis_teks"  id="id_parameter_jenis_teks" value="2">
-                
-                <label class="form-check-label" for="id_parameter_jenis_teks"><h5>Pilih Jenis Teks Khusus</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="radio" name="id_parameter_jenis_teks"  id="id_parameter_jenis_teks" value="2">
+                <label class="form-check-label" for="id_parameter_jenis_teks"><h5>Jenis Dokumen Khusus</label>
+                <br><br>
+                @error('id_parameter_jenis_teks')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
                 </div>
                 </div>
             </div>
             </div>
-        
-        <!-- Selesai jenis teks -->
+            </div>
+                
+        <!-- Selesai jenis layanan premium -->
 
         <br><hr color="grey">
         <div class="form-group">
@@ -156,6 +201,9 @@
                                 <option value="2">2 Day</option>
                                 <option value="3">3 Day</option>
                                 <option value="4">4 Day</option>
+                                <option value="5">5 Day</option>
+                                <option value="6">6 Day</option>
+                                <option value="7">7 Day</option>
                             </select>
                             @error ('durasi_pengerjaan')
                                 <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -169,22 +217,49 @@
                     <div class="form-group">
                         <label for="nama_dokumen" class="col-form-label">Nama Dokumen</label>
                         <input type="text" class="form-control" id="nama_dokumen" name="nama_dokumen">
+                        @error('nama_dokumen')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="jumlah_halaman" class="col-form-label">Jumlah Halaman Dokumen</label>
                         <input type="number" class="form-control" id="jumlah_halaman" name="jumlah_halaman">
+                        @error('jumlah_halaman')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="path_file" class="col-form-label">Upload Dokumen</label>
-                        <div class="modal-body">
+                
+            <div class="col-14 omega">
+                <div id="box-annual" data-plan="annual" class="box plans FR-PREMIUM-1 year">
+            <div class="card card-statistic-1">
+            </a>
+                <br>
+                <div class="form-group">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="Upload DOkumen" class="col-form-label">Upload Dokumen</label><br>
+                            <div class="font-weight text-red">
+                            &nbsp;&nbsp;&nbsp;* Pilih salah satu Opsi Unggah Dokumen<br><br>
+                            </div>
+                            &nbsp;&nbsp;&nbsp;<label for="Type Dokumen" class="col-form-label">Dokumen berupa : txt, pdf, pptx</label>
+                        
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <input type="file" name="path_file" required="required">
+                                &nbsp;&nbsp;&nbsp;<input type="file" name="path_file">
                                 </div>
-                            </div>
+
+                                &nbsp;&nbsp;&nbsp;<label for="text">Menggunakan Link</label>
+                                <input type="text" class="form-control" id="upload_dokumen" placeholder="Kosongi jika tidak menggunakan link Google Drive" name="upload_dokumen"></input>
                     </div>
+                </div>
+            </div>
+            </div>
+            </div>
+                
+        <!-- Selesai jenis layanan premium -->
+
+
+
                     <hr>
                     <div class="col-sm-2">
                     <button class="btn btn-primary" type="submit">Submit</button>
@@ -222,45 +297,5 @@ $(document).ready(function() {
         $(this).parents(".control-group").remove();
     });
     });
-</script>
-@endpush
-
-@push('scripts')
-<script >		
-    // membuat function tampilkan_nama
-    function layanan_basic(){
-        document.getElementById("basic").innerHTML = " * Klien Dapat Memilih Penerjemah <br> * Tidak Terdapat Editor <br> * Tidak ada Garansi <hr>";
-    }
-    
-</script>
-@endpush
-
-@push('scripts')
-<script >		
-    // membuat function tampilkan_nama
-    function layanan_premium(){
-        document.getElementById("premium").innerHTML = " * Translator Ditentukan <br> * Terdapat Proses Editing <br> *  Bergaransi <hr>";
-    }
-    
-</script>
-@endpush
-
-@push('scripts')
-<script >		
-    // membuat function tampilkan_nama
-    function teks_umum(){
-        document.getElementById("umum").innerHTML = " * Dokumen Bebas/Bersifat Umum <br> <hr>";
-    }
-    
-</script>
-@endpush
-
-@push('scripts')
-<script >		
-    // membuat function tampilkan_nama
-    function teks_khusus(){
-        document.getElementById("khusus").innerHTML = " * Dokumen Resmi/Bersifat Rahasia <br><hr>";
-    }
-    
 </script>
 @endpush

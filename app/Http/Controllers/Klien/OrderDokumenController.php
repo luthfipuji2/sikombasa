@@ -11,6 +11,7 @@ use App\Models\Admin\ParameterOrderDokumen;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use App\Models\Klien\Revisi;
+use App\Models\Admin\ParameterOrderDurasi;
 use App\Models\Klien\Review;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -40,7 +41,8 @@ class OrderDokumenController extends Controller
         $menu=Order::all();
         $jenis_layanan=ParameterJenisLayanan::all();
         $jenis_teks=ParameterJenisTeks::all();
-        return view('pages.klien.order.order_dokumen.index', compact('menu', 'jenis_layanan', 'jenis_teks'));
+        $durasi=ParameterOrderDurasi::all();
+        return view('pages.klien.order.order_dokumen.index', compact('menu', 'jenis_layanan', 'jenis_teks', 'durasi'));
     }
 
     /**
@@ -61,17 +63,44 @@ class OrderDokumenController extends Controller
      */
     public function store(Request $request, Order $order_dokumen)
     {
+        $this->validate($request, [
+            'id_parameter_jenis_layanan' => 'required',
+            'id_parameter_jenis_teks' => 'required',
+            'durasi_pengerjaan' => 'required',
+            'nama_dokumen' => 'required',
+            'path_file' => 'file:txt, pdf, pptx, docx|max:500000',
+            'upload_dokumen'=>'',
+            'jumlah_halaman' => 'required',
+        ]);
+
+        // return($request);exit();
+
         $jenis_layanan=ParameterJenisLayanan::all();
         $jenis_teks = ParameterJenisTeks::all();
+        $durasi=ParameterOrderDurasi::all();
         $tgl_order=Carbon::now();
         $user=Auth::user();
         $klien=Klien::where('id', $user->id)->first();
+
+        $durasi=$request->durasi_pengerjaan;
+        if($durasi == 1 )
+        {
+            $hasil_durasi = "1";
+        }elseif($durasi == 2){
+            $hasil_durasi = "2";
+        }elseif($durasi == 3){
+            $hasil_durasi = "3";
+        }elseif($durasi == 4){
+            $hasil_durasi = "4";
+        }elseif($durasi == 5){
+            $hasil_durasi = "5";
+        }elseif($durasi == 6){
+            $hasil_durasi = "6";
+        }elseif($durasi == 7){
+            $hasil_durasi = "7";
+        }
+
         $harga_dokumen=$request->jumlah_halaman;
-
-        
-        // return ($harga_dokumen);
-        // exit();
-
         if($harga_dokumen >= 1 && $harga_dokumen <= 10)
         {
             // $harga=ParameterOrderTeks::select('id_parameter_order_teks')->first();
@@ -97,25 +126,27 @@ class OrderDokumenController extends Controller
         }
 
 
-        if($request->hasFile('path_file')){
-            $validate_data = $request->validate([
-                'id_parameter_jenis_layanan'=>'required',
-                'id_parameter_jenis_teks'=>'required',
-                'durasi_pengerjaan'=>'required',
-                'nama_dokumen'=>'required',
-                'path_file'=>'required|file|max:5000000',
-                'jumlah_halaman'=>'required',
-            ]);
+        $messages = [
+            'required' => ':wajib diisi ! ',
+            'mimes'=>'upload dokumen dalam bentuk word/pdf/pptx'
+        ];
 
-            $id_parameter_jenis_layanan = $validate_data['id_parameter_jenis_layanan'];
-            $id_parameter_jenis_teks = $validate_data['id_parameter_jenis_teks'];
-            $durasi = $validate_data['durasi_pengerjaan'];
-            $jumlah_halaman = $validate_data['jumlah_halaman'];
+        //jika pake upload file
+        if ($request->hasFile('path_file')) {
+            $validate_data = $request->validate([
+                'path_file'=>'file:txt, pdf, pptx, docx|max:500000',
+            ], $messages);
+
+            $id_parameter_jenis_layanan = $request['id_parameter_jenis_layanan'];
+            $id_parameter_jenis_teks = $request['id_parameter_jenis_teks'];
+            $durasi = $request['durasi_pengerjaan'];
+            $link=$request['upload_dokumen'];
+            $jumlah_halaman = $request['jumlah_halaman'];
             $ext_template = $validate_data['path_file']->extension();
             $size_template = $validate_data['path_file']->getSize();
             $user=Auth::user();
             $klien=Klien::where('id', $user->id)->first();
-            $nama_dokumen = $validate_data['nama_dokumen'] . "." . $ext_template;
+            $nama_dokumen = $request['nama_dokumen'] . "." . $ext_template;
 
             $path_template = Storage::putFileAs('public/data_file/file_order_dokumen', $request->file('path_file'), $nama_dokumen);
 
@@ -124,7 +155,9 @@ class OrderDokumenController extends Controller
                 'id_parameter_jenis_layanan'=>$id_parameter_jenis_layanan,
                 'id_parameter_jenis_teks'=>$id_parameter_jenis_teks,
                 'id_parameter_order_dokumen'=>$hasil,
+                'id_parameter_order_durasi'=>$hasil_durasi,
                 'durasi_pengerjaan'=>$durasi,
+                'upload_dokumen'=>$link,
                 'nama_dokumen'=>$nama_dokumen,
                 'path_file'=>$path_template,
                 'ekstensi'=>$ext_template,
@@ -134,11 +167,37 @@ class OrderDokumenController extends Controller
                 'is_status'=>'belum dibayar',
                 'menu'=>'Dokumen',
             ]);
+            $id_order=$order_dokumen->id_order;
+            return redirect(route('order-dokumen.show', $id_order))->with('success', 'Berhasil di upload!');
 
+        }else{
+            //jika pake link
+            $id_parameter_jenis_layanan = $request['id_parameter_jenis_layanan'];
+            $id_parameter_jenis_teks = $request['id_parameter_jenis_teks'];
+            $durasi = $request['durasi_pengerjaan'];
+            $link=$request['upload_dokumen'];
+            $jumlah_halaman = $request['jumlah_halaman'];
+            $nama_dokumen = $request['nama_dokumen'];
+            $user=Auth::user();
+            $klien=Klien::where('id', $user->id)->first();
+
+            $order_dokumen=Order::create([
+                'id_klien'=>$klien->id_klien,
+                'id_parameter_jenis_layanan'=>$id_parameter_jenis_layanan,
+                'id_parameter_jenis_teks'=>$id_parameter_jenis_teks,
+                'id_parameter_order_dokumen'=>$hasil,
+                'id_parameter_order_durasi'=>$hasil_durasi,
+                'durasi_pengerjaan'=>$durasi,
+                'upload_dokumen'=>$link,
+                'nama_dokumen'=>$nama_dokumen,
+                'jumlah_halaman'=>$jumlah_halaman,
+                'tgl_order'=>Carbon::now()->timestamp,
+                'is_status'=>'belum dibayar',
+                'menu'=>'Dokumen',
+            ]);
             $id_order=$order_dokumen->id_order;
             return redirect(route('order-dokumen.show', $id_order))->with('success', 'Berhasil di upload!');
         }
-
         } 
     
 
@@ -154,6 +213,7 @@ class OrderDokumenController extends Controller
         $klien=Klien::where('id', $user->id)->first();
         $jenis_layanan=ParameterJenisLayanan::all();
         $jenis_teks=ParameterJenisTeks::all();
+        $durasi=ParameterOrderDurasi::all();
         $order=Order::findOrFail($id_order);
 
         // return ($order);
@@ -161,6 +221,7 @@ class OrderDokumenController extends Controller
             $j_layanan = ParameterJenisLayanan::where('id_parameter_jenis_layanan', $order->id_parameter_jenis_layanan)->first();
             $j_teks = ParameterJenisTeks::where('id_parameter_jenis_teks', $order->id_parameter_jenis_teks)->first();
             $jml_halaman = ParameterOrderDokumen::where('id_parameter_order_dokumen', $order->id_parameter_order_dokumen)->first();
+            $durasi_pengerjaan = ParameterOrderDurasi::where('id_parameter_order_durasi', $order->id_parameter_order_durasi)->first();
     
             if($j_layanan != null){
                 $result_layanan = [
@@ -177,15 +238,21 @@ class OrderDokumenController extends Controller
                     'harga' => $jml_halaman->harga
                 ];
             }
+            if($durasi_pengerjaan != null){
+                $result_durasi = [
+                    'harga' => $durasi_pengerjaan->harga
+                ];
+            }
 
             $result[] = [
                 'j_layanan' => $result_layanan,
                 'j_teks'=>$result_teks,
-                'jml_halaman'=>$result_halaman
+                'jml_halaman'=>$result_halaman,
+                'durasi_pengerjaan'=>$result_durasi,
             ];
         }
 
-        $harga = ($result_layanan['harga']) + ($result_teks['harga']) + ($result_halaman['harga']);
+        $harga = ($result_layanan['harga']) + ($result_teks['harga']) + ($result_halaman['harga']) + ($result_durasi['harga']);
         
         $save_harga = Order::where('id_order', $order->id_order)
                             ->update([
@@ -221,7 +288,8 @@ class OrderDokumenController extends Controller
             'id_parameter_jenis_teks' => 'required',
             'durasi_pengerjaan' => 'required',
             'nama_dokumen' => 'required',
-            'path_file' => 'required',
+            'path_file' => 'mimetypes:txt, pdf, pptx, docx|max:500000',
+            'upload_dokumen'=>'',
             'jumlah_halaman' => 'required',
         ]);
         
@@ -234,6 +302,7 @@ class OrderDokumenController extends Controller
                 'durasi_pengerjaan'=>$request->durasi_pengerjaan,
                 'nama_dokumen'=>$request->nama_dokumen,
                 'path_file'=>$request->path_file,
+                'upload_dokumen'=>$request->upload_dokumen,
                 'jumlah_halaman'=>$request->jumlah_halaman,
             ]);
         //return($order);
@@ -256,22 +325,15 @@ class OrderDokumenController extends Controller
 
     function statusOrder(){
         $user=Auth::user();
-
-        // $transaksi=Transaksi::where('status_transaksi', 'Berhasil')->orWhere('status_transaksi', 'Pending')->orWhere('status_transaksi', 'Gagal')
-        //                     ->join('order', 'transaksi.id_order', '=', 'order.id_order')
-        //                     ->get();
-        $status=Order::whereNotNull('id_parameter_order_dokumen')
+        $klien=Klien::where('id', $user->id)->first();
+        $status=Order::where('id_klien', $klien->id_klien)
+                    ->whereNotNull('id_parameter_order_dokumen')
+                    ->whereNotNull('path_file_trans')
                     ->join('transaksi', 'order.id_order', '=', 'transaksi.id_order')
                     ->get();
-        
-        // return ($status);exit();
-        Order::where('id_order', $status)
-            ->update([
-                'status_at'=> 'selesai'
-            ]);
 
         // return ($status);exit();
-        return view ('pages.klien.order.order_dokumen.status_order', compact('user', 'status'));
+        return view ('pages.klien.order.order_dokumen.status_order', compact('user', 'status', 'klien'));
         
     }
 
@@ -357,11 +419,11 @@ class OrderDokumenController extends Controller
                         ->where('status_at', 'selesai')
                         // ->with('review')
                         ->get();
-        $data=$review[0];
-        $riwayat=Review::where('id_order', $data->id_order)->get();
+        // $data=$review[0];
+        // $riwayat=Review::where('id_order', $data->id_order)->get();
         // return ($riwayat);exit();
 
-        return view ('pages.klien.order.order_dokumen.review', compact('user', 'review', 'riwayat'));
+        return view ('pages.klien.order.order_dokumen.review', compact('user', 'review'));
     }
 
     public function storeReview(Request $request, $id_order){

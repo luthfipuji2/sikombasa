@@ -14,32 +14,44 @@ use App\Http\Controllers\Klien\OrderTeksController;
 use App\Http\Controllers\Klien\OrderDubbingController;
 use App\Http\Controllers\Klien\OrderSubtitleController;
 use App\Http\Controllers\Klien\StatusInterpreterController;
+use App\Http\Controllers\Klien\ReviewInterpreterController;
 use App\Http\Controllers\Klien\StatusTranskripController;
+use App\Http\Controllers\Klien\ReviewTranskripController;
 use App\Http\Controllers\Klien\StatusOrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
- 
+
 Route::get('/', function () {
     return view('welcome');
 });
- 
+  
 
-Auth::routes();
-
+Auth::routes(['verify' => true]);
 
 
 Route::middleware(['auth'])->group(function () {
- 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
 
     Route::middleware(['klien'])->group(function () {
         
         //biodata
+        
         Route::resource('profile-klien', 'App\Http\Controllers\Klien\BiodataKlienController');
+        // Route::get('/profile-klien', 'App\Http\Controllers\UpdateBiodataEmailController@index');
         Route::patch('biodata-klien/{users}', 'App\Http\Controllers\Klien\BiodataKlienController@updateBioKlien');
+        
+        //alamat
+        // Route::get('/indonesia', 'App\Http\Controllers\Klien\BiodataKlienController@provinces');
+        Route::get('/json-cities', 'App\Http\Controllers\Klien\BiodataKlienController@cities');
+        Route::get('/json-districts', 'App\Http\Controllers\Klien\BiodataKlienController@districts');
+        Route::get('/json-village', 'App\Http\Controllers\Klien\BiodataKlienController@villages');
+
         Route::get('/klien', [App\Http\Controllers\Klien\BiodataKlienController::class, 'dashboard'])->name('klien');
+        Route::post('/klien', [App\Http\Controllers\Klien\BiodataKlienController::class, 'index'])->name('dependent-dropdown.index');
+        Route::post('/klien', [App\Http\Controllers\Klien\BiodataKlienController::class, 'storeBio'])->name('dependent-dropdown.storeBio');
 
         Route::resource('menu-order', 'App\Http\Controllers\Klien\OrderMenuController');
         Route::get('/list-keranjang', 'App\Http\Controllers\Klien\OrderMenuController@listKeranjang')->name('list_keranjang');
@@ -97,10 +109,11 @@ Route::middleware(['auth'])->group(function () {
         //Order Interpreter
         Route::resource('order-interpreter-review', 'App\Http\Controllers\Klien\ReviewInterpreterController');
         Route::resource('order-interpreter/status', 'App\Http\Controllers\Klien\StatusInterpreterController');
+        Route::get('/order-interpreter-download/{id_order}', 'App\Http\Controllers\Klien\StatusInterpreterController@downloadbukti');
+        Route::put('/order-interpreter-finish/{id_order}', 'App\Http\Controllers\Klien\StatusInterpreterController@selesai')->name('order-interpreter-selesai');
         Route::get('/order-interpreter', [App\Http\Controllers\Klien\OrderInterpreterController::class, 'menuOrder'])->name('menu-order');
         Route::resource('order-interpreter', 'App\Http\Controllers\Klien\OrderInterpreterController');
         Route::put('/order-interpreter/{id_order}', 'App\Http\Controllers\Klien\OrderInterpreterController@update')->name('update_order_interpreter');
-        
 
         //Order Transkrip 
         Route::resource('order-transkrip-review', 'App\Http\Controllers\Klien\ReviewTranskripController');
@@ -109,6 +122,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/order-transkrip/detail/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@show')->name('detail-status-order');;
         Route::get('/order-transkrip/revisi-download/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@downloadrevisi');
         Route::resource('order-transkrip/status', 'App\Http\Controllers\Klien\StatusTranskripController');
+        Route::put('/order-transkrip-finish/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@selesai_transkrip')->name('order-transkrip-selesai');
         Route::resource('order-transkrip', 'App\Http\Controllers\Klien\OrderTranskripController');
         Route::put('/order-transkrip/{id_order}', 'App\Http\Controllers\Klien\OrderTranskripController@update')->name('update_order_transkrip');
         Route::get('/order-transkrip-download/{id_order}', 'App\Http\Controllers\Klien\StatusTranskripController@downloadhasil');
@@ -183,7 +197,12 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['admin'])->group(function () {
 
         Route::get('/admin', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('admin');
+        
+        //management
         Route::resource('users', 'App\Http\Controllers\Admin\UsersController');
+        //suspend/update status
+        Route::get('/users/status/{user_id}/{status_code}', 'App\Http\Controllers\Admin\UsersController@updateStatus')->name('users.status.update');
+
         Route::get('/users/{user}/delete', 'App\Http\Controllers\Admin\UsersController@destroy');
         Route::get('/users/download/{id}', 'App\Http\Controllers\Admin\UsersController@download')->name('users.download');
 
@@ -225,7 +244,8 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('daftar-harga-tambahan.updateJenis/{j}', 'App\Http\Controllers\Admin\HargaTambahanController@updateJenis')->name('update.jenis');
         Route::get('/daftar-harga-tambahan.destroyJenis/{jenis}/deleteJenis', 'App\Http\Controllers\Admin\HargaTambahanController@destroyJenis');
 
-        
+        Route::resource('riwayat-perubahan-harga', 'App\Http\Controllers\Admin\RiwayatHargaController');
+
         //Route Daftar Admin, Klien, Translator
         Route::resource('daftar-admin', 'App\Http\Controllers\Admin\AdminController');
         Route::resource('daftar-klien', 'App\Http\Controllers\Admin\DaftarKlienController');
@@ -249,26 +269,36 @@ Route::middleware(['auth'])->group(function () {
         //menu detail order
         Route::get('daftar-order', 'App\Http\Controllers\Admin\DetailOrderController@index')->name('daftar-order');
         Route::get('det-order-teks', 'App\Http\Controllers\Admin\DetailOrderController@detailTeks')->name('det-order-teks');
-        
+        Route::put('/det-order-teks/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@updateTeks')->name('edit-order-teks');
+        Route::get('/det-order-teks/{id_order}/delete', 'App\Http\Controllers\Admin\DetailOrderController@deleteTeks');
+
         Route::get('det-order-dokumen', 'App\Http\Controllers\Admin\DetailOrderController@detailDokumen')->name('det-order-dokumen');
         Route::get('/download-dok-klien/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenKlien');
         Route::get('/download-dok-translator/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenTranslator');
         Route::get('/download-dok-revisi/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenRevisi');
-        
+        Route::put('/det-order-dokumen/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@updateDokumen')->name('edit-order-dokumen');
+        Route::get('/det-order-dokumen/{id_order}/delete', 'App\Http\Controllers\Admin\DetailOrderController@deleteDokumen');
+
         Route::get('det-order-subtitle', 'App\Http\Controllers\Admin\DetailOrderController@detailSubtitle')->name('det-order-subtitle');
         Route::get('/download-sub-klien/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenKlien');
         Route::get('/download-sub-translator/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenTranslator');
         Route::get('/download-sub-revisi/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenRevisi');
-        
+        Route::put('/det-order-subtitle/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@updateSubtitle')->name('edit-order-subtitle');
+        Route::get('/det-order-subtitle/{id_order}/delete', 'App\Http\Controllers\Admin\DetailOrderController@deleteSubtitle');
+
         Route::get('det-order-dubbing', 'App\Http\Controllers\Admin\DetailOrderController@detailDubbing')->name('det-order-dubbing');
         Route::get('/download-dub-klien/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenKlien');
         Route::get('/download-sub-translator/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenTranslator');
         Route::get('/download-sub-revisi/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenRevisi');
-        
+        Route::put('/det-order-dubbing/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@updateDubbing')->name('edit-order-dubbing');
+        Route::get('/det-order-dubbing/{id_order}/delete', 'App\Http\Controllers\Admin\DetailOrderController@deleteDubbing');
+
         Route::get('det-order-transkrip', 'App\Http\Controllers\Admin\DetailOrderController@detailTranskrip')->name('det-order-transkrip');
         Route::get('/download-trans-klien/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadTranskripKlien');
         Route::get('/download-trans-translator/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadTranskripTranslator');
         Route::get('/download-trans-revisi/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadTranskripRevisi');
+        Route::put('/det-order-transkrip/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@updateTranskrip')->name('edit-order-transkrip');
+        Route::get('/det-order-transkrip/{id_order}/delete', 'App\Http\Controllers\Admin\DetailOrderController@deleteTranskrip');
 
         Route::get('det-order-interpreter', 'App\Http\Controllers\Admin\DetailOrderController@detailInterpreter')->name('det-order-interpreter');
 
@@ -282,6 +312,10 @@ Route::middleware(['auth'])->group(function () {
         Route::match(['get', 'post'], '/catatan-{id_seleksi_berkas}', [App\Http\Controllers\Admin\HiringController::class, 'catatan']);
         Route::get('/persetujuan', [App\Http\Controllers\Admin\HiringController::class, 'indexPersetujuan']);
         Route::get('/{id_translator}', [App\Http\Controllers\Admin\HiringController::class, 'show'])->name('hire.show');
+        Route::put('/det-order-interpreter/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@updateInterpreter')->name('edit-order-interpreter');
+        Route::get('/det-order-interpreter-download/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadBuktiBertemu');
+        Route::get('/det-order-interpreter/{id_order}/delete', 'App\Http\Controllers\Admin\DetailOrderController@deleteInterpreter');
+
 
         
          
@@ -301,4 +335,8 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Addchat::routes();
+// Addchat::routes();
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

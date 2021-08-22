@@ -23,16 +23,19 @@ class OrderInterpreterController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
+
         return view('pages.klien.home', compact('user'));
     }
     
     public function menuOrder()
     {
         $menu=Order::all();
+
         return view('pages.klien.menu_order', compact('menu'));
     }
 
-    public function index(){
+    public function index()
+    {
         $menu=Order::with('parameter_order');
 
         $basic = ParameterOrder::where('p_jenis_layanan', 'Basic')
@@ -47,11 +50,6 @@ class OrderInterpreterController extends Controller
         
         return view('pages.klien.order.order_interpreter.index',compact('menu', 'basic', 'premium')); 
     }     
-
-    public function create()
-    {
-        //
-    }
 
     public function store(Request $request, Order $order_interpreter)
     {
@@ -80,10 +78,8 @@ class OrderInterpreterController extends Controller
                 'lokasi'=>$request->lokasi,
                 'longitude'=>$request->longitude,
                 'latitude'=>$request->latitude,
-                'jarak'=>$request->jarak,
                 'tanggal_pertemuan'=> $request->tanggal_pertemuan,
                 'waktu_pertemuan'=> $request->waktu_pertemuan,
-                'is_status'=>$request->status_transaksi,
                 'tgl_order'=>$tgl_order,
                 'menu'=>'Interpreter'
             ]);
@@ -115,7 +111,6 @@ class OrderInterpreterController extends Controller
                 'lokasi'=>$request->lokasi,
                 'longitude'=>$request->longitude,
                 'latitude'=>$request->latitude,
-                'jarak'=>$request->jarak,
                 'tanggal_pertemuan'=> $request->tanggal_pertemuan,
                 'waktu_pertemuan'=> $request->waktu_pertemuan,
                 'tgl_order'=>$tgl_order,
@@ -131,6 +126,7 @@ class OrderInterpreterController extends Controller
     public function show($id_order)
     {
         $user=Auth::user();
+
         $klien=Klien::where('id', $user->id)->first();
 
         $order=Order::findOrFail($id_order);
@@ -148,12 +144,6 @@ class OrderInterpreterController extends Controller
         return view('pages.klien.order.order_interpreter.show', compact('order', 'user', 'klien','basic', 'premium'));
     }
 
-    
-    function edit($id)
-    {
-        //
-    }
-
     public function update(Request $request, $id_order)
     {
         if(!empty($request->id_parameter_order && $request->p_jenis_layanan) && empty($request->id_parameter_order2 && $request->p_jenis_layanan2)){
@@ -169,7 +159,6 @@ class OrderInterpreterController extends Controller
                     'lokasi'=>$request->lokasi,
                     'longitude'=>$request->longitude,
                     'latitude'=>$request->latitude,
-                    'jarak'=>$request->jarak,
                     'tanggal_pertemuan'=>$request->tanggal_pertemuan,
                     'waktu_pertemuan'=>$request->waktu_pertemuan,
                 ]);
@@ -186,7 +175,6 @@ class OrderInterpreterController extends Controller
                     'lokasi'=>$request->lokasi,
                     'longitude'=>$request->longitude,
                     'latitude'=>$request->latitude,
-                    'jarak'=>$request->jarak,
                     'tanggal_pertemuan'=>$request->tanggal_pertemuan,
                     'waktu_pertemuan'=>$request->waktu_pertemuan,
                 ]);
@@ -195,10 +183,11 @@ class OrderInterpreterController extends Controller
     }
 
     
-    function destroy($id_order)
+    public function destroy($id_order)
     {
         Order::destroy($id_order);
-        return redirect(route('order-interpreter.index'))->with('success','Data Order Anda berhasil di hapus');
+
+        return redirect(route('order-interpreter.index'))->with('success','Data Order Anda Berhasil Di Hapus');
 
     }
 
