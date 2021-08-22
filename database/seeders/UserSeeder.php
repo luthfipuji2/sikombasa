@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'created_at' => \Carbon\Carbon::now(),
             'email_verified_at' => \Carbon\Carbon::now(),
-            'status' => 'Active'
+            'status' => 1
         ]);
 
         DB::table('users')->insert([
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
             'role' => 'klien',
             'created_at' => \Carbon\Carbon::now(),
             'email_verified_at' => \Carbon\Carbon::now(),
-            'status' => 'Active'
+            'status' => 1
         ]);
 
         DB::table('users')->insert([
@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
             'role' => 'translator',
             'created_at' => \Carbon\Carbon::now(),
             'email_verified_at' => \Carbon\Carbon::now(),
-            'status' => 'Active'
+            'status' => 1
         ]);
 
         DB::table('users')->insert([
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'created_at' => \Carbon\Carbon::now(),
             'email_verified_at' => \Carbon\Carbon::now(),
-            'status' => 'Active'
+            'status' => 1
         ]);
 
         DB::table('users')->insert([
@@ -63,7 +63,7 @@ class UserSeeder extends Seeder
             'role' => 'klien',
             'created_at' => \Carbon\Carbon::now(),
             'email_verified_at' => \Carbon\Carbon::now(),
-            'status' => 'Active'
+            'status' => 1
         ]);
 
         DB::table('users')->insert([
@@ -73,7 +73,7 @@ class UserSeeder extends Seeder
             'role' => 'translator',
             'created_at' => \Carbon\Carbon::now(),
             'email_verified_at' => \Carbon\Carbon::now(),
-            'status' => 'Active'
+            'status' => 1
         ]);
 
         DB::table('users')->insert([
@@ -83,7 +83,7 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'created_at' => \Carbon\Carbon::now(),
             'email_verified_at' => \Carbon\Carbon::now(),
-            'status' => 'Active'
+            'status' => 1
         ]);
 
         DB::table('users')->insert([
@@ -93,7 +93,7 @@ class UserSeeder extends Seeder
             'role' => 'klien',
             'created_at' => \Carbon\Carbon::now(),
             'email_verified_at' => \Carbon\Carbon::now(),
-            'status' => 'Active'
+            'status' => 1
         ]);
 
         DB::table('users')->insert([
@@ -103,7 +103,7 @@ class UserSeeder extends Seeder
             'role' => 'translator',
             'created_at' => \Carbon\Carbon::now(),
             'email_verified_at' => \Carbon\Carbon::now(),
-            'status' => 'Active'
+            'status' => 1
         ]);
     }
 }
