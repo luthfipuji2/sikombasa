@@ -707,6 +707,14 @@
                                     membatasi akses Anda ke bagian atau seluruh Sistem atau Layanan atas kebijakannya sendiri dan tanpa pemberitahuan atau kewajiban.
                                   </p>
                                   <p>
+                                    Translator wajib menunjukkan etos kerja yang baik dengan menyelesaikan tugas yang diberikan kepadanya tepat waktu.
+                                  </p>
+                                  <p>
+                                    Pemegang hak cipta atas karya terjemahan adalah klien. Dimana Pencipta dan Pemegang Hak Cipta atas Ciptaan yang dibuat dalam hubungan
+                                    kerja atau berdasarkan pesanan yaitu pihak yang membuat Ciptaan, sehingga dalam hal ini Pencipta merupakan klien yang menerjemahkan
+                                    karya aslinya melalui pihak ketiga (translator). 
+                                  </p>
+                                  <p>
                                     Fee yang diterima translator adalah nominal transkaksi semula yang dibagi antara pihak SIKOMBASA dan translator,
                                     nominal transaksi ini didapat dari biaya transaksi yang dibebankan pada klien dan dibagi dua menjadi 90% untuk translator dan 10% untuk Sistem.
                                   </p>
