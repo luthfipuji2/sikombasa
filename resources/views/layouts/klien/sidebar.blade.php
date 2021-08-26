@@ -144,7 +144,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <a href="/career" class="nav-link">
                 <i class="nav-icon fas fa-user-tie"></i>
                 <p>
-                  Get a Job
+                  Profesi
                 </p>
               </a>
             </li>
