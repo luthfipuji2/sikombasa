@@ -9,7 +9,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Review</h5>
+        <h5 class="modal-title font-weight-bold text-blue" id="exampleModalLabel">Tambah Review</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -24,8 +24,33 @@
                 <input type="teks" name="review_text" placeholder="Tuliskan Review Order" class="form-control">
             </div> 
             <div class="form-group">
-              <label for="rating">Rating<i class="nav-icon fas fa-star text-yellow"></i></label>
-                <input type="number" name="rating" placeholder="Range 1 - 5" class="form-control">
+              <label for="rating">Rating&nbsp;
+                <i class="nav-icon fas fa-star text-yellow"></i>
+                <i class="nav-icon fas fa-star text-yellow"></i>
+                <i class="nav-icon fas fa-star text-yellow"></i>
+                <i class="nav-icon fas fa-star text-yellow"></i>
+                <i class="nav-icon fas fa-star text-yellow"></i>
+              </label><br>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="rating" id="rating" value="1">
+                <label class="form-check-label" for="rating">1</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="rating" id="rating" value="2">
+                <label class="form-check-label" for="rating">2</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="rating" id="rating" value="3">
+                <label class="form-check-label" for="rating">3</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="rating" id="rating" value="4">
+                <label class="form-check-label" for="rating">4</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="rating" id="rating" value="5">
+                <label class="form-check-label" for="rating">5</label>
+              </div>
             </div> 
         </div>
         <div class="modal-footer">
@@ -58,10 +83,11 @@
                 <div class="tab-content">
                   <div class="active tab-pane" id="review">
                     @foreach($review as $d)
+                    @if(!empty($d->durasi_audio) && ($d->id_review == NULL))
                     <div class="card">
                       <div class="card-header">
-                        <p class="font-weight-bold text-muted">No. Order {{$d->id_order}}</p>
-                        <p class="font-weight-bold text-blue">Tanggal Order {{$d->tgl_order}}</p>
+                        <p class="font-weight-bold text-red"><b class="font-weight-bold text-dark">No. Order :</b> TR{{date('dmy', strtotime($d->tgl_order))}}{{$d->id_order}}</p>
+                        <p class="font-weight-bold text-muted">Tanggal Order {{date('Y-m-d',strtotime($d->tgl_order))}}</p>
                       </div>
                       <div class="card-body">
                         <table width="250px">
@@ -75,22 +101,24 @@
                           </tr>
                           <tr>
                             <td><p class="font-weight-bold">Durasi Audio</p><td>
-                            <td><p class="font-weight">{{(($d->durasi_audio/60)%60)}} Menit</p></td>
+                            <td><p class="font-weight">{{(($d->order->durasi_audio/60)%60)}} Menit</p></td>
                           </tr>
                         </table>
                         <div class="float-right">
-                          <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambah{{$d->id_order}}"><i class="nav-icon fas fa-star text-yellow"></i>Tambah Review</button>
+                          <button type="button" class="btn btn-sm bg-orange text-white" data-toggle="modal" data-target="#tambah{{$d->id_order}}"><i class="nav-icon fas fa-star text-white"></i>Tambah Review</button>
                         </div>
                       </div>
                     </div>
+                    @endif
                     @endforeach
                   </div>
                   <div class="tab-pane" id="riwayat">
                     @foreach($riwayatreview as $r)
+                    @if(!empty($r->id_review) && ($r->durasi_audio))
                     <div class="card">
                       <div class="card-header">
-                        <p class="font-weight-bold text-muted">No. Order {{$r->id_order}}</p>
-                        <p class="font-weight-bold text-blue">Tanggal Order {{$r->tgl_order}}</p>
+                        <p class="font-weight-bold text-red"><b class="font-weight-bold text-dark">No. Order :</b> TR{{date('dmy', strtotime($r->tgl_order))}}{{$r->id_order}}</p>
+                        <p class="font-weight-bold text-green"><b class="font-weight-bold text-dark">Tanggal Order :</b> {{date('Y-m-d',strtotime($r->tgl_order))}}</p>
                       </div>
                       <div class="card-body">
                         <table>
@@ -167,6 +195,7 @@
                         </table>
                       </div>
                     </div><!-- /.tab-pane -->
+                    @endif
                     @endforeach
                   </div><!-- /.tab-content -->
                 </div><!-- /.card-body -->

@@ -8,7 +8,9 @@ use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use App\Models\Klien\ParameterOrder;
 use App\Models\Klien\Revisi;
+use App\Models\Klien\Review;
 use App\Models\Admin\Transaksi;
+use App\Models\Translator\Translator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
@@ -20,11 +22,6 @@ use Illuminate\Validation\Validator;
 
 class StatusTranskripController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function dashboard()
     {
         $user = Auth::user();
@@ -35,7 +32,13 @@ class StatusTranskripController extends Controller
     {
         $user = Auth::user();
 
-            $status_transkrip=Order::
+        $translator = Translator::where('status', 'Aktif')->first();
+        $rating = Review::
+        leftJoin('order', 'review.id_order', '=', 'order.id_order')
+        ->where('id_translator', $translator->id_translator)
+        ->avg('rating');
+
+        $status_transkrip=Order::
             join('transaksi', 'transaksi.id_order', '=', 'order.id_order')
             ->whereNotNull('durasi_audio')
             ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
@@ -48,8 +51,10 @@ class StatusTranskripController extends Controller
    
         return view('pages.klien.order.order_transkrip.status', [
             'user'=>$user,
+            'translator'=>$translator,
+            'rating'=>$rating,
             'status_transkrip'=>$status_transkrip
-            ]);
+        ]);
     }
 
     public function store(Request $request, Revisi $id_revisi)
@@ -77,6 +82,7 @@ class StatusTranskripController extends Controller
         
         return Storage::download($path_file_trans);
     }
+
     public function downloadrevisi($id_order)
     {
         $user = Auth::user();
@@ -96,7 +102,8 @@ class StatusTranskripController extends Controller
         return Storage::download($path_file_revisi);
     }
     
-    public function selesai_transkrip (Request $request, $id_order){
+    public function selesai_transkrip (Request $request, $id_order)
+    {
         $user=Auth::user();
         $order=Order::whereNotNull('durasi_audio')->get();
         $order=Order::findOrFail($id_order)->select('id_order')->first();
@@ -106,7 +113,6 @@ class StatusTranskripController extends Controller
             'status_at' => 'selesai',
             'is_status' => 'sudah bayar',
         ]);
-
         return redirect('/order-transkrip/status')->with('success', 'Terima Kasih Order Selesai');
     }
 }
