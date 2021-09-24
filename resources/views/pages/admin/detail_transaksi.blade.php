@@ -177,6 +177,61 @@
                                 </tr>
                                 @endif
 
+                                @if(!empty($detail->parameter_layanan->harga))
+                                <tr>
+                                    <td style="width: 200px"><b>Harga Layanan</b></td>
+                                    <td>Rp. {{$detail->parameter_layanan->harga}}</td>
+                                </tr>
+                                @endif
+
+                                @if(!empty($detail->parameter_jenis_teks->harga))
+                                <tr>
+                                    <td style="width: 200px"><b>Harga Jenis Teks</b></td>
+                                    <td>Rp. {{$detail->parameter_jenis_teks->harga}}</td>
+                                </tr>
+                                @endif
+
+                                @if(!empty($detail->parameter_teks->harga))
+                                <tr>
+                                    <td style="width: 200px"><b>Harga Teks</b></td>
+                                    <td>Rp. {{$detail->parameter_teks->harga}}</td>
+                                </tr>
+                                @endif
+
+                                @if(!empty($detail->parameter_dokumen->harga))
+                                <tr>
+                                    <td style="width: 200px"><b>Harga Dokumen</b></td>
+                                    <td>Rp. {{$detail->parameter_dokumen->harga}}</td>
+                                </tr>
+                                @endif
+
+                                @if(!empty($detail->parameter_subtitle->harga))
+                                <tr>
+                                    <td style="width: 200px"><b>Harga Subtitle</b></td>
+                                    <td>Rp. {{$detail->parameter_subtitle->harga}}</td>
+                                </tr>
+                                @endif
+
+                                @if(!empty($detail->parameter_dubbing->harga))
+                                <tr>
+                                    <td style="width: 200px"><b>Harga Dubbing</b></td>
+                                    <td>Rp. {{$detail->parameter_dubbing->harga}}</td>
+                                </tr>
+                                @endif
+
+                                @if(!empty($detail->parameter_dubber->harga))
+                                <tr>
+                                    <td style="width: 200px"><b>Harga Dubber</b></td>
+                                    <td>Rp. {{$detail->parameter_dubber->harga}}</td>
+                                </tr>
+                                @endif
+
+                                @if(!empty($detail->parameter_order->p_harga))
+                                <tr>
+                                    <td style="width: 200px"><b>Harga Menu Lisan</b></td>
+                                    <td>Rp. {{$detail->parameter_order->p_harga}}</td>
+                                </tr>
+                                @endif
 
                                 <tr>
                                     <td class="bg-cyan"><i class="fas fa-tags"></i>&nbsp;&nbsp;<b>Harga Total</b></td>

@@ -18,10 +18,10 @@ class Klien extends Model
     protected $fillable = [
         'id',
         'nik',
-        'alamat',
-        'provinsi',
-        'kabupaten',
-        'kecamatan',
+        'villages_id',
+        'provinces_id',
+        'cities_id',
+        'districts_id',
         'kode_pos',
         'tgl_lahir',
         'jenis_kelamin',
@@ -35,5 +35,18 @@ class Klien extends Model
 
     public function user(){
         return $this->belongsTo('App\Models\User', 'id', 'id');
+    }
+
+    public function provinsi(){
+        return $this->belongsTo('App\Models\Klien\Provinsi', 'provinces_id', 'id');
+    }
+    public function kabupaten(){
+        return $this->belongsTo('App\Models\Klien\Cities', 'cities_id', 'id');
+    }
+    public function kecamatan(){
+        return $this->belongsTo('App\Models\Klien\Districts', 'districts_id', 'id');
+    }
+    public function desa(){
+        return $this->belongsTo('App\Models\Klien\Villages', 'villages_id', 'id');
     }
 }

@@ -103,6 +103,7 @@ class MenuPembayaranController extends Controller
         $this->validate($request,[
             'id_order' => 'required',
             'id_bank' => 'required',
+            'bukti_transaksi' => 'required|mimes:jpeg,jpg,png|max:2000'
         ]);
 
         $request->file('bukti_transaksi')->move('transaksi/',
@@ -120,6 +121,7 @@ class MenuPembayaranController extends Controller
                 'id_order' => $request->id_order,
                 'id_bank' => $request->id_bank,
                 'nominal_transaksi' => $request->nominal_transaksi,
+                'harga_menu_lisan' => $request->harga_menu_lisan,
                 'bukti_transaksi'    => $request->file('bukti_transaksi')->getClientOriginalName()
             ]);
     
@@ -130,6 +132,13 @@ class MenuPembayaranController extends Controller
                 'id_order' => $request->id_order,
                 'id_bank' => $request->id_bank,
                 'nominal_transaksi' => $request->nominal_transaksi_total,
+                'harga_layanan' => $request->harga_layanan,
+                'harga_jenis_teks' => $request->harga_jenis_teks,
+                'harga_teks' => $request->harga_teks,
+                'harga_dokumen' => $request->harga_dokumen,
+                'harga_subtitle' => $request->harga_subtitle,
+                'harga_dubbing' => $request->harga_dubbing,
+                'harga_dubber' => $request->harga_dubber,
                 'bukti_transaksi'    => $request->file('bukti_transaksi')->getClientOriginalName()
             ]);
     

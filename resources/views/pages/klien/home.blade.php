@@ -15,30 +15,240 @@
   <!-- Template Main CSS File -->
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
+
+<!-- ----------------------------------------------------------------------------------------------------------------------------------------------- -->
     <!-- /.col -->
     @if(empty($klien->klien->id_klien))
     <div class="row justify-content-right" float= "right">
-    <div class="col-14 col-sm-8 col-md-4">
-        <div class="info-box mb-4">
-                    <img src="./img/frontend/info2.gif" style="width:30%; left: -25px;""></img>    
-          <div class="info-box-content">
-          <div class="alert alert-info">
-            <strong>Info!</strong> Profil Anda Belum Lengkap
-          </div>
-          <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
-            <span class="info-box-number">
-          </span>
+      <div class="col-16 col-sm-10 col-md-6">
+          <div class="info-box mb-8">
+            <img src="./img/frontend/info2.gif" style="width:25%; left: -25px;""></img>    
+            <div class="info-box-content">
+            <div class="alert alert-info">
+              <strong>Info!</strong> Profil Anda Belum Lengkap
+            </div>
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+              0%
+            </div>
+            <p class="font-weight-bold text-red">Belum melengkapi biodata</p>
+            
+            <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
+              <span class="info-box-number">
+            </span>
+            </div>
           </div>
         </div>
-      </div>
-      @else
-      <div class="alert alert-success">
-        <strong>Info!</strong> Profil Sudah Lengkap
-      </div>
-    @endif
+        @elseif(empty($klien->klien->jenis_kelamin) && empty($klien->klien->provinsi) && empty($klien->klien->kabupaten) 
+        && empty($klien->klien->kecamatan) && empty($klien->klien->kode_pos) && empty($klien->klien->tgl_lahir) 
+          && empty($klien->klien->alamat) && empty($klien->klien->no_telp) && empty($klien->klien->foto_ktp))
+        <div class="row justify-content-right" float= "right">
+        <div class="col-14 col-sm-8 col-md-4">
+          <div class="info-box mb-4">
+            <img src="./img/frontend/info2.gif" style="width:35%; left: -25px;""></img>    
+            <div class="info-box-content">
+            <div class="alert alert-info">
+              <strong>Info!</strong> Profil Anda Belum Lengkap
+            </div>
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:10%">
+              10%
+            </div>
+            <br>
+            <h6 class="font-weight text-red">* provinsi, kabupaten, kecamatan, kode pos, tanggal lahir, jenis kelamin, alamat, no.telp, foto_ktp belum diisi</h6>
+            <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
+              <span class="info-box-number">
+            </span>
+            </div>
+          </div>
+        </div>
+        @elseif(empty($klien->klien->kabupaten) && empty($klien->klien->kecamatan) && empty($klien->klien->kode_pos)
+        && empty($klien->klien->tgl_lahir) && empty($klien->klien->alamat) && empty($klien->klien->no_telp)&& empty($klien->klien->foto_ktp))
+        <div class="row justify-content-right" float= "right">
+        <div class="col-14 col-sm-8 col-md-4">
+          <div class="info-box mb-4">
+            <img src="./img/frontend/info2.gif" style="width:35%; left: -25px;""></img>    
+            <div class="info-box-content">
+            <div class="alert alert-info">
+              <strong>Info!</strong> Profil Anda Belum Lengkap
+            </div>
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:20%">
+              20%
+            </div>
+            <h6 class="font-weight text-red">* provinsi, kabupaten, kecamatan, kode pos, alamat, tanggal lahir, no.telp, foto_ktp belum diisi</h6>
+            <br>
+            <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
+              <span class="info-box-number">
+            </span>
+            </div>
+          </div>
+        </div>
+        @elseif(empty($klien->klien->kabupaten) && empty($klien->klien->kecamatan) && empty($klien->klien->kode_pos)
+          && empty($klien->klien->alamat) && empty($klien->klien->no_telp)&& empty($klien->klien->foto_ktp))
+        <div class="row justify-content-right" float= "right">
+        <div class="col-14 col-sm-8 col-md-4">
+          <div class="info-box mb-4">
+            <img src="./img/frontend/info2.gif" style="width:35%; left: -25px;""></img>    
+            <div class="info-box-content">
+            <div class="alert alert-info">
+              <strong>Info!</strong> Profil Anda Belum Lengkap
+            </div>
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:30%">
+              30%
+            </div>
+            <h6 class="font-weight text-red">* kabupaten, kecamatan, kode pos, alamat, no.telp, foto_ktp belum diisi</h6>
+            <br>
+            <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
+              <span class="info-box-number">
+            </span>
+            </div>
+          </div>
+        </div>
+        @elseif(empty($klien->klien->kecamatan) && empty($klien->klien->kode_pos) && empty($klien->klien->alamat) && empty($klien->klien->provinsi) && empty($klien->klien->kabupaten)&& empty($klien->klien->foto_ktp))
+        <div class="row justify-content-right" float= "right">
+        <div class="col-14 col-sm-8 col-md-4">
+          <div class="info-box mb-4">
+            <img src="./img/frontend/info2.gif" style="width:35%; left: -25px;""></img>    
+            <div class="info-box-content">
+            <div class="alert alert-info">
+              <strong>Info!</strong> Profil Anda Belum Lengkap
+            </div>
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+              40%
+            </div>
+            <h6 class="font-weight text-red">* provinsi, kabupaten, kecamatan, kode pos, alamat, foto_ktp belum diisi</h6>
+            <br>
+            <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
+              <span class="info-box-number">
+            </span>
+            </div>
+          </div>
+        </div>
+        @elseif(empty($klien->klien->kecamatan) && empty($klien->klien->kode_pos) && empty($klien->klien->provinsi) && empty($klien->klien->kabupaten)&& empty($klien->klien->foto_ktp))
+        <div class="row justify-content-right" float= "right">
+        <div class="col-14 col-sm-8 col-md-4">
+          <div class="info-box mb-4">
+            <img src="./img/frontend/info2.gif" style="width:35%; left: -25px;""></img>    
+            <div class="info-box-content">
+            <div class="alert alert-info">
+              <strong>Info!</strong> Profil Anda Belum Lengkap
+            </div>
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+              50%
+            </div>
+            <h6 class="font-weight text-red">* provinsi, kabupaten, kecamatan, kode pos,foto_ktp belum diisi</h6>
+            <br>
+            <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
+              <span class="info-box-number">
+            </span>
+            </div>
+          </div>
+        </div>
+        @elseif(empty($klien->klien->kode_pos) && empty($klien->klien->provinsi) && empty($klien->klien->kabupaten)&& empty($klien->klien->foto_ktp))
+        <div class="row justify-content-right" float= "right">
+        <div class="col-14 col-sm-8 col-md-4">
+          <div class="info-box mb-4">
+            <img src="./img/frontend/info2.gif" style="width:35%; left: -25px;""></img>    
+            <div class="info-box-content">
+            <div class="alert alert-info">
+              <strong>Info!</strong> Profil Anda Belum Lengkap
+            </div>
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:60%">
+              60%
+            </div>
+            <h6 class="font-weight text-red">* kecamatan, provinsi, kabupaten, kode pos, foto_ktp belum diisi</h6>
+            <br>
+            <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
+              <span class="info-box-number">
+            </span>
+            </div>
+          </div>
+        </div>
+        @elseif(empty($klien->klien->kode_pos) && empty($klien->klien->provinsi) && empty($klien->klien->foto_ktp))
+        <div class="row justify-content-right" float= "right">
+        <div class="col-14 col-sm-8 col-md-4">
+          <div class="info-box mb-4">
+            <img src="./img/frontend/info2.gif" style="width:35%; left: -25px;""></img>    
+            <div class="info-box-content">
+            <div class="alert alert-info">
+              <strong>Info!</strong> Profil Anda Belum Lengkap
+            </div>
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+              70%
+            </div>
+            <h6 class="font-weight text-red">* kecamatan, provinsi, kode pos, foto_ktp belum diisi</h6>
+            <br>
+            <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
+              <span class="info-box-number">
+            </span>
+            </div>
+          </div>
+        </div>
+        @elseif(empty($klien->klien->kode_pos) && empty($klien->klien->foto_ktp))
+        <div class="row justify-content-right" float= "right">
+        <div class="col-14 col-sm-8 col-md-4">
+          <div class="info-box mb-4">
+            <img src="./img/frontend/info2.gif" style="width:35%; left: -25px;""></img>    
+            <div class="info-box-content">
+            <div class="alert alert-info">
+              <strong>Info!</strong> Profil Anda Belum Lengkap
+            </div>
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+              80%
+            </div>
+            <h6 class="font-weight text-red">* kode pos, foto_ktp belum diisi</h6></h6>
+            <br>
+            <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
+              <span class="info-box-number">
+            </span>
+            </div>
+          </div>
+        </div>
+        @elseif(empty($klien->klien->foto_ktp))
+        <div class="row justify-content-right" float= "right">
+        <div class="col-14 col-sm-8 col-md-4">
+          <div class="info-box mb-4">
+            <img src="./img/frontend/info2.gif" style="width:35%; left: -25px;""></img>    
+            <div class="info-box-content">
+            <div class="alert alert-info">
+              <strong>Info!</strong> Profil Anda Belum Lengkap
+            </div>
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:80%">
+              90%
+            </div>
+            <h6 class="font-weight text-red">* foto_ktp belum diisi</h6>
+            <br>
+            <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
+              <span class="info-box-number">
+            </span>
+            </div>
+          </div>
+        </div>
+        @else
+        <div class="alert alert-success">
+          <strong>Info!</strong> Profil Sudah Lengkap
+        </div>
+      @endif
+    </div>
+    <!-- ------------------------------------------------------------------------------------------------------------------------------------- -->
+
+  <!-- 2. AddChat widget -->
+  <div id="addchat_app" 
+        data-baseurl="{{ url('') }}"
+        data-csrfname="{{'X-CSRF-Token'}}"
+        data-csrftoken="{{ csrf_token() }}"
+    ></div>
 
     <div class="container-fluid" >
     <!-- Info boxes -->

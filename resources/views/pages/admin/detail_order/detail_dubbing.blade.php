@@ -176,6 +176,11 @@ $(document).ready(function(){
               {{$message}}
             </div>
             @enderror
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>Durasi Video</label>
+                <input type="text" value="{{(($orders->durasi_video/60)%60)}} Menit" class="form-control" readonly>
+            </div>           
           </div>
           <br>
           <div class="form-group">
@@ -196,6 +201,7 @@ $(document).ready(function(){
             <input type="text" class="form-control" id="nama_dokumen" name="nama_dokumen" value="{{$edit->nama_dokumen}}">
           </div>
           <!-- <div class="form-group">
+          <div class="form-group">
             <label for="path_file" class="col-form-label" value="{{$edit->path_file}}">Upload Video</label>
             <div class="modal-body" value="{{$edit->path_file}}">
               {{ csrf_field() }}
@@ -209,6 +215,7 @@ $(document).ready(function(){
             <input type="hidden" name="durasi_video" id="durasi_video" oninput="updateInfos()" >
             <span type="text"  id="dr_video" name="dr_video">
           </div> -->
+          </div>
           <br>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

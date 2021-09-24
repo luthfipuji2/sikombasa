@@ -157,6 +157,12 @@ $(document).ready(function(){
               {{$message}}
             </div>
             @enderror
+
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>Durasi Video</label>
+                <input type="text" value="{{(($orders->durasi_video/60)%60)}} Menit" class="form-control" readonly>
+            </div>           
           </div>
           <br>
           <div class="form-group">
@@ -171,6 +177,7 @@ $(document).ready(function(){
             <input type="text" class="form-control" id="nama_dokumen" name="nama_dokumen" value="{{$edit->nama_dokumen}}">
           </div>
           <!-- <div class="form-group">
+          <div class="form-group">
             <label for="path_file" class="col-form-label" value="{{$edit->path_file}}">Upload Video</label>
             <div class="modal-body" value="{{$edit->path_file}}">
               {{ csrf_field() }}
@@ -184,6 +191,7 @@ $(document).ready(function(){
             <input type="hidden" name="durasi_video" id="durasi_video" oninput="updateInfos()" >
             <span type="text"  id="dr_video" name="dr_video">
           </div> -->
+          </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save changes</button>
@@ -328,6 +336,42 @@ $(document).ready(function(){
   {
     location.reload()
   }
+</script>
+@endpush
+
+@push('scripts')
+<script>
+  $(document).ready(function() {
+    $('#example').DataTable( {
+      "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    });
+  });
+</script>
+@endpush
+
+@push('addon-script')
+<script>
+  $('.delete').click(function(){
+    var order_st = $(this).attr('order_st')
+    Swal.fire({
+      title: "Apakah Anda Yakin ?",
+      text: "Akan Menghapus Data Order?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, hapus!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = "/det-order-subtitle/"+order_st+"/delete";  
+        Swal.fire(
+          'Berhasil!',
+          'Data berhasil dihapus ',
+          'success'
+        )
+      }
+    })
+  });
 </script>
 @endpush
 

@@ -22,26 +22,36 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
- 
+
 Route::get('/', function () {
     return view('welcome');
 });
- 
+  
 
-Auth::routes();
-
+Auth::routes(['verify' => true]);
 
 
 Route::middleware(['auth'])->group(function () {
- 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
 
     Route::middleware(['klien'])->group(function () {
         
         //biodata
+        
         Route::resource('profile-klien', 'App\Http\Controllers\Klien\BiodataKlienController');
+        // Route::get('/profile-klien', 'App\Http\Controllers\UpdateBiodataEmailController@index');
         Route::patch('biodata-klien/{users}', 'App\Http\Controllers\Klien\BiodataKlienController@updateBioKlien');
+        
+        //alamat
+        // Route::get('/indonesia', 'App\Http\Controllers\Klien\BiodataKlienController@provinces');
+        Route::get('/json-cities', 'App\Http\Controllers\Klien\BiodataKlienController@cities');
+        Route::get('/json-districts', 'App\Http\Controllers\Klien\BiodataKlienController@districts');
+        Route::get('/json-village', 'App\Http\Controllers\Klien\BiodataKlienController@villages');
+
         Route::get('/klien', [App\Http\Controllers\Klien\BiodataKlienController::class, 'dashboard'])->name('klien');
+        Route::post('/klien', [App\Http\Controllers\Klien\BiodataKlienController::class, 'index'])->name('dependent-dropdown.index');
+        Route::post('/klien', [App\Http\Controllers\Klien\BiodataKlienController::class, 'storeBio'])->name('dependent-dropdown.storeBio');
 
         Route::resource('menu-order', 'App\Http\Controllers\Klien\OrderMenuController');
         Route::get('/list-keranjang', 'App\Http\Controllers\Klien\OrderMenuController@listKeranjang')->name('list_keranjang');
@@ -188,7 +198,12 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['admin'])->group(function () {
 
         Route::get('/admin', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('admin');
+        
+        //management
         Route::resource('users', 'App\Http\Controllers\Admin\UsersController');
+        //suspend/update status
+        Route::get('/users/status/{user_id}/{status_code}', 'App\Http\Controllers\Admin\UsersController@updateStatus')->name('users.status.update');
+
         Route::get('/users/{user}/delete', 'App\Http\Controllers\Admin\UsersController@destroy');
         Route::get('/users/download/{id}', 'App\Http\Controllers\Admin\UsersController@download')->name('users.download');
 
@@ -230,7 +245,8 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('daftar-harga-tambahan.updateJenis/{j}', 'App\Http\Controllers\Admin\HargaTambahanController@updateJenis')->name('update.jenis');
         Route::get('/daftar-harga-tambahan.destroyJenis/{jenis}/deleteJenis', 'App\Http\Controllers\Admin\HargaTambahanController@destroyJenis');
 
-        
+        Route::resource('riwayat-perubahan-harga', 'App\Http\Controllers\Admin\RiwayatHargaController');
+
         //Route Daftar Admin, Klien, Translator
         Route::resource('daftar-admin', 'App\Http\Controllers\Admin\AdminController');
         Route::resource('daftar-klien', 'App\Http\Controllers\Admin\DaftarKlienController');
@@ -318,4 +334,8 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Addchat::routes();
+// Addchat::routes();
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

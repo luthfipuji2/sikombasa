@@ -4,7 +4,9 @@
     @section('content')
         <!-- Main content -->
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="{{ asset('js/app.js') }}" defer></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
         <style>
     .widget-user-header {
@@ -39,13 +41,13 @@
                 <div class="card-body box-profile">
                     <div class="text-center">
                     <div class="widget-user-header text-white">
-                    @if (empty($klien->foto_ktp))
+                    @if (empty($klien->user->profile_photo_path))
                     <div class="widget-user-image">
                         <img src="./img/profile.png" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
                     </div>
                     @else
                     <div class="widget-user-image">
-                        <img src="{{asset('/img/biodata/'.$klien->foto_ktp)}}" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
+                        <img src="{{asset('/img/biodata/'.$klien->user->profile_photo_path)}}" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
                     </div>
                     @endif
                     </div>
@@ -103,7 +105,18 @@
                                         {{$message}}
                                     </div>
                                 @enderror
-                            </div>  
+                            </div> 
+                            
+                            <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                            id="password" placeholder="Password (kosongkan jika tidak ingin mengganti password Anda)" name="password" >
+                            @error ('password')
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                            @enderror
+                        </div>  
 
                             <div class="form-group row">
                                 <div class="col-sm-10">
@@ -113,11 +126,22 @@
                         </form>
                     </div>
                     <!-- /.tab-pane -->
-
+<!-- ------------------------------------------------------------------------------------------------------------------------- -->
                     <div class="tab-pane" id="biodata">
                     <form method="POST" action="/biodata-klien/{{$klien->id_klien}}" enctype="multipart/form-data"> 
                         @method('patch')
                         @csrf
+                        {{-- menampilkan error validasi --}}
+                            @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+
                         <form role="form">
                         <div class="form-group" hidden>
                                 <label for="name">ID</label>
@@ -127,7 +151,7 @@
 
                         <div class="form-group">
                                 <label for="name">NIK</label>
-                                <input type="text" class="form-control @error('nik') is-invalid @enderror" 
+                                <input type="number" class="form-control @error('nik') is-invalid @enderror" 
                                 id="nik" placeholder="Masukkan NIK" name="nik" value="{{ $klien->nik }}">
                                 @error ('nik')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -141,7 +165,7 @@
                                 <label for="jenis_kelamin">Jenis Kelamin</label>
                                     <select class="form-control @error('jenis_kelamin') is-invalid @enderror" 
                                     id="jenis_kelamin" placeholder="Pilih Jenis Kelamin" name="jenis_kelamin">
-                                        <option value="{{$klien->jenis_kelamin}}" hidden selected>{{$klien->jenis_kelamin}}</option>
+                                    <option value="{{$klien->jenis_kelamin}}" disable="true" selected="true" hidden selected>{{$klien->jenis_kelamin}}</option>
                                         <option value="Perempuan">Perempuan</option>
                                         <option value="Laki-laki">Laki-laki</option>
                                     </select>
@@ -165,7 +189,7 @@
 
                             <div class="form-group">
                                 <label for="name">Nomor HP</label>
-                                <input type="text" class="form-control @error('no_telp') is-invalid @enderror" 
+                                <input type="number" class="form-control @error('no_telp') is-invalid @enderror" 
                                 id="no_telp" placeholder="Masukkan Nomor Telepon" name="no_telp" value="{{ $klien->no_telp }}">
                                 @error ('no_telp')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -173,12 +197,16 @@
                                     </div>
                                 @enderror
                             </div>
-
+                            
                             <div class="form-group">
-                                <label for="name">Alamat</label>
-                                <textarea class="form-control @error('alamat') is-invalid @enderror" 
-                                id="alamat" placeholder="Masukkan Alamat" name="alamat">{{$klien->alamat}}</textarea>
-                                @error ('alamat')
+                                <label for="">Provinsi</label>
+                                <select class="form-control" name="provinces" id="provinces">
+                                <option value="{{$klien->provinces_id}}" disable="true" selected="true">{{ $klien->provinsi->name }}</option>
+                                    @foreach ($provinces as $key => $value)
+                                    <option value="{{$value->id}}">{{ $value->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error ('provinces')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
                                     </div>
@@ -186,10 +214,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="name">Kecamatan</label>
-                                <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" 
-                                id="kecamatan" placeholder="Masukkan Kecamatan" name="kecamatan" value="{{ $klien->kecamatan }}">
-                                @error ('kecamatan')
+                                <label for="">Kabupaten</label>
+                                <select class="form-control" name="cities" id="cities">
+                                <option value="{{$klien->cities_id}}" disable="true" selected="true">{{ $klien->kabupaten->name }}</option>
+                                </select>
+                                @error ('cities')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
                                     </div>
@@ -197,10 +226,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="name">Kabupaten</label>
-                                <input type="text" class="form-control @error('kabupaten') is-invalid @enderror" 
-                                id="kabupaten" placeholder="Masukkan Kabupaten" name="kabupaten" value="{{ $klien->kabupaten }}">
-                                @error ('kabupaten')
+                                <label for="">Kecamatan</label>
+                                <select class="form-control" name="districts" id="districts">
+                                <option value="{{$klien->districts_id}}" disable="true" selected="true">{{ $klien->kecamatan->name }}</option>
+                                </select>
+                                @error ('districts')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
                                     </div>
@@ -208,19 +238,19 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="name">Provinsi</label>
-                                <input type="text" class="form-control @error('provinsi') is-invalid @enderror" 
-                                id="provinsi" placeholder="Masukkan Provinsi" name="provinsi" value="{{ $klien->provinsi }}">
-                                @error ('provinsi')
+                                <label for="">Desa</label>
+                                <select class="form-control" name="villages" id="villages">
+                                <option value="{{$klien->villages_id}}" disable="true" selected="true">{{ $klien->desa->name }}</option>
+                                </select>
+                                @error ('villages')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                         {{$message}}
                                     </div>
                                 @enderror
                             </div>
-
                             <div class="form-group">
                                 <label for="name">Kode Pos</label>
-                                <input type="text" class="form-control @error('kode_pos') is-invalid @enderror" 
+                                <input type="number" class="form-control @error('kode_pos') is-invalid @enderror" 
                                 id="kode_pos" placeholder="Masukkan Kode Pos" name="kode_pos" value="{{ $klien->kode_pos }}">
                                 @error ('kode_pos')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
@@ -250,6 +280,11 @@
                             </div>
 
 
+                            </div>
+                         </div>
+
+
+                            
                         </form>
                         
                     </div>
@@ -268,3 +303,61 @@
         </section>
         <!-- /.content -->
     @endsection
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    
+
+    @push('scripts')
+    <script type="text/javascript">
+        $('#provinces').on('change', function(e){
+            console.log(e);
+            var province_id = e.target.value;
+            $.get('/json-cities?province_id=' + province_id,function(data) {
+            console.log(data);
+            $('#cities').empty();
+            $('#cities').append('<option value="0" disable="true" selected="true">=== Pilih Kabupaten ===</option>');
+
+            $('#districts').empty();
+            $('#districts').append('<option value="0" disable="true" selected="true">=== Pilih Kecamatan ===</option>');
+
+            $('#villages').empty();
+            $('#villages').append('<option value="0" disable="true" selected="true">=== Pilih Desa ===</option>');
+
+            $.each(data, function(index, citiesObj){
+                $('#cities').append('<option value="'+ citiesObj.id +'">'+ citiesObj.name +'</option>');
+            })
+            });
+        });
+
+        $('#cities').on('change', function(e){
+            console.log(e);
+            var city_id = e.target.value;
+            $.get('/json-districts?city_id=' + city_id,function(data) {
+            console.log(data);
+            $('#districts').empty();
+            $('#districts').append('<option value="0" disable="true" selected="true">=== Pilih Kecamatan ===</option>');
+
+            $.each(data, function(index, districtsObj){
+                $('#districts').append('<option value="'+ districtsObj.id +'">'+ districtsObj.name +'</option>');
+            })
+            });
+        });
+
+        $('#districts').on('change', function(e){
+            console.log(e);
+            var district_id = e.target.value;
+            $.get('/json-village?district_id=' + district_id,function(data) {
+            console.log(data);
+            $('#villages').empty();
+            $('#villages').append('<option value="0" disable="true" selected="true">=== Pilih Desa ===</option>');
+
+            $.each(data, function(index, villagesObj){
+                $('#villages').append('<option value="'+ villagesObj.id +'">'+ villagesObj.name +'</option>');
+            })
+            });
+        });
+
+    </script>
+    @endpush

@@ -92,7 +92,7 @@ $(document).ready(function(){
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Durasi Video</label>
-                        <input type="text" value="{{$stat->durasi_video}}" class="form-control" readonly>
+                        <input type="text" value="{{(($stat->durasi_video/60)%60)}} Menit" class="form-control" readonly>
                     </div>           
                 </div>
                 <div class="col-md-6">
@@ -410,11 +410,11 @@ $(document).ready(function(){
                             <a type="button" class="detail" title="Detail Order" data-toggle="modal" data-target="#detailModal{{$stat->id_order}}">Detail</a>
                             
                             <!-- jika order sudah selesai -->
-                            @elseif(!empty($stat->path_file_trans) && ($stat->parameterjenislayanan->p_jenis_layanan == "Premium") && !empty($stat->revisi->id_revisi) && ($stat->status_at == "selesai"))
+                            @elseif(!empty($stat->path_file_trans) && ($stat->parameterjenislayanan->p_jenis_layanan == "Premium") && empty($stat->revisi->id_revisi) && ($stat->status_at == "selesai")|| !empty($stat->review->id_review))
                             <a type="button" class="detail" title="Detail Order" data-toggle="modal" data-target="#detailModal{{$stat->id_order}}">Detail</a>
-                            @elseif(!empty($stat->path_file_trans) && ($stat->parameterjenislayanan->p_jenis_layanan == "Premium") && !empty($stat->revisi->id_revisi) && ($stat->status_at == "selesai") || !empty($stat->revisi->path_file_revisi))
+                            @elseif(!empty($stat->path_file_trans) && ($stat->parameterjenislayanan->p_jenis_layanan == "Premium") && !empty($stat->revisi->id_revisi) && ($stat->status_at == "selesai") || !empty($stat->revisi->path_file_revisi)|| !empty($stat->review->id_review))
                             <a type="button" class="detail" title="Detail Order" data-toggle="modal" data-target="#detailModal{{$stat->id_order}}">Detail</a>
-                            @elseif(!empty($stat->path_file_trans) && ($stat->parameterjenislayanan->p_jenis_layanan == "Basic") && ($stat->status_at == "selesai"))
+                            @elseif(!empty($stat->path_file_trans) && ($stat->parameterjenislayanan->p_jenis_layanan == "Basic") && ($stat->status_at == "selesai")|| !empty($stat->review->id_review))
                             <a type="button" class="detail" title="Detail Order" data-toggle="modal" data-target="#detailModal{{$stat->id_order}}">Detail</a>
                             @endif
                         </td>

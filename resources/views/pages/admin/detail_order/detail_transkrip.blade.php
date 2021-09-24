@@ -197,7 +197,7 @@ $(document).ready(function(){
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Durasi Audio</label>
-                    <input type="text" value="{{$orders->durasi_audio}}" class="form-control" readonly>
+                    <input type="text" value="{{(($orders->durasi_audio/60)%60)}}" class="form-control" readonly>
                   </div>           
                 </div>
                 <div class="col-md-6">
@@ -327,6 +327,7 @@ $(document).ready(function(){
                       <input type="text" class="form-control" placeholder="Tuliskan Nama Audio" id="nama_dokumen" name="nama_dokumen">
                     </div>
                     <!-- <div class="form-group">
+                    <div class="form-group">
                       <label for="path_file" class="col-form-label">Upload Audio (Size Max 30 Mb)</label>
                       <div class="modal-body">
                         {{ csrf_field() }}
@@ -338,7 +339,7 @@ $(document).ready(function(){
                     <div class="form-group">
                       <input type="hidden" name="durasi_audio" id="durasi_audio" oninput="updateInfos()">
                       <span type="text"  id="dr_audio" name="dr_audio">
-                    </div> -->
+                    </div>
                     <br>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
