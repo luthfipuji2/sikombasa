@@ -200,6 +200,7 @@ $(document).ready(function(){
             <br>
             <input type="text" class="form-control" id="nama_dokumen" name="nama_dokumen" value="{{$edit->nama_dokumen}}">
           </div>
+          <!-- <div class="form-group">
           <div class="form-group">
             <label for="path_file" class="col-form-label" value="{{$edit->path_file}}">Upload Video</label>
             <div class="modal-body" value="{{$edit->path_file}}">
@@ -213,6 +214,7 @@ $(document).ready(function(){
             <label for="durasi_video" class="col-form-label" value="{{$edit->durasi_video}}"></label>
             <input type="hidden" name="durasi_video" id="durasi_video" oninput="updateInfos()" >
             <span type="text"  id="dr_video" name="dr_video">
+          </div> -->
           </div>
           <br>
           <div class="modal-footer">

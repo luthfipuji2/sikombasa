@@ -24,23 +24,17 @@ class ReviewInterpreterController extends Controller
     {
         $user = Auth::user();
 
-        $review = Review:: 
-        rightJoin('order', 'review.id_order', '=', 'order.id_order')
-        ->whereNull('id_review')
-        ->whereNotNull('lokasi')
-        ->whereNotNull('path_file_trans')
+        $review = Review::where('status_at','selesai')
+        ->rightJoin('order', 'review.id_order', '=', 'order.id_order')
         ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
         ->join('users', 'klien.id', '=', 'users.id')
         ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
                 'parameter_order.id_parameter_order')
         ->where("users.id",$user->id)
-        ->where('order.tgl_order', '>=', Carbon::now()->subDay()->toDateTimeString())
-        ->orderBy('order.id_order')
         ->get();
 
         $riwayatreview = DB::table('review')
         ->join('order', 'order.id_order', '=', 'review.id_order')
-        ->whereNotNull('lokasi')
         ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
         ->join('users', 'klien.id', '=', 'users.id')
         ->leftJoin('parameter_order', 'order.id_parameter_order', '=', 
@@ -48,7 +42,6 @@ class ReviewInterpreterController extends Controller
         ->where("users.id",$user->id)
         ->orderBy('order.id_order')
         ->get();
-
 
         return view('pages.klien.order.order_interpreter.review',compact('user','review','riwayatreview')); 
     }

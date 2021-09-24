@@ -42,7 +42,7 @@
                             <div class="info-box bg-light">
                               <div class="info-box-content">
                                 <span class="info-box-text text-center">Harga</span>
-                                <span class="info-box-number text-center text-blue mb-0">Rp. {{$z->p_harga}}</span>
+                                <span class="info-box-number text-center text-blue mb-0">Rp. {{($z->p_harga)/1000}}.000</span>
                               </div>
                             </div>
                           </div>
@@ -52,6 +52,33 @@
                               @if(!empty($z->id_translator))
                                 <span class="info-box-text text-center">Penerjemah</span>
                                 <span class="info-box-number text-center text-success mb-0">{{$z->translator->nama}}</span>
+                                <span  class="info-box-number text-center mb-0">
+                                @if((($rating)/10000*10000)=='1')
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  @endif
+                                  @if((($rating)/10000*10000)=='2')
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  @endif
+                                  @if((($rating)/10000*10000)=='3')
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  @endif
+                                  @if((($rating)/10000*10000)=='4')
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  @endif
+                                  @if((($rating)/10000*10000)=='5')
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  @endif
+                                </span>
                               @elseif (empty($z->id_translator))
                                 <span class="info-box-text text-center">Tanggal Transaksi</span>
                                 <span class="info-box-number text-center text-red mb-0">{{date('d-m-Y', strtotime($z->tgl_transaksi))}}</span>

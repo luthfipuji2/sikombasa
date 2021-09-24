@@ -22,9 +22,9 @@
                                             <br>
                                             <br>
                                             <br>
-                                            <label for="text">Longitude</label>
-                                            <input type="text" class="form-control"  id="latitude" name="latitude">
                                             <label for="text">Latitude</label>
+                                            <input type="text" class="form-control"  id="latitude" name="latitude">
+                                            <label for="text">Longitude</label>
                                             <input type="text" class="form-control" id="longitude" name="longitude">
                                             <label for="lokasi" class="col-form-label">Tuliskan Detail Lokasi</label>
                                             <input type="text" class="form-control" id="lokasi" name="lokasi">

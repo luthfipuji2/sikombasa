@@ -345,6 +345,11 @@ $(document).ready(function(){
 @endsection
 
 @push('scripts')
+<script>
+  function reloadpage()
+  {
+    location.reload()
+  }
     <script>
 $(document).ready(function() {
     $('#example').DataTable( {
@@ -358,15 +363,6 @@ $(document).ready(function() {
         ]
     } );
 } );
-</script>
-@endpush
-
-@push('scripts')
-<script>
-  function reloadpage()
-  {
-    location.reload()
-  }
 </script>
 @endpush
 

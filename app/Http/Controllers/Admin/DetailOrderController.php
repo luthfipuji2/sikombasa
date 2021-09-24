@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Klien\Order;
 use App\Models\Klien\ParameterOrder;
+use App\Models\Admin\ParameterJenisLayanan;
+use App\Models\Admin\ParameterJenisTeks;
+use App\Models\Admin\ParameterOrderHarga;
+use App\Models\Admin\ParameterOrderTeks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +28,7 @@ class DetailOrderController extends Controller
         $dokumen = Order::whereNotNull('id_parameter_order_dokumen')->count();
         $subtitle = Order::whereNotNull('id_parameter_order_subtitle')->count();
         $teks = Order::whereNotNull('id_parameter_order_teks')->count();
-        $transkrip = Order::whereNotNull('durasi_audio')->count();
+        $transkrip = Order::whereNotNull('id_parameter_order')->whereNotNull('nama_dokumen')->count();
         $interpreter = Order::whereNotNull('longitude')->count();
 
         return view('pages.admin.detail_order.index', compact('order', 'dubbing', 'dokumen', 'subtitle', 'teks', 'transkrip', 'interpreter'));
@@ -39,6 +43,52 @@ class DetailOrderController extends Controller
         $order=Order::whereNotNull('id_parameter_order_teks')->get();
 
         return view('pages.admin.detail_order.detail_teks', compact('translator','order'));
+    }
+
+    public function showTeks($id_order)
+    {
+        $user=Auth::user();
+        $klien=Klien::where('id', $user->id)->first();
+        $jenis_layanan=ParameterJenisLayanan::all();
+        $jenis_teks=ParameterJenisTeks::all();
+        $order=Order::findOrFail($id_order);
+
+        if($order != null){
+            $j_layanan = ParameterJenisLayanan::where('id_parameter_jenis_layanan', $order->id_parameter_jenis_layanan)->first();
+            $j_teks = ParameterJenisTeks::where('id_parameter_jenis_teks', $order->id_parameter_jenis_teks)->first();
+            $jml_karakter = ParameterOrderTeks::where('id_parameter_order_teks', $order->id_parameter_order_teks)->first();
+    
+            if($j_layanan != null){
+                $result_layanan = [
+                    'harga' => $j_layanan->harga
+                ];
+            }
+            if($j_teks != null){
+                $result_teks = [
+                    'harga' => $j_teks->harga
+                ];
+            }
+            if($jml_karakter != null){
+                $result_karakter = [
+                    'harga' => $jml_karakter->harga
+                ];
+            }
+
+            $result[] = [
+                'j_layanan' => $result_layanan,
+                'j_teks'=>$result_teks,
+                'jml_karakter'=>$result_karakter
+            ];
+        }
+
+        $harga = ($result_layanan['harga']) + ($result_teks['harga']) + ($result_karakter['harga']);
+        
+        $save_harga = Order::where('id_order', $order->id_order)
+                            ->update([
+                                'harga'=>$harga
+                            ]);
+       
+        return view('pages.admin.detail_order.detail_teks', compact('order', 'user', 'klien', 'jenis_layanan', 'jenis_teks', 'save_harga'));
     }
 
     public function updateTeks(Request $request, $id_order)
@@ -194,7 +244,7 @@ class DetailOrderController extends Controller
             'id_parameter_jenis_layanan' => 'required',
             'durasi_pengerjaan' => 'required',
             'nama_dokumen' => 'required',
-            'path_file' => 'required'
+            // 'path_file' => 'required'
         ]);
 
         $order=Order::findOrFail($id_order);
@@ -205,8 +255,8 @@ class DetailOrderController extends Controller
                 'id_parameter_jenis_layanan'=>$request->id_parameter_jenis_layanan,
                 'durasi_pengerjaan'=>$request->durasi_pengerjaan,
                 'nama_dokumen'=>$request->nama_dokumen,
-                'path_file'=>$request->path_file,
-                'durasi_video'=>$request->durasi_video,
+                // 'path_file'=>$request->path_file,
+                // 'durasi_video'=>$request->durasi_video,
             ]);
 
         return redirect('/det-order-subtitle')->with('success', 'Data Order Berhasil Di Update!');
@@ -267,7 +317,7 @@ class DetailOrderController extends Controller
             'durasi_pengerjaan' => 'required',
             'jumlah_dubber' => 'required',
             'nama_dokumen' => 'required',
-            'path_file' => 'required'
+            // 'path_file' => 'required'
         ]);
 
         $order=Order::findOrFail($id_order);
@@ -279,8 +329,8 @@ class DetailOrderController extends Controller
                 'durasi_pengerjaan'=>$request->durasi_pengerjaan,
                 'jumlah_dubber'=>$request->jumlah_dubber,
                 'nama_dokumen'=>$request->nama_dokumen,
-                'path_file'=>$request->path_file,
-                'durasi_video'=>$request->durasi_video,
+                // 'path_file'=>$request->path_file,
+                // 'durasi_video'=>$request->durasi_video,
             ]);
     
         return redirect('/det-order-dubbing')->with('success', 'Data Order Berhasil Di Update!');
@@ -438,8 +488,8 @@ class DetailOrderController extends Controller
             'jenis_layanan' =>$request->jenis_layanan,
             'durasi_pengerjaan'=>$request->durasi_pengerjaan,
             'nama_dokumen'=>$request->nama_dokumen,
-            'path_file'=>$request->path_file,
-            'durasi_audio'=>$request->durasi_audio,
+            // 'path_file'=>$request->path_file,
+            // 'durasi_audio'=>$request->durasi_audio,
             'id_parameter_order' =>$biaya,
             
         ]);
@@ -486,10 +536,7 @@ class DetailOrderController extends Controller
                     'id_translator'=>$request->id_translator,
                     'jenis_layanan' => $request->p_jenis_layanan,
                     'tipe_offline'=>$request->tipe_offline,
-                    'tipe_offline'=>$request->tipe_offline,
                     'lokasi'=>$request->lokasi,
-                    'longitude'=>$request->longitude,
-                    'latitude'=>$request->latitude,
                     'tanggal_pertemuan'=>$request->tanggal_pertemuan,
                     'waktu_pertemuan'=>$request->waktu_pertemuan,
                 ]);
@@ -505,8 +552,6 @@ class DetailOrderController extends Controller
                     'jenis_layanan' => $request->p_jenis_layanan2,
                     'tipe_offline'=>$request->tipe_offline,
                     'lokasi'=>$request->lokasi,
-                    'longitude'=>$request->longitude,
-                    'latitude'=>$request->latitude,
                     'tanggal_pertemuan'=>$request->tanggal_pertemuan,
                     'waktu_pertemuan'=>$request->waktu_pertemuan,
                 ]);

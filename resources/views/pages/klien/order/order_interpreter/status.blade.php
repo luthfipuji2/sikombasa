@@ -42,7 +42,7 @@
                             <div class="info-box bg-light">
                               <div class="info-box-content">
                                 <span class="info-box-text text-center">Total Order</span>
-                                <span class="info-box-number text-center text-blue mb-0">Rp. {{$a->p_harga}}</span>
+                                <span class="info-box-number text-center text-blue mb-0">Rp. {{($a->p_harga)/1000}}.000</span>
                               </div>
                             </div>
                           </div>
@@ -50,8 +50,39 @@
                             <div class="info-box bg-light">
                               <div class="info-box-content">
                               @if(!empty($a->id_translator))
-                                <span class="info-box-text text-center">Penerjemah</span>
-                                <span class="info-box-number text-center text-success mb-0">{{$a->translator->nama}}</span>
+                                <span class="info-box-text text-center">Translator</span>
+                                <span class="info-box-number text-center text-success mb-0">{{$a->translator->nama}} 
+                                  <!-- =  {{$rating}} -->
+                                </span>
+                                <span  class="info-box-number text-center mb-0">
+                                
+                                @if((($rating)/10000*10000)=='1')
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  @endif
+                                  @if((($rating)/10000*10000)=='2')
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  @endif
+                                  @if((($rating)/10000*10000)=='3')
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  @endif
+                                  @if((($rating)/10000*10000)=='4')
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  @endif
+                                  @if((($rating)/10000*10000)=='5')
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  <i class="nav-icon fas fa-star text-yellow"></i>
+                                  @endif
+                                 
+                                </span>
                               @elseif (empty($a->id_translator))
                                 <span class="info-box-text text-center">Tanggal Transaksi</span>
                                 <span class="info-box-number text-center text-red mb-0">{{date('d-m-Y', strtotime($a->tgl_transaksi))}}</span>
@@ -117,6 +148,8 @@
                                 </ul>
                               </div>
                               @endif
+                                  <!-- {{(($rating)/10000*10000)}} -->
+                                
                             </div>         
                         </div>
                     </div>

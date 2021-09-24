@@ -107,6 +107,7 @@ Route::middleware(['auth'])->group(function () {
 
 
         //Order Interpreter
+        Route::get('/order-interpreter', 'App\Http\Controllers\Klien\StatusInterpreterController@show');
         Route::resource('order-interpreter-review', 'App\Http\Controllers\Klien\ReviewInterpreterController');
         Route::resource('order-interpreter/status', 'App\Http\Controllers\Klien\StatusInterpreterController');
         Route::get('/order-interpreter-download/{id_order}', 'App\Http\Controllers\Klien\StatusInterpreterController@downloadbukti');
@@ -114,6 +115,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/order-interpreter', [App\Http\Controllers\Klien\OrderInterpreterController::class, 'menuOrder'])->name('menu-order');
         Route::resource('order-interpreter', 'App\Http\Controllers\Klien\OrderInterpreterController');
         Route::put('/order-interpreter/{id_order}', 'App\Http\Controllers\Klien\OrderInterpreterController@update')->name('update_order_interpreter');
+       
 
         //Order Transkrip 
         Route::resource('order-transkrip-review', 'App\Http\Controllers\Klien\ReviewTranskripController');
@@ -272,6 +274,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('det-order-teks', 'App\Http\Controllers\Admin\DetailOrderController@detailTeks')->name('det-order-teks');
         Route::put('/det-order-teks/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@updateTeks')->name('edit-order-teks');
         Route::get('/det-order-teks/{id_order}/delete', 'App\Http\Controllers\Admin\DetailOrderController@deleteTeks');
+        Route::get('det-order-teks', 'App\Http\Controllers\Admin\DetailOrderController@showTeks');
 
         Route::get('det-order-dokumen', 'App\Http\Controllers\Admin\DetailOrderController@detailDokumen')->name('det-order-dokumen');
         Route::get('/download-dok-klien/{id_order}', 'App\Http\Controllers\Admin\DetailOrderController@downloadDokumenKlien');

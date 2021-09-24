@@ -56,19 +56,19 @@
                     <div class="card">
                       <div class="card-header">
                         <p class="font-weight-bold text-muted">No. Order {{$d->id_order}}</p>
-                        <p class="font-weight-bold text-blue">Tanggal Order {{$d->tgl_order}}</p>
+                        <p class="font-weight-bold text-blue">Tanggal Order {{date('Y-m-d', strtotime($d->tgl_order))}}</p><p class="font-weight-bold text-green">Pukul {{date('H:i', strtotime($d->tgl_order))}}</p>
                       </div>
                       <div class="card-body">
                         <table width="250px">
                           @if(!empty($d->order->harga))
                           <tr>
                             <td><p class="font-weight-bold">Total Pembayaran</p><td> 
-                            <td><p class="font-weight">Rp. {{$d->order->harga}}</p></td>
+                            <td><p class="font-weight">Rp. {{($d->order->harga)/1000}}</p></td>
                           </tr>
                           @else
                           <tr>
                             <td><p class="font-weight-bold">Total Pembayaran</p><td> 
-                            <td><p class="font-weight">Rp. {{$d->p_harga}}</p></td>
+                            <td><p class="font-weight">Rp. {{($d->p_harga)/1000}}.000</p></td>
                           </tr>
                           @endif
                           @if(!empty($d->parameter_order->p_jenis_layanan))

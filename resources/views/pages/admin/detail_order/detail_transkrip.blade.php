@@ -326,6 +326,7 @@ $(document).ready(function(){
                     <div class="form-group">
                       <input type="text" class="form-control" placeholder="Tuliskan Nama Audio" id="nama_dokumen" name="nama_dokumen">
                     </div>
+                    <!-- <div class="form-group">
                     <div class="form-group">
                       <label for="path_file" class="col-form-label">Upload Audio (Size Max 30 Mb)</label>
                       <div class="modal-body">
