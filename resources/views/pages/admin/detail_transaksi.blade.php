@@ -177,59 +177,59 @@
                                 </tr>
                                 @endif
 
-                                @if(!empty($detail->parameter_layanan->harga))
+                                @if(!empty($detail->harga_layanan))
                                 <tr>
                                     <td style="width: 200px"><b>Harga Layanan</b></td>
-                                    <td>Rp. {{$detail->parameter_layanan->harga}}</td>
+                                    <td>Rp. {{$detail->harga_layanan}}</td>
                                 </tr>
                                 @endif
 
-                                @if(!empty($detail->parameter_jenis_teks->harga))
+                                @if(!empty($detail->harga_jenis_teks))
                                 <tr>
                                     <td style="width: 200px"><b>Harga Jenis Teks</b></td>
-                                    <td>Rp. {{$detail->parameter_jenis_teks->harga}}</td>
+                                    <td>Rp. {{$detail->harga_jenis_teks}}</td>
                                 </tr>
                                 @endif
 
-                                @if(!empty($detail->parameter_teks->harga))
+                                @if(!empty($detail->harga_teks))
                                 <tr>
                                     <td style="width: 200px"><b>Harga Teks</b></td>
-                                    <td>Rp. {{$detail->parameter_teks->harga}}</td>
+                                    <td>Rp. {{$detail->harga_teks}}</td>
                                 </tr>
                                 @endif
 
-                                @if(!empty($detail->parameter_dokumen->harga))
+                                @if(!empty($detail->harga_dokumen))
                                 <tr>
                                     <td style="width: 200px"><b>Harga Dokumen</b></td>
-                                    <td>Rp. {{$detail->parameter_dokumen->harga}}</td>
+                                    <td>Rp. {{$detail->harga_dokumen}}</td>
                                 </tr>
                                 @endif
 
-                                @if(!empty($detail->parameter_subtitle->harga))
+                                @if(!empty($detail->harga_subtitle))
                                 <tr>
                                     <td style="width: 200px"><b>Harga Subtitle</b></td>
-                                    <td>Rp. {{$detail->parameter_subtitle->harga}}</td>
+                                    <td>Rp. {{$detail->harga_subtitle}}</td>
                                 </tr>
                                 @endif
 
-                                @if(!empty($detail->parameter_dubbing->harga))
+                                @if(!empty($detail->harga_dubbing))
                                 <tr>
                                     <td style="width: 200px"><b>Harga Dubbing</b></td>
-                                    <td>Rp. {{$detail->parameter_dubbing->harga}}</td>
+                                    <td>Rp. {{$detail->harga_dubbing}}</td>
                                 </tr>
                                 @endif
 
-                                @if(!empty($detail->parameter_dubber->harga))
+                                @if(!empty($detail->harga_dubber))
                                 <tr>
                                     <td style="width: 200px"><b>Harga Dubber</b></td>
-                                    <td>Rp. {{$detail->parameter_dubber->harga}}</td>
+                                    <td>Rp. {{$detail->harga_dubber}}</td>
                                 </tr>
                                 @endif
 
-                                @if(!empty($detail->parameter_order->p_harga))
+                                @if(!empty($detail->harga_lisan))
                                 <tr>
                                     <td style="width: 200px"><b>Harga Menu Lisan</b></td>
-                                    <td>Rp. {{$detail->parameter_order->p_harga}}</td>
+                                    <td>Rp. {{$detail->harga_lisan}}</td>
                                 </tr>
                                 @endif
 
@@ -257,6 +257,16 @@
                                         <th>Status Transaksi</th>
                                         <td>{{$detail->status_transaksi}}</td>
                                     </tr>
+                                    @if (!empty($detail->nominal_return))
+                                    <tr>
+                                        <th>Nomor Rekening Return</th>
+                                        <td>{{$detail->no_rek_return}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nominal Return</th>
+                                        <td>{{$detail->nominal_return}}</td>
+                                    </tr>
+                                    @endif
                                     </table>
                                 </div>
                                 </div>

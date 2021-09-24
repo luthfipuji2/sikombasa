@@ -24,6 +24,9 @@ class AlterTableTransaksi extends Migration
             $table->integer('nominal_transaksi')->nullable();
             $table->string('bukti_transaksi')->nullable();
             $table->string('status_transaksi')->default('Pending');
+            $table->integer('nominal_return')->nullable();
+            $table->string('bukti_return')->nullable();
+            $table->string('no_rek_return')->nullable();
             $table->timestamps();
         });
     }
