@@ -80,15 +80,26 @@
                                     <td>{{$order->jumlah_halaman}}</td>
                                 </tr>
                                 <tr>
+                                    @if(!empty($order->path_file) && empty($order->upload_dokumen))
                                     <td>Dokumen</td>
                                     <td >{{$order->path_file}}</td>
+                                    @elseif(!empty($order->upload_dokumen) && empty($order->path_file))
+                                    <td>Link Upload Dokumen Anda</td>
+                                    <td >{{$order->upload_dokumen}}</td>
+                                    @endif
                                 </tr>
                                 <tr>
+                                    @if(!empty($order->path_file) && empty($order->upload_dokumen))
                                     <th scope="col">Total Harga</th>
                                     <th>{{$order->harga}}</th>
+                                    @elseif(empty($order->path_file) && !empty($order->upload_dokumen))
+                                    <th scope="col">Total Harga</th>
+                                    <th>Menunggu, Sedang di tentukan oleh admin</th>
+                                    @endif
                                 </tr>
                             </tbody>
                         </table>
+                        <br><br>
                         <a href="{{ url ('/menu-pembayaran') }}" class="btn btn-success mx-1 btn-icon" class="text-right" style="float: right;">Transaksi    <i class="fas fa-sign-in-alt"></i></a>
                     </div>
                 </div>
@@ -185,17 +196,40 @@
                         <input type="number" class="form-control" id="jumlah_halaman" name="jumlah_halaman" value="{{$order->jumlah_halaman}}">
                     </div>
 
-                    <div class="form-group">
-                        <label for="path_file" class="col-form-label">Upload Dokumen</label>
-                        <div class="modal-body">
+                    <div class="col-14 omega">
+                        <div id="box-annual" data-plan="annual" class="box plans FR-PREMIUM-1 year">
+                    <div class="card card-statistic-1">
+                    </a>
+                        <br>
+
+                        <div class="form-group">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="Upload DOkumen" class="col-form-label">Upload Dokumen</label><br>
+                            <div class="font-weight text-red">
+                            &nbsp;&nbsp;&nbsp;* Pilih salah satu Opsi Unggah Dokumen<br><br>
+                            </div>
+                            &nbsp;&nbsp;&nbsp;<label for="Type Dokumen" class="col-form-label">Dokumen berupa : txt, pdf, pptx</label>
+                        
+                            <div class="modal-body">
                                 {{ csrf_field() }}
+                                @if(!empty($order->path_file) && empty($order->upload_dokumen))
                                 <div class="form-group">
                                 <h6 for="path_file"> * Dokumen Anda = {{$order->path_file}}</h6>
+                                @elseif(empty($order->path_file) && !empty($order->upload_dokumen))
+                                <div class="form-group">
+                                <h6 for="path_file"> * Link Anda = {{$order->upload_dokumen}}</h6>
+                                @endif
                                 <br>
                                     <input type="file" name="path_file" required="required" value="{{$order->path_file}}">
                                 </div>
                             </div>
+
+                                &nbsp;&nbsp;&nbsp;<label for="text">Menggunakan Link</label>
+                                <input type="text" class="form-control" id="upload_dokumen" placeholder="Kosongi jika tidak menggunakan link Google Drive" name="upload_dokumen" value="{{$order->upload_dokumen}}"></input>
                     </div>
+                </div>
+
+
+                   
         </div>
 
         <div class="modal-footer">

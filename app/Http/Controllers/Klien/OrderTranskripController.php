@@ -20,26 +20,25 @@ class OrderTranskripController extends Controller
      public function dashboard()
     {
         $user = Auth::user();
+
         return view('pages.klien.home', compact('user'));
     }
     
     public function menuOrder()
     {
         $menu=Order::all();
+
         return view('pages.klien.menu_order', compact('menu'));
     }
 
-    public function index(){
+    public function index()
+    {
         $menu=Order::with('parameter_order');
+
         $durasi_audio=ParameterOrder::all();
+
         return view('pages.klien.order.order_transkrip.index',compact('menu','durasi_audio')); 
     }
-    
-    public function create()
-    {
-        //
-    }
-
    
     public function store(Request $request, Order $order_transkrip)
     {
@@ -174,11 +173,10 @@ class OrderTranskripController extends Controller
                 ]);
 
             };
-                $id_order=$order_transkrip->id_order;
-                return redirect(route('order-transkrip.show', $id_order))->with('success', 'Data Order Anda Berhasil Tersimpan');
+        $id_order=$order_transkrip->id_order;
+        return redirect(route('order-transkrip.show', $id_order))->with('success', 'Data Order Anda Berhasil Tersimpan');
     } 
     
-
     public function show($id_order)
     {
         $user=Auth::user();
@@ -187,11 +185,6 @@ class OrderTranskripController extends Controller
         $order=Order::findOrFail($id_order);
         
         return view('pages.klien.order.order_transkrip.show', compact('order', 'user', 'klien','durasi_audio'));
-    }
-
-    function edit($id)
-    {
-        //
     }
 
     public function update(Request $request, $id_order)
@@ -307,9 +300,10 @@ class OrderTranskripController extends Controller
     }
 
     
-    function destroy($id_order)
+    public function destroy($id_order)
     {
         Order::destroy($id_order);
+
         return redirect(route('order-transkrip.index'))->with('success','Data Order Anda Berhasil Terhapus');
     }
 }

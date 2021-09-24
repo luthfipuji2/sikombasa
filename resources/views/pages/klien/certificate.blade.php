@@ -8,9 +8,9 @@
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link disabled" href="#profile" data-toggle="tab">Profile</a></li>
-                  <li class="nav-item"><a class="nav-link disabled" href="#document" data-toggle="tab">Required Documents</a></li>
-                  <li class="nav-item"><a class="nav-link active" href="#certificate" data-toggle="tab">Skills Certificate</a></li>
+                  <li class="nav-item"><a class="nav-link disabled" href="#profile" data-toggle="tab">Data Diri</a></li>
+                  <li class="nav-item"><a class="nav-link disabled" href="#document" data-toggle="tab">Dokumen Persyaratan</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#certificate" data-toggle="tab">Sertifikat Keahlian</a></li>
                   <li class="nav-item"><a class="nav-link disabled" href="#progress" data-toggle="tab">Progress</a></li>
                 </ul>
               </div><!-- /.card-header -->

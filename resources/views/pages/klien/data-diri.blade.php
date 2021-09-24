@@ -8,9 +8,9 @@
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile</a></li>
-                  <li class="nav-item"><a class="nav-link disabled" href="#document" data-toggle="tab">Required Documents</a></li>
-                  <li class="nav-item"><a class="nav-link disabled" href="#certificate" data-toggle="tab">Skills Certificate</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Data Diri</a></li>
+                  <li class="nav-item"><a class="nav-link disabled" href="#document" data-toggle="tab">Dokumen Persyaratan</a></li>
+                  <li class="nav-item"><a class="nav-link disabled" href="#certificate" data-toggle="tab">Sertifikat Keahlian</a></li>
                   <li class="nav-item"><a class="nav-link disabled" href="#progress" data-toggle="tab">Progress</a></li>
                 </ul>
               </div><!-- /.card-header -->
@@ -21,6 +21,21 @@
                   </div>
 
                   <div class="active tab-pane" id="profile">
+                  <div class="alert alert-danger" role="alert">
+                    <b>Petunjuk Pengisian!</b><br>
+                    1. Formulir terdiri dari tiga bagian, yaitu formulir data diri, dokumen persyaratan, dan sertifikat<br>
+                    2. Formulir ini tidak untuk coba-coba, harap lakukan pengsian sampai dengan formulir sertifikat dan JANGAN BERHENTI di formulir data diri maupun dokumen persyaratan<br>
+                    3. Sebelum mengisi formulir, siapkan:<br>
+                    <ul>
+                      <li>Scan/gambar KTP terbaru (1 halaman)</li> 
+                      <li>Scan/gambar Curriculum Vitae (1 halaman)</li>
+                      <li>Scan/gambar Portofolio (1 halaman)</li>
+                      <li>Scan/gambar Ijazah Terakhir (1 halaman)</li>
+                      <li>Scan/gambar Surat Keterangan Sehat (1 halaman)</li>
+                      <li>Scan/gambar Surat Keterangan Berkelakuan Baik (1 halaman)</li>
+                      <li>Scan/gambar sertifikat-sertifikat yang Anda miliki, minimal satu</li>
+                    </ul>
+                  </div>
                     <form class="form-horizontal" method="POST" action="/career" enctype="multipart/form-data">
                     @csrf
                       <input type="hidden" name="id" value={{ Auth::user()->id }}>
@@ -47,7 +62,7 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="keahlian" class="col-sm-2 col-form-label">Video Editing *</label>
+                        <label for="keahlian" class="col-sm-2 col-form-label">Video Editing <span style="color:red;">*</span></label>
                         <div class="col-sm-10">
                             <div class="custom-control custom-radio">
                               <input type="radio" id="customRadio3" name="keahlian" value="Bisa" class="custom-control-input">

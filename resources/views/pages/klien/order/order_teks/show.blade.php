@@ -157,7 +157,7 @@
             <br>
             <div class="form-group">
                 <label for="durasi_pengerjaan">Durasi Pengerjaan</label>
-                <input type="number" class="form-control" placeholder="Masukkan nama lampiran" name="durasi_pengerjaan" id="durasi_pengerjaan" value="{{$order->durasi_pengerjaan}}">
+                <input type="number" class="form-control" placeholder="Masukkan durasi pengerjaan" name="durasi_pengerjaan" id="durasi_pengerjaan" value="{{$order->durasi_pengerjaan}}">
             </div>
 
             <label for="durasi_pengerjaan">Text</label>

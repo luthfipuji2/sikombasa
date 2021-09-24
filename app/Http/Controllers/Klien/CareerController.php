@@ -208,5 +208,18 @@ class CareerController extends Controller
             'skills' => $skills
             ]);
     }
+     public function persetujuan(Request $request){
+        $user = Auth::user();
+
+        $translator = Translator::where('id', $user->id)->latest('updated_at')->first();
+
+        $seleksi = Seleksi::where('id_translator', $translator->id_translator)->first();
+
+        Seleksi::where(['id_translator'=>$translator->id_translator])->update([
+            'persetujuan' => $request->persetujuan,
+        ]);
+        
+        return redirect('/progress')->with('success', 'Data Created Successfully!');
+     }
 }
 ?>

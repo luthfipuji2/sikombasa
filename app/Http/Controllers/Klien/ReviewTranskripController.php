@@ -20,11 +20,6 @@ use Illuminate\Validation\Validator;
 
 class ReviewTranskripController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $user = Auth::user();
@@ -58,22 +53,6 @@ class ReviewTranskripController extends Controller
         return view('pages.klien.order.order_transkrip.review',compact('user','review','riwayatreview')); 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, Review $review)
     {
         $this->validate($request,[
@@ -91,19 +70,13 @@ class ReviewTranskripController extends Controller
         return redirect('order-transkrip-review')->with('success', 'Review Telah Ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id_order)
     {
         $user = Auth::user();
 
         $order = Order::find($id_order);
 
-        $review = Review:: //join table users and table user_details base from matched id;
+        $review = Review:: 
                 rightJoin('order', 'review.id_order', '=', 'order.id_order')
                 ->join('klien', 'order.id_klien', '=', 'klien.id_klien')
                 ->join('users', 'klien.id', '=', 'users.id')
@@ -115,39 +88,5 @@ class ReviewTranskripController extends Controller
 
 
         return view('pages.klien.order.order_transkrip.review',compact('user','order','review')); 
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

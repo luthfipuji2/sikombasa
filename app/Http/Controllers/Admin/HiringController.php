@@ -201,5 +201,22 @@ class HiringController extends Controller
 
         return redirect('/index-wawancara')->with('success', 'Nilai Wawancara Berhasil Ditambahkan');
     }
+
+    public function indexPersetujuan()
+    {
+        $user = Auth::user();
+        // $translator = Translator::all();
+
+        $data = DB::table('translator')
+            ->leftJoin('seleksi', 'translator.id_translator', '=', 'seleksi.id_translator')
+            ->select('translator.id_translator','translator.updated_at','translator.nama', 'seleksi.nilai_berkas', 'seleksi.hasil', 'seleksi.nilai_wawancara', 'seleksi.hasil_wawancara', 'seleksi.persetujuan')
+            ->where('seleksi.hasil_wawancara', "lolos")
+            ->get();//load data
+
+        return view('pages.admin.persetujuan', [
+            'user'=>$user,
+            'data'=>$data
+            ]);
+    }
 }
 ?>
