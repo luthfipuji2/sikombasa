@@ -326,9 +326,10 @@ class OrderDokumenController extends Controller
     function statusOrder(){
         $user=Auth::user();
         $klien=Klien::where('id', $user->id)->first();
+
         $status=Order::where('id_klien', $klien->id_klien)
                     ->whereNotNull('id_parameter_order_dokumen')
-                    ->whereNotNull('path_file_trans')
+                    // ->whereNotNull('path_file_trans')
                     ->join('transaksi', 'order.id_order', '=', 'transaksi.id_order')
                     ->get();
 

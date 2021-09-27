@@ -258,7 +258,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Unggah Foto KTP</label>
+                                <label>Unggah Foto Profile</label>
                                 <input type="file" class="form-control @error('kode_pos') is-invalid @enderror" id="foto_ktp" name="foto_ktp" value="{{ old('foto_ktp') }}">
                                 @error ('foto_ktp')
                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">

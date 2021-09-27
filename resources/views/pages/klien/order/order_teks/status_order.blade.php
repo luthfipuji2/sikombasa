@@ -106,10 +106,12 @@ $(document).ready(function(){
                   <div class="form-group">
                       @if(!empty($stat->revisi->text_trans))
                       <label>Text Hasil Revisi Dari Translator</label>
-                      <input type="text" value="{{$stat->revisi->text_revisi}}" class="form-control" readonly>
+                      <input type="text" value="{{$stat->revisi->text_revisi}}" class="form-control" readonly rows="20"
+                            height="20">
                       @else (empty($stat->revisi->text_trans))
                       <label>Text Pengerjaan Dari Translator</label>
-                      <input type="text" value="{{$stat->text_trans}}" class="form-control" readonly>
+                      <input type="text" value="{{$stat->text_trans}}" class="form-control" readonly rows="20"
+                            height="20">
                       @endif
                   </div>           
                 </div>

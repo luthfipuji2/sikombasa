@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Admin;
 use App\Models\Klien\Klien;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,10 +20,21 @@ class DaftarKlienController extends Controller
 
     public function index()
     {
-        $klien = DB::table('klien')
-            ->join('users', 'klien.id', '=', 'users.id')
-            ->get();
-        return view('pages.admin.DaftarKlien',  ['klien' => $klien]);
+
+        // $klien = DB::table('klien')
+        //     ->join('users', 'klien.id', '=', 'users.id')
+        //     ->with('provinsi')
+        //     ->get();
+        $users = User::all();
+        $klien=Klien::join('users', 'klien.id', '=', 'users.id')
+                    ->with('provinsi')
+                    ->with('kecamatan')
+                    ->with('kabupaten')
+                    ->with('desa')
+                    ->get();
+
+        // return ($klien); exit();
+        return view('pages.admin.DaftarKlien',  compact('klien', 'users'));
     }
 
     /**

@@ -75,21 +75,22 @@
                 <a href="{{ route('klien.download', $k->id_klien) }}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i></a>
                 @endif            
             </div>
-            <div class="form-group">
-                <label>Alamat</label>
-                <textarea type="text" class="form-control" readonly>{{$k->alamat}}</textarea>
-            </div>
+
             <div class="form-group">
                 <label>Kecamatan</label>
-                <input type="text" value="{{$k->kecamatan}}" class="form-control" readonly>
+                <input type="text" value="{{ $k->kecamatan->name}}" class="form-control" readonly>
             </div>
             <div class="form-group">
                 <label>Kabupaten</label>
-                <input type="text" value="{{$k->kabupaten}}" class="form-control" readonly>
+                <input type="text" value="{{ $k->kabupaten->name}}" class="form-control" readonly>
             </div>
             <div class="form-group">
                 <label>Provinsi</label>
-                <input type="text" value="{{$k->provinsi}}" class="form-control" readonly>
+                <input type="text" value="{{ $k->provinsi->name}}" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label>Desa</label>
+                <input type="text" value="{{ $k->desa->name}}" class="form-control" readonly>
             </div>
             <div class="form-group">
                 <label>Kode Pos</label>
@@ -136,32 +137,29 @@
                     <th scope="row" class="text-center" hidden>Tanggal Lahir</th>
                     <th scope="row" class="text-center" hidden>NIK</th>
                     <th scope="row" class="text-center" hidden>Nomor Telepon</th>
-                    <th scope="row" class="text-center" hidden>Alamat</th>
                     <th scope="row" class="text-center" hidden>Kecamatan</th>
                     <th scope="row" class="text-center" hidden>Kabupaten</th>
                     <th scope="row" class="text-center" hidden>Provinsi</th>
+                    <th scope="row" class="text-center" hidden>Desa</th>
                     <th scope="row" class="text-center" hidden>Kode Pos</th>
                     <th scope="row" class="text-center" style="width: 100px">Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  @foreach($klien as $klien)
+                  @foreach($klien as $kliens)
                   <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th> 
-                    <td scope="row" class="text-center" hidden>{{$klien->id_klien}}</td>
-                    <td scope="row" class="text-center">{{$klien->name}}</td>
-                    <td scope="row" class="text-center" hidden>{{$klien->email}}</td>
-                    <td scope="row" class="text-center" hidden>{{$klien->jenis_kelamin}}</td>
-                    <td scope="row" class="text-center" hidden>{{$klien->tgl_lahir}}</td>
-                    <td scope="row" class="text-center" hidden>{{$klien->nik}}</td>
-                    <td scope="row" class="text-center" hidden>{{$klien->no_telp}}</td>
-                    <td scope="row" class="text-center" hidden>{{$klien->alamat}}</td>
-                    <td scope="row" class="text-center" hidden>{{$klien->kecamatan}}</td>
-                    <td scope="row" class="text-center" hidden>{{$klien->kabupaten}}</td>
-                    <td scope="row" class="text-center" hidden>{{$klien->provinsi}}</td>
-                    <td scope="row" class="text-center" hidden>{{$klien->kode_pos}}</td> 
+                    <td scope="row" class="text-center" hidden>{{$kliens->id_klien}}</td>
+                    <td scope="row" class="text-center">{{$kliens->name}}</td>
+                    <td scope="row" class="text-center" hidden>{{$kliens->email}}</td>
+                    <td scope="row" class="text-center" hidden>{{$kliens->jenis_kelamin}}</td>
+                    <td scope="row" class="text-center" hidden>{{$kliens->tgl_lahir}}</td>
+                    <td scope="row" class="text-center" hidden>{{$kliens->nik}}</td>
+                    <td scope="row" class="text-center" hidden>{{$kliens->no_telp}}</td>
+
+                    <td scope="row" class="text-center" hidden>{{$kliens->kode_pos}}</td> 
                     <td scope="row" class="text-center">
-                      <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailModal{{$klien->id_klien}}"><i class="fas fa-info"></i></button>
+                      <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailModal{{$kliens->id_klien}}"><i class="fas fa-info"></i></button>
                     </td>
                   </tr>
                   @endforeach

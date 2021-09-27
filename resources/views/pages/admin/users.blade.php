@@ -110,7 +110,11 @@
                     <td scope="row" class="text-center">{{$user->name}}</td>
                     <td scope="row" class="text-center">{{$user->email}}</td>
                     <td scope="row" class="text-center">{{$user->role}}</td>
-                    <td scope="row" class="text-center">{{$user->status}}</td>
+                    @if($user->status == 1)
+                    <td scope="row" class="text-center">Aktif</td>
+                    @elseif($user->status == 0)
+                    <td scope="row" class="text-center">Tidak Aktif</td>
+                    @endif
                     <td scope="row" class="text-center">{{$user->created_at}}</td>
                     <td scope="row" class="text-center">
                       <button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#updateModal"><i class="fas fa-pencil-alt"></i></button>

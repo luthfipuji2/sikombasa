@@ -66,7 +66,7 @@
               10%
             </div>
             <br>
-            <h6 class="font-weight text-red">* provinsi, kabupaten, kecamatan, kode pos, tanggal lahir, jenis kelamin, alamat, no.telp, foto_ktp belum diisi</h6>
+            <h6 class="font-weight text-red">* provinsi, kabupaten, kecamatan, kode pos, tanggal lahir, jenis kelamin, alamat, no.telp, foto profile belum diisi</h6>
             <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
               <span class="info-box-number">
             </span>
@@ -86,7 +86,7 @@
             <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:20%">
               20%
             </div>
-            <h6 class="font-weight text-red">* provinsi, kabupaten, kecamatan, kode pos, alamat, tanggal lahir, no.telp, foto_ktp belum diisi</h6>
+            <h6 class="font-weight text-red">* provinsi, kabupaten, kecamatan, kode pos, alamat, tanggal lahir, no.telp, foto profile belum diisi</h6>
             <br>
             <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
               <span class="info-box-number">
@@ -107,7 +107,7 @@
             <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:30%">
               30%
             </div>
-            <h6 class="font-weight text-red">* kabupaten, kecamatan, kode pos, alamat, no.telp, foto_ktp belum diisi</h6>
+            <h6 class="font-weight text-red">* kabupaten, kecamatan, kode pos, alamat, no.telp, foto profile belum diisi</h6>
             <br>
             <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
               <span class="info-box-number">
@@ -127,7 +127,7 @@
             <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:40%">
               40%
             </div>
-            <h6 class="font-weight text-red">* provinsi, kabupaten, kecamatan, kode pos, alamat, foto_ktp belum diisi</h6>
+            <h6 class="font-weight text-red">* provinsi, kabupaten, kecamatan, kode pos, alamat, foto profile belum diisi</h6>
             <br>
             <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
               <span class="info-box-number">
@@ -147,7 +147,7 @@
             <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:50%">
               50%
             </div>
-            <h6 class="font-weight text-red">* provinsi, kabupaten, kecamatan, kode pos,foto_ktp belum diisi</h6>
+            <h6 class="font-weight text-red">* provinsi, kabupaten, kecamatan, kode pos,foto profile belum diisi</h6>
             <br>
             <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
               <span class="info-box-number">
@@ -167,7 +167,7 @@
             <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:60%">
               60%
             </div>
-            <h6 class="font-weight text-red">* kecamatan, provinsi, kabupaten, kode pos, foto_ktp belum diisi</h6>
+            <h6 class="font-weight text-red">* kecamatan, provinsi, kabupaten, kode pos, foto profile belum diisi</h6>
             <br>
             <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
               <span class="info-box-number">
@@ -187,7 +187,7 @@
             <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:70%">
               70%
             </div>
-            <h6 class="font-weight text-red">* kecamatan, provinsi, kode pos, foto_ktp belum diisi</h6>
+            <h6 class="font-weight text-red">* kecamatan, provinsi, kode pos, foto profile belum diisi</h6>
             <br>
             <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
               <span class="info-box-number">
@@ -207,7 +207,7 @@
             <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:70%">
               80%
             </div>
-            <h6 class="font-weight text-red">* kode pos, foto_ktp belum diisi</h6></h6>
+            <h6 class="font-weight text-red">* kode pos, foto profile belum diisi</h6></h6>
             <br>
             <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
               <span class="info-box-number">
@@ -227,7 +227,7 @@
             <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:80%">
               90%
             </div>
-            <h6 class="font-weight text-red">* foto_ktp belum diisi</h6>
+            <h6 class="font-weight text-red">* foto profile belum diisi</h6>
             <br>
             <a href="/profile-klien" class="btn btn-outline-info">Lengkapi Profil <i class="fas fa-arrow-circle-right"></i></a>
               <span class="info-box-number">

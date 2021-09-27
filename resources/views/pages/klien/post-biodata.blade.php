@@ -209,7 +209,7 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                          <label for="foto_ktp" class="col-sm-2 col-form-label">Foto KTP</label>
+                          <label for="foto_ktp" class="col-sm-2 col-form-label">Foto Profile</label>
                             <div class="col-sm-10">
                               <input type="file" name="foto_ktp" class="form-input" value="{{ old('foto_ktp') }}">
                               </br>

@@ -41,13 +41,13 @@
                 <div class="card-body box-profile">
                     <div class="text-center">
                     <div class="widget-user-header text-white">
-                    @if (empty($klien->user->profile_photo_path))
+                    @if (!empty($user->foto_ktp))
                     <div class="widget-user-image">
                         <img src="./img/profile.png" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
                     </div>
                     @else
                     <div class="widget-user-image">
-                        <img src="{{asset('/img/biodata/'.$klien->user->profile_photo_path)}}" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
+                        <img src="{{asset('/img/biodata/'.$klien->foto_ktp)}}" class="img-circle profile-user-img img-fluid img-responsive" alt="User Avatar">
                     </div>
                     @endif
                     </div>
@@ -260,13 +260,13 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="foto_ktp" class="col-sm-2 col-form-label">Foto KTP</label>
+                                <label for="foto_ktp" class="col-sm-2 col-form-label">Foto Profile</label>
                                     <div class="col-sm-10">
                                     <input type="file" name="foto_ktp" class="form-input" value="{{$klien->foto_ktp}}">
                                     </br>
                                     </br>
                                         <div>
-                                            <img src="{{asset('/img/biodata/'.$klien->foto_ktp)}}" height="90" width="150" alt="" srcset="">
+                                            <img src="{{asset('/img/biodata/'.$klien->foto_ktp)}}" height="150" width="150" alt="" srcset="">
                                         </div>
                                     </div>
                             </div>
