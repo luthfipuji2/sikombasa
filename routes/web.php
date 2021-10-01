@@ -21,7 +21,7 @@ use App\Http\Controllers\Klien\StatusOrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
-
+use Classiebit\Addchat\Facades\Addchat;
 
 Route::get('/', function () {
     return view('welcome');
@@ -331,7 +331,6 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('/users/{user}/edit', [App\Http\Controllers\Admin\AdminController::class, 'editUsers'])->name('users');
         // Route::patch('/users/{user}', [App\Http\Controllers\Admin\AdminController::class, 'updateUsers'])->name('users');
     }); 
-
     Route::get('/logout', function() {
         Auth::logout();
         redirect('/');
@@ -339,8 +338,11 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-// Addchat::routes();
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+Addchat::routes();

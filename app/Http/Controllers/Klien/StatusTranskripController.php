@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Klien;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Translator;
 use App\Models\Klien\Order;
 use App\Models\Klien\Klien;
 use App\Models\Klien\ParameterOrder;
@@ -38,7 +37,7 @@ class StatusTranskripController extends Controller
         $translator = Translator::where('status', 'Aktif')->first();
         $rating = Review::
         leftJoin('order', 'review.id_order', '=', 'order.id_order')
-        ->where('id_translator', $translator->id_translator)
+        // ->where('id_translator', $translator->id_translator)
         ->avg('rating');
 
         $status_transkrip=Order::

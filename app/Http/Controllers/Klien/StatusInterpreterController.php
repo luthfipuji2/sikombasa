@@ -45,7 +45,7 @@ class StatusInterpreterController extends Controller
         $translator = Translator::where('status', 'Aktif')->first();
         $rating = Review::
         leftJoin('order', 'review.id_order', '=', 'order.id_order')
-        ->where('id_translator', $translator->id_translator)
+        // ->where('id_translator', $translator->id_translator)
         ->avg('rating');
 
         $status1=Order::
