@@ -116,12 +116,12 @@ $(document).ready(function(){
                   <div class="form-group">
                       @if(!empty($stat->revisi->path_file_revisi) && !empty($stat->path_file_trans))
                       <label>Dokumen Hasil Revisi Dari Translator</label>
-                      <a href="/download-dubbing-revisi/{{$stat->id_order}}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download Dokumen</a>
+                      <a href="/download-dubbing-revisi/{{$stat->id_order}}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download Video</a>
                       @elseif (empty($stat->revisi->path_file_revisi) && !empty($stat->path_file_trans))
-                      <label>Dokumen Pengerjaan Dari Translator</label>
-                      <a href="/download-dubbing-translator/{{$stat->id_order}}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download Dokumen</a>
+                      <label>Download Pengerjaan Dari Translator</label>
+                      <a href="/download-dubbing-translator/{{$stat->id_order}}" class="btn btn-success btn-sm" ><i class="fas fa-download"></i> Download Video</a>
                       @elseif (empty($stat->revisi->path_file_revisi) && empty($stat->path_file_trans))
-                      <label>Dokumen Pengerjaan Dari Translator</label>
+                      <label>Download Pengerjaan Dari Translator</label>
                       <input type="text" value="Menunggu" class="form-control" readonly>
                       @endif
                   </div>           

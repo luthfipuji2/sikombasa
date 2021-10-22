@@ -1,10 +1,10 @@
 @extends('layouts.klien.sidebar')
 
-@section('title', 'biodata')
+@section('title', 'biodataaaaaa')
 @section('content')
 
 <script src="{{ asset('js/app.js') }}" defer></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <style>
