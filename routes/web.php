@@ -28,6 +28,8 @@ Route::get('/', function () {
 });
   
 
+/* --------------------------------------------------------------------------------------------------------------- */
+
 Auth::routes(['verify' => true]);
 
 
@@ -206,7 +208,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/users/status/{user_id}/{status_code}', 'App\Http\Controllers\Admin\UsersController@updateStatus')->name('users.status.update');
 
         Route::get('/users/{user}/delete', 'App\Http\Controllers\Admin\UsersController@destroy');
-        Route::get('/users/download/{id}', 'App\Http\Controllers\Admin\UsersController@download')->name('users.download');
+        Route::get('/users/download/{id}', 'App\Http\Controllers\Admin\users.index@pages.admin.users')->name('users.download');
 
         //Route Bank
         Route::resource('bank', 'App\Http\Controllers\Admin\BankController');

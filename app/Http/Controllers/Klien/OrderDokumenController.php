@@ -436,6 +436,6 @@ class OrderDokumenController extends Controller
             'rating'=>$request->rating,
         ]);
         // return ($review);exit();
-        return redirect(route('review_order_dokumen'))->with('success','Review Berhasil Di Tambahkan');
+        return redirect(route(' '))->with('success','Review Berhasil Di Tambahkan');
     }
 }

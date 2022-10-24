@@ -16,11 +16,6 @@ class ProfileController extends Controller
         $id_user = $user->id; //id user yang login
         $data = Translator::where('id', $user->id)->latest('updated_at')->first();
 
-        // $data = DB::table('translator') //join tabel users dan translator di mana antara id users dan translator adalah sama
-        //     ->join('users', 'translator.id', '=', 'users.id')//translator.id adalah foreign key dari tabel users (atribut yg sama dari kedua tabel)
-        //     ->where("translator.id", $translator)
-        //     ->first();//load data
-
         $certificate = DB::table('keahlian')
             ->join('master_keahlian', 'keahlian.id_keahlian', '=', 'master_keahlian.id_keahlian')
             ->where("master_keahlian.id_translator", $data->id_translator)
